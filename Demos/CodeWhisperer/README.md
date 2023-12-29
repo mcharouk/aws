@@ -1,0 +1,1 @@
+* [link to sonarQube vulnerabilities](https://rules.sonarsource.com/python/type/Vulnerability/RSPEC-5146/) 

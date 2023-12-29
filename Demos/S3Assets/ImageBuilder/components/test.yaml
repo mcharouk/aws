@@ -1,0 +1,23 @@
+name: TestApacheUp
+description: this script will test if apache is up and running
+schemaVersion: 1.0
+
+phases:
+  - name: test
+    steps:
+      - name: TestApacheUp
+        action: ExecuteBash
+        inputs:
+          commands:            
+            - |
+              systemctl is-enabled httpd.service
+              if [ $? -ne 0 ]; then
+                 echo "httpd.service is not enabled"
+                 exit 1 
+              fi
+              systemctl is-active httpd.service
+              if [ $? -ne 0 ]; then
+                echo "httpd.service is not running"
+                exit 1
+              fi          
+              
