@@ -1,4 +1,4 @@
-from aws_cdk import Stack
+from aws_cdk import CfnOutput, Stack
 from aws_cdk import aws_ec2 as ec2  # Duration,; aws_sqs as sqs,
 from constructs import Construct
 
@@ -24,12 +24,12 @@ class TransitGatewayStack(Stack):
         )
 
         # create a transit gateway route table and associate it with the VPC
-        tgw_route_table = ec2.CfnTransitGatewayRouteTable(
+        """ tgw_route_table = ec2.CfnTransitGatewayRouteTable(
             self,
             "TransitGatewayRouteTable",
             transit_gateway_id=tgw.ref
             # tags=[CfnTag(key="Name", value="TransitGatewayRouteTable")]
-        )
+        ) """
 
         class VPCProperties:
             def __init__(self, name, cidr):
@@ -46,8 +46,8 @@ class TransitGatewayStack(Stack):
             vpc = ec2.Vpc(
                 self,
                 vpcProperty.name,
-                cidr=vpcProperty.cidr,
-                max_azs=2,
+                ip_addresses=ec2.IpAddresses.cidr(vpcProperty.cidr),
+                max_azs=1,
                 nat_gateways=0,
                 subnet_configuration=[
                     ec2.SubnetConfiguration(
@@ -57,43 +57,25 @@ class TransitGatewayStack(Stack):
                     )
                 ],
             )
-            tgw_attachment = ec2.CfnTransitGatewayAttachment(
+
+            # add a route to the vpc route table that targets transit gateway
+            ec2.CfnRoute(
                 self,
-                "TransitGatewayAttachment" + vpcProperty.name,
+                "VPCRouteToTransitGateway-" + vpcProperty.name,
+                route_table_id=vpc.isolated_subnets[0].route_table.route_table_id,
+                destination_cidr_block="10.0.0.0/16",
+                transit_gateway_id=tgw.ref,
+            )
+
+            ec2.CfnTransitGatewayAttachment(
+                self,
+                "TransitGatewayAttachment-" + vpcProperty.name,
                 transit_gateway_id=tgw.ref,
                 vpc_id=vpc.vpc_id,
                 subnet_ids=[subnet.subnet_id for subnet in vpc.isolated_subnets],
             )
-            tgw_route_table_association = ec2.CfnTransitGatewayRouteTableAssociation(
-                self,
-                "TransitGatewayRouteTableAssociation" + vpcProperty.name,
-                transit_gateway_attachment_id=tgw_attachment.ref,
-                transit_gateway_route_table_id=tgw_route_table.ref,
-                # tags=[CfnTag(key="Name", value="TransitGatewayRouteTableAssociation")]
-            )
-            # create a transit gateway route table and propagate it to the VPC subnets
-            tgw_route_table_propagation = ec2.CfnTransitGatewayRouteTablePropagation(
-                self,
-                "TransitGatewayRouteTablePropagation" + vpcProperty.name,
-                transit_gateway_attachment_id=tgw_attachment.ref,
-                transit_gateway_route_table_id=tgw_route_table.ref,
-                # tags=[CfnTag(key="Name", value="TransitGatewayRouteTablePropagation")]
-            )
-            # create a transit gateway route for the VPC's default route table
-            transitGatewayRoute = ec2.CfnTransitGatewayRoute(
-                self,
-                "TransitGatewayRoute" + vpcProperty.name,
-                destination_cidr_block=vpcProperty.cidr,
-                transit_gateway_attachment_id=tgw_attachment.ref,
-                transit_gateway_route_table_id=tgw_route_table.ref,
-            )
-            transitGatewayRoute.node.add_dependency(tgw_route_table_association)
-            transitGatewayRoute.node.add_dependency(tgw_route_table_propagation)
 
-            amzn_linux = ec2.MachineImage.latest_amazon_linux(
-                generation=ec2.AmazonLinuxGeneration.AMAZON_LINUX_2023,
-                edition=ec2.AmazonLinuxEdition.STANDARD,
-            )
+            amzn_linux = ec2.MachineImage.latest_amazon_linux2023()
 
             role = iam.Role(
                 self,
@@ -124,21 +106,31 @@ class TransitGatewayStack(Stack):
 
             securityGroup.add_ingress_rule(
                 peer=ec2.Peer.ipv4("0.0.0.0/0"),
-                connection=ec2.Port.icmp_ping(),
+                connection=ec2.Port.tcp(443),
+                description="Allow all inbound https traffic (for System Manager)",
+            )
+
+            securityGroup.add_ingress_rule(
+                peer=ec2.Peer.ipv4("0.0.0.0/0"),
+                connection=ec2.Port.all_icmp(),
                 description="Allow all inbound icmp traffic",
             )
 
             # create an instance in vpc with session manager enabled
+            instance_name = "TransitGatewayTestInstance-" + vpcProperty.name
             instance = ec2.Instance(
                 self,
-                "TransitGatewayTestInstance-" + vpcProperty.name,
-                instance_name="TransitGatewayTestInstance-" + vpcProperty.name,
+                instance_name,
+                instance_name=instance_name,
                 instance_type=ec2.InstanceType.of(
                     ec2.InstanceClass.BURSTABLE2, ec2.InstanceSize.MICRO
                 ),
                 machine_image=amzn_linux,
                 vpc=vpc,
                 role=role,
+                vpc_subnets=ec2.SubnetSelection(
+                    subnet_type=ec2.SubnetType.PRIVATE_ISOLATED
+                ),
                 security_group=securityGroup,
             )
 
@@ -199,4 +191,10 @@ class TransitGatewayStack(Stack):
                 security_groups=[vpcEndpointSecurityGroup],
                 open=True,
                 lookup_supported_azs=False,
+            )
+
+            CfnOutput(
+                self,
+                instance_name + "-PrivateIp",
+                value=instance.instance_private_ip,
             )
