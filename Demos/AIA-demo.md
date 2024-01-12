@@ -5,7 +5,7 @@
 | EC2 image builder        | OK     | NOK  |
 | Step functions Studio    | OK     | OK   |
 | S3 Versioning            | OK     | OK   |
-| Transit gateway          | OK     | NOK  |
+| Transit gateway          | OK     | OK   |
 | Permission Boundary      | OK     | OK   |
 | NACLs and Security Group | OK     | OK   |
 | DynamoDB Global tables   | OK     | OK   |

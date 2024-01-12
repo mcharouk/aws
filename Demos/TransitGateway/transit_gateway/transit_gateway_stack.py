@@ -58,16 +58,7 @@ class TransitGatewayStack(Stack):
                 ],
             )
 
-            # add a route to the vpc route table that targets transit gateway
-            ec2.CfnRoute(
-                self,
-                "VPCRouteToTransitGateway-" + vpcProperty.name,
-                route_table_id=vpc.isolated_subnets[0].route_table.route_table_id,
-                destination_cidr_block="10.0.0.0/16",
-                transit_gateway_id=tgw.ref,
-            )
-
-            ec2.CfnTransitGatewayAttachment(
+            tgw_attachment = ec2.CfnTransitGatewayAttachment(
                 self,
                 "TransitGatewayAttachment-" + vpcProperty.name,
                 transit_gateway_id=tgw.ref,
@@ -191,6 +182,22 @@ class TransitGatewayStack(Stack):
                 security_groups=[vpcEndpointSecurityGroup],
                 open=True,
                 lookup_supported_azs=False,
+            )
+
+            # add a route to the vpc route table that targets transit gateway
+            route = ec2.CfnRoute(
+                self,
+                "VPCRouteToTransitGateway-" + vpcProperty.name,
+                route_table_id=vpc.isolated_subnets[0].route_table.route_table_id,
+                destination_cidr_block="10.0.0.0/8",
+                transit_gateway_id=tgw.ref,
+            )
+
+            route.node.add_dependency(tgw_attachment)
+            CfnOutput(
+                self,
+                vpcProperty.name + "-Id",
+                value=vpc.vpc_id,
             )
 
             CfnOutput(
