@@ -2,8 +2,8 @@ import os
 
 import aws_cdk.aws_ec2 as ec2
 import aws_cdk.aws_iam as iam
-from aws_cdk import Stack  # Duration,; aws_sqs as sqs,
-from aws_cdk import CfnOutput
+import aws_cdk.aws_logs as logs
+from aws_cdk import CfnOutput, RemovalPolicy, Stack  # Duration,; aws_sqs as sqs,
 from aws_cdk.aws_s3_assets import Asset
 from constructs import Construct
 
@@ -199,3 +199,39 @@ class VpcSecurityStack(Stack):
             "InstancePublicDNS",
             value="http://" + instance.instance_public_dns_name,
         )
+
+        # create a cloudwatch log group named VPCFlowLog
+        vpcFlowLogLogGroup = logs.LogGroup(
+            self,
+            "VPCFlowLogLogGroup",
+            log_group_name="VPCFlowLog",
+            removal_policy=RemovalPolicy.DESTROY,
+        )
+
+        vpcflowlogRole = iam.Role(
+            self,
+            "VPCFlowLogRole",
+            assumed_by=iam.ServicePrincipal("vpc-flow-logs.amazonaws.com"),
+        )
+
+        vpcFlowLogPolicyStatement = iam.PolicyStatement(
+            sid="VPCFlowLogPolicyStatement",
+            effect=iam.Effect.ALLOW,
+            actions=[
+                "logs:CreateLogGroup",
+                "logs:CreateLogStream",
+                "logs:PutLogEvents",
+                "logs:DescribeLogGroups",
+                "logs:DescribeLogStreams",
+            ],
+            resources=["*"],
+        )
+
+        # create an identity based policy that allows read and write from dynamodb
+        vpcFlowLogPolicy = iam.Policy(
+            self,
+            "VpcFlowLogIdentityBasedPolicy",
+            statements=[vpcFlowLogPolicyStatement],
+        )
+
+        vpcFlowLogPolicy.attach_to_role(role=vpcflowlogRole)

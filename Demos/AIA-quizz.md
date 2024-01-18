@@ -1,19 +1,8 @@
-# IAM
-
-Quel problème pose le least privilege principle ?
-
-Multi account : 
-* Plus facile de mettre des restrictions spécifiques en fonction de l'environnement,
-des applications, ou de la réglementation.
-* Si un compte doit être HIPAA compliant, pas la peine d'imposer ses contraintes à tout le monde.
-* Si l'organisation des personnes, des rôles et des responsabilités différe d'un env à un autre, plus facile de séggreger. Chacun à son pré, et on ne prend pas le risque que les administrateurs se marchent dessus.
-* Plus facile de gérer les coûts car ils sont liés directement à un compte.
-* Service Quotas
-* Blast Radius
-
+* De manière générale, solliciter les sachants à partager leurs bonnes pratiques sur les sujets qu'ils maitrisent
 
 # Infrastructure
 
+Sondage : 
 What do you consider personally being the best driver to move to the cloud ?
 * Cost
 * Time To Market
@@ -22,243 +11,226 @@ What do you consider personally being the best driver to move to the cloud ?
 * Security
 * Easy and (near) unlimited scaling
 
-What benefits of Local Zone over Edge locations ?
+Analogies : Edge Location / Local Zone
+Quizz :  Local Zone / Edge Locations
 
-* Services are cheaper on Local Zone
-* Compliance with data residency requirements
-* Reduced latency for globalized workloads
-* Reduced latency for localized workloads
+Jeu sur le Well Architected Framework
+Demo : Montrer le Well architected Tool
 
-For what can AZs can be used for ? 
+# IAM
 
-* High availability
-* Disaster Recovery
-* Content Delivery Network
-
-What proposition is not a pillar of AWS Well architected Framework ?
-
-* Sustainability
-* Cost Optimization
-* Security
-* High Availability
+Reminder : pas trop
+Analogie : AssumeRole / Policier
+Quizz avant d'aborder les policies.
 
 
-# Compute
+## Policies
 
-What instance family is ideal for intensive deep learning training ?
-* General Purpose
-* Memory Optimized
-* Compute Optimized
-* Accelerated Computing
+* Console : montrer les policy avec la console (comment les éditer, différents types d'identity based policies)
 
-What is the advantage of instance store vs EBS ?
-* Low latency / High IOPS
-* Can be easily attached and detached from an EC2 instance
-* Data Durability
-* Price
+* Analogie au moment d'expliquer l'explicit deny :  Accès à une boite de nuit
+  * Identity based policy = on possède une entrée
+  * Resource Based policy = on a une autorisation d'un dirigeant de la boite de nuit
+  * Explicit Deny : c'est comme si le videur avait une black list. Quelque soit les autorisations que l'on peut donner, tu ne peux pas rentrer tant que tu es sur la blacklist.
 
-I'm constrianed by regulation to have all my VMs on a single tenant hardware. What is the best solution for that ?
+## Permission Boundary
 
-* Dedicated Instance
-* Dedicated Host
-* On Demand Instances
-* Spot Instances
+Check for experience : 
+* Au moment des permission boundary, poser la question quel est le challenge que pose least privilege principle ?
 
-# Storage
+Analogies : Permission Boundary : Constitution & loi
+Démo
 
-Users wants to work concurrently on the same files. What is the ideal AWS storage for that use case ?
-* EBS
-* S3
-* EFS
-* FSx For Lustre
+## Multi Account
 
-What is the easiest way to maintain S3 access policies at large scale ?
-* Identity based policies
-* Bucket policy
-* Access points
-* Block Public access policy
+* Quels sont les problèmes d'avoir peu de comptes ? 
+* Analogies : Syndic
 
-I want to migrate my data to the cloud to decrease my infrastructure size on premise but without changing my user habits, still provide low latency for frequently accessed files. What is the best solution for that ?
+Arguments : 
 
-* AWS File Gateway
-* AWS DataSync
-* AWS FSx for Windows
-* AWS Snowball Edge
+* Plus facile de mettre des restrictions spécifiques en fonction de l'environnement,
+des applications, ou de la réglementation.
+* Si un compte doit être HIPAA compliant, pas la peine d'imposer ses contraintes à tout le monde.
+* Si l'organisation des personnes, des rôles et des responsabilités différe d'un env à un autre, plus facile de séggreger. Chacun à son pré, et on ne prend pas le risque que les administrateurs se marchent dessus.
+* Plus facile de gérer les coûts car ils sont liés directement à un compte.
+* Service Quotas
+* Blast Radius
 
-# Database
-
-What can i use to scale my write operations on RDS ?
-
-* Multi AZ
-* Read Replicas
-* Vertical Scaling
-* Global Tables
-
-How can i secure authorizations to my RDS Data ?
-
-* IAM
-* Encryption at rest
-* GRANT statements
-* Block public access
-
-What are differences between Aurora and RDS ?
-
-* Data durability is better on Aurora
-* Aurora has its own proprietary extension of SQL which is highly optimized
-* Aurora can scale automatically
-* Aurora is HA by default whereas RDS is HA only if multi AZ is activated
-
-# Monitoring
-
-I have a workload which needs a static IP to be exposed to the consumer applications (they have a whitelist based on IP adresses)
-Which Load balancer should i use ? 
-
-* Network Load Balancer
-* Application Load Balancer
-* Gateway Load Balancer
-* Classic Load Balancer
-
-At what level can VPC flow logs be activated ?
-
-* ENI
-* Security Group
-* Subnet
-* VPC
-
-I need to raise an alert if a user has been able to connect without MFA. What service should i use to catch this event ?
-
-* Cloudtrail
-* Cloudwatch
-* Not possible to do that
-* VPC Flow Logs
-
-# Automation
-
+Pourquoi AWS Organization ?
+* Quels sont les challenges posés par le fait d'avoir plusieurs comptes ?
+  
+Security Reference Architecture : [SRA](https://docs.aws.amazon.com/prescriptive-guiance/latest/security-reference-architecture/architecture.html)
 
 # Networking 1
 
-How can i give internet access to a resource in a private subnet to download some patches ?
+Analogies : 
+* Security Group / ACLs : Avion / Cinéma
+* Masque Sous réseau / Host : Classe / élèves
+* Table de routage : panneau d'indication
 
-* Create an internet gateway and attach it to a public subnet
-* Change the route table to point to the NAT Gateway
-* Create a NAT Gateway in a private subnet
-* Create a NAT Gateway in a public subnet
+Rappel sur la haute disponibilité, et sur le concept de région
 
-My EC2 instance is hosting a web application with HTTPS in a public subnet. My NACLs and Security Group allows all inbound connections on port 443.
-When i try to reach it with its ip, i still cannot connect to my application. What can be a reason for that ?
+Poll questions :
+* Est ce que vous pouvez me dire à quoi va ressembler la table de routage d'un subnet privé ?
+* Est ce que vous voyez quel problème peut poser des IP publiques éphémères ?
+* Est ce que vous voyez à quoi peut servir d'avoir plusieurs ENI sur une même machine ?
 
-* My NACL outbound rules are misconfigured
-* My security group outbound rules are misconfigured
-* Route table of EC2 subnet is misconfigured
-* I'm using the private ip instead of the public ip
+Préciser les use cases pour avoir plusieurs ENI sur une seule machine, ou use case pour voir une EIP
+* Contraintes de sécurité (une ENI public, et une ENI privée)
+* Connection à plusieurs VPC (dans le même compte)
+* Low cost HA solution : transfer ENI to another EC2
 
-# Networking 2
+Démo Security Group / ACL  + Analogies
 
-What can we do to make a VPN Connection HA ?
+Quizz sur les security group / ACL à la place du tableau de synthèse
 
-* Create 2 Virtual Gateways
-* Provision 2 Customer Gateway
-* Create 2 SSL connections 
-* VPN Connection is natively HA
+# Compute
 
-What can we do to access S3 privately from a VPC ? 
+EC2 : Treat your server like cattle, not like a pet.
+-> User story
 
-* Nothing, private connectivity is automatically managed by AWS
-* Create an Interface endpoint
-* Create a Gateway endpoint
-* Create a virtual private Gateway
+-> Quizz sur les use cases par type d'instances
 
-What are advantages of using VPC Peering ?
+-> Key pair : analogie cadenas / clef
 
-* Cost
-* Flexibility
-* Easy to setup
-* Scale to a global network
+-> Network and Security : Poser des questions aux élèves
+- Qu'est ce qui porte l'adresse IP d'une instance ?
+- Comment gère-t-on la sécurité d'un EC2
+  - Instance Role
+  - Security Group
+
+Placement Group : analogie avec le flex
+
+Scripts and Metadata : 
+A quoi sert le user data ? Rappel sur l'AMI = static, user data = Dynamique
+Metadata : récupérer des informations dynamiques sur l'instance.
+
+Console : 
+* montrer les propriétés EC2 au fur et à mesure
+* montrer Amazon Q qui fait des recommandations sur les types d'instance en fonction du workload
+* montrer la lambda dans la console, mieux que le powerpoint. Faire un démo en même temps.
+
+# Storage
+
+* Quizz sur les cas d'usage, sachant qu'on est dans un mode Write Once - Read Many
+* Reminder : sur identity based policies vs resource based policy pour le bucket S3
+* Petit quizz sur la syntaxe d'une policy
+* Access Point : Analogie
+* Intelligent Tiering : user story
+* Demo Bucket Versioning
+* Lambda : user story
+* Quizz sur les cas d'usage, sachant les contraintes de la lambda
+* Eventuellement une petite démo Lambda pour montrer la facilité d'usage
+
+Console : 
+  - montrer le bucket s3
+  - montrer en live le block public access
+  - le bucket policy qui donne un accès publique
+
+# Database
+
+Il faudrait une analogie pour expliquer la différence entre SQL et NoSQL
+Supermarché vs panier customisé
+
+* Quizz on noSQL vs SQL to validate knowledge in case people already know that.
+* User Story
+* Reminder : sur les zones de disponibilité, sur les régions pour le DR éventuellement.
+* Autour de la sécurité : en plus de l'encryption, poser la question comment peut on sécuriser la base en terme de réseau, d'accés. Question piège sur l'accès à la data.
+* Quizz sur les use cases possible de DynamoDB
+  * Sur la sécurité :
+    *  Poser des questions sur le réseau (question piège car dynamo ne vit pas dans un VPC)
+    *  Opérations sur l'infra et la data (IAM dans les 2 cas)
+* Demo DynamoDB
+
+# Monitoring
+
+* Poll questions on why we should care about monitoring ? 
+
+* Reminder : AWS Organizations for cloudtrail especially
+* User story : Logging
+
+* Reminder : utilisation du user data et AMI pour la cloudwatch log agent.
+On peut aussi l'installer dans une AMI, mais il faut que 
+* la config soit mise à jour dynamiquement
+* faire attention aux mises à jour du log agent
+* Ne pas mettre les AWS Credentials dans l'AMI
+
+* Quizz on what ? Use cases for ELB maybe ?
+
+* Analogies sur les Target Group / ELB -> Service après vente
+
+* Console ! le plus sympa c'est de créer une instance EC2 en avance de phase pour montrer les métriques dessus (CPU) et créer une alarme.
+
+# Automation
+
+* InfraAsCode comme l'Imprimante 3D : On écrit les spécifications de la maison, et c'est la machine qui execute 
+* Cross stack / Nested Stack, c'est comme dans l'industrie. On a des acteurs qui récupère les matières premières, d'autres qui font des composants de bas niveau (semi conducteurs par exemple, des vis..), d'autres acteurs qui font des choses de grandes valeur ajouté (moteur d'avion), puis l'assemblage.
+* Reminder : EC2 Session Manager, Operational excellence (WA Framework)
+* Quizz ? on peut demander aux gens si ils ont déjà pratiqué du LLM, ChatGPT pour coder.
+* Show AWS Solutions Library : [Instance Scheduler](https://aws.amazon.com/solutions/implementations/instance-scheduler-on-aws/?did=fs_card&trk=fs_card)
+* User Story : System Manager
+* Demo : Code Whisperer
+
+Console : CDK, montrer mon poste
 
 # Containers
 
-Why do we need a container orchestrator ?
+Solliciter des personnes pour expliquer l'intérêt des containers ou de l'orchestrateur de container
+Quizz as Reminder : Target Groups. Type de Loadbalancer : ALB, NLB
+User Story : EKS
+Analogy : Coffee Machine, Panier pour des recettes
+Demo : Fargate & ECR
 
-* Manage containers tagging an versioning
-* It is a mandatory tool to be able to run containers
-* Manage container scheduling on the cluster
-* Improve security
+Console : faire la démo en 2 temps (ECR et Fargate ensuite)
 
-I have containers that take part of an HPC cluster. Which compute model should i use ?
+# Networking 2
 
-* ECS on Fargate
-* EKS on Fargate
-* ECS on EC2
-* EKS on EC2
+As introduction : Reminder on public subnet / private subnet. 
+How to access AWS endpoints ?
+
+Je possède deux apparts adjacents. Au lieu de sortir dans le couloir à chaque fois pour accéder à l'autre appartement, je vais construire une porte entre les 2 appartements pour ne pas passer par le couloir à chaque fois.
+
+Site-to-site VPN. Poser la question : voyez vous un SPOF sur le schéma (site to site) ? 
+Reminder on High availability
+
+Quizz : Direct connect vs Site-to-site VPN
+
+Demo & Analogy : Transit Gateway / réseau sociaux
+
+Console : montrer les VPC endpoints SSM dans la démo de la transit gateway
+Reminder : Security group sur la démo de la transit gateway
 
 # Serverless
 
-I need to save my clickstream data in near real time to AWS OpenSearch Service in order to analyze the data. What is the easiest way to achieve that ?
+User Story : SNS
+Analogy : SQS restaurant, Orchestrateur vs choregraphy
+Demo : API Gateway, maybe Step Functions
+Quizz : SNS vs SQS en Quizz
+Reminder : Différences et similitude avec API Gateway / ALB. Dire comment intéger un ALB dans l'archi API Gateway
+Parler de SQS et scaling sur ApproximateNumberOfMessages. Créer une cloudwatch alarm, ASG, etc...
+Probes : Qui connait le pattern API Gateway ? Qui connait la différence entre la chroégraphie et l'orchestration ?
 
-* SQS -> Lambda -> OpenSearch
-* SNS -> Lambda -> OpenSearch
-* Kinesis Firehose -> Opensearch
-* Kinesis Streams -> Lambda -> OpenSearch
-
-What are differences between API Gateway and ALB ?
-
-* API Gateway doesn't incurve cost when there is no request.
-* API Gateway can call Lambdas. ALB can only call containers and EC2 workloads.
-* API Gateway can handle quotas and throttling
-* API Gateway can load balance traffic between EC2 instances
-
-I need to decouple producers and consumers. Many different consumers can consume data coming from a single producer. What is the best choice ?
-
-* Kinesis streams
-* SNS
-* SQS
-* Use SNS and SQS
+Console : API Gateway / StepFunction
+Le reste est pas trop intéressant et est déjà montré dans le lab
 
 # Edge
 
-Cloudfront can be used for what usage ?
+User Story : Firewall Manager & Shield
+Analogy : CloudFront, maillage de trains. Route 53 annuaire.
+Demo : AWS WAF
+Quizz : Local Zone / Edge Locations / Snowball / Region
+Reminder : Edge Locations. Rappeler aussi les Local zone quant on parle d'outpost.
+Probes : Citer des attaques déni de service. Est ce que quelqu'un sait ce qu'est un CDN ?
 
-* Reduce latency for end users
-* Improves security posture
-* Data residency regulations
-* Need intensive compute capabilites closer to the user
-
-In route 53, what routing policy is the best choice to improve latency for my end users ?
-
-* Latency
-* GeoProximity
-* GeoLocation
-* EdgeLocation
+Console : montrer CloudFront peut être intéressant, pour montrer ce qu'on doit configurer
+Montrer l'éditeur de policy de route53, intéressant pour le geoproximity
 
 # Backup
 
-How can we backup Glacier Data on a different region ?
+User Story : ---
+Analogy : ---
+Demo : AWS Backup
+Quizz & Reminder sur les backup. Quizz sur les stratégies de DR
+Probes : A quoi est il important de pense qd on fait des backup ? Poser des questions sur le RTO / RPO
 
-* CRR S3 feature
-* SRR S3 feature
-* Lifecycle policies
-
-How can we backup EBS on a different region
-
-* EBS is a multi region service. Does not need to be backed up
-* Create a snapshot. The snapshot is automatically stored in another region
-* Create a snapshot and copy it in another region
-* Use cross region replication feature
-
-How can we backup DynamoDB in another region ?
-
-* Use Global tables
-* Use Backups and copy them in a different region
-* Use Multi-AZ capability
-* DynamoDB replicates automatically its data in another region
-
-How can we backup EFS Data in another region ?
-
-* EFS is already a multi region service
-* Use CRR feature of EFS
-* Use AWS Datasync to synchronize data
-* Use point in time snapshots
-
-
-
-
+Console : montrer backup, faire une démo
