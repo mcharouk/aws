@@ -1,5 +1,9 @@
 from aws_cdk import Stack
 from aws_cdk import aws_iam as iam  # Duration,; aws_sqs as sqs,
+from aws_cdk import aws_lambda as _lambda
+from aws_cdk import aws_lambda_event_sources as _lambda_es
+from aws_cdk import aws_s3 as s3
+from aws_cdk import aws_s3_notifications as s3n
 from constructs import Construct
 
 
@@ -13,11 +17,13 @@ class CdkStack(Stack):
         dynamoDBTableName = "demo_employee"
         bucketName = "eventnotification-demo-457663"
         inputObjectPrefix = "files"
+        generate_lambda = True
 
         # create an iam role assumed by lambda and attach the policy
         role = iam.Role(
             self,
             "LambdaRole",
+            role_name="DynamoDBLambdaRole",
             assumed_by=iam.ServicePrincipal("lambda.amazonaws.com"),
         )
 
@@ -101,3 +107,27 @@ class CdkStack(Stack):
         )
 
         s3ForLambdaPolicy.attach_to_role(role=role)
+
+        if generate_lambda == True:
+            self.generate_lambda(role, bucketName)
+
+    def generate_lambda(self, role, bucketName):
+        lambdaFunction = _lambda.Function(
+            self,
+            "DynamoDB_Lambda",
+            function_name="DynamoDB-S3Feeder",
+            runtime=_lambda.Runtime.PYTHON_3_12,
+            code=_lambda.Code.from_asset("Lambda"),
+            handler="lambda_function.lambda_handler",
+            role=role,
+        )
+
+        bucket = s3.Bucket.from_bucket_name(
+            self, "S3EventNotificationsBucket", bucket_name=bucketName
+        )
+
+        bucket.add_event_notification(
+            s3.EventType.OBJECT_CREATED,
+            s3n.LambdaDestination(lambdaFunction),
+            s3.NotificationKeyFilter(prefix="files/"),
+        )

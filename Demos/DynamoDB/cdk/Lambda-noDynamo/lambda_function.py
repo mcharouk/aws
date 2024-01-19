@@ -4,12 +4,9 @@ import json
 import boto3
 
 s3 = boto3.client("s3")
-dynamodb = boto3.resource("dynamodb")
 
 
 def lambda_handler(event, context):
-    # TODO implement
-
     bucket_name = event["Records"][0]["s3"]["bucket"]["name"]
     file_name = event["Records"][0]["s3"]["object"]["key"]
 
@@ -19,8 +16,8 @@ def lambda_handler(event, context):
     lines = obj["Body"].read().decode("utf-8").splitlines()
 
     csv_file = csv.DictReader(lines)
-    table = dynamodb.Table("demo_employee")
+
     for row in csv_file:
-        table.put_item(Item=row)
+        print(row)
 
     return {"statusCode": 200, "body": json.dumps("Hello from Lambda!")}
