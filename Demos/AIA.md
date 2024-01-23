@@ -219,3 +219,25 @@ In addition, all data flowing across the AWS global network that interconnects o
 Netflix uses local zones to provide Virtual desktops to their employees (EC2). They need good bandwidth as they design special effects. Latency < 10ms
 
 Tape Gateway : Ryanair have reduced their archives cost by 65 % (Tape gateway + Deep glacier)
+
+
+# Outposts
+
+## Rack vs Server
+
+Rack 
+
+* Amazon Elastic Compute Cloud (EC2)
+* Amazon Elastic Block Store (EBS)
+* Amazon Simple Storage Service (S3)
+* Amazon Relational Database Service (RDS)
+* Amazon Elasticache
+* Application Load Balancer (ALB)
+* VMware Cloud.
+* Other AWS Services
+
+Server 
+
+* Amazon Elastic Compute Cloud (EC2)
+* AWS IoT Greengrass
+* Amazon Sagemaker Edge Manager.

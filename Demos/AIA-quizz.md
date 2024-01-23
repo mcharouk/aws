@@ -2,26 +2,27 @@
 
 # Infrastructure
 
-Sondage : 
+* Sondage : 
 What do you consider personally being the best driver to move to the cloud ?
-* Cost
-* Time To Market
-* Innovation
-* No infra maintenance
-* Security
-* Easy and (near) unlimited scaling
+  * Cost
+  * Time To Market
+  * Innovation
+  * No infra maintenance
+  * Security
+  * Easy and (near) unlimited scaling
 
-Analogies : Edge Location / Local Zone
-Quizz :  Local Zone / Edge Locations
+* Analogies : Edge Location / Local Zone
+* Quizz :  Local Zone / Edge Locations
 
-Jeu sur le Well Architected Framework
-Demo : Montrer le Well architected Tool
+* Jeu sur le Well Architected Framework
+* Demo : Montrer le Well architected Tool
 
 # IAM
 
 Reminder : pas trop
-Analogie : AssumeRole / Policier
-Quizz avant d'aborder les policies.
+
+* Analogie : AssumeRole / Policier
+* Quizz avant d'aborder les policies.
 
 
 ## Policies
@@ -35,29 +36,27 @@ Quizz avant d'aborder les policies.
 
 ## Permission Boundary
 
-Check for experience : 
-* Au moment des permission boundary, poser la question quel est le challenge que pose least privilege principle ?
+* Check for experience : 
+  * Au moment des permission boundary, poser la question quel est le challenge que pose least privilege principle ?
 
-Analogies : Permission Boundary : Constitution & loi
+* Analogies : Permission Boundary : Constitution & loi
 Démo
 
 ## Multi Account
 
 * Quels sont les problèmes d'avoir peu de comptes ? 
-* Analogies : Syndic
-
-Arguments : 
-
-* Plus facile de mettre des restrictions spécifiques en fonction de l'environnement,
+  * Analogies : Syndic
+  * Arguments : 
+    * Plus facile de mettre des restrictions spécifiques en fonction de l'environnement,
 des applications, ou de la réglementation.
-* Si un compte doit être HIPAA compliant, pas la peine d'imposer ses contraintes à tout le monde.
-* Si l'organisation des personnes, des rôles et des responsabilités différe d'un env à un autre, plus facile de séggreger. Chacun à son pré, et on ne prend pas le risque que les administrateurs se marchent dessus.
-* Plus facile de gérer les coûts car ils sont liés directement à un compte.
-* Service Quotas
-* Blast Radius
+    * Si un compte doit être HIPAA compliant, pas la peine d'imposer ses contraintes à tout le monde.
+    * Si l'organisation des personnes, des rôles et des responsabilités différe d'un env à un autre, plus facile de séggreger. Chacun à son pré, et on ne prend pas le risque que les administrateurs se marchent dessus.
+    * Plus facile de gérer les coûts car ils sont liés directement à un compte.
+    * Service Quotas
+    * Blast Radius
 
-Pourquoi AWS Organization ?
-* Quels sont les challenges posés par le fait d'avoir plusieurs comptes ?
+* Pourquoi AWS Organization ?
+  * Quels sont les challenges posés par le fait d'avoir plusieurs comptes ?
   
 Security Reference Architecture : [SRA](https://docs.aws.amazon.com/prescriptive-guiance/latest/security-reference-architecture/architecture.html)
 
@@ -86,29 +85,24 @@ Quizz sur les security group / ACL à la place du tableau de synthèse
 
 # Compute
 
-EC2 : Treat your server like cattle, not like a pet.
--> User story
+* User Story EC2 : Treat your server like cattle, not like a pet.
+* Quizz sur les use cases par type d'instances
+* Key pair : analogie cadenas / clef
+* Probes 
+  * Qu'est ce qui porte l'adresse IP d'une instance ?
+  * Comment gère-t-on la sécurité d'un EC2
+    * Instance Role
+    * Security Group
+  * ENI
+* Placement Group : analogie avec le flex
+* Scripts and Metadata
+  * A quoi sert le user data ? Rappel sur l'AMI = static, user data = Dynamique
+  * Metadata : récupérer des informations dynamiques sur l'instance.
 
--> Quizz sur les use cases par type d'instances
-
--> Key pair : analogie cadenas / clef
-
--> Network and Security : Poser des questions aux élèves
-- Qu'est ce qui porte l'adresse IP d'une instance ?
-- Comment gère-t-on la sécurité d'un EC2
-  - Instance Role
-  - Security Group
-
-Placement Group : analogie avec le flex
-
-Scripts and Metadata : 
-A quoi sert le user data ? Rappel sur l'AMI = static, user data = Dynamique
-Metadata : récupérer des informations dynamiques sur l'instance.
-
-Console : 
-* montrer les propriétés EC2 au fur et à mesure
-* montrer Amazon Q qui fait des recommandations sur les types d'instance en fonction du workload
-* montrer la lambda dans la console, mieux que le powerpoint. Faire un démo en même temps.
+* Console : 
+  * montrer les propriétés EC2 au fur et à mesure
+  * montrer Amazon Q qui fait des recommandations sur les types d'instance en fonction du workload
+  * montrer la lambda dans la console, mieux que le powerpoint. Faire un démo en même temps.
 
 # Storage
 
@@ -116,16 +110,16 @@ Console :
 * Reminder : sur identity based policies vs resource based policy pour le bucket S3
 * Petit quizz sur la syntaxe d'une policy
 * Access Point : Analogie
-* Intelligent Tiering : user story
-* Demo Bucket Versioning
-* Lambda : user story
+* User Story : Intelligent Tiering
+* Demo : Bucket Versioning
+* User Story : Lambda
 * Quizz sur les cas d'usage, sachant les contraintes de la lambda
 * Eventuellement une petite démo Lambda pour montrer la facilité d'usage
 
-Console : 
-  - montrer le bucket s3
-  - montrer en live le block public access
-  - le bucket policy qui donne un accès publique
+* Console : 
+  * montrer le bucket s3
+  * montrer en live le block public access
+  * le bucket policy qui donne un accès publique
 
 # Database
 
@@ -175,62 +169,62 @@ Console : CDK, montrer mon poste
 
 # Containers
 
-Solliciter des personnes pour expliquer l'intérêt des containers ou de l'orchestrateur de container
-Quizz as Reminder : Target Groups. Type de Loadbalancer : ALB, NLB
-User Story : EKS
-Analogy : Coffee Machine, Panier pour des recettes
-Demo : Fargate & ECR
-
-Console : faire la démo en 2 temps (ECR et Fargate ensuite)
+* Solliciter des personnes pour expliquer l'intérêt des containers ou de l'orchestrateur de container
+* Quizz as Reminder : Target Groups, ELB
+* User Story : EKS
+* Analogy : Coffee Machine, Panier pour des recettes
+* Demo : Fargate & ECR
+* Console : faire la démo en 2 temps (ECR et Fargate ensuite)
 
 # Networking 2
 
-As introduction : Reminder on public subnet / private subnet. 
-How to access AWS endpoints ?
+* As introduction : Reminder on public subnet / private subnet. 
+* Analogy sur How to access AWS endpoints :  Je possède deux apparts adjacents. Au lieu de sortir dans le couloir à chaque fois pour accéder à l'autre appartement, je vais construire une porte entre les 2 appartements pour ne pas passer par le couloir à chaque fois.
 
-Je possède deux apparts adjacents. Au lieu de sortir dans le couloir à chaque fois pour accéder à l'autre appartement, je vais construire une porte entre les 2 appartements pour ne pas passer par le couloir à chaque fois.
-
-Site-to-site VPN. Poser la question : voyez vous un SPOF sur le schéma (site to site) ? 
-Reminder on High availability
-
-Quizz : Direct connect vs Site-to-site VPN
-
-Demo & Analogy : Transit Gateway / réseau sociaux
-
-Console : montrer les VPC endpoints SSM dans la démo de la transit gateway
-Reminder : Security group sur la démo de la transit gateway
+* Probes : Site-to-site VPN ou direct connect
+  * Voyez vous un SPOF sur le schéma (site to site) ? 
+* Quizz : Direct connect vs Site-to-site VPN
+* Demo & Analogy : Transit Gateway / réseau sociaux
+* Console : montrer les VPC endpoints SSM dans la démo de la transit gateway
+* Reminder : Security group sur la démo de la transit gateway
 
 # Serverless
 
-User Story : SNS
-Analogy : SQS restaurant, Orchestrateur vs choregraphy
-Demo : API Gateway, maybe Step Functions
-Quizz : SNS vs SQS en Quizz
-Reminder : Différences et similitude avec API Gateway / ALB. Dire comment intéger un ALB dans l'archi API Gateway
-Parler de SQS et scaling sur ApproximateNumberOfMessages. Créer une cloudwatch alarm, ASG, etc...
-Probes : Qui connait le pattern API Gateway ? Qui connait la différence entre la chroégraphie et l'orchestration ?
-
-Console : API Gateway / StepFunction
+* User Story : SNS
+* Analogy : SQS restaurant, Orchestrateur vs choregraphy
+* Demo : API Gateway, maybe Step Functions
+* Quizz : SNS vs SQS en Quizz
+* Reminder : 
+  * Différences et similitude avec API Gateway / ALB. Dire comment intéger un ALB dans l'archi API Gateway
+  * Parler de SQS et scaling sur ApproximateNumberOfMessage : Créer une cloudwatch alarm, ASG, etc...
+* Probes : 
+  * Qui connait le pattern API Gateway
+  * Qui connait la différence entre la chroégraphie et l'orchestration ?
+* Console : API Gateway / StepFunction. 
 Le reste est pas trop intéressant et est déjà montré dans le lab
 
 # Edge
 
-User Story : Firewall Manager & Shield
-Analogy : CloudFront, maillage de trains. Route 53 annuaire.
-Demo : AWS WAF
-Quizz : Local Zone / Edge Locations / Snowball / Region
-Reminder : Edge Locations. Rappeler aussi les Local zone quant on parle d'outpost.
-Probes : Citer des attaques déni de service. Est ce que quelqu'un sait ce qu'est un CDN ?
-
-Console : montrer CloudFront peut être intéressant, pour montrer ce qu'on doit configurer
-Montrer l'éditeur de policy de route53, intéressant pour le geoproximity
+* User Story : Firewall Manager & Shield
+* Analogy : CloudFront, maillage de trains. Route 53 annuaire.
+* Demo : AWS WAF
+* Quizz : Local Zone / Edge Locations / Snowball / Region
+* Reminder : 
+  * Edge Locations. 
+  * Local zone quant on parle d'outpost.
+* Probes
+  * Citer des attaques déni de service
+  * Est ce que quelqu'un sait ce qu'est un CDN ?
+* Console : 
+  * montrer CloudFront peut être intéressant, pour montrer ce qu'on doit configurer
+  * Montrer l'éditeur de policy de route53, intéressant pour le geoproximity
 
 # Backup
 
-User Story : ---
-Analogy : ---
-Demo : AWS Backup
-Quizz & Reminder sur les backup. Quizz sur les stratégies de DR
-Probes : A quoi est il important de pense qd on fait des backup ? Poser des questions sur le RTO / RPO
-
-Console : montrer backup, faire une démo
+* User Story : ---
+* Analogy : Car wheels and airplanes engines for difference between high availability and fault tolerant
+* Demo : AWS Backup
+* Quizz sur les stratégies de DR
+* Probes : 
+  * A quoi est il important de pense qd on fait des backup ?
+  * Poser des questions sur le RTO / RPO

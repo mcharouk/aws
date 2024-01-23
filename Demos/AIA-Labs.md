@@ -68,3 +68,35 @@ Bonus :
   * vérifier la table de routage, et son attachment au subnet. Le subnet associée doit être le même que celui de la NAT Gateway précédemment créé...
 * Task 8 : Test High Availability of database
   
+
+# Lab 5
+
+
+
+# Lab 6
+
+* Task 1 : de l'inspection principalement
+* Task 2 : Création d'un bucket S3.
+  *  Veiller à ce que le bucket soit créer dans la bonne région (Primary Region)
+  *  Pas très grave si dans la région secondaire. Ces primaires et secondaires servent à la question bonus
+* Task 3 : Configuration du bucket S3 (accès public)
+  * consiste à décocher block public access
+  * créer une bucket policy (attention au ARN spécifié). Bien mettre /* à la fin du ARN
+* Task 4 : uploader un fichier et tester qu'on y accède en public
+* Task 5 : 
+  * Création d'une origine (OAI) dans CloudFront
+    * Origin Path doit être vide
+    * OAI : attention à ne pas créer un OAC
+  * Création d'un comportement (behavior)
+    * LE chemin doit être cohérent avec le folder créé dans le bucket
+    * Séléctionner la bonne origine
+    * Vérifier Cache Key and origin resquests caractéristiques 
+      * Cache policy and origin request policy (recommended)
+      * Cache Policy = CachingOptimized
+    * dans Security/Origin Access (dans le menu à droite)
+* Task 6 : changer la bucket policy avec le canonical user de cloudfront
+* Task 7 : bonus, mettre en place une réplication CRR
+  * créer un nouveau bucket dans la région secondaire. Vérifier que le versioning est bien activé dessus
+  * bien s'assurer que Block Public Access est désactivé
+  * faire attention à l'édition de la bucket policy -> ARN + /*. C'est le bucket de destination qui doit être modifié pour pouvoir tester la réplication lorsqu'elle se fera.
+  * Faire Create New Role au lieu de sélectionner un rôle existant

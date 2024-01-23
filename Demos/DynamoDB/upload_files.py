@@ -1,4 +1,4 @@
-folderName = "Sample-data"
+folderName = "./DynamoDB/Sample-data"
 bucket_name = "eventnotification-demo-457663"
 
 # upload all content of folder in s3 bucket
@@ -24,10 +24,13 @@ def upload_files():
                 print(f"Uploading {full_path} to {bucket_name}/{object_prefix}")
                 s3.upload_fileobj(data, bucket_name, object_prefix)
                 nb_files_uploaded += 1
-                print(f"Upload successfull")
 
             if limit_nb_of_files and nb_files_uploaded >= files_nb_to_upload:
-                print("Stopping to upload files because of limiting rule")
+                print(
+                    "Uploaded {nb_files_uploaded} files, stop file upload".format(
+                        nb_files_uploaded=nb_files_uploaded
+                    )
+                )
                 break
 
 
