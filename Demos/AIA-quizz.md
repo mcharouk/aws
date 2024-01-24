@@ -203,6 +203,8 @@ Console : CDK, montrer mon poste
 * Console : API Gateway / StepFunction. 
 Le reste est pas trop intéressant et est déjà montré dans le lab
 
+[API Gateway Developer Portal](https://github.com/awslabs/aws-api-gateway-developer-portal)
+
 # Edge
 
 * User Story : Firewall Manager & Shield
