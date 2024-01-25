@@ -188,19 +188,24 @@ Console : CDK, montrer mon poste
 * Console : montrer les VPC endpoints SSM dans la démo de la transit gateway
 * Reminder : Security group sur la démo de la transit gateway
 
+Links 
+* [list of Direct Connect Partners](https://aws.amazon.com/directconnect/partners/)
+* [Documentation to deep dive on networking patterns](https://docs.aws.amazon.com/whitepapers/latest/building-scalable-secure-multi-vpc-network-infrastructure/centralized-inspection-third-party.html)
+
 # Serverless
 
 * User Story : SNS
 * Analogy : SQS restaurant, Orchestrateur vs choregraphy
-* Demo : API Gateway, maybe Step Functions
+* Demo : API Gateway, Step Functions on best effort
 * Quizz : SNS vs SQS en Quizz
 * Reminder : 
   * Différences et similitude avec API Gateway / ALB. Dire comment intéger un ALB dans l'archi API Gateway
   * Parler de SQS et scaling sur ApproximateNumberOfMessage : Créer une cloudwatch alarm, ASG, etc...
+  * Spot instances avec sqs (fault tolerant workload)
 * Probes : 
   * Qui connait le pattern API Gateway
-  * Qui connait la différence entre la chroégraphie et l'orchestration ?
-* Console : API Gateway / StepFunction. 
+  * Qui connait la différence entre la chorégraphie et l'orchestration ?
+* Console : SQS parameters
 Le reste est pas trop intéressant et est déjà montré dans le lab
 
 [API Gateway Developer Portal](https://github.com/awslabs/aws-api-gateway-developer-portal)
