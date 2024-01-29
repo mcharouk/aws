@@ -192,6 +192,19 @@ Links
 * [list of Direct Connect Partners](https://aws.amazon.com/directconnect/partners/)
 * [Documentation to deep dive on networking patterns](https://docs.aws.amazon.com/whitepapers/latest/building-scalable-secure-multi-vpc-network-infrastructure/centralized-inspection-third-party.html)
 
+## Requirements Direct Connect
+
+* Single-mode fiber
+  * 1000BASE-LX (1310 nm) transceiver for 1 G 
+  * 10GBASE-LR (1310 nm) transceiver for 10 G
+  * 100GBASE-LR4 for 100 G
+* 802.1Q VLAN encapsulation must be supported
+* Auto-negotiation for the port must be disabled
+* Port speed and full-duplex mode must be configured manually
+* End Customer Router (on-premises) must support Border Gateway Protocol (BGP) and BGP MD5 authentication
+* (optional) Bidirectional Forwarding Detection
+
+
 # Serverless
 
 * User Story : SNS

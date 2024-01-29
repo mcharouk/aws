@@ -272,13 +272,15 @@ helps small companies secure loans fast through a platform that banks can use to
 ### Problem
 They were cloud native from the start, and used to manage entirely their Kubernetes cluster.
 
+Each product comprises 30−40 microservices, which are grouped into containers. They have to scale manually regularly their control plane. It led to donwtime.
+
 Our goal was to **optimize operations**, **reduce costs**, **expedite infrastructure set ups for our customers**, and **enhance our Biz2x platform’s reliability**
 
 They decided to move on to EKS to be able to scale faster.
 
 ### Solution
 
-* Now, the company **no longer needs to manually adjust master nodes** behind Kubernetes clusters — a task that needed **application downtime**. Amazon EKS **automatically scales** our control plane, helping us increase uptime **from 99.9 to 99.999 percent**
+* Now, the company **no longer needs to manually adjust master nodes** behind Kubernetes clusters — a task that needed **application downtime**. Amazon EKS **automatically scales** our control plane, helping us increase uptime **from 99.9 (8h40 downtime per year) to 99.999 (5m31s) percent**
 * Biz2Credit has **reduced IT costs** through management savings and the integration of Karpenter. **Karpenter manages auto scaling** and select the **optimal EC2 instances** for each K8s node. we’ve lowered our Kubernetes costs by **25−30 percent**.
 * **With the cost savings** achieved through migrating to Amazon EKS, Biz2Credit has been able to **invest in improving its security posture**. The company now utilizes various AWS security services, such as **AWS Config, Amazon GuardDuty, Container Insights, CloudWatch Logs Insights, Amazon Inspector, Amazon Detective, and Amazon Macie** to ensure the security of applications and workloads.
 * Biz2Credit can offer a **better customer experience**, **lowering the time** it takes **to onboard companies** to its online marketplace or Biz2X. Setting up infrastructure for a new bank used to take us **3−4 days**, but with Amazon EKS, our delivery time is reduced to **5−6** hours
