@@ -71,7 +71,28 @@ Bonus :
 
 # Lab 5
 
+* Task 1 : création SNS
+* Task 2 : création SQS
+  * Déjà eu des problèmes avec thumbnail queue. Je sais pas pourquoi ca marche pas, mais le fait de recréer la queue l'a fait fonctionné.
+* Task 3 : création notification S3
+  * changement de la resource policy SNS. Attention au remplacement des placeholders
+  * dans l'évenement s3
+    * ingest/ (ne pas oublier le /)
+    * attention au coquilles dans le suffix
+    * sélection des types d'évenements
+    * sélection du topic SNS
+* Task 4 : création de 3 lambdas
+  * attention au rôle de la lambda (LabExecutionRole)
+  * runtime Python 3.9
+  * trigger SQS : taille de batch de 1 mais je ne pense pas que ca a un impact négatif sur le bon fonctionnement
+  * attention à changer le nom du handler
+* Task 5 : upload d'un fichier et test  
+* Task 6 : Validation du test
 
+* Optionnel
+  * lifecycle policy
+    *  regarder les subtilités dans le lab surtout les options à cocher
+  * SNS email
 
 # Lab 6
 

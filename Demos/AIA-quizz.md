@@ -58,7 +58,6 @@ des applications, ou de la réglementation.
 * Pourquoi AWS Organization ?
   * Quels sont les challenges posés par le fait d'avoir plusieurs comptes ?
   
-Security Reference Architecture : [SRA](https://docs.aws.amazon.com/prescriptive-guiance/latest/security-reference-architecture/architecture.html)
 
 # Networking 1
 
@@ -161,7 +160,7 @@ On peut aussi l'installer dans une AMI, mais il faut que
 * Cross stack / Nested Stack, c'est comme dans l'industrie. On a des acteurs qui récupère les matières premières, d'autres qui font des composants de bas niveau (semi conducteurs par exemple, des vis..), d'autres acteurs qui font des choses de grandes valeur ajouté (moteur d'avion), puis l'assemblage.
 * Reminder : EC2 Session Manager, Operational excellence (WA Framework)
 * Quizz ? on peut demander aux gens si ils ont déjà pratiqué du LLM, ChatGPT pour coder.
-* Show AWS Solutions Library : [Instance Scheduler](https://aws.amazon.com/solutions/implementations/instance-scheduler-on-aws/?did=fs_card&trk=fs_card)
+* Show AWS Solutions Library : 
 * User Story : System Manager
 * Demo : Code Whisperer
 
@@ -170,9 +169,9 @@ Console : CDK, montrer mon poste
 # Containers
 
 * Solliciter des personnes pour expliquer l'intérêt des containers ou de l'orchestrateur de container
-* Quizz as Reminder : Target Groups, ELB
+* Pas de quizz, manque de temps. Quizz as Reminder : Target Groups, ELB.
 * User Story : EKS
-* Analogy : Coffee Machine, Panier pour des recettes
+* Analogy : Coffee Machine, Ikea pour les container
 * Demo : Fargate & ECR
 * Console : faire la démo en 2 temps (ECR et Fargate ensuite)
 
@@ -187,10 +186,6 @@ Console : CDK, montrer mon poste
 * Demo & Analogy : Transit Gateway / réseau sociaux
 * Console : montrer les VPC endpoints SSM dans la démo de la transit gateway
 * Reminder : Security group sur la démo de la transit gateway
-
-Links 
-* [list of Direct Connect Partners](https://aws.amazon.com/directconnect/partners/)
-* [Documentation to deep dive on networking patterns](https://docs.aws.amazon.com/whitepapers/latest/building-scalable-secure-multi-vpc-network-infrastructure/centralized-inspection-third-party.html)
 
 ## Requirements Direct Connect
 
@@ -221,7 +216,6 @@ Links
 * Console : SQS parameters
 Le reste est pas trop intéressant et est déjà montré dans le lab
 
-[API Gateway Developer Portal](https://github.com/awslabs/aws-api-gateway-developer-portal)
 
 # Edge
 
