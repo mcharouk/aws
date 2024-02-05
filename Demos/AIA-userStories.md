@@ -204,28 +204,27 @@ Our founding team consisted of application developers. We are architects, and **
 
 ## Logs
 
-[Zs](https://aws.amazon.com/solutions/case-studies/zs-associates-security-case-study/?did=cr_card&trk=cr_card)
-
-!!! Montrer l'architecture sur la page!!!
+[TechnologyOne](https://aws.amazon.com/solutions/case-studies/technologyone-ec2-case-study/?did=cr_card&trk=cr_card)
 
 ### Activity
 
-Société de services qui a construit bcp de solutions sur AWS pour ses clients et qui a besoin d'un framework pour gérer la sécurité et notamment la compliance exigeante de leurs multiples clients (**250 comptes**)
+ERP Software transformed into a SAAS Solution
 
 ### Problem
-Seek to
-* **automate time-consuming manual security procedures** 
-* **eases the rollout of cloud architecture for clients**
+
+It's a mix of old and new technology. EC2 needs **some warmup** before starting to serve requests from clients.
+
+The time the warm-up process had run, clients had already spent **20 minutes** unable to use the software.
 
 ### Solution
 
-* **Collect logs (To fo data)** from spoke accounts into a centralized account. 
-* ZS built a robust security landscape centered around the cybersecurity framework from the National Institute of Standards and Technology (NIST). NIST is supported by governments and industries worldwide as a **recommended baseline** for use by any organization, regardless of its sector or size
-* SecurityHub to check against compliances : SOC 2, ISO/IEC 27001, and HITRUST. Has helped to extend to other regions because each region has its specific compliance frameworks (GDPR)
-* **GuardDuty**  has given us **great insights that could have been security incidents** if our incident response team hadn’t been made aware quickly
-* **Cloudtrail** which monitors and records account activity across AWS infrastructure. This greater visibility simplifies auditing procedures.
-* ZS estimates that this automated solution saves about **1,000 hours of labor every month**
-* ZS is onboarding new clients **three times faster** using stackable security
+Use Predictive scaling to **anticipate** traffic best on historical usage. This has improved customer experience as the scaling process started in anticipation.
+
+As they were using blue green deployment, at each release, the target groups lost all its historical data. ML needs at least 14 days of historical data to work correctly.
+
+AWS helped them to [retain metrics](https://aws.amazon.com/blogs/compute/retaining-metrics-across-blue-green-deployment-for-predictive-scaling/) to the old environment and join it with the new one.
+
+AWS helped also the company to define the best metric to use to trigger alarms. CPU does not work well in their case, so the number of requests was chosen instead (as a custom metric).
 
 # Module 8
 
