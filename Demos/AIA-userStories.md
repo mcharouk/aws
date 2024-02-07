@@ -199,6 +199,23 @@ Our founding team consisted of application developers. We are architects, and **
 
 [Careem](https://aws.amazon.com/solutions/case-studies/careem-dynamodb-case-study/?did=cr_card&trk=cr_card)
 
+### Activity
+
+* Careem offers service like taxi rides, food delivery, delivery of other goods, services like home cleaning, massage, etc...
+* 5O millions of consumers, 10 countries.
+
+### Problem
+
+* Legacy infrastructure was monolithic
+* high latency (load bottleneck on db)
+* The app frequently records location data for the drivers, both while they’re driving and while they’re stationary
+
+### Solution
+
+* Dynamodb to get locations from **millions of drivers every few seconds**
+* Careem has reduced costs for this use case **to $1,600 per month from thousands**.
+* Under the previous MySQL architecture, adding a single column or index **involved downtime**
+* Used **DMS** to migrate from MySQL to DynamoDB
 
 # Module 7 : Monitoring and scaling
 
