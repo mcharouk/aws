@@ -1,4 +1,4 @@
-folderName = "./DynamoDB/Sample-data"
+folderName = "./Sample-data"
 bucket_name = "eventnotification-demo-457663"
 
 # upload all content of folder in s3 bucket
@@ -9,7 +9,7 @@ import boto3
 
 s3 = boto3.client("s3")
 
-limit_nb_of_files = True
+limit_nb_of_files = False
 files_nb_to_upload = 1
 
 
