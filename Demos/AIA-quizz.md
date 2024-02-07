@@ -1,6 +1,6 @@
 * De manière générale, solliciter les sachants à partager leurs bonnes pratiques sur les sujets qu'ils maitrisent
 
-# Infrastructure
+# Module 1 : Infrastructure
 
 * Sondage : 
 What do you consider personally being the best driver to move to the cloud ?
@@ -17,7 +17,7 @@ What do you consider personally being the best driver to move to the cloud ?
 * Jeu sur le Well Architected Framework
 * Demo : Montrer le Well architected Tool
 
-# IAM
+# Module 2 : IAM
 
 Reminder : pas trop
 
@@ -59,7 +59,7 @@ des applications, ou de la réglementation.
   * Quels sont les challenges posés par le fait d'avoir plusieurs comptes ?
   
 
-# Networking 1
+# Module 3 : Networking 1
 
 Analogies : 
 * Security Group / ACLs : Avion / Cinéma
@@ -82,7 +82,7 @@ Démo Security Group / ACL  + Analogies
 
 Quizz sur les security group / ACL à la place du tableau de synthèse
 
-# Compute
+# Module 4 : Compute
 
 * User Story EC2 : Treat your server like cattle, not like a pet.
 * Quizz sur les use cases par type d'instances
@@ -103,7 +103,7 @@ Quizz sur les security group / ACL à la place du tableau de synthèse
   * montrer Amazon Q qui fait des recommandations sur les types d'instance en fonction du workload
   * montrer la lambda dans la console, mieux que le powerpoint. Faire un démo en même temps.
 
-# Storage
+# Module 5 : Storage
 
 * Quizz sur les cas d'usage, sachant qu'on est dans un mode Write Once - Read Many
 * Reminder : sur identity based policies vs resource based policy pour le bucket S3
@@ -120,7 +120,7 @@ Quizz sur les security group / ACL à la place du tableau de synthèse
   * montrer en live le block public access
   * le bucket policy qui donne un accès publique
 
-# Database
+# Module 6 : Database
 
 Il faudrait une analogie pour expliquer la différence entre SQL et NoSQL
 Supermarché vs panier customisé
@@ -135,47 +135,48 @@ Supermarché vs panier customisé
     *  Opérations sur l'infra et la data (IAM dans les 2 cas)
 * Demo DynamoDB
 
-# Monitoring
+# Module 7 : Monitoring & scaling
 
 * Poll questions on why we should care about monitoring ? 
 
 * Reminder : AWS Organizations for cloudtrail especially
-* User story : Logging
+* User story : Predictive scaling
 
 * Reminder : utilisation du user data et AMI pour la cloudwatch log agent.
 On peut aussi l'installer dans une AMI, mais il faut que 
-* la config soit mise à jour dynamiquement
-* faire attention aux mises à jour du log agent
-* Ne pas mettre les AWS Credentials dans l'AMI
+  * la config soit mise à jour dynamiquement
+  * faire attention aux mises à jour du log agent
+  * Ne pas mettre les AWS Credentials dans l'AMI
 
 * Quizz on what ? Use cases for ELB maybe ?
 
 * Analogies sur les Target Group / ELB -> Service après vente
+* Analogies sur les dimensions de métriques : Notes sur classe/élève/matière
 
-* Console ! le plus sympa c'est de créer une instance EC2 en avance de phase pour montrer les métriques dessus (CPU) et créer une alarme.
+* Console : cloudwatch metrics + cloudtrail
 
-# Automation
+# Module 8 : Automation
 
 * InfraAsCode comme l'Imprimante 3D : On écrit les spécifications de la maison, et c'est la machine qui execute 
 * Cross stack / Nested Stack, c'est comme dans l'industrie. On a des acteurs qui récupère les matières premières, d'autres qui font des composants de bas niveau (semi conducteurs par exemple, des vis..), d'autres acteurs qui font des choses de grandes valeur ajouté (moteur d'avion), puis l'assemblage.
 * Reminder : EC2 Session Manager, Operational excellence (WA Framework)
-* Quizz ? on peut demander aux gens si ils ont déjà pratiqué du LLM, ChatGPT pour coder.
-* Show AWS Solutions Library : 
+* Pas de quizz, pas d'idée et pas trop le temps
+* Show AWS Solutions Library : Instance Scheduler
 * User Story : System Manager
 * Demo : Code Whisperer
 
-Console : CDK, montrer mon poste
+Console : CDK, AWS Solutions library
 
-# Containers
+# Module 9 : Containers
 
 * Solliciter des personnes pour expliquer l'intérêt des containers ou de l'orchestrateur de container
 * Pas de quizz, manque de temps. Quizz as Reminder : Target Groups, ELB.
 * User Story : EKS
 * Analogy : Coffee Machine, Ikea pour les container
 * Demo : Fargate & ECR
-* Console : faire la démo en 2 temps (ECR et Fargate ensuite)
+* Console : montrer ECR (1ere partie de démo)
 
-# Networking 2
+# Module 10 : Networking 2
 
 * As introduction : Reminder on public subnet / private subnet. 
 * Analogy sur How to access AWS endpoints :  Je possède deux apparts adjacents. Au lieu de sortir dans le couloir à chaque fois pour accéder à l'autre appartement, je vais construire une porte entre les 2 appartements pour ne pas passer par le couloir à chaque fois.
@@ -200,7 +201,7 @@ Console : CDK, montrer mon poste
 * (optional) Bidirectional Forwarding Detection
 
 
-# Serverless
+# Module 11 : Serverless
 
 * User Story : SNS
 * Analogy : SQS restaurant, Orchestrateur vs choregraphy
@@ -217,7 +218,7 @@ Console : CDK, montrer mon poste
 Le reste est pas trop intéressant et est déjà montré dans le lab
 
 
-# Edge
+# Module 12 : Edge
 
 * User Story : Firewall Manager & Shield
 * Analogy : CloudFront, maillage de trains. Route 53 annuaire.
@@ -233,7 +234,7 @@ Le reste est pas trop intéressant et est déjà montré dans le lab
   * montrer CloudFront peut être intéressant, pour montrer ce qu'on doit configurer
   * Montrer l'éditeur de policy de route53, intéressant pour le geoproximity
 
-# Backup
+# Module 13 : Backup
 
 * User Story : ---
 * Analogy : Car wheels and airplanes engines for difference between high availability and fault tolerant

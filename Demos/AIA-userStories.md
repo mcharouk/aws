@@ -237,11 +237,11 @@ The time the warm-up process had run, clients had already spent **20 minutes** u
 
 Use Predictive scaling to **anticipate** traffic best on historical usage. This has improved customer experience as the scaling process started in anticipation.
 
-As they were using blue green deployment, at each release, the target groups lost all its historical data. ML needs at least 14 days of historical data to work correctly.
+As they were using blue green deployment, at each release, the target groups **lost all its historical data**. ML needs at least 14 days of historical data to work correctly.
 
 AWS helped them to [retain metrics](https://aws.amazon.com/blogs/compute/retaining-metrics-across-blue-green-deployment-for-predictive-scaling/) to the old environment and join it with the new one.
 
-AWS helped also the company to define the best metric to use to trigger alarms. CPU does not work well in their case, so the number of requests was chosen instead (as a custom metric).
+AWS helped also the company to define the **best metric** to use to trigger alarms. CPU does not work well in their case, so the **number of requests** was chosen instead (as a custom metric).
 
 # Module 8
 

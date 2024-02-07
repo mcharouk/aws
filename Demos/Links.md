@@ -2,6 +2,10 @@
 
 * [Security Reference Architecture](https://docs.aws.amazon.com/prescriptive-guiance/latest/security-reference-architecture/architecture.html)
 
+# Module 6 : Database
+
+* [Aurora Deep dive](https://pages.awscloud.com/rs/112-TZM-766/images/EV_modernize-your-databases-with-amazon-aurora_Mar-2021.pdf)
+
 # Module 8 : Automation
 
 * [CI/CD Whitepaper](https://docs.aws.amazon.com/whitepapers/latest/practicing-continuous-integration-continuous-delivery/welcome.html)

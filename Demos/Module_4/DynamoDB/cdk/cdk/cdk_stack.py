@@ -11,7 +11,6 @@ class CdkStack(Stack):
     def __init__(self, scope: Construct, construct_id: str, **kwargs) -> None:
         super().__init__(scope, construct_id, **kwargs)
 
-        dynamoDBTableName = "demo_employee"
         accountId = "270188911144"
         region = "eu-west-3"
         dynamoDBTableName = "demo_employee"
