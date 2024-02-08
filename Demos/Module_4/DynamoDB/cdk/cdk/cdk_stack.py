@@ -16,7 +16,7 @@ class CdkStack(Stack):
         dynamoDBTableName = "demo_employee"
         bucketName = "eventnotification-demo-457663"
         inputObjectPrefix = "files"
-        generate_lambda = True
+        generate_lambda = False
 
         # create an iam role assumed by lambda and attach the policy
         role = iam.Role(

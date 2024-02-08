@@ -60,10 +60,16 @@ une fois qu'un EC2 est up, on peut changer la méthode d'authentification pour e
 2 main categories
 * SSD
   * general purpose : gp2, gp3
+    * Virtual Desktops
+    * Small/medium sized databases
+    * Dev/test environments
   * provisioned iops : io1, io2
+    * Large databases
 * HDD : cheaper
-  * throughtput optimized
-  * cold HDD : archive, less frequently accessed
+  * st1 : throughtput optimized
+    * analytics workload
+  * sc1 : cold HDD
+    * archive, less frequently accessed
 
 ## EC2 pricing
 
