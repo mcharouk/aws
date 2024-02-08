@@ -18,7 +18,7 @@
 * [List of Direct Connect Partners](https://aws.amazon.com/directconnect/partners/)
 * [Multi VPC Networking Whitepaper](https://docs.aws.amazon.com/whitepapers/latest/building-scalable-secure-multi-vpc-network-infrastructure/welcome.html)
 
-
 # Module 11 : Serverless
 
 * [API Gateway Developer Portal](https://github.com/awslabs/aws-api-gateway-developer-portal)
+* [Serverless land](https://serverlessland.com/)
