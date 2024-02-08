@@ -2,6 +2,8 @@
 
 ## delegate access to access point policy
 
+This policy must be added to bucket S3 policy
+
 ```
 {
     "Version": "2012-10-17",

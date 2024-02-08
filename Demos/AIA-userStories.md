@@ -142,7 +142,11 @@ We wanted to **grow globally** and didn’t want to have to build out data cente
 * As a result, TransferWise was able to **close its recovery data center** in the Netherlands.
 * Then they used the EBS backup to migrate the databases
 * The organization migrated **90 percent** of its German data center using this approach
-* Moved hundreds of MySql and Postgresql instances and EC2 instances. 
+* Moved hundreds of MySql and Postgresql instances and EC2 instances.
+* To sum-up
+  * **Scaling is easier** because no need to buy additional servers
+  * **Easier to expand to new regions like Australia and Singapore**. Easier to launch new products globally, no need to acquire infrastructure in new regions.
+  * They use **globally replicated storage layer** (maybe Aurora Global databases, S3 ?) that **reduces complexity of application code base**
 
 ## S3 lifecycle policies
 
@@ -168,7 +172,7 @@ We wanted to **grow globally** and didn’t want to have to build out data cente
  * I think it’s the **biggest return on investment** that we’ve ever seen
  * By using S3 Intelligent-Tiering, Illumina could **allocate its cost savings toward expanding its service and software offering**, enhancing the customer experience
 
- 
+
 
 # Module 6
 
