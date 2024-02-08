@@ -116,9 +116,32 @@ On premise, infrstructure was overwhelmed by the amount of data
 * Lambda processes over **200 billion (milliards) signals every day**. In **2 hours**, it processed what the legacy infra was able to process in **2 weeks**
 * Its customers can **improve the performance** of their renewable energy assets and minimize their carbon footprints
 
-
-
 # Module 5
+
+## S3 lifecycle policies
+
+[Illumina](https://aws.amazon.com/solutions/case-studies/illumina-carbon-emissions-case-study/?did=cr_card&trk=cr_card)
+
+### Activity
+
+* is a leading developer, manufacturer, and marketer of **life science tools** and systems for large-scale **genetics analysis**
+
+###  Problem
+
+* As the company expanded its customer base and product line, the **amount of genetic data** that Illumina securely stored in the cloud **grew exponentially—from 1 PB to 100 PB in 8 years**.
+* During 2021–2022 alone, Illumina added over **24 PB of data**
+* Illumina predicted that its stored data would continue to **double every 2 years**
+ * Previously, Illumina’s teams would use **Amazon S3 lifecycle policies** to transition its data into different Amazon S3 storage classes to cut its data storage costs.
+
+
+### Solution
+
+ * Illumina **decided to adopt the S3 Intelligent-Tiering** storage class.
+ * a few minutes to setup
+ * After **just 3 months** of using S3 Intelligent-Tiering, Illumina began to see **significant monthly cost** savings. **For every 1 TB of data**, the company saves **60 percent** on storage costs
+ * I think it’s the **biggest return on investment** that we’ve ever seen
+ * By using S3 Intelligent-Tiering, Illumina could **allocate its cost savings toward expanding its service and software offering**, enhancing the customer experience
+
 
 ## Storage Gateway
 
@@ -147,31 +170,6 @@ We wanted to **grow globally** and didn’t want to have to build out data cente
   * **Scaling is easier** because no need to buy additional servers
   * **Easier to expand to new regions like Australia and Singapore**. Easier to launch new products globally, no need to acquire infrastructure in new regions.
   * They use **globally replicated storage layer** (maybe Aurora Global databases, S3 ?) that **reduces complexity of application code base**
-
-## S3 lifecycle policies
-
-[Illumina](https://aws.amazon.com/solutions/case-studies/illumina-carbon-emissions-case-study/?did=cr_card&trk=cr_card)
-
-### Activity
-
-* is a leading developer, manufacturer, and marketer of **life science tools** and systems for large-scale **genetics analysis**
-
-###  Problem
-
-* As the company expanded its customer base and product line, the **amount of genetic data** that Illumina securely stored in the cloud **grew exponentially—from 1 PB to 100 PB in 8 years**.
-* During 2021–2022 alone, Illumina added over **24 PB of data**
-* Illumina predicted that its stored data would continue to **double every 2 years**
- * Previously, Illumina’s teams would use **Amazon S3 lifecycle policies** to transition its data into different Amazon S3 storage classes to cut its data storage costs.
-
-
-### Solution
-
- * Illumina **decided to adopt the S3 Intelligent-Tiering** storage class.
- * a few minutes to setup
- * After **just 3 months** of using S3 Intelligent-Tiering, Illumina began to see **significant monthly cost** savings. **For every 1 TB of data**, the company saves **60 percent** on storage costs
- * I think it’s the **biggest return on investment** that we’ve ever seen
- * By using S3 Intelligent-Tiering, Illumina could **allocate its cost savings toward expanding its service and software offering**, enhancing the customer experience
-
 
 
 # Module 6
