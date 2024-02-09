@@ -5,7 +5,6 @@
 # Module 6 : Database
 
 * [Aurora Deep dive](https://pages.awscloud.com/rs/112-TZM-766/images/EV_modernize-your-databases-with-amazon-aurora_Mar-2021.pdf)
-
 * [DynamoDB Paper](https://www.usenix.org/system/files/atc22-elhemali.pdf)
 
 # Module 8 : Automation

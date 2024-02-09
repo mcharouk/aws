@@ -1,10 +1,7 @@
 import os
 
 import aws_cdk.aws_ec2 as ec2
-import aws_cdk.aws_iam as iam
-import aws_cdk.aws_logs as logs
-from aws_cdk import CfnOutput, RemovalPolicy, Stack  # Duration,; aws_sqs as sqs,
-from aws_cdk.aws_s3_assets import Asset
+from aws_cdk import CfnOutput, Stack  # Duration,; aws_sqs as sqs,
 from constructs import Construct
 
 dirname = os.path.dirname(__file__)
@@ -45,19 +42,7 @@ class VpcSecurityStack(Stack):
             network_acl=networkAcl,
             rule_number=100,
             direction=ec2.TrafficDirection.INGRESS,
-            network_acl_entry_name="Allow All Traffic",
-            cidr=ec2.AclCidr.any_ipv4(),
-            traffic=ec2.AclTraffic.all_traffic(),
-            rule_action=ec2.Action.ALLOW,
-        )
-
-        """ ec2.NetworkAclEntry(
-            self,
-            "VPCSecurityDemo-NetworkAclEntryIngressHTTP",
-            network_acl=networkAcl,
-            rule_number=101,
-            direction=ec2.TrafficDirection.INGRESS,
-            network_acl_entry_name="Allow HTTP",
+            network_acl_entry_name="Allow http port for webapp",
             cidr=ec2.AclCidr.any_ipv4(),
             traffic=ec2.AclTraffic.tcp_port(80),
             rule_action=ec2.Action.ALLOW,
@@ -65,26 +50,62 @@ class VpcSecurityStack(Stack):
 
         ec2.NetworkAclEntry(
             self,
-            "VPCSecurityDemo-NetworkAclEntryEgressEphemeralPorts",
+            "VPCSecurityDemo-NetworkAclEntryIngressEphemeralPorts",
             network_acl=networkAcl,
-            rule_number=100,
-            direction=ec2.TrafficDirection.EGRESS,
-            network_acl_entry_name="Allow HTTP",
+            rule_number=101,
+            direction=ec2.TrafficDirection.INGRESS,
+            network_acl_entry_name="Allow all traffic on ephemeral ports for yum update response",
             cidr=ec2.AclCidr.any_ipv4(),
-            traffic=ec2.AclTraffic.tcp_port_range(32768, 61000),
+            traffic=ec2.AclTraffic.tcp_port_range(1024, 65535),
             rule_action=ec2.Action.ALLOW,
-        ) """
+        )
 
         # add network acl entry that allow all outbound traffic
         ec2.NetworkAclEntry(
             self,
-            "VPCSecurityDemo-NetworkAclEntryEgressHTTP",
+            "VPCSecurityDemo-NetworkAclEntryEgressEphemeralPorts",
             network_acl=networkAcl,
             rule_number=101,
             direction=ec2.TrafficDirection.EGRESS,
-            network_acl_entry_name="Allow All Traffic",
+            network_acl_entry_name="Allow all traffic on ephemeral ports for webapp response",
             cidr=ec2.AclCidr.any_ipv4(),
-            traffic=ec2.AclTraffic.all_traffic(),
+            traffic=ec2.AclTraffic.tcp_port_range(1024, 65535),
+            rule_action=ec2.Action.ALLOW,
+        )
+
+        ec2.NetworkAclEntry(
+            self,
+            "VPCSecurityDemo-NetworkAclEntryEgressFTP",
+            network_acl=networkAcl,
+            rule_number=102,
+            direction=ec2.TrafficDirection.EGRESS,
+            network_acl_entry_name="Allow ftp traffic for yum update",
+            cidr=ec2.AclCidr.any_ipv4(),
+            traffic=ec2.AclTraffic.tcp_port_range(20, 21),
+            rule_action=ec2.Action.ALLOW,
+        )
+
+        ec2.NetworkAclEntry(
+            self,
+            "VPCSecurityDemo-NetworkAclEntryEgressHTTP",
+            network_acl=networkAcl,
+            rule_number=103,
+            direction=ec2.TrafficDirection.EGRESS,
+            network_acl_entry_name="Allow http traffic for yum update",
+            cidr=ec2.AclCidr.any_ipv4(),
+            traffic=ec2.AclTraffic.tcp_port(80),
+            rule_action=ec2.Action.ALLOW,
+        )
+
+        ec2.NetworkAclEntry(
+            self,
+            "VPCSecurityDemo-NetworkAclEntryEgressHTTPS",
+            network_acl=networkAcl,
+            rule_number=104,
+            direction=ec2.TrafficDirection.EGRESS,
+            network_acl_entry_name="Allow https traffic for yum update",
+            cidr=ec2.AclCidr.any_ipv4(),
+            traffic=ec2.AclTraffic.tcp_port(443),
             rule_action=ec2.Action.ALLOW,
         )
 
@@ -92,7 +113,7 @@ class VpcSecurityStack(Stack):
             self,
             "VPCSecurityDemo-SecurityGroup",
             vpc=vpc,
-            allow_all_outbound=True,
+            allow_all_outbound=False,
             security_group_name="VPCSecurityDemo-SecurityGroup",
             description="VPCSecurityDemo SecurityGroup",
             disable_inline_rules=True,
@@ -104,76 +125,25 @@ class VpcSecurityStack(Stack):
             description="Allow all inbound http traffic",
         )
 
-        securityGroup.add_ingress_rule(
+        securityGroup.add_egress_rule(
+            peer=ec2.Peer.ipv4("0.0.0.0/0"),
+            connection=ec2.Port.tcp(80),
+            description="Allow all outbound http traffic for yum update",
+        )
+
+        securityGroup.add_egress_rule(
             peer=ec2.Peer.ipv4("0.0.0.0/0"),
             connection=ec2.Port.tcp(443),
-            description="Allow all inbound https traffic (SystemManager)",
+            description="Allow all outbound https traffic for yum update",
         )
 
-        # create a security group for VPC Endpoints
-        vpcEndpointSecurityGroup = ec2.SecurityGroup(
-            self,
-            "SecurityGroupVpcEndpoint-VPCSecurity",
-            security_group_name="SecurityGroupVpcEndpoint-VPCSecurity",
-            description="Demo SecurityGroup For VPC Endpoints",
-            disable_inline_rules=True,
-            vpc=vpc,
-        )
-        vpcEndpointSecurityGroup.add_ingress_rule(
+        securityGroup.add_egress_rule(
             peer=ec2.Peer.ipv4("0.0.0.0/0"),
-            connection=ec2.Port.tcp(443),
-            description="Allow all inbound https traffic",
-        )
-
-        # create VPC Endpoint for SSM
-        ec2.InterfaceVpcEndpoint(
-            self,
-            "VpcEndpointSsm-VPCSecurity",
-            vpc=vpc,
-            service=ec2.InterfaceVpcEndpointAwsService.SSM,
-            subnets=ec2.SubnetSelection(subnet_type=ec2.SubnetType.PUBLIC),
-            private_dns_enabled=True,
-            security_groups=[vpcEndpointSecurityGroup],
-            open=True,
-            lookup_supported_azs=False,
-        )
-
-        ec2.InterfaceVpcEndpoint(
-            self,
-            "VpcEndpointSsmMessages--VPCSecurity",
-            vpc=vpc,
-            service=ec2.InterfaceVpcEndpointAwsService.SSM_MESSAGES,
-            subnets=ec2.SubnetSelection(subnet_type=ec2.SubnetType.PUBLIC),
-            private_dns_enabled=True,
-            security_groups=[vpcEndpointSecurityGroup],
-            open=True,
-            lookup_supported_azs=False,
-        )
-
-        # create VPC Endpoint for EC2
-        ec2.InterfaceVpcEndpoint(
-            self,
-            "VpcEndpointEc2--VPCSecurity",
-            vpc=vpc,
-            service=ec2.InterfaceVpcEndpointAwsService.EC2_MESSAGES,
-            subnets=ec2.SubnetSelection(subnet_type=ec2.SubnetType.PUBLIC),
-            private_dns_enabled=True,
-            security_groups=[vpcEndpointSecurityGroup],
-            open=True,
-            lookup_supported_azs=False,
+            connection=ec2.Port.tcp_range(20, 21),
+            description="Allow all outbound ftp traffic for yum update",
         )
 
         amzn_linux = ec2.MachineImage.latest_amazon_linux2023()
-
-        role = iam.Role(
-            self, "InstanceSSM", assumed_by=iam.ServicePrincipal("ec2.amazonaws.com")
-        )
-
-        role.add_managed_policy(
-            iam.ManagedPolicy.from_aws_managed_policy_name(
-                "AmazonSSMManagedInstanceCore"
-            )
-        )
 
         with open("./vpc_security/configure.sh") as f:
             user_data = f.read()
@@ -188,7 +158,6 @@ class VpcSecurityStack(Stack):
             associate_public_ip_address=True,
             vpc=vpc,
             machine_image=amzn_linux,
-            role=role,
             security_group=securityGroup,
             user_data=ec2.UserData.custom(user_data),
         )
@@ -199,39 +168,3 @@ class VpcSecurityStack(Stack):
             "InstancePublicDNS",
             value="http://" + instance.instance_public_dns_name,
         )
-
-        # create a cloudwatch log group named VPCFlowLog
-        vpcFlowLogLogGroup = logs.LogGroup(
-            self,
-            "VPCFlowLogLogGroup",
-            log_group_name="VPCFlowLog",
-            removal_policy=RemovalPolicy.DESTROY,
-        )
-
-        vpcflowlogRole = iam.Role(
-            self,
-            "VPCFlowLogRole",
-            assumed_by=iam.ServicePrincipal("vpc-flow-logs.amazonaws.com"),
-        )
-
-        vpcFlowLogPolicyStatement = iam.PolicyStatement(
-            sid="VPCFlowLogPolicyStatement",
-            effect=iam.Effect.ALLOW,
-            actions=[
-                "logs:CreateLogGroup",
-                "logs:CreateLogStream",
-                "logs:PutLogEvents",
-                "logs:DescribeLogGroups",
-                "logs:DescribeLogStreams",
-            ],
-            resources=["*"],
-        )
-
-        # create an identity based policy that allows read and write from dynamodb
-        vpcFlowLogPolicy = iam.Policy(
-            self,
-            "VpcFlowLogIdentityBasedPolicy",
-            statements=[vpcFlowLogPolicyStatement],
-        )
-
-        vpcFlowLogPolicy.attach_to_role(role=vpcflowlogRole)
