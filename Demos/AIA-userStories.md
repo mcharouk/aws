@@ -1,5 +1,25 @@
 # Module 1
 
+## Local Zones
+
+[Netflix](https://aws.amazon.com/fr/solutions/case-studies/netflix-aws-local-zones-case-study/)
+
+* Netflix is poised to become one of the world’s most prolific producers of **visual effects** and **original animated content**
+
+* These artists need **specialized hardware** and access to **petabytes of images** to create stunning visual effects and animations. * Historically, artists had **specialized machines built for them at their desks**; now, we are working to move their workstations to AWS to take advantage of the cloud.
+
+### Problem
+
+* To recruit talent **across the world**, the company **needed remote workstations** that could provide **similar performance** to those available to employees in Netflix’s studio headquarters
+
+* Netflix wanted to **reduce application latency** so that its artists could create content from their **home offices** or **animation hubs** without experiencing interruptions or lag
+
+### Solution
+
+* Netflix uses Local Zones to access select **AWS services closer to its artists** and to achieve **single-digit millisecond latency** from its studios to the Local Zones
+* Using the new **Amazon EC2 G5 Instances**, we can provision higher-end graphics workstations that offer **up to three times higher performance** compared to before
+* Customers using Local Zones can access the full suite of AWS services in the parent Region by using the redundant private network provided by AWS and **have the option of partitioning workloads between a Local Zone and a Region to increase availability**.
+
 ## Well Architected Tool
 
 [Cox Automative](https://aws.amazon.com/solutions/case-studies/cox-automotive-case-study-aws-well-architected/?did=cr_card&trk=cr_card)
@@ -21,25 +41,6 @@ Facilite l'Achat et vente de véhicules (le produit est une application de gesti
 * Ultimately, **customers experience this reduction in risk and technical debt** as **more uptime, improved quality of our solutions, and greater responsiveness in the experiences that we deliver**
 * **Consolidated workloads and clarified best practices across 350 engineering teams**
 
-## Local Zones
-
-[Netflix](https://aws.amazon.com/fr/solutions/case-studies/netflix-aws-local-zones-case-study/)
-
-* Netflix is poised to become one of the world’s most prolific producers of **visual effects** and **original animated content**
-
-* These artists need **specialized hardware** and access to **petabytes of images** to create stunning visual effects and animations. * Historically, artists had **specialized machines built for them at their desks**; now, we are working to move their workstations to AWS to take advantage of the cloud.
-
-### Problem
-
-* To recruit talent **across the world**, the company **needed remote workstations** that could provide **similar performance** to those available to employees in Netflix’s studio headquarters
-
-* Netflix wanted to **reduce application latency** so that its artists could create content from their **home offices** or **animation hubs** without experiencing interruptions or lag
-
-### Solution
-
-* Netflix uses Local Zones to access select **AWS services closer to its artists** and to achieve **single-digit millisecond latency** from its studios to the Local Zones
-* Using the new **Amazon EC2 G5 Instances**, we can provision higher-end graphics workstations that offer **up to three times higher performance** compared to before
-* Customers using Local Zones can access the full suite of AWS services in the parent Region by using the redundant private network provided by AWS and **have the option of partitioning workloads between a Local Zone and a Region to increase availability**.
 
 # Module 2 : Security
 

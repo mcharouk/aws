@@ -77,6 +77,7 @@ Préciser les use cases pour avoir plusieurs ENI sur une seule machine, ou use c
 * Contraintes de sécurité (une ENI public, et une ENI privée)
 * Connection à plusieurs VPC (dans le même compte)
 * Low cost HA solution : transfer ENI to another EC2
+* MAC-Based Licensing
 
 Démo Security Group / ACL  + Analogies
 
