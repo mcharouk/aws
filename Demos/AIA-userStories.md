@@ -57,13 +57,16 @@ Merge of Warner bros and Discovery Channel
 ### Problem
 
 * Goal is to be able to integrate **new acquired company without impacting the day-to-day operations of either business**
+* Warner implements governance at scale, using prior lessons learned to create a robust framework for security and governance tooling
+* treat **governance as a product**
 
 ### Solution
 
-* GuardDuty / CloudTrail / FirewallManager
-* When account creation is centralized, we have the ability to view and control cloud spend in a single pane of glass
+* GuardDuty / CloudTrail : **centralize logs and security findings**
+* FirewallManager : **from days to minutes** to deploy rules
+* When account creation is centralized, we have the ability to **view and control cloud spend** in a single pane of glass
 * Before 2019, creating a new account could take up to **2 months**. Now that the centralized process is used, with defined features and a controlled process, an account can be configured immediately, and the entire delivery is finished **within 2 days**.
-* When merging Discovery Channel, The company went from 270 accounts to thousands of accounts.
+* When merging Discovery Channel, The company went **from 270 accounts to thousands** of accounts.
 
 # Module 3 : Networking
 
