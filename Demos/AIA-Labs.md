@@ -1,3 +1,32 @@
+## Lab1
+
+* Step 1 : region choice
+  * Search bar
+  * Favourites
+  * Widgets
+* Step 2 : Create a bucket
+  * Check it's on the right region
+  * Careful about the name of bucket (unique among all aws accounts)
+  * Careful about major cases, underscores, etc...
+* Step 3 : Create a bucket programmatically
+  * to get info about default region
+```
+aws configure list
+```
+  * to set the default region
+```
+aws configure set default.region us-west-2
+```
+  * create a bucket 
+```
+aws s3 mb s3://fdkfsjfls
+```
+  * check commands, the only thing that could really mess up is the name of the bucket. Maybe missing the S3://
+  * aws s3 cp /home/ssm-user/HappyFace.jpg s3://labclibucket-NUMBER
+  * aws s3 ls s3://labclibucket-NUMBER
+
+
+
 ## Lab2
 
 Déroulé : 
