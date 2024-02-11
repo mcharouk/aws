@@ -68,6 +68,7 @@ Merge of Warner bros and Discovery Channel
 * Before 2019, creating a new account could take up to **2 months**. Now that the centralized process is used, with defined features and a controlled process, an account can be configured immediately, and the entire delivery is finished **within 2 days**.
 * When merging Discovery Channel, The company went **from 270 accounts to thousands** of accounts.
 
+
 # Module 3 : Networking
 
 
