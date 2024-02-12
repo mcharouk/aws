@@ -1,6 +1,6 @@
 # Module 1 : Infrastructure
 
-* [Security Reference Architecture](https://docs.aws.amazon.com/prescriptive-guiance/latest/security-reference-architecture/architecture.html)
+* [Security Reference Architecture](https://docs.aws.amazon.com/prescriptive-guidance/latest/security-reference-architecture/welcome.html)
 
 # Module 6 : Database
 
