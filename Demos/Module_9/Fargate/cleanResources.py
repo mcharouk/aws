@@ -32,5 +32,5 @@ client = boto3.client("ecr")
 response = client.describe_repositories()
 
 for repo in response["repositories"]:
-    print("deleting " + repo["repositoryName"])
+    print("deleting " + repo["repositoryName"] + " repository")
     client.delete_repository(repositoryName=repo["repositoryName"], force=True)

@@ -21,9 +21,12 @@ What do you consider personally being the best driver to move to the cloud ?
 
 Reminder : pas trop
 
-* Analogie : AssumeRole / Policier
-* Quizz avant d'aborder les policies.
-
+* Analogie
+  * AssumeRole / Policier -> ne pas en parler car le timing est juste sur ce module...
+  * Permission Boundary / policies : Constitution / Loi
+  * Boite de nuit pour expliquer les resources based / identity based -> pas le temps
+* Quizz avant d'aborder les policies : pas le temps
+* Dashboard sur l'intérêt des multi account : essayer de pas trop prendre de temps
 
 ## Policies
 
@@ -110,6 +113,11 @@ Quizz sur les security group / ACL à la place du tableau de synthèse
 * Reminder : sur identity based policies vs resource based policy pour le bucket S3
 * Petit quizz sur la syntaxe d'une policy
 * Access Point : Analogie
+* Analogie
+  * On a un livre, on va stocker une page ou un ensemble de pages sur des étagères différents. C'est plus performant, car lorsque l'on cherche quelque chose, on chercher dans ces pages, plutôt que des chercher dans tous le livre
+  * On a un livre, on stocke le livre dans son entiereté mais on le classe dans une hiérarchie à plusieurs niveaux (folder) d'une manière à le trouver plus facilement. Par exemple on a une bibliothèque qui classe les livres par ordre alphabétique.
+  * Chaque livre a une référence. On peut facilement retrouver le livre avec sa référence (object key) mais c'est à peu près tout
+  [cloud storage types](https://www.freecodecamp.org/news/cloud-storage-options/)
 * User Story : Intelligent Tiering
 * Demo : Bucket Versioning
 * User Story : Lambda
