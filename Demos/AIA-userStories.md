@@ -370,6 +370,33 @@ Digital application that link consumer and professionals on topics like moving, 
 
 # Module 12
 
+## Cloudfront
+
+[Zalando](https://aws.amazon.com/fr/solutions/case-studies/zalando-case-study/)
+
+### Activity
+
+il s'agit d'un site qui fait le lien entre des consommateurs et des vendeurs, axé sur la mode. Besoin de diffuser des photos sur son site.
+
+### Problem
+
+ils avaient un ancien CDN non satisfaisant
+* manque de visibilité opérationnelle (log...). 
+* Flexibilité limitée dans la configuration
+
+### Solution
+
+* La migration a duré **4 mois**.
+* Migration de **20 sites web**
+  * total de **26,93 Po** de données
+  * Le pic de trafic a régulièrement dépassé les **100 000 requêtes par seconde**
+* Utilisation de Lambda@Edge et Cloudfront functions pour 
+  * normaliser la largeur des images
+  * réécrire les URL en fonction du type d'appareil de l'utilisateur
+* Taux de succès de cache (Cache hit ratio) de **99,5%**
+* **5 milliards** d'images par jour
+* Projet pour mettre de la vidéo
+
 ## Firewall Manager and Shield Advanced
 
 [Outsystems](https://aws.amazon.com/solutions/case-studies/outsystems-case-study/?did=cr_card&trk=cr_card)
@@ -398,32 +425,6 @@ But still :
 * Using AWS, we reduced 2 hours of work to less than 5 minutes
 * OutSystems **reduced its costs by 88 percent per month** by upgrading to **Shield Advanced**. The company gains these significant cost savings on an ongoing basis despite its scale because **it no longer needs to pay for each WAF or rule**
 
-## Cloudfront
-
-[Zalando](https://aws.amazon.com/fr/solutions/case-studies/zalando-case-study/)
-
-### Activity
-
-il s'agit d'un site qui fait le lien entre des consommateurs et des vendeurs, axé sur la mode. Besoin de diffuser des photos sur son site.
-
-### Problem
-
-ils avaient un ancien CDN non satisfaisant
-* manque de visibilité opérationnelle (log...). 
-* Flexibilité limitée dans la configuration
-
-### Solution
-
-* La migration a duré **4 mois**.
-* Migration de **20 sites web**
-  * total de **26,93 Po** de données
-  * Le pic de trafic a régulièrement dépassé les **100 000 requêtes par seconde**
-* Utilisation de Lambda@Edge et Cloudfront functions pour 
-  * normaliser la largeur des images
-  * réécrire les URL en fonction du type d'appareil de l'utilisateur
-* Raux de succès de cache (Cache hit ratio) de **99,5%**
-* **5 milliards** d'images par jour
-* Projet pour mettre de la vidéo
 
 # Module 13
 
