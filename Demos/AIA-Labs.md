@@ -97,17 +97,19 @@ Bonus :
   * **Faire attention au comportement du navigateur**, c'est du http 
 * Task 2 : create a launch template config
   * il faut bien spécifier l'AMI Linux 2 et pas 2023 sinon ca marche pas...
-  * Attention au Sec Group, Instance Profile, Metadata V1 and V2 (jeton facultatif) -> je sais pas si c'est grave
-  * Ne pas inclure de subnet
+  * Il ne faut rien mettre dans le réseau (VPC/Subnet)
+  * Attention au Sec Group, Instance Profile, Metadata V1 and V2 (jeton facultatif) -> je sais pas si c'est grave, mais ce n'est pas l'option par défaut que l'on doit sélectionner
 * Task 3 : ASG
   * Il faut le mettre dans les private subnet (et le bon VPC)
     * Attention à la grace period (300s), sinon les health check risque de ne pas marcher
     * Il faut bien cocher la case pour collecter les métriques cloudwatch
+    * Attacher au target group existant
+    * Les ELB health check ne sont pas activés
 * Task 4 : Test
 * Task 5 : Test
 * Task 6 : Add a read replica
 * Task 7 : NAT Gateway Resilience
-  * Attention à la créer dans le bon public subnet
+  * Attention à la créer dans le bon public subnet (LE No 2)
   * table de routage associée au bon VPC
   * vérifier la table de routage, et son attachment au subnet. Le subnet associée doit être le même que celui de la NAT Gateway précédemment créé...
 * Task 8 : Test High Availability of database
@@ -133,7 +135,7 @@ Bonus :
 * Task 5 : upload d'un fichier et test  
 * Task 6 : Validation du test
 
-* Optionnel
+* Optionel
   * lifecycle policy
     *  regarder les subtilités dans le lab surtout les options à cocher
   * SNS email
@@ -153,12 +155,12 @@ Bonus :
     * Origin Path doit être vide
     * OAI : attention à ne pas créer un OAC
   * Création d'un comportement (behavior)
-    * LE chemin doit être cohérent avec le folder créé dans le bucket
+    * Le chemin doit être cohérent avec le folder créé dans le bucket (on créé un folder CachedObjects normalement)
     * Séléctionner la bonne origine
     * Vérifier Cache Key and origin resquests caractéristiques 
       * Cache policy and origin request policy (recommended)
       * Cache Policy = CachingOptimized
-    * dans Security/Origin Access (dans le menu à droite)
+    * dans Security/Origin Access (dans le menu à gauche)
 * Task 6 : changer la bucket policy avec le canonical user de cloudfront
 * Task 7 : bonus, mettre en place une réplication CRR
   * créer un nouveau bucket dans la région secondaire. Vérifier que le versioning est bien activé dessus
