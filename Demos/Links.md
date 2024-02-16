@@ -1,5 +1,9 @@
 # Module 1 : Infrastructure
 
+
+# Module 2 : Account Security
+
+* [IAM Identity Center](https://docs.aws.amazon.com/singlesignon/latest/userguide/what-is.html)
 * [Security Reference Architecture](https://docs.aws.amazon.com/prescriptive-guidance/latest/security-reference-architecture/welcome.html)
 
 # Module 6 : Database
@@ -21,3 +25,7 @@
 
 * [API Gateway Developer Portal](https://github.com/awslabs/aws-api-gateway-developer-portal)
 * [Serverless land](https://serverlessland.com/)
+
+# Module 12 : Edge
+
+* [DDoS Best Practices](https://docs.aws.amazon.com/whitepapers/latest/aws-best-practices-ddos-resiliency/aws-best-practices-ddos-resiliency.html)

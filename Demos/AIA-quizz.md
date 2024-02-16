@@ -252,3 +252,9 @@ Le reste est pas trop intéressant et est déjà montré dans le lab
 * Probes : 
   * A quoi est il important de pense qd on fait des backup ?
   * Poser des questions sur le RTO / RPO
+
+
+* Off-site backup is a method of backing up data to a remote server or to media that's transported off site
+* Colocation facilities : ce sont des sites multi-tenant en gros
+* Tape retrievals
+* On-premise backups are data backups that copy your hardware data to a storage device placed in-house

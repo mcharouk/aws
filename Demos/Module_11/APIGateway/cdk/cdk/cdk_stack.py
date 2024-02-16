@@ -19,7 +19,7 @@ class CdkStack(Stack):
             handler="lambda_function.lambda_handler",
         )
 
-        generate_api_gateway = False
+        generate_api_gateway = True
 
         if generate_api_gateway == True:
             self.generate_api_gateway(lambdaFunction)
