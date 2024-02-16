@@ -42,32 +42,9 @@ class TransitGatewayStack(Stack):
             VPCProperties("VPC-C", "10.2.0.0/24"),
         ]
 
-        for vpcProperty in vpcProperties:
-            vpc = ec2.Vpc(
-                self,
-                vpcProperty.name,
-                ip_addresses=ec2.IpAddresses.cidr(vpcProperty.cidr),
-                max_azs=1,
-                nat_gateways=0,
-                subnet_configuration=[
-                    ec2.SubnetConfiguration(
-                        subnet_type=ec2.SubnetType.PRIVATE_ISOLATED,
-                        cidr_mask=28,
-                        name="PrivateSubnet",
-                    )
-                ],
-            )
+        amzn_linux = ec2.MachineImage.latest_amazon_linux2023()
 
-            tgw_attachment = ec2.CfnTransitGatewayAttachment(
-                self,
-                "TransitGatewayAttachment-" + vpcProperty.name,
-                transit_gateway_id=tgw.ref,
-                vpc_id=vpc.vpc_id,
-                subnet_ids=[subnet.subnet_id for subnet in vpc.isolated_subnets],
-            )
-
-            amzn_linux = ec2.MachineImage.latest_amazon_linux2023()
-
+        def createEC2Instance(vpc, vpcProperty, instance_name, with_session_manager):
             role = iam.Role(
                 self,
                 "InstanceSSM" + vpcProperty.name,
@@ -79,8 +56,6 @@ class TransitGatewayStack(Stack):
                     "AmazonSSMManagedInstanceCore"
                 )
             )
-
-            # create a security group for the instance with icmp allowed in inbound and outbound
             securityGroup = ec2.SecurityGroup(
                 self,
                 "SecurityGroup-" + vpcProperty.name,
@@ -108,7 +83,7 @@ class TransitGatewayStack(Stack):
             )
 
             # create an instance in vpc with session manager enabled
-            instance_name = "TransitGatewayTestInstance-" + vpcProperty.name
+
             instance = ec2.Instance(
                 self,
                 instance_name,
@@ -125,75 +100,85 @@ class TransitGatewayStack(Stack):
                 security_group=securityGroup,
             )
 
-            # create a security group for VPC Endpoints
-            vpcEndpointSecurityGroup = ec2.SecurityGroup(
+            if with_session_manager:
+                # create a security group for VPC Endpoints
+                vpcEndpointSecurityGroup = ec2.SecurityGroup(
+                    self,
+                    "SecurityGroupVpcEndpoint-" + vpcProperty.name,
+                    security_group_name="SecurityGroupVpcEndpoint-" + vpcProperty.name,
+                    description="Demo SecurityGroup",
+                    disable_inline_rules=True,
+                    vpc=vpc,
+                )
+                vpcEndpointSecurityGroup.add_ingress_rule(
+                    peer=ec2.Peer.ipv4("0.0.0.0/0"),
+                    connection=ec2.Port.tcp(443),
+                    description="Allow all inbound https traffic",
+                )
+
+                # create VPC Endpoint for SSM
+                ec2.InterfaceVpcEndpoint(
+                    self,
+                    "VpcEndpointSsm-" + vpcProperty.name,
+                    vpc=vpc,
+                    service=ec2.InterfaceVpcEndpointAwsService.SSM,
+                    subnets=ec2.SubnetSelection(
+                        subnet_type=ec2.SubnetType.PRIVATE_ISOLATED
+                    ),
+                    private_dns_enabled=True,
+                    security_groups=[vpcEndpointSecurityGroup],
+                    open=True,
+                    lookup_supported_azs=False,
+                )
+
+                ec2.InterfaceVpcEndpoint(
+                    self,
+                    "VpcEndpointSsmMessages-" + vpcProperty.name,
+                    vpc=vpc,
+                    service=ec2.InterfaceVpcEndpointAwsService.SSM_MESSAGES,
+                    subnets=ec2.SubnetSelection(
+                        subnet_type=ec2.SubnetType.PRIVATE_ISOLATED
+                    ),
+                    private_dns_enabled=True,
+                    security_groups=[vpcEndpointSecurityGroup],
+                    open=True,
+                    lookup_supported_azs=False,
+                )
+
+                # create VPC Endpoint for EC2
+                ec2.InterfaceVpcEndpoint(
+                    self,
+                    "VpcEndpointEc2-" + vpcProperty.name,
+                    vpc=vpc,
+                    service=ec2.InterfaceVpcEndpointAwsService.EC2_MESSAGES,
+                    subnets=ec2.SubnetSelection(
+                        subnet_type=ec2.SubnetType.PRIVATE_ISOLATED
+                    ),
+                    private_dns_enabled=True,
+                    security_groups=[vpcEndpointSecurityGroup],
+                    open=True,
+                    lookup_supported_azs=False,
+                )
+
+            return instance
+
+        def createVPC(vpcProperty):
+            return ec2.Vpc(
                 self,
-                "SecurityGroupVpcEndpoint-" + vpcProperty.name,
-                security_group_name="SecurityGroupVpcEndpoint-" + vpcProperty.name,
-                description="Demo SecurityGroup",
-                disable_inline_rules=True,
-                vpc=vpc,
-            )
-            vpcEndpointSecurityGroup.add_ingress_rule(
-                peer=ec2.Peer.ipv4("0.0.0.0/0"),
-                connection=ec2.Port.tcp(443),
-                description="Allow all inbound https traffic",
+                vpcProperty.name,
+                ip_addresses=ec2.IpAddresses.cidr(vpcProperty.cidr),
+                max_azs=1,
+                nat_gateways=0,
+                subnet_configuration=[
+                    ec2.SubnetConfiguration(
+                        subnet_type=ec2.SubnetType.PRIVATE_ISOLATED,
+                        cidr_mask=28,
+                        name="PrivateSubnet",
+                    )
+                ],
             )
 
-            # create VPC Endpoint for SSM
-            ec2.InterfaceVpcEndpoint(
-                self,
-                "VpcEndpointSsm-" + vpcProperty.name,
-                vpc=vpc,
-                service=ec2.InterfaceVpcEndpointAwsService.SSM,
-                subnets=ec2.SubnetSelection(
-                    subnet_type=ec2.SubnetType.PRIVATE_ISOLATED
-                ),
-                private_dns_enabled=True,
-                security_groups=[vpcEndpointSecurityGroup],
-                open=True,
-                lookup_supported_azs=False,
-            )
-
-            ec2.InterfaceVpcEndpoint(
-                self,
-                "VpcEndpointSsmMessages-" + vpcProperty.name,
-                vpc=vpc,
-                service=ec2.InterfaceVpcEndpointAwsService.SSM_MESSAGES,
-                subnets=ec2.SubnetSelection(
-                    subnet_type=ec2.SubnetType.PRIVATE_ISOLATED
-                ),
-                private_dns_enabled=True,
-                security_groups=[vpcEndpointSecurityGroup],
-                open=True,
-                lookup_supported_azs=False,
-            )
-
-            # create VPC Endpoint for EC2
-            ec2.InterfaceVpcEndpoint(
-                self,
-                "VpcEndpointEc2-" + vpcProperty.name,
-                vpc=vpc,
-                service=ec2.InterfaceVpcEndpointAwsService.EC2_MESSAGES,
-                subnets=ec2.SubnetSelection(
-                    subnet_type=ec2.SubnetType.PRIVATE_ISOLATED
-                ),
-                private_dns_enabled=True,
-                security_groups=[vpcEndpointSecurityGroup],
-                open=True,
-                lookup_supported_azs=False,
-            )
-
-            # add a route to the vpc route table that targets transit gateway
-            route = ec2.CfnRoute(
-                self,
-                "VPCRouteToTransitGateway-" + vpcProperty.name,
-                route_table_id=vpc.isolated_subnets[0].route_table.route_table_id,
-                destination_cidr_block="10.0.0.0/8",
-                transit_gateway_id=tgw.ref,
-            )
-
-            route.node.add_dependency(tgw_attachment)
+        def generate_outputs(vpcProperty, instance, instance_name, vpc):
             CfnOutput(
                 self,
                 vpcProperty.name + "-Id",
@@ -205,3 +190,46 @@ class TransitGatewayStack(Stack):
                 instance_name + "-PrivateIp",
                 value=instance.instance_private_ip,
             )
+
+            CfnOutput(
+                self,
+                vpcProperty.name + "-CIDRBlock",
+                value=vpc.vpc_cidr_block,
+            )
+
+        for vpcProperty in vpcProperties:
+            vpc = createVPC(vpcProperty=vpcProperty)
+
+            tgw_attachment = ec2.CfnTransitGatewayAttachment(
+                self,
+                "TransitGatewayAttachment-" + vpcProperty.name,
+                transit_gateway_id=tgw.ref,
+                vpc_id=vpc.vpc_id,
+                subnet_ids=[subnet.subnet_id for subnet in vpc.isolated_subnets],
+            )
+
+            instance_name = "TransitGatewayTestInstance-" + vpcProperty.name
+            instance = createEC2Instance(vpc, vpcProperty, instance_name, True)
+            # add a route to the vpc route table that targets transit gateway
+            route = ec2.CfnRoute(
+                self,
+                "VPCRouteToTransitGateway-" + vpcProperty.name,
+                route_table_id=vpc.isolated_subnets[0].route_table.route_table_id,
+                destination_cidr_block="10.0.0.0/8",
+                transit_gateway_id=tgw.ref,
+            )
+
+            route.node.add_dependency(tgw_attachment)
+
+            generate_outputs(vpcProperty, instance, instance_name, vpc)
+
+        peerVpc = True
+
+        if peerVpc == True:
+            peeringVpcProperty = VPCProperties("VPC-D", "10.3.0.0/24")
+
+            vpc = createVPC(vpcProperty=peeringVpcProperty)
+
+            instance_name = "VpcPeeringTestInstance-" + peeringVpcProperty.name
+            instance = createEC2Instance(vpc, peeringVpcProperty, instance_name, False)
+            generate_outputs(peeringVpcProperty, instance, instance_name, vpc)
