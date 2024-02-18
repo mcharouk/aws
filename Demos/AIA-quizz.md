@@ -187,15 +187,11 @@ Console : CDK, AWS Solutions library
 
 # Module 10 : Networking 2
 
-* As introduction : Reminder on public subnet / private subnet. 
-* Analogy sur How to access AWS endpoints :  Je possède deux apparts adjacents. Au lieu de sortir dans le couloir à chaque fois pour accéder à l'autre appartement, je vais construire une porte entre les 2 appartements pour ne pas passer par le couloir à chaque fois.
-
-* Probes : Site-to-site VPN ou direct connect
-  * Voyez vous un SPOF sur le schéma (site to site) ? 
+* Demo : VPC Peering
 * Quizz : Direct connect vs Site-to-site VPN
-* Demo & Analogy : Transit Gateway / réseau sociaux
-* Console : montrer les VPC endpoints SSM dans la démo de la transit gateway
-* Reminder : Security group sur la démo de la transit gateway
+* Demo : Transit Gateway
+  * D'abord expliquer l'analogie sur le whiteboard
+  * Puis basculer sur la console pour executer la démo
 
 ## Requirements Direct Connect
 

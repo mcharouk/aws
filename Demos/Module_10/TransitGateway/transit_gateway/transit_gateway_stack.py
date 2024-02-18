@@ -181,19 +181,19 @@ class TransitGatewayStack(Stack):
         def generate_outputs(vpcProperty, instance, instance_name, vpc):
             CfnOutput(
                 self,
-                vpcProperty.name + "-Id",
+                "VPC-Id-" + vpcProperty.name,
                 value=vpc.vpc_id,
             )
 
             CfnOutput(
                 self,
-                instance_name + "-PrivateIp",
+                "Instance-PrivateIp-" + instance_name,
                 value=instance.instance_private_ip,
             )
 
             CfnOutput(
                 self,
-                vpcProperty.name + "-CIDRBlock",
+                "VPC-CidrBlock-" + vpcProperty.name,
                 value=vpc.vpc_cidr_block,
             )
 
