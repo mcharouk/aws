@@ -1,7 +1,7 @@
 # remove iam role named TechLeadRole
 import boto3
 
-techleadRoleName = "TechLeadRole"
+techleadRoleName = "LambdaRole"
 iam = boto3.client("iam")
 
 # remove permission boundary from TechLeadRole

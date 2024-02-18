@@ -6,7 +6,7 @@
 
 Role Name
 ```
-TechLeadRole
+LambdaRole
 ```
 
 ### Policy
