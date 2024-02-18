@@ -214,10 +214,10 @@ Console : CDK, AWS Solutions library
 
 * User Story : SNS
 * Analogy : SQS restaurant, Orchestrateur vs choregraphy
-* Demo : API Gateway, Step Functions on best effort
+* Demo : API Gateway / Step function pas assez de temps
+* Passer rapidement sur les features d'API Gateway, ne pas le montrer dans la console
 * Quizz : SNS vs SQS en Quizz
-* Reminder : 
-  * Différences et similitude avec API Gateway / ALB. Dire comment intéger un ALB dans l'archi API Gateway
+* Reminder :   
   * Parler de SQS et scaling sur ApproximateNumberOfMessage : Créer une cloudwatch alarm, ASG, etc...
   * Spot instances avec sqs (fault tolerant workload)
 * Probes : 
@@ -225,7 +225,7 @@ Console : CDK, AWS Solutions library
   * Qui connait la différence entre la chorégraphie et l'orchestration ?
 * Console : SQS parameters
 Le reste est pas trop intéressant et est déjà montré dans le lab
-
+* Passer rapidement sur Kinesis et Step function
 
 # Module 12 : Edge
 

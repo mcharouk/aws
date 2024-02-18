@@ -1,4 +1,33 @@
+# Demo
 
+## VPC Security
+
+
+### NACLs
+
+Inbound : 
+
+| rule | port | cidr      | action |
+| ---- | ---- | --------- | ------ |
+| 100  | 80   | 0.0.0.0/0 | ALLOW  |
+
+Outbound
+
+| rule | port       | cidr      | action |
+| ---- | ---------- | --------- | ------ |
+| 101  | 1024-65535 | 0.0.0.0/0 | ALLOW  |
+
+### Security Group
+
+Inbound
+
+| port | cidr      |
+| ---- | --------- |
+| 80   | 0.0.0.0/0 |
+
+
+
+## VPC Flow Logs
 For VPC Flow logs
 ```
 {

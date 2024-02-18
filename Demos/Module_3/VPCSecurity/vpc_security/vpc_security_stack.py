@@ -36,7 +36,7 @@ class VpcSecurityStack(Stack):
             subnet_selection=ec2.SubnetSelection(subnet_type=ec2.SubnetType.PUBLIC),
         )
 
-        ec2.NetworkAclEntry(
+        """ ec2.NetworkAclEntry(
             self,
             "VPCSecurityDemo-NetworkAclEntryIngressHTTP",
             network_acl=networkAcl,
@@ -46,7 +46,7 @@ class VpcSecurityStack(Stack):
             cidr=ec2.AclCidr.any_ipv4(),
             traffic=ec2.AclTraffic.tcp_port(80),
             rule_action=ec2.Action.ALLOW,
-        )
+        ) """
 
         ec2.NetworkAclEntry(
             self,
@@ -61,7 +61,7 @@ class VpcSecurityStack(Stack):
         )
 
         # add network acl entry that allow all outbound traffic
-        ec2.NetworkAclEntry(
+        """ ec2.NetworkAclEntry(
             self,
             "VPCSecurityDemo-NetworkAclEntryEgressEphemeralPorts",
             network_acl=networkAcl,
@@ -71,7 +71,7 @@ class VpcSecurityStack(Stack):
             cidr=ec2.AclCidr.any_ipv4(),
             traffic=ec2.AclTraffic.tcp_port_range(1024, 65535),
             rule_action=ec2.Action.ALLOW,
-        )
+        ) """
 
         ec2.NetworkAclEntry(
             self,
@@ -119,11 +119,11 @@ class VpcSecurityStack(Stack):
             disable_inline_rules=True,
         )
 
-        securityGroup.add_ingress_rule(
+        """ securityGroup.add_ingress_rule(
             peer=ec2.Peer.ipv4("0.0.0.0/0"),
             connection=ec2.Port.tcp(80),
             description="Allow all inbound http traffic",
-        )
+        ) """
 
         securityGroup.add_egress_rule(
             peer=ec2.Peer.ipv4("0.0.0.0/0"),
