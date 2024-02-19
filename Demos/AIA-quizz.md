@@ -2,167 +2,93 @@
 
 # Module 1 : Infrastructure
 
-* Sondage : 
-What do you consider personally being the best driver to move to the cloud ?
-  * Cost
-  * Time To Market
-  * Innovation
-  * No infra maintenance
-  * Security
-  * Easy and (near) unlimited scaling
-
-* Analogies : Edge Location / Local Zone
-* Quizz :  Local Zone / Edge Locations
-
-* Jeu sur le Well Architected Framework
-* Demo : Montrer le Well architected Tool
+* Local Zone : Netflix
+* Local Zone vs Edge Locations : Poll questions
+* Well Architected Framework : Game to recognize icons
+* Well architected Tool
+  * Customer success story
+  * Show on Console
 
 # Module 2 : IAM
 
-Reminder : pas trop
-
-* Analogie
-  * AssumeRole / Policier -> ne pas en parler car le timing est juste sur ce module...
-  * Permission Boundary / policies : Constitution / Loi
-  * Boite de nuit pour expliquer les resources based / identity based -> pas le temps
-* Quizz avant d'aborder les policies : pas le temps
-* Dashboard sur l'intérêt des multi account : essayer de pas trop prendre de temps
-
-## Policies
-
-* Console : montrer les policy avec la console (comment les éditer, différents types d'identity based policies)
-
-* Analogie au moment d'expliquer l'explicit deny :  Accès à une boite de nuit
-  * Identity based policy = on possède une entrée
-  * Resource Based policy = on a une autorisation d'un dirigeant de la boite de nuit
-  * Explicit Deny : c'est comme si le videur avait une black list. Quelque soit les autorisations que l'on peut donner, tu ne peux pas rentrer tant que tu es sur la blacklist.
-
-## Permission Boundary
-
-* Check for experience : 
-  * Au moment des permission boundary, poser la question quel est le challenge que pose least privilege principle ?
-
-* Analogies : Permission Boundary : Constitution & loi
-Démo
-
-## Multi Account
-
-* Quels sont les problèmes d'avoir peu de comptes ? 
-  * Analogies : Syndic
-  * Arguments : 
-    * Plus facile de mettre des restrictions spécifiques en fonction de l'environnement,
-des applications, ou de la réglementation.
-    * Si un compte doit être HIPAA compliant, pas la peine d'imposer ses contraintes à tout le monde.
-    * Si l'organisation des personnes, des rôles et des responsabilités différe d'un env à un autre, plus facile de séggreger. Chacun à son pré, et on ne prend pas le risque que les administrateurs se marchent dessus.
-    * Plus facile de gérer les coûts car ils sont liés directement à un compte.
-    * Service Quotas
-    * Blast Radius
-
-* Pourquoi AWS Organization ?
-  * Quels sont les challenges posés par le fait d'avoir plusieurs comptes ?
-  
+* Authentication 
+  * Show user part on console
+  * AssumeRole / Policier
+  * Poll questions
+* Authorization
+  * Whiteboard on Resource based policy
+  * Permission Boundary
+    * Analogie Constitution / Loi
+    * whiteboard + demo
+* Multi account
+  * Analogie appartements / syndic
+  * Qd on parle du pourquoi d'AWS Organizations
+    * Warner Bros  
+  * Qd on parle d'AWS Organzations
+    * Lien SRA / Control Tower
 
 # Module 3 : Networking 1
 
-Analogies : 
-* Security Group / ACLs : Avion / Cinéma
-* Masque Sous réseau / Host : Classe / élèves
+* Whiteboard + analogie pour expliquer les addresses IP
 * Table de routage : panneau d'indication
-
-Rappel sur la haute disponibilité, et sur le concept de région
-
-Poll questions :
-* Est ce que vous pouvez me dire à quoi va ressembler la table de routage d'un subnet privé ?
-* Est ce que vous voyez quel problème peut poser des IP publiques éphémères ?
-* Est ce que vous voyez à quoi peut servir d'avoir plusieurs ENI sur une même machine ?
-
-Préciser les use cases pour avoir plusieurs ENI sur une seule machine, ou use case pour voir une EIP
-* Contraintes de sécurité (une ENI public, et une ENI privée)
-* Connection à plusieurs VPC (dans le même compte)
-* Low cost HA solution : transfer ENI to another EC2
-* MAC-Based Licensing
-
-Démo Security Group / ACL  + Analogies
-
-Quizz sur les security group / ACL à la place du tableau de synthèse
+* Whiteboard pour les différentes ENI sur une seule machine
+* Démo Security Group / ACL  + Analogie Avion / Cinéma
+* Poll question sur les security group / ACL
 
 # Module 4 : Compute
 
 * User Story EC2 : Treat your server like cattle, not like a pet.
-* Quizz sur les use cases par type d'instances
-* Key pair : analogie cadenas / clef
-* Probes 
-  * Qu'est ce qui porte l'adresse IP d'une instance ?
-  * Comment gère-t-on la sécurité d'un EC2
-    * Instance Role
-    * Security Group
-  * ENI
-* Placement Group : analogie avec le flex
+* montrer les propriétés EC2 au fur et à mesure
+* Type d'instances
+  * Quizz sur les use cases par type d'instances
+  * montrer Amazon Q qui fait des recommandations sur les types d'instance en fonction du workload
+* EC2 Networking : probes ?
+* Placement Group : Analogie avec le flex
 * Scripts and Metadata
   * A quoi sert le user data ? Rappel sur l'AMI = static, user data = Dynamique
   * Metadata : récupérer des informations dynamiques sur l'instance.
-
-* Console : 
-  * montrer les propriétés EC2 au fur et à mesure
-  * montrer Amazon Q qui fait des recommandations sur les types d'instance en fonction du workload
-  * montrer la lambda dans la console, mieux que le powerpoint. Faire un démo en même temps.
+* Spot Pricing
+  * Whiteboard
+  * Montrer les prix sur la console (aller dans Spot Requests dans le menu, puis aller dans Pricing History)
+* Lambda   
+  * Ne pas trop montrer les slides, plutôt montrer le whiteboard de démo et la démo
+  * User Story : Lambda pour illustrer les cas d'usages
 
 # Module 5 : Storage
 
-* Quizz sur les cas d'usage, sachant qu'on est dans un mode Write Once - Read Many
-* Reminder : sur identity based policies vs resource based policy pour le bucket S3
-* Petit quizz sur la syntaxe d'une policy
-* Access Point : Analogie
-* Analogie
+* Analogie sur les types de storage
   * On a un livre, on va stocker une page ou un ensemble de pages sur des étagères différents. C'est plus performant, car lorsque l'on cherche quelque chose, on chercher dans ces pages, plutôt que des chercher dans tous le livre
-  * On a un livre, on stocke le livre dans son entiereté mais on le classe dans une hiérarchie à plusieurs niveaux (folder) d'une manière à le trouver plus facilement. Par exemple on a une bibliothèque qui classe les livres par ordre alphabétique.
+  * On a un livre, on stocke le livre dans son entiereté mais on le classe dans une hiérarchie à plusieurs niveaux (folder) d'une manière à le trouver plus facilement. Par exemple on a une bibliothèque qui classe les livres par thèmes puis par ordre alphabétique d'auteur, etc...
   * Chaque livre a une référence. On peut facilement retrouver le livre avec sa référence (object key) mais c'est à peu près tout
   [cloud storage types](https://www.freecodecamp.org/news/cloud-storage-options/)
-* User Story : Intelligent Tiering
+* S3 : Montrer sur la console la partie accès
+* Access Point : Analogie
+* Lifecycle policies
+  * User Story : sur l'Intelligent Tiering 
 * Demo : Bucket Versioning
-* User Story : Lambda
-* Quizz sur les cas d'usage, sachant les contraintes de la lambda
-* Eventuellement une petite démo Lambda pour montrer la facilité d'usage
-
-* Console : 
-  * montrer le bucket s3
-  * montrer en live le block public access
-  * le bucket policy qui donne un accès publique
+* Quizz sur les cas d'usage en synthèse d'EFS
+* Customer Success Story sur la storage gateway
 
 # Module 6 : Database
 
-Il faudrait une analogie pour expliquer la différence entre SQL et NoSQL
-Supermarché vs panier customisé
-
-* Quizz on noSQL vs SQL to validate knowledge in case people already know that.
-* User Story
-* Reminder : sur les zones de disponibilité, sur les régions pour le DR éventuellement.
-* Autour de la sécurité : en plus de l'encryption, poser la question comment peut on sécuriser la base en terme de réseau, d'accés. Question piège sur l'accès à la data.
-* Quizz sur les use cases possible de DynamoDB
-  * Sur la sécurité :
-    *  Poser des questions sur le réseau (question piège car dynamo ne vit pas dans un VPC)
-    *  Opérations sur l'infra et la data (IAM dans les 2 cas)
-* Demo DynamoDB
+* Dynamodb customer success story pour illustrer SQL vs NoSQL
+* RDS : customer success story
+* Link Aurora (livre blanc)
+* Aller sur la console qd on crée la table dynamoDB, plutôt que de montrer les slides
+* Whiteboard RCU / WCU
+* Demo DynamoDB Global Tables
+* Link DynamoDB (livre blanc)
+* Elasticache : whiteboard si il y a du temps
 
 # Module 7 : Monitoring & scaling
 
-* Poll questions on why we should care about monitoring ? 
-
-* Reminder : AWS Organizations for cloudtrail especially
-* User story : Predictive scaling
-
-* Reminder : utilisation du user data et AMI pour la cloudwatch log agent.
-On peut aussi l'installer dans une AMI, mais il faut que 
-  * la config soit mise à jour dynamiquement
-  * faire attention aux mises à jour du log agent
-  * Ne pas mettre les AWS Credentials dans l'AMI
-
-* Quizz on what ? Use cases for ELB maybe ?
-
-* Analogies sur les Target Group / ELB -> Service après vente
 * Analogies sur les dimensions de métriques : Notes sur classe/élève/matière
-
-* Console : cloudwatch metrics + cloudtrail
+* Montrer les métriques sur CloudWatch
+* Whiteboard CloudWatch / EC2
+* Reminder : AWS Organizations for cloudtrail especially
+* Demo CloudTrail
+* Whiteboard ALB
+* User story : Predictive scaling
 
 # Module 8 : Automation
 
