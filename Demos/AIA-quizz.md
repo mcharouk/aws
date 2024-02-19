@@ -178,20 +178,29 @@ Console : CDK, AWS Solutions library
 
 # Module 9 : Containers
 
-* Solliciter des personnes pour expliquer l'intérêt des containers ou de l'orchestrateur de container
-* Pas de quizz, manque de temps. Quizz as Reminder : Target Groups, ELB.
-* User Story : EKS
-* Analogy : Coffee Machine, Ikea pour les container
-* Demo : Fargate & ECR
-* Console : montrer ECR (1ere partie de démo)
+* N'expliquer avec la machine à café que si quelqu'un ne connait pas les micro services
+* On peut faire le quizz au tout début 
+* User Story : EKS 
+* Analogy : Ikea pour les container
+* Faire la démo en 2 temps
+  * !! Ne pas oublier de démarrer Rancher Desktop !!
+  * D'abord ECR. Montrer ECR sur la console pendant que le docker push s'execute
+  * Démo Fargate au moment où on parle de Fargate
+    * Montrer le whiteboard avec celui de la démo pour montrer l'analogie avec les EC2
+    * Executer la démo Fargate
 
 # Module 10 : Networking 2
 
+## Déroulé 
+
 * Demo : VPC Peering
 * Quizz : Direct connect vs Site-to-site VPN
-* Demo : Transit Gateway
-  * D'abord expliquer l'analogie sur le whiteboard
+* Transit Gateway
+  * Introduire le sujet sur la première slide
+  * Raconter la customer success story (ZenDesk) 
+  * Expliquer le fonctionnement de la transit gateway avec l'analogie sur le whiteboard
   * Puis basculer sur la console pour executer la démo
+  * Redérouler les slides en précisant les différents types d'attachement, et en parlant de Network Manager
 
 ## Requirements Direct Connect
 
@@ -208,36 +217,29 @@ Console : CDK, AWS Solutions library
 
 # Module 11 : Serverless
 
-* User Story : SNS
-* Analogy : SQS restaurant, Orchestrateur vs choregraphy
-* Demo : API Gateway / Step function pas assez de temps
 * Passer rapidement sur les features d'API Gateway, ne pas le montrer dans la console
-* Quizz : SNS vs SQS en Quizz
-* Reminder :   
-  * Parler de SQS et scaling sur ApproximateNumberOfMessage : Créer une cloudwatch alarm, ASG, etc...
+* Faire la démo avec la Lambda
+* Raconter l'exemple IRP buffering pour illustrer SQS
   * Spot instances avec sqs (fault tolerant workload)
-* Probes : 
-  * Qui connait le pattern API Gateway
-  * Qui connait la différence entre la chorégraphie et l'orchestration ?
-* Console : SQS parameters
-Le reste est pas trop intéressant et est déjà montré dans le lab
-* Passer rapidement sur Kinesis et Step function
-
+* Montrer la console SQS au moment d'aborder les queues Standard et FIFO
+* Montrer les whiteboards pour expliquer le polling et le visibility timeout
+* User Story : SNS
+* Faire les poll question SNS/SQS
+* Passer très vite sur Kinesis et StepFunction. Pas le temps de faire une démo à priori
+* Si il y a le temps, parler de l'analogie nature vs tour de contrôle pour la step function
+ 
 # Module 12 : Edge
 
-* User Story : Firewall Manager & Shield
-* Analogy : CloudFront, maillage de trains. Route 53 annuaire.
-* Demo : AWS WAF
-* Quizz : Local Zone / Edge Locations / Snowball / Region
-* Reminder : 
-  * Edge Locations. 
-  * Local zone quant on parle d'outpost.
-* Probes
-  * Citer des attaques déni de service
-  * Est ce que quelqu'un sait ce qu'est un CDN ?
-* Console : 
-  * montrer CloudFront peut être intéressant, pour montrer ce qu'on doit configurer
-  * Montrer l'éditeur de policy de route53, intéressant pour le geoproximity
+* Poll question pour l'introduction aux Edge
+  * Maillage de trains
+* Route 53
+  * Analogy annuaire
+  * montrer la geoproximity avec la console
+* Raconter l'histoire Zalando au moment du cloudfront overview
+* montrer CloudFront sur la console pour dérouler la configuration
+* Faire la Démo WAF au lieu de montrer le ppt
+* Eventuellement raconter la customer success story Firewall Manager si il y a du temps
+* Passer vite sur Outpost
 
 # Module 13 : Backup
 

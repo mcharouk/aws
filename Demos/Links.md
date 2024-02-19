@@ -1,5 +1,6 @@
 # Module 1 : Infrastructure
 
+* [WAF Lenses](https://aws.amazon.com/architecture/well-architected) (Scroll down to find lenses)
 
 # Module 2 : Account Security
 
@@ -16,6 +17,10 @@
 * [CI/CD Whitepaper](https://docs.aws.amazon.com/whitepapers/latest/practicing-continuous-integration-continuous-delivery/welcome.html)
 * [Instance Scheduler](https://aws.amazon.com/solutions/implementations/instance-scheduler-on-aws/?did=fs_card&trk=fs_card)
 
+# Module 9 : Container
+
+* [Container Lens](https://docs.aws.amazon.com/wellarchitected/latest/container-build-lens/container-build-lens.html)
+
 # Module 10 : Networking 2
 
 * [List of Direct Connect Partners](https://aws.amazon.com/directconnect/partners/)
@@ -25,6 +30,7 @@
 
 * [API Gateway Developer Portal](https://github.com/awslabs/aws-api-gateway-developer-portal)
 * [Serverless land](https://serverlessland.com/)
+* [Serverless Lens](https://docs.aws.amazon.com/wellarchitected/latest/serverless-applications-lens/welcome.html)
 
 # Module 12 : Edge
 
