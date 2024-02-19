@@ -88,19 +88,23 @@
 * Reminder : AWS Organizations for cloudtrail especially
 * Demo CloudTrail
 * Whiteboard ALB
+* Poll ALB use cases
 * User story : Predictive scaling
 
 # Module 8 : Automation
 
 * InfraAsCode comme l'Imprimante 3D : On écrit les spécifications de la maison, et c'est la machine qui execute 
-* Cross stack / Nested Stack, c'est comme dans l'industrie. On a des acteurs qui récupère les matières premières, d'autres qui font des composants de bas niveau (semi conducteurs par exemple, des vis..), d'autres acteurs qui font des choses de grandes valeur ajouté (moteur d'avion), puis l'assemblage.
-* Reminder : EC2 Session Manager, Operational excellence (WA Framework)
-* Pas de quizz, pas d'idée et pas trop le temps
+* Cross stack / Nested Stack, c'est comme dans l'industrie. 
+  * Matières premières
+  * Composants de bas niveau (semi conducteurs par exemple, des vis..), 
+  * Grandes valeur ajouté (moteur d'avion)
+  * Assemblage
 * Show AWS Solutions Library : Instance Scheduler
-* User Story : System Manager
+* Show CDK on my laptop
+* System Manager
+  * Whiteboard
+  * Customer Success Story
 * Demo : Code Whisperer
-
-Console : CDK, AWS Solutions library
 
 # Module 9 : Containers
 
@@ -169,15 +173,14 @@ Console : CDK, AWS Solutions library
 
 # Module 13 : Backup
 
-* User Story : ---
-* Analogy : Car wheels and airplanes engines for difference between high availability and fault tolerant
-* Demo : AWS Backup
-* Quizz sur les stratégies de DR
-* Probes : 
-  * A quoi est il important de pense qd on fait des backup ?
-  * Poser des questions sur le RTO / RPO
+## Déroulé
 
+* Analogie pour HA vs Fault Tolerance (Moteur d'avion vs roue d'une voiture)
+* Poll questions pour les différentes options de Backup
+* Whiteboard pour montrer les patterns réseaux
+* Montrer la console pour backup
 
+## Infos
 * Off-site backup is a method of backing up data to a remote server or to media that's transported off site
 * Colocation facilities : ce sont des sites multi-tenant en gros
 * Tape retrievals
