@@ -23,7 +23,7 @@
 
 * De manière générale, la sécurité pour AWS est le pillier le plus important. Lorsqu'ils font des architecture en interne, etont le choix entre plusieurs architectures, ils prennent systématiquement la plus sécurisée.
 * Les droits sont partout dans AWS, il est très important de comprendre comment cela fonctionne
-* Le système de droits est extrêmement fin, mais il est important de bien le comprendre pour designer un système à la foissécurisée et en minimisant les dépendances opérationnelles afin de faciliter l'innovation.
+* Le système de droits est extrêmement fin, mais il est important de bien le comprendre pour designer un système à la fois sécurisée et qui minimise les dépendances opérationnelles afin de faciliter l'innovation.
 
 ## Déroulé
 
@@ -66,6 +66,7 @@
 * Le compute est depuis le début un des facteurs d'attration majeur d'AWS vis à vis de leurs clients.
 * Le service EC2 est une référence depuis sa sortie en 2006.
 * L'intérêt du compute sur le cloud publique est l'elasticité, la facilité à obtenir de l'infra performante et EC2 est lapierre angulaire de cette mécanique. L'infrastructure serverless est une forme d'aboutissemnet de l'aspect élastique et lalambda en est un des symboles les plus forts.
+* Montrer le Capstone Architecture
 
 ## Déroulé 
 
@@ -92,6 +93,7 @@
 
 * Avec le compute, le storage est une autre attraction du cloud car il permet d'avoir accès à un stockage pas cher, qui scale tout seul, avec une capacité de stockage quasiement illimité, sans faire le moindre effort de provisioning matériel
 * Fais souvent partie des premiers use cases cloud pour pouvoir migrer rapidement et s'accoutumer avec cette nouvelle technologie
+* Montrer le Capstone Architecture
 
 ## Déroulé 
 
@@ -114,6 +116,7 @@
 
 * Montrer le Gartner
 * l'intérêt des bases de données managées, c'est d'avoir des bases résilientes, scalables, performantes, sécurisées avec peu de temps à investir sur la maintenance et le build. Ce sont des bases "DBA-less" (même si le terme peut être un peu exagéré !)
+* Montrer le Capstone Architecture
 
 ## Déroulé
 
@@ -133,9 +136,9 @@
 * Le scaling et l'elasticité est souvent une des choses que viennent chercher les clients sur le cloud. 
 * La virtualisation des ressources étant l'enabler pour avoir accès à de l'elasticité sans limite, celle-ci est en général plus difficile à réaliser on-premise.
 * Ce module vise à expliquer le fonctionnement du scaling sur AWS de la collecte de données qui est un des triggers d'autoscaling, jusqu'au provisonnement dynamique des ressources.
+* Montrer le Capstone Architecture
 
 ## Déroulé
-
 
 * Analogies sur les dimensions de métriques : Notes sur classe/élève/matière
 * Montrer les métriques sur CloudWatch
