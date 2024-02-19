@@ -3,6 +3,7 @@
 ## Intro
 
 * Sur l'infra
+  * Montrer le Gartner
   * AWS est le cloud provider qui a inventé le concept de cloud publique en 2006.
   * Ils ont construit une infrastructure globale scalable qui a permis a des entreprises de pouvoir construire des systèmes qu'ils n'avaient pas la capacité d'opérer on premise
   * Le mindset d'AWS vise à offrir leurs services comme enabler de use cases quelque soit leur complexité
@@ -49,7 +50,7 @@
 
 ## Intro
 
-* AWS met à disposition des composants réseaux permettant d'isoler ses resources tout en construisant un réseau global privé
+* AWS met à disposition des composants réseaux permettant d'isoler et sécuriser ses resources, et de le scaler avec la possibilité de développer réseau global privé
 * VPC fondamentaux d'AWS, difficile de travailler sur AWS sans en comprendre le fonctionnement
 * Montrer le Capstone Architecture
 
@@ -65,13 +66,13 @@
 
 ## Intro
 
-* Le compute est depuis le début un des facteurs d'attration majeur d'AWS vis à vis de leurs clients.
+* Le compute est depuis le début un des facteurs d'attraction principaux d'AWS vis à vis de leurs clients.
 * Le service EC2 est une référence depuis sa sortie en 2006.
 * L'intérêt du compute sur le cloud publique est 
   * l'elasticité
   * la facilité à obtenir de l'infra performante
 * EC2 est la pierre angulaire de cette mécanique. 
-* L'infrastructure serverless est une forme d'aboutissemnet de l'aspect élastique et la lambda en est un des symboles les plus forts.
+* L'infrastructure serverless est une forme d'aboutissemnet de l'aspect élastique et la lambda en est un des symboles les plus emblématiques.
 * Montrer le Capstone Architecture
 
 ## Déroulé 
@@ -187,7 +188,8 @@
 
 * Les containers sont la dernière brique de compute que l'on a pas vu, après EC2 et les FaaS (lambda)
 * Les containers ont révolutionné depuis une dizaine d'années le monde des systèmes d'informations grâce à la portabilité qui les caractérise.
-* Dans ce module on va traiter des sujets de conteneurs de la simple définition du concept jusqu'a à avoir une infrastructure managée, scalable et serverless.
+* Les containers ont bcp contribué au développement d'architecture micro services qui privilégient la scalabilité, la flexibilité, la vélocité de livraison de features métiers. Une architecture qui est  fortement recommandé par AWS et qui permet de maximiser les avantages de la plateforme.
+* Dans ce module on va traiter des sujets de conteneurs de la simple définition du concept jusqu'à décrire comment on obtient une infrastructure managée, scalable et serverless.
 
 ## Déroulé
 
@@ -241,7 +243,7 @@
 
 ## Intro
 
-* le serverless est l'aboutissement de ce que peut offrir une société comme AWS, car la promesse initiale est de manager l'infrastructure du client.
+* le serverless est l'aboutissement de ce que peut offrir une plateforme comme AWS, car la promesse initiale est de manager l'infrastructure du client.
 * On a déjà vu des services serverless à ce stade (lambda, S3, DynamoDB par ex.), on va voir plusieurs services supplémentaires qui complètent le tableau des services formant le noyau dur d'AWS.
 
 ## Déroulé
@@ -261,9 +263,8 @@
 
 ## Intro
 
-* Le edge est une des force d'AWS, c'est ce qui permet d'étendre son réseau afin d'offrir la plus faible latence au plus grand nombre
-* C'est aussi sur le edge qu'AWS a deployé ses services qui protègent contre les principales attaques informatiques. Elles sont donc incontournables dans le monde d'aujourd'hui où les attaques sont de plus en plus nombreuses avec un niveau d'intensité croissant. AWS a bloqué une attaque en 2020 avec un pic de traffic de l'ordre de **2.3 Tb/s**
-* Dans le monde d'aujourd'hui avec sa géopolitique plus instable, le risques d'attaque commandité par un pays et une menace accrue.
+* Le edge est une des force d'AWS, c'est ce qui permet d'étendre son réseau au delà des régions afin d'offrir la plus faible latence au plus grand nombre
+* C'est aussi sur le edge qu'AWS a deployé des services majeurs qui traitent de la lutte contre les cyberattaques. Elles sont donc incontournables dans le monde d'aujourd'hui où les attaques sont de plus en plus nombreuses avec un niveau d'intensité croissant. Notamment, le risques d'attaque commandité par un pays est une menace accrue. AWS a bloqué une attaque en 2020 avec un pic de traffic de l'ordre de **2.3 Tb/s**
 * Ce module est un focus sur ces services qui tournent sur le edge.
 
 ## Déroulé
@@ -283,8 +284,8 @@
 
 ## Intro
 
-* La gestion des backup et des DR est toujours un sujet compliqué dans l'IT car cela oblige à dupliquer son infrastructure, voire à devoir s'étendre dans un autre pays. Les coûts associés sont toujours très importants.
-* AWS avec son réseau global conçu pour sa résilience, et sa capacité à automatiser est un facilitateur sur ce sujet.
+* La gestion des backup et des DR est toujours un sujet compliqué dans l'IT car cela oblige à dupliquer son infrastructure, voire à devoir s'étendre dans un autre pays. Les coûts associés sont toujours très importants. Cela oblige à mobiliser une infrastructure conséquente sans garantie de l'utiliser réellement, c'est une forme de gaspillage (jusqu'à tant d'avoir un évènement qui justifie cet investissement)
+* AWS avec son réseau global et son infrastructure mutualisée, permet de bcp moins gaspiller, d'être plus efficace (grâce à sa capacité à automatiser) mais sans compromis sur la résilience.
 * Ce module traite de la gestion de la panne à tous les niveaux avec un focus particulier sur le backup et le DR, où comment se remettre d'un désastre à une échelle régionale.
 
 ## Déroulé
