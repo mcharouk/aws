@@ -2,11 +2,13 @@
 
 ## Intro
 
-* AWS est cloud provider qui a inventé le concept de cloud publique en 2006.
-* Ils ont construit une infrastructure globale scalable qui a permis a maintes entreprises de pouvoir construire des systèmesqu'ils n'avaient pas la capacité d'opérer on premise
-* Le mindset d'AWS vise à offrir leurs services comme enabler de use cases quelque soit leur complexité
-* AWS se pose comme un des leaders mondiaux de l'innovation technologique dans le domaine des systèmes d'information
-* Il est important de comprendre leurs bonnes pratiques car cela permet à une entreprise de s'imprégner de la culture d'AWS d'excellence.
+* Sur l'infra
+  * AWS est le cloud provider qui a inventé le concept de cloud publique en 2006.
+  * Ils ont construit une infrastructure globale scalable qui a permis a des entreprises de pouvoir construire des systèmes qu'ils n'avaient pas la capacité d'opérer on premise
+  * Le mindset d'AWS vise à offrir leurs services comme enabler de use cases quelque soit leur complexité
+* Sur les bonnes pratiques
+  * AWS se pose comme un des leaders mondiaux de l'innovation technologique dans le domaine des systèmes d'information
+  * Il est important de comprendre leurs bonnes pratiques car cela permet à une entreprise de s'imprégner de la culture d'AWS d'excellence.
 
 ## Déroulé
 
@@ -21,7 +23,7 @@
 
 ## Intro
 
-* De manière générale, la sécurité pour AWS est le pillier le plus important. Lorsqu'ils font des architecture en interne, etont le choix entre plusieurs architectures, ils prennent systématiquement la plus sécurisée.
+* La sécurité pour AWS est le pillier le plus important. Lorsqu'ils font des architecture en interne, et ont le choix entre plusieurs architectures, ils prennent systématiquement la plus sécurisée.
 * Les droits sont partout dans AWS, il est très important de comprendre comment cela fonctionne
 * Le système de droits est extrêmement fin, mais il est important de bien le comprendre pour designer un système à la fois sécurisée et qui minimise les dépendances opérationnelles afin de faciliter l'innovation.
 
@@ -47,8 +49,8 @@
 
 ## Intro
 
-* Composants réseaux pour isoler les resources tout en construisant un réseau global privé
-* VPC fondamentaux d'AWS, difficile de travailler sur AWS sans comprendre les fondamentaux
+* AWS met à disposition des composants réseaux permettant d'isoler ses resources tout en construisant un réseau global privé
+* VPC fondamentaux d'AWS, difficile de travailler sur AWS sans en comprendre le fonctionnement
 * Montrer le Capstone Architecture
 
 ## Déroulé
@@ -65,7 +67,11 @@
 
 * Le compute est depuis le début un des facteurs d'attration majeur d'AWS vis à vis de leurs clients.
 * Le service EC2 est une référence depuis sa sortie en 2006.
-* L'intérêt du compute sur le cloud publique est l'elasticité, la facilité à obtenir de l'infra performante et EC2 est lapierre angulaire de cette mécanique. L'infrastructure serverless est une forme d'aboutissemnet de l'aspect élastique et lalambda en est un des symboles les plus forts.
+* L'intérêt du compute sur le cloud publique est 
+  * l'elasticité
+  * la facilité à obtenir de l'infra performante
+* EC2 est la pierre angulaire de cette mécanique. 
+* L'infrastructure serverless est une forme d'aboutissemnet de l'aspect élastique et la lambda en est un des symboles les plus forts.
 * Montrer le Capstone Architecture
 
 ## Déroulé 
@@ -91,7 +97,7 @@
 
 ## Intro
 
-* Avec le compute, le storage est une autre attraction du cloud car il permet d'avoir accès à un stockage pas cher, qui scale tout seul, avec une capacité de stockage quasiement illimité, sans faire le moindre effort de provisioning matériel
+* Avec le compute, le storage est une autre attraction majeure du cloud car il permet d'avoir accès à un stockage pas cher, élastique, performant, avec une capacité de stockage quasiment illimité, sans faire le moindre effort de provisioning matériel
 * Fais souvent partie des premiers use cases cloud pour pouvoir migrer rapidement et s'accoutumer avec cette nouvelle technologie
 * Montrer le Capstone Architecture
 
@@ -116,6 +122,7 @@
 
 * Montrer le Gartner
 * l'intérêt des bases de données managées, c'est d'avoir des bases résilientes, scalables, performantes, sécurisées avec peu de temps à investir sur la maintenance et le build. Ce sont des bases "DBA-less" (même si le terme peut être un peu exagéré !)
+* AWS offre un large choix de BDD, on en verra quelques unes au cours de ce module
 * Montrer le Capstone Architecture
 
 ## Déroulé
@@ -154,7 +161,7 @@
 ## Intro
 
 * L'automatisation de l'infrastructure est un des atouts majeurs d'une plateforme comme AWS. 
-* C'est la possibilité de construire des infrastructures éphémères qui est un facteur d'optimisation des coûts
+* C'est la promesse de construire des infrastructures éphémères qui est un facteur d'optimisation des coûts
 * L'automatisation améliore l'efficacité et permet de passer plus de temps sur les features métiers.
 * AWS offre une vaste gamme de solutions plus ou moins managés pour que chacun puisse trouver le meilleur compromis entre customisation et solutions "plug and play"
 * On verra aussi dans ce module une innovation à la pointe de la technologie autour de la génération de code automatique (ChatGPT like)
@@ -179,8 +186,8 @@
 ## Intro
 
 * Les containers sont la dernière brique de compute que l'on a pas vu, après EC2 et les FaaS (lambda)
-* Les containers ont révolutionné depuis une dizaine d'années le monde des systèmes d'informations
-* Dans ce module on va traiter des sujets de conteneurs de la simple définition même du concept jusqu'a à avoir une infrastructure managée, scalable et serverless.
+* Les containers ont révolutionné depuis une dizaine d'années le monde des systèmes d'informations grâce à la portabilité qui les caractérise.
+* Dans ce module on va traiter des sujets de conteneurs de la simple définition du concept jusqu'a à avoir une infrastructure managée, scalable et serverless.
 
 ## Déroulé
 
@@ -199,11 +206,11 @@
 
 ## Intro
 
-* On a vu en 1ere partie les composants fondamentaux du VPC
+* On a vu en 1ère partie les composants fondamentaux du VPC
 * Dans la réalité, on est souvent amener à travailler sur un scope plus large qu'un simple VPC
   * Architecture hybride
-  * Architecture multi comptes (au moins autant de VPC que de comptes)
-  * Archiecture globalisée (plusieurs régions)
+  * Architecture multi-comptes (au moins autant de VPC que de comptes)
+  * Architecture globalisée / multi-régions
 * Ce module traite de la connectivité du VPC avec le monde qui l'entoure
 
 ## Déroulé 
@@ -235,7 +242,7 @@
 ## Intro
 
 * le serverless est l'aboutissement de ce que peut offrir une société comme AWS, car la promesse initiale est de manager l'infrastructure du client.
-* On a déjà vu des services serverless à ce stade (lambda, S3, par ex.), on va voir plusieurs services supplémentaires qui complètent le tableau des services formant le noyau dur d'AWS.
+* On a déjà vu des services serverless à ce stade (lambda, S3, DynamoDB par ex.), on va voir plusieurs services supplémentaires qui complètent le tableau des services formant le noyau dur d'AWS.
 
 ## Déroulé
 
@@ -254,8 +261,9 @@
 
 ## Intro
 
-* Le edge est une des force d'AWS, c'est ce qui permet d'étendre son réseau afin d'offrir la plus faible latence, la meilleure performance au plus grand nombre
-* C'est aussi sur le edge qu'AWS a deployé ses services qui protègent contre les principales attaques informatiques. Elles sont donc incontournables dans le monde d'aujourd'hui ou les attaques sont de plus en plus nombreuses avec un niveau d'intensité de plus en plus fort. AWS a bloqué une attaque en 2020 avec un pic de traffic de l'ordre de **2.3 Tb/s**
+* Le edge est une des force d'AWS, c'est ce qui permet d'étendre son réseau afin d'offrir la plus faible latence au plus grand nombre
+* C'est aussi sur le edge qu'AWS a deployé ses services qui protègent contre les principales attaques informatiques. Elles sont donc incontournables dans le monde d'aujourd'hui où les attaques sont de plus en plus nombreuses avec un niveau d'intensité croissant. AWS a bloqué une attaque en 2020 avec un pic de traffic de l'ordre de **2.3 Tb/s**
+* Dans le monde d'aujourd'hui avec sa géopolitique plus instable, le risques d'attaque commandité par un pays et une menace accrue.
 * Ce module est un focus sur ces services qui tournent sur le edge.
 
 ## Déroulé
