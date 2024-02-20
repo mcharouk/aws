@@ -31,6 +31,7 @@
 * [API Gateway Developer Portal](https://github.com/awslabs/aws-api-gateway-developer-portal)
 * [Serverless land](https://serverlessland.com/)
 * [Serverless Lens](https://docs.aws.amazon.com/wellarchitected/latest/serverless-applications-lens/welcome.html)
+* [EventBridge deep dive](https://www.youtube.com/watch?v=6X4lSPkn4ps) comme une meilleure alternative au fan-out pattern
 
 # Module 12 : Edge
 

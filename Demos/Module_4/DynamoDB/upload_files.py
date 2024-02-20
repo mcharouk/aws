@@ -12,6 +12,18 @@ s3 = boto3.client("s3")
 limit_nb_of_files = False
 files_nb_to_upload = 1
 
+import os
+
+# get the current working directory
+current_working_directory = os.getcwd()
+# print output to the console
+print("current directory : " + current_working_directory)
+
+if current_working_directory.endswith("Demos"):
+    new_wd = "Module_4/DynamoDB"
+    print("changing working directory to " + current_working_directory + "/" + new_wd)
+    os.chdir(new_wd)
+
 
 def upload_files():
     nb_files_uploaded = 0

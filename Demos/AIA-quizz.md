@@ -1,3 +1,8 @@
+# Points importants
+
+* Lorsque c'est possible, si des gens ont déjà utilisés les services, les inciter à partager leur expérience et leur avis sur ce qu'apporte le service
+* Si on fait référence à des concepts expliqués dans les cours d'avant, poser des questions simples pour vérifier que les élèves ont bien retenu les points
+
 # Module 1 : Infrastructure
 
 ## Intro
@@ -5,11 +10,11 @@
 * Sur l'infra
   * Montrer le Gartner
   * AWS est le cloud provider qui a inventé le concept de cloud publique en 2006.
-  * Ils ont construit une infrastructure globale scalable qui a permis a des entreprises de pouvoir construire des systèmes qu'ils n'avaient pas la capacité d'opérer on premise
+  * Ils ont construit une infrastructure globale scalable qui a permis a des entreprises de pouvoir construire des systèmes qu'ils n'avaient pas la capacité d'opérer on premise. J'exposerais des illustrations tout au long de ce cours.
   * Le mindset d'AWS vise à offrir leurs services comme enabler de use cases quelque soit leur complexité
 * Sur les bonnes pratiques
   * AWS se pose comme un des leaders mondiaux de l'innovation technologique dans le domaine des systèmes d'information
-  * Il est important de comprendre leurs bonnes pratiques car cela permet à une entreprise de s'imprégner de la culture d'AWS d'excellence.
+  * Rejoindre AWS, c'est aussi apprendre et intégrer des bonnes pratiques qui permettent de diffuser la culture de l'excellence prôné par AWS dans l'entreprise
 
 ## Déroulé
 
@@ -24,9 +29,10 @@
 
 ## Intro
 
-* La sécurité pour AWS est le pillier le plus important. Lorsqu'ils font des architecture en interne, et ont le choix entre plusieurs architectures, ils prennent systématiquement la plus sécurisée.
-* Les droits sont partout dans AWS, il est très important de comprendre comment cela fonctionne
-* Le système de droits est extrêmement fin, mais il est important de bien le comprendre pour designer un système à la fois sécurisée et qui minimise les dépendances opérationnelles afin de faciliter l'innovation.
+* Pour AWS, la sécurité est le pillier le plus important. Lorsqu'ils font des architecture en interne, et ont le choix entre plusieurs architectures, ils prennent systématiquement la plus sécurisée.
+* Une système secure est un 
+* Les système de droit étant très fin, ils sont partout dans AWS, il est donc très important de comprendre comment cela fonctionne.
+* Maitriser les droits sur AWS, c'est de ne pas faire de compromis sur la sécurité tout en minimisant les dépendances opérationnelles afin de faciliter l'innovation.
 
 ## Déroulé
 
@@ -68,9 +74,10 @@
 
 * Le compute est depuis le début un des facteurs d'attraction principaux d'AWS vis à vis de leurs clients.
 * Le service EC2 est une référence depuis sa sortie en 2006.
-* L'intérêt du compute sur le cloud publique est 
+* L'intérêt du compute sur AWS est 
   * l'elasticité
-  * la facilité à obtenir de l'infra performante
+  * la puissance de calcul disponible avec une grande gamme de types d'instance
+  * le côté éphémère qui permet in fine de réduire les coûts
 * EC2 est la pierre angulaire de cette mécanique. 
 * L'infrastructure serverless est une forme d'aboutissemnet de l'aspect élastique et la lambda en est un des symboles les plus emblématiques.
 * Montrer le Capstone Architecture
@@ -78,7 +85,7 @@
 ## Déroulé 
 
 * User Story EC2 : Treat your server like cattle, not like a pet.
-* montrer les propriétés EC2 au fur et à mesure
+* montrer les propriétés EC2 au fur et à mesure sur la console
 * Type d'instances
   * Quizz sur les use cases par type d'instances
   * montrer Amazon Q qui fait des recommandations sur les types d'instance en fonction du workload
@@ -88,10 +95,16 @@
   * A quoi sert le user data ? Rappel sur l'AMI = static, user data = Dynamique
   * Metadata : récupérer des informations dynamiques sur l'instance.
 * Spot Pricing
-  * Whiteboard
+  * Whiteboard OU
   * Montrer les prix sur la console (aller dans Spot Requests dans le menu, puis aller dans Pricing History)
-* Lambda   
+* Lambda
   * Ne pas trop montrer les slides, plutôt montrer le whiteboard de démo et la démo
+  * Demo:
+    * Montrer la création + la configuration de l'event s3    
+    * Lancer l'ingestion s3 et montrer les logs
+    * Ensuite Montrer les limites (15 min, 10 Go)
+    * Raconter la user story
+    * A la fin montrer le monitoring de la lambda, on devrait voir le scaling dans les métriques
   * User Story : Lambda pour illustrer les cas d'usages
 
 # Module 5 : Storage

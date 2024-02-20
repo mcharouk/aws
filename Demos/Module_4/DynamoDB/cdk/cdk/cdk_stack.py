@@ -1,3 +1,4 @@
+import yaml
 from aws_cdk import Stack
 from aws_cdk import aws_iam as iam  # Duration,; aws_sqs as sqs,
 from aws_cdk import aws_lambda as _lambda
@@ -7,16 +8,25 @@ from aws_cdk import aws_s3_notifications as s3n
 from constructs import Construct
 
 
+class StackConfig:
+
+    def __init__(self):
+        with open("config.yml", "r") as config_file:
+            config = yaml.safe_load(config_file)
+            self.accountId = config["aws"]["accountId"]
+            self.region = config["aws"]["region"]
+            self.dynamoDBTableName = config["demo"]["dynamodb"]["tableName"]
+            self.bucketName = config["demo"]["s3"]["bucketName"]
+            self.inputObjectPrefix = config["demo"]["s3"]["inputObjectPrefix"]
+            self.generate_lambda = config["demo"]["lambda"]["generate"]
+
+
 class CdkStack(Stack):
+
     def __init__(self, scope: Construct, construct_id: str, **kwargs) -> None:
         super().__init__(scope, construct_id, **kwargs)
 
-        accountId = "270188911144"
-        region = "eu-west-3"
-        dynamoDBTableName = "demo_employee"
-        bucketName = "eventnotification-demo-457663"
-        inputObjectPrefix = "files"
-        generate_lambda = False
+        stackConfig = StackConfig()
 
         # create an iam role assumed by lambda and attach the policy
         role = iam.Role(
@@ -40,7 +50,9 @@ class CdkStack(Stack):
             ],
             resources=[
                 "arn:aws:dynamodb:{region}:{accountId}:table/{tableName}".format(
-                    region=region, accountId=accountId, tableName=dynamoDBTableName
+                    region=stackConfig.region,
+                    accountId=stackConfig.accountId,
+                    tableName=stackConfig.dynamoDBTableName,
                 )
             ],
         )
@@ -60,7 +72,7 @@ class CdkStack(Stack):
             actions=["logs:CreateLogGroup"],
             resources=[
                 "arn:aws:logs:{region}:{accountId}:*".format(
-                    region=region, accountId=accountId
+                    region=stackConfig.region, accountId=stackConfig.accountId
                 )
             ],
         )
@@ -71,7 +83,7 @@ class CdkStack(Stack):
             actions=["logs:CreateLogStream", "logs:PutLogEvents"],
             resources=[
                 "arn:aws:logs:{region}:{accountId}:log-group:/aws/lambda/*:*".format(
-                    accountId=accountId, region=region
+                    accountId=stackConfig.accountId, region=stackConfig.region
                 )
             ],
         )
@@ -93,7 +105,8 @@ class CdkStack(Stack):
             actions=["s3:GetObject", "s3:ListBucket"],
             resources=[
                 "arn:aws:s3:::{bucketName}/{inputObjectPrefix}/*".format(
-                    bucketName=bucketName, inputObjectPrefix=inputObjectPrefix
+                    bucketName=stackConfig.bucketName,
+                    inputObjectPrefix=stackConfig.inputObjectPrefix,
                 ),
                 "arn:aws:s3:::{bucketName}",
             ],
@@ -107,8 +120,8 @@ class CdkStack(Stack):
 
         s3ForLambdaPolicy.attach_to_role(role=role)
 
-        if generate_lambda == True:
-            self.generate_lambda(role, bucketName)
+        if stackConfig.generate_lambda == True:
+            self.generate_lambda(role, stackConfig.bucketName)
 
     def generate_lambda(self, role, bucketName):
         lambdaFunction = _lambda.Function(

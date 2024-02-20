@@ -1,0 +1,11 @@
+aws:
+  accountId: "270188911144"
+  region: "eu-west-3"
+demo:
+  dynamodb:
+    tableName: "demo_employee" 
+  s3: 
+    bucketName: "eventnotification-demo-457663"
+    inputObjectPrefix : "files"
+  lambda: 
+    generate: False

@@ -10,6 +10,8 @@ class CdkStack(Stack):
 
         # The code that defines your stack goes here
 
+        generate_api_gateway = False
+
         lambdaFunction = _lambda.Function(
             self,
             "APIGateway_Lambda",
@@ -18,8 +20,6 @@ class CdkStack(Stack):
             code=_lambda.Code.from_asset("Lambdas/API"),
             handler="lambda_function.lambda_handler",
         )
-
-        generate_api_gateway = False
 
         if generate_api_gateway == True:
             self.generate_api_gateway(lambdaFunction)
