@@ -257,8 +257,9 @@ AWS helped also the company to define the **best metric** to use to trigger alar
 [RackSpace](https://aws.amazon.com/solutions/case-studies/rackspace-case-study/?did=cr_card&trk=cr_card)
 
 ### Activity
-The have a solution called **VM Management** to manage EC2 infrastructure for their clients on their behalf.
-The solution is **multi cloud**
+* The have a solution called **VM Management** to manage EC2 infrastructure for their clients on their behalf.
+* The solution is **multi cloud** and works **on-premise** as well
+* Historically, organizations have each needed a **large IT team** to complete time-consuming tasks such as **patching, agent distribution, server diagnostics, and issue remediation**
 
 ### Problem
 
@@ -266,9 +267,7 @@ Managing **multicloud** environments **at scale reliably and cost-effectively wa
 
 If the Rackspace team detected a **security vulnerability** on a customer’s system or a customer requested a **patching activity**, a Rackspace employee had to **log in** to the customer’s infrastructure, investigate and troubleshoot the issue, and perform **manual patching**
 
-The solution extended to on premises instances also.
-* Historically, organizations have each needed a **large IT team** to complete time-consuming tasks such as **patching, agent distribution, server diagnostics, and issue remediation**
-
+They needed an hybrid multi-cloud tool.
 
 ### Solution
 
@@ -277,7 +276,7 @@ The solution extended to on premises instances also.
 * **eliminate the cost and complexity** of patching their own infrastructure. The automation also **improves security** by **avoiding errors** associated with manual tasks
 * handled more than 38,000 incidents  in just **2 months** between August and September 2021
 * Used AWS Systems Manager to send **10,660 automated responses**, which not only **saved 1,480 labor hours** and reduced costs but also drove **faster response times** for customers. 
-* Overall, Rackspace automated **70 percent of manual remediation**. Rackspace also uses AWS Systems Manager to **automatically resolve** some of those issues
+* Overall, Rackspace automated **70 percent of manual remediation**. 
 * The Amazon **CloudWatch agent** on the VMs performs monitoring and alerting based on the events happening in customers’ infrastructure. **During the same 2-month span** in 2021, Rackspace used Amazon CloudWatch to ingest **14,670 alarm events** across all its products that use the AWS service
 * automate **more than 150 runbooks**
 * reduces complexity for customers by providing a **single-pane view** of their environments, **even hybrid and multicloud ones**.
