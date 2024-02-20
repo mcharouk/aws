@@ -102,7 +102,7 @@
   * Demo:
     * Montrer la création + la configuration de l'event s3    
     * Lancer l'ingestion s3 et montrer les logs
-    * Ensuite Montrer les limites (15 min, 10 Go)
+    * Ensuite Montrer les limites (15 min, 10 Go), parler des use cases
     * Raconter la user story
     * A la fin montrer le monitoring de la lambda, on devrait voir le scaling dans les métriques
   * User Story : Lambda pour illustrer les cas d'usages
