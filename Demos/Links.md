@@ -19,6 +19,7 @@
 # Module 8 : Automation
 
 * [Instance Scheduler](https://aws.amazon.com/solutions/implementations/instance-scheduler-on-aws/?did=fs_card&trk=fs_card)
+* [Prompt engineering with Code Whisperer](https://aws.amazon.com/blogs/devops/best-practices-for-prompt-engineering-with-amazon-codewhisperer/)
 
 # Module 9 : Container
 
