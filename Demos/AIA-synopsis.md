@@ -270,7 +270,8 @@
 * Montrer la console SQS au moment d'aborder les queues Standard et FIFO
 * Montrer les whiteboards pour expliquer le polling et le visibility timeout
 * User Story : SNS
-* Faire les poll question SNS/SQS
+* Faire les poll question SNS/SQS OU poser juste une question sur les **spot instances**
+  * Les queues SQS sont capable de faire des retry automatiques de messages. Cela peut suggérer que les workers SQS sont fault tolerant. Dans le cas où ces workers ne sont pas des lambdas, quel feature peut amener de grosses économies et matche bien avec des traitements fault-tolerant ?
 * Passer très vite sur Kinesis et StepFunction. Pas le temps de faire une démo à priori
 * Si il y a le temps, parler de l'analogie nature vs tour de contrôle pour la step function
  

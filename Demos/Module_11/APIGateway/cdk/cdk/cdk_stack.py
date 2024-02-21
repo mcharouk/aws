@@ -1,7 +1,18 @@
+import yaml
 from aws_cdk import CfnOutput, Stack  # Duration,; aws_sqs as sqs,
 from aws_cdk import aws_apigateway as apigw
 from aws_cdk import aws_lambda as _lambda
 from constructs import Construct
+
+
+class StackConfig:
+
+    def __init__(self):
+        with open("config.yml", "r") as config_file:
+            config = yaml.safe_load(config_file)
+            self.generate_api_gateway = config["demo"]["apigateway"]["generate"]
+            self.lambda_name = config["demo"]["lambda"]["name"]
+            self.api_gateway_rest_api_name = config["demo"]["apigateway"]["restapiname"]
 
 
 class CdkStack(Stack):
@@ -9,27 +20,28 @@ class CdkStack(Stack):
         super().__init__(scope, construct_id, **kwargs)
 
         # The code that defines your stack goes here
-
-        generate_api_gateway = False
+        stackConfig = StackConfig()
 
         lambdaFunction = _lambda.Function(
             self,
             "APIGateway_Lambda",
-            function_name="APIGateway-GetResourceById",
+            function_name=stackConfig.lambda_name,
             runtime=_lambda.Runtime.PYTHON_3_12,
             code=_lambda.Code.from_asset("Lambdas/API"),
             handler="lambda_function.lambda_handler",
         )
 
-        if generate_api_gateway == True:
-            self.generate_api_gateway(lambdaFunction)
+        if stackConfig.generate_api_gateway == True:
+            self.generate_api_gateway(
+                lambdaFunction, stackConfig.api_gateway_rest_api_name
+            )
 
-    def generate_api_gateway(self, lambdaFunction):
+    def generate_api_gateway(self, lambdaFunction, api_gateway_rest_api_name):
         # Create a Rest API Gateway
         api = apigw.LambdaRestApi(
             self,
             "DemoAPIGateway",
-            rest_api_name="DemoAPIGateway",
+            rest_api_name=api_gateway_rest_api_name,
             description="Demo API Gateway",
             deploy_options=apigw.StageOptions(
                 stage_name="dev",

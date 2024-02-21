@@ -248,3 +248,9 @@ Server
 * Amazon Elastic Compute Cloud (EC2)
 * AWS IoT Greengrass
 * Amazon Sagemaker Edge Manager.
+
+# Route 53
+
+* Routing policies not supported by private hosted zone
+  * Geoproximity
+  * Ip-based routing (map a user ip list to a specific resource)

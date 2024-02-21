@@ -42,3 +42,4 @@
 
 * [DDoS Best Practices](https://docs.aws.amazon.com/whitepapers/latest/aws-best-practices-ddos-resiliency/aws-best-practices-ddos-resiliency.html)
 * [Focus sur Shield](https://www.youtube.com/watch?v=5cfVebJ8wTo)
+* [Hybrid DNS](https://docs.aws.amazon.com/whitepapers/latest/hybrid-cloud-dns-options-for-vpc/hybrid-cloud-dns-options-for-vpc.html)
