@@ -275,6 +275,17 @@
 * Passer très vite sur Kinesis et StepFunction. Pas le temps de faire une démo à priori
 * Si il y a le temps, parler de l'analogie nature vs tour de contrôle pour la step function
  
+## Step functions use cases
+
+* Machine Learning
+* Human Approval Task (Business Workflow)
+* ETL
+* Media : 
+  * Extract Text From PDF
+  * Analyze Text with ML
+  * If analysis is ok, store it somewhere (dynamodb) else put it somewhere to process it manually
+
+
 # Module 12 : Edge
 
 ## Intro
