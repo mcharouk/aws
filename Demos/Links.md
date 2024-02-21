@@ -1,3 +1,7 @@
+# Général
+
+[Cloud With Raj](https://www.youtube.com/@cloudwithraj)
+
 # Module 1 : Infrastructure
 
 * [WAF Lenses](https://aws.amazon.com/architecture/well-architected) (Scroll down to find lenses)
@@ -36,3 +40,4 @@
 # Module 12 : Edge
 
 * [DDoS Best Practices](https://docs.aws.amazon.com/whitepapers/latest/aws-best-practices-ddos-resiliency/aws-best-practices-ddos-resiliency.html)
+* [Focus sur Shield](https://www.youtube.com/watch?v=5cfVebJ8wTo)

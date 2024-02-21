@@ -16,6 +16,7 @@ BYOIP : how it works
     * Besoin de maintenance pour installer des nouveaux patchs par exemple
     * Parler de la possibilité d'installer les soft avec le user data. Ce qui permet d'avoir quelque chose de plus dynamique et de plus flexible.
 
+* [instance store throughput](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/general-purpose-instances.html#general-purpose-ssd-perf)
 
 ## Shared and Dedicated Tenancy
 

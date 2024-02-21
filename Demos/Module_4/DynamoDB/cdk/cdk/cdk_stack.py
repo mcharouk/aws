@@ -1,9 +1,13 @@
+from zipfile import ZipFile
+
+import boto3
 import yaml
-from aws_cdk import Stack
+from aws_cdk import CfnOutput, Stack
 from aws_cdk import aws_iam as iam  # Duration,; aws_sqs as sqs,
 from aws_cdk import aws_lambda as _lambda
 from aws_cdk import aws_lambda_event_sources as _lambda_es
 from aws_cdk import aws_s3 as s3
+from aws_cdk import aws_s3_assets as s3a
 from aws_cdk import aws_s3_notifications as s3n
 from constructs import Construct
 
@@ -122,6 +126,8 @@ class CdkStack(Stack):
 
         if stackConfig.generate_lambda == True:
             self.generate_lambda(role, stackConfig.bucketName)
+        else:
+            self.upload_lambda_code()
 
     def generate_lambda(self, role, bucketName):
         lambdaFunction = _lambda.Function(
@@ -142,4 +148,21 @@ class CdkStack(Stack):
             s3.EventType.OBJECT_CREATED,
             s3n.LambdaDestination(lambdaFunction),
             s3.NotificationKeyFilter(prefix="files/"),
+        )
+
+    def upload_lambda_code(self):
+        lambda_code_rel_path = "Lambda-noDynamo/Lambda-code.zip"
+        with ZipFile(lambda_code_rel_path, "w") as zip_object:
+            # Adding files that need to be zipped
+            zip_object.write(
+                filename="Lambda-noDynamo/lambda_function.py",
+                arcname="lambda_function.py",
+            )
+
+        asset = s3a.Asset(self, "LambdaNoDynamoCode", path=lambda_code_rel_path)
+
+        CfnOutput(
+            self,
+            "s3_url_lambdacode",
+            value=asset.s3_object_url,
         )

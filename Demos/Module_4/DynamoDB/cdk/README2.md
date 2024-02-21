@@ -13,5 +13,5 @@ s3 prefix
 files
 ```
 
-* Lancer le script python d'ingestion à partir de Visual Studio Code
-
+* for Demo without DynamoDB, take the zip file location that contains lambda code from cloudformation outputs
+* Execute the files upload from visual studio code

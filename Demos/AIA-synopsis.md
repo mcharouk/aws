@@ -56,7 +56,7 @@
 
 ## Intro
 
-* AWS met à disposition des composants réseaux permettant d'isoler et sécuriser ses resources, et de le scaler avec la possibilité de développer réseau global privé
+* AWS met à disposition des composants réseaux permettant d'isoler et sécuriser ses resources, et de le scaler jusqu'à pouvoir développer un réseau global privé
 * VPC fondamentaux d'AWS, difficile de travailler sur AWS sans en comprendre le fonctionnement
 * Montrer le Capstone Architecture
 
@@ -177,8 +177,10 @@
 * L'automatisation de l'infrastructure est un des atouts majeurs d'une plateforme comme AWS. 
 * C'est la promesse de construire des infrastructures éphémères qui est un facteur d'optimisation des coûts
 * L'automatisation améliore l'efficacité et permet de passer plus de temps sur les features métiers.
-* AWS offre une vaste gamme de solutions plus ou moins managés pour que chacun puisse trouver le meilleur compromis entre customisation et solutions "plug and play"
-* On verra aussi dans ce module une innovation à la pointe de la technologie autour de la génération de code automatique (ChatGPT like)
+* Qd on parle d'automatisation sur AWS c'est entre autres
+  * automatisation de l'infra : AWS offre une vaste gamme de solutions plus ou moins managés pour que chacun puisse trouver le meilleur compromis entre customisation et solutions "plug and play"
+  * automatisation des opérations de production (day2day maintenance)
+  * automatisation du code : On verra dans ce module une innovation à la pointe de la technologie en matière d'IA autour de la génération de code automatique, CodeWhisperer (ChatGPT like)
 
 ## Déroulé
 
@@ -226,7 +228,7 @@
   * Architecture hybride
   * Architecture multi-comptes (au moins autant de VPC que de comptes)
   * Architecture globalisée / multi-régions
-* Ce module traite de la connectivité du VPC avec le monde qui l'entoure
+* Ce module traite de la connectivité du VPC avec le monde qui l'entoure et de la mise à l'échelle globale de ces composants
 
 ## Déroulé 
 
@@ -276,9 +278,10 @@
 
 ## Intro
 
+* On a à ce stade déjà parlé du edge du point de vue infra, mais pas d'occasion de parler des services qui opèrent dessus.
 * Le edge est une des force d'AWS, c'est ce qui permet d'étendre son réseau au delà des régions afin d'offrir la plus faible latence au plus grand nombre
 * C'est aussi sur le edge qu'AWS a deployé des services majeurs qui traitent de la lutte contre les cyberattaques. Elles sont donc incontournables dans le monde d'aujourd'hui où les attaques sont de plus en plus nombreuses avec un niveau d'intensité croissant. Notamment, le risques d'attaque commandité par un pays est une menace accrue. AWS a bloqué une attaque en 2020 avec un pic de traffic de l'ordre de **2.3 Tb/s**
-* Ce module est un focus sur ces services qui tournent sur le edge.
+* Ce module est un focus sur ces services qui tournent sur le edge, avec en arrière plan 2 pilliers du Well-Architected Framework, la performance et la sécurité 
 
 ## Déroulé
 
