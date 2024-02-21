@@ -1,6 +1,6 @@
 # Général
 
-[Cloud With Raj](https://www.youtube.com/@cloudwithraj)
+* [Cloud With Raj](https://www.youtube.com/@cloudwithraj)
 
 # Module 1 : Infrastructure
 
@@ -18,7 +18,6 @@
 
 # Module 8 : Automation
 
-* [CI/CD Whitepaper](https://docs.aws.amazon.com/whitepapers/latest/practicing-continuous-integration-continuous-delivery/welcome.html)
 * [Instance Scheduler](https://aws.amazon.com/solutions/implementations/instance-scheduler-on-aws/?did=fs_card&trk=fs_card)
 
 # Module 9 : Container
@@ -28,7 +27,8 @@
 # Module 10 : Networking 2
 
 * [List of Direct Connect Partners](https://aws.amazon.com/directconnect/partners/)
-* [Multi VPC Networking Whitepaper](https://docs.aws.amazon.com/whitepapers/latest/building-scalable-secure-multi-vpc-network-infrastructure/welcome.html)
+* [Multi VPC Networking Whitepaper](https://docs.aws.amazon.com/whitepapers/latest/building-scalable-secure-multi-vpc-network-infrastructure/welcome.html) - Transit Gateway patterns
+* [VPC Connectivity](https://docs.aws.amazon.com/whitepapers/latest/aws-vpc-connectivity-options/network-to-amazon-vpc-connectivity-options.html) - Mainly hybrid patterns
 
 # Module 11 : Serverless
 
