@@ -1,20 +1,22 @@
 # Demo info
+Table name 
 
-  Table name 
-  
-  ```
-  demo_employee
-  ```
-  Partition key
+```
+demo_employee
+```
+Partition key
+```
+LastName
+```
+Sort Key
+```
+FirstName
+```
 
-  ```
-  User Id
-  ```
-
-  ## Upload Files
+## Upload Files
 
 * Go to Module_4/DynamoDB
 * execute command
 ```
 python upload_files.py
- ```
+```

@@ -294,7 +294,7 @@ helps small companies secure loans fast through a platform that banks can use to
 ### Problem
 They were cloud native from the start, and used to manage entirely their Kubernetes cluster.
 
-Each product comprises 30−40 microservices, which are grouped into containers. They have to scale manually regularly their control plane. It led to donwtime.
+Each product comprises 30−40 microservices, which are grouped into containers. They have to scale manually regularly their control plane. It led to downtime.
 
 Our goal was to **optimize operations**, **reduce costs**, **expedite infrastructure set ups for our customers**, and **enhance our Biz2x platform’s reliability**
 
