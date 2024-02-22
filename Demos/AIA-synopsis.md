@@ -232,6 +232,8 @@
 
 ## Déroulé 
 
+* Poll question au début des rappels réseaux
+* Interface endpoint vs gateway : parler du choix que l'on a sur S3 avec le whiteboard
 * Demo : VPC Peering
 * Quizz : Direct connect vs Site-to-site VPN
 * Transit Gateway
@@ -240,6 +242,7 @@
   * Expliquer le fonctionnement de la transit gateway avec l'analogie sur le whiteboard
   * Puis basculer sur la console pour executer la démo
   * Redérouler les slides en précisant les différents types d'attachement, et en parlant de Network Manager
+  * Montrer le centralized inspection pattern comme cas d'usage concret
 
 ## Requirements Direct Connect
 
@@ -265,26 +268,14 @@
 
 * Passer rapidement sur les features d'API Gateway, ne pas le montrer dans la console
 * Faire la démo avec la Lambda
-* Raconter l'exemple IRP buffering pour illustrer SQS
-  * Spot instances avec sqs (fault tolerant workload)
+* Raconter l'exemple IRP buffering pour illustrer SQS  
 * Montrer la console SQS au moment d'aborder les queues Standard et FIFO
 * Montrer les whiteboards pour expliquer le polling et le visibility timeout
-* User Story : SNS
-* Faire les poll question SNS/SQS OU poser juste une question sur les **spot instances**
   * Les queues SQS sont capable de faire des retry automatiques de messages. Cela peut suggérer que les workers SQS sont fault tolerant. Dans le cas où ces workers ne sont pas des lambdas, quel feature peut amener de grosses économies et matche bien avec des traitements fault-tolerant ?
-* Passer très vite sur Kinesis et StepFunction. Pas le temps de faire une démo à priori
-* Si il y a le temps, parler de l'analogie nature vs tour de contrôle pour la step function
- 
-## Step functions use cases
-
-* Machine Learning
-* Human Approval Task (Business Workflow)
-* ETL
-* Media : 
-  * Extract Text From PDF
-  * Analyze Text with ML
-  * If analysis is ok, store it somewhere (dynamodb) else put it somewhere to process it manually
-
+* User Story : SNS
+* Faire les poll question SNS/SQS en fonction du timing
+* Passer très vite sur Kinesis et StepFunction. 
+* Parler de l'analogie tour de contrôle pour la step function, et montrer les exemples de use case sur le dashboard
 
 # Module 12 : Edge
 
