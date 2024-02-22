@@ -42,9 +42,12 @@
   * Poll questions
 * Authorization
   * Whiteboard on Resource based policy
+    * Show identity based vs resource based
+    * PPT to show Principal keyword
+    * Whiteboard Explicit Deny
   * Permission Boundary
     * Analogie Constitution / Loi
-    * whiteboard + demo
+    * whiteboard demo + demo
 * Multi account
   * Analogie appartements / syndic
   * Qd on parle du pourquoi d'AWS Organizations
@@ -89,23 +92,21 @@
 * Type d'instances
   * Quizz sur les use cases par type d'instances
   * montrer Amazon Q qui fait des recommandations sur les types d'instance en fonction du workload
-* EC2 Networking : probes ?
-* Placement Group : Analogie avec le flex
+* EC2 Networking : probes ? / Instance Role 
+* Placement Group : Analogie avec le flex ?
 * Scripts and Metadata
   * A quoi sert le user data ? Rappel sur l'AMI = static, user data = Dynamique
   * Metadata : récupérer des informations dynamiques sur l'instance.
 * Spot Pricing
-  * Whiteboard OU
-  * Montrer les prix sur la console (aller dans Spot Requests dans le menu, puis aller dans Pricing History)
+  * Whiteboard / console (aller dans Spot Requests dans le menu, puis aller dans Pricing History)
 * Lambda
   * Ne pas trop montrer les slides, plutôt montrer le whiteboard de démo et la démo
   * Demo:
-    * Montrer la création + la configuration de l'event s3    
+    * Montrer la création de la lambda + la configuration de l'event s3    
     * Lancer l'ingestion s3 et montrer les logs
     * Ensuite Montrer les limites (15 min, 10 Go), parler des use cases
     * Raconter la user story
     * A la fin montrer le monitoring de la lambda, on devrait voir le scaling dans les métriques
-  * User Story : Lambda pour illustrer les cas d'usages
 
 # Module 5 : Storage
 
@@ -125,9 +126,9 @@
 * S3 : Montrer sur la console la partie accès
 * Access Point : Analogie
 * Lifecycle policies
-  * User Story : sur l'Intelligent Tiering 
+  * User Story : sur l'Intelligent Tiering vs lifecycle policies
 * Demo : Bucket Versioning
-* Quizz sur les cas d'usage en synthèse d'EFS
+* Quizz sur les cas d'usage en synthèse d'EFS (avant la storage gateway)
 * Customer Success Story sur la storage gateway
 
 # Module 6 : Database
@@ -144,11 +145,10 @@
 * Dynamodb customer success story pour illustrer SQL vs NoSQL
 * RDS : customer success story
 * Link Aurora (livre blanc)
-* Aller sur la console qd on crée la table dynamoDB, plutôt que de montrer les slides
 * Whiteboard RCU / WCU
 * Demo DynamoDB Global Tables
 * Link DynamoDB (livre blanc)
-* Elasticache : whiteboard si il y a du temps
+* Elasticache : whiteboard si il y a du temps (détail l'archi Memached vs redis)
 
 # Module 7 : Monitoring & scaling
 
