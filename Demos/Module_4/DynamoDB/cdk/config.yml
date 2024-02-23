@@ -8,4 +8,4 @@ demo:
     bucketName: "eventnotification-demo-457663"
     inputObjectPrefix : "files"
   lambda: 
-    generate: False
+    generate: True

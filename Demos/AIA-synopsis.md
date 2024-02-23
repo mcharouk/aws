@@ -145,8 +145,11 @@
 * Dynamodb customer success story pour illustrer SQL vs NoSQL
 * RDS : customer success story
 * Link Aurora (livre blanc)
-* Whiteboard RCU / WCU
-* Demo DynamoDB Global Tables
+* DynamDB
+  * Quizz sur use cases dynamodb
+  * Créer la table avant de parler des partition key et sort key. Créer aussi la global table car elle prend du temps à se créer.
+  * Parler des features de DynamooDB
+  * A la fin créer manuellement les lignes dans la région Paris et Ireland pour montrer le comportement actif/actif
 * Link DynamoDB (livre blanc)
 * Elasticache : whiteboard si il y a du temps (détail l'archi Memached vs redis)
 

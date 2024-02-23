@@ -38,4 +38,4 @@ def split_file(file_path, sample_data_path):
         file_index += 1
 
 
-split_file("Raw-file/all-in-one.csv", "Sample-data")
+# split_file("Raw-file/all-in-one.csv", "Sample-data")

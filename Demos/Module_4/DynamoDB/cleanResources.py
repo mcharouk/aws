@@ -38,4 +38,4 @@ if "Versions" in response:
             VersionId=version["VersionId"],
         )
         print(f"Deleted {version['Key']} version {version['VersionId']}")
-        print("All objects deleted successfully!")
+    print("All objects deleted successfully!")
