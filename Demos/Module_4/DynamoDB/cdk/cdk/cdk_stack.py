@@ -3,6 +3,7 @@ from zipfile import ZipFile
 import boto3
 import yaml
 from aws_cdk import CfnOutput, Stack
+from aws_cdk import aws_dynamodb as ddb
 from aws_cdk import aws_iam as iam  # Duration,; aws_sqs as sqs,
 from aws_cdk import aws_lambda as _lambda
 from aws_cdk import aws_lambda_event_sources as _lambda_es
@@ -17,12 +18,20 @@ class StackConfig:
     def __init__(self):
         with open("config.yml", "r") as config_file:
             config = yaml.safe_load(config_file)
-            self.accountId = config["aws"]["accountId"]
-            self.region = config["aws"]["region"]
-            self.dynamoDBTableName = config["demo"]["dynamodb"]["tableName"]
-            self.bucketName = config["demo"]["s3"]["bucketName"]
-            self.inputObjectPrefix = config["demo"]["s3"]["inputObjectPrefix"]
-            self.generate_lambda = config["demo"]["lambda"]["generate"]
+            aws = config["aws"]
+            dynamoDB = config["demo"]["dynamodb"]
+            s3 = config["demo"]["s3"]
+            lambdaConfig = config["demo"]["lambda"]
+
+            self.accountId = aws["accountId"]
+            self.region = aws["region"]
+            self.dynamoDBTableName = dynamoDB["tableName"]
+            self.dynamoDBPartitionKey = dynamoDB["partitionKey"]
+            self.dynamoDBSortKey = dynamoDB["sortKey"]
+            self.dynamoDBSecondaryRegion = dynamoDB["secondaryRegion"]
+            self.bucketName = s3["bucketName"]
+            self.inputObjectPrefix = s3["inputObjectPrefix"]
+            self.generate_lambda = lambdaConfig["generate"]
 
 
 class CdkStack(Stack):
@@ -126,6 +135,7 @@ class CdkStack(Stack):
 
         if stackConfig.generate_lambda == True:
             self.generate_lambda(role, stackConfig.bucketName)
+            self.create_dynamodb_table(stackConfig)
         else:
             self.upload_lambda_code()
 
@@ -148,6 +158,44 @@ class CdkStack(Stack):
             s3.EventType.OBJECT_CREATED,
             s3n.LambdaDestination(lambdaFunction),
             s3.NotificationKeyFilter(prefix="files/"),
+        )
+
+    def create_dynamodb_table(self, stackConfig):
+        # create a dynamodb table
+        ddb.CfnGlobalTable(
+            self,
+            "DynamoDBTable",
+            attribute_definitions=[
+                ddb.CfnGlobalTable.AttributeDefinitionProperty(
+                    attribute_name=stackConfig.dynamoDBPartitionKey,
+                    attribute_type="S",
+                ),
+                ddb.CfnGlobalTable.AttributeDefinitionProperty(
+                    attribute_name=stackConfig.dynamoDBSortKey,
+                    attribute_type="S",
+                ),
+            ],
+            key_schema=[
+                ddb.CfnGlobalTable.KeySchemaProperty(
+                    attribute_name=stackConfig.dynamoDBPartitionKey, key_type="HASH"
+                ),
+                ddb.CfnGlobalTable.KeySchemaProperty(
+                    attribute_name=stackConfig.dynamoDBSortKey, key_type="RANGE"
+                ),
+            ],
+            replicas=[
+                ddb.CfnGlobalTable.ReplicaSpecificationProperty(
+                    region=stackConfig.region
+                ),
+                ddb.CfnGlobalTable.ReplicaSpecificationProperty(
+                    region=stackConfig.dynamoDBSecondaryRegion
+                ),
+            ],
+            billing_mode="PAY_PER_REQUEST",
+            table_name=stackConfig.dynamoDBTableName,
+            stream_specification=ddb.CfnGlobalTable.StreamSpecificationProperty(
+                stream_view_type="NEW_AND_OLD_IMAGES"
+            ),
         )
 
     def upload_lambda_code(self):

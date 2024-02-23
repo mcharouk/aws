@@ -7,7 +7,7 @@ table_name = "demo_employee"
 bucket_name = "eventnotification-demo-457663"
 
 
-def delete_table(tableName, region_name):
+""" def delete_table(tableName, region_name):
     dynamodb = boto3.client("dynamodb", region_name=region_name)
     try:
         response = dynamodb.describe_table(TableName=tableName)
@@ -23,7 +23,7 @@ def delete_table(tableName, region_name):
 
 
 delete_table(table_name, "eu-west-3")
-delete_table(table_name, "eu-west-1")
+delete_table(table_name, "eu-west-1") """
 
 s3 = boto3.client("s3", region_name="eu-west-3")
 

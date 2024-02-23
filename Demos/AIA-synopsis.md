@@ -147,9 +147,9 @@
 * Link Aurora (livre blanc)
 * DynamDB
   * Quizz sur use cases dynamodb
-  * Créer la table avant de parler des partition key et sort key. Créer aussi la global table car elle prend du temps à se créer.
-  * Parler des features de DynamooDB
-  * A la fin créer manuellement les lignes dans la région Paris et Ireland pour montrer le comportement actif/actif
+  * au moment de parler des partition key et sort key, Commencer la démo en alimentant la table et en faisant des requêtes
+  * Parler des features de DynamoDB
+  * A la fin créer manuellement les lignes dans la région Paris et Ireland pour montrer le comportement actif/actif de la global table
 * Link DynamoDB (livre blanc)
 * Elasticache : whiteboard si il y a du temps (détail l'archi Memached vs redis)
 

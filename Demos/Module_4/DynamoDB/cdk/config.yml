@@ -3,7 +3,10 @@ aws:
   region: "eu-west-3"
 demo:
   dynamodb:
-    tableName: "demo_employee" 
+    tableName: "demo_employee"
+    partitionKey: "LastName"
+    sortKey: "FirstName"
+    secondaryRegion: "eu-west-1"
   s3: 
     bucketName: "eventnotification-demo-457663"
     inputObjectPrefix : "files"
