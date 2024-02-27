@@ -11,4 +11,5 @@ demo:
     bucketName: "eventnotification-demo-457663"
     inputObjectPrefix : "files"
   lambda: 
+    name: "DynamoDB-S3Feeder"
     generate: True

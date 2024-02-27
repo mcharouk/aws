@@ -10,28 +10,8 @@ from aws_cdk import aws_lambda_event_sources as _lambda_es
 from aws_cdk import aws_s3 as s3
 from aws_cdk import aws_s3_assets as s3a
 from aws_cdk import aws_s3_notifications as s3n
+from cdk.StackConfig import StackConfig
 from constructs import Construct
-
-
-class StackConfig:
-
-    def __init__(self):
-        with open("config.yml", "r") as config_file:
-            config = yaml.safe_load(config_file)
-            aws = config["aws"]
-            dynamoDB = config["demo"]["dynamodb"]
-            s3 = config["demo"]["s3"]
-            lambdaConfig = config["demo"]["lambda"]
-
-            self.accountId = aws["accountId"]
-            self.region = aws["region"]
-            self.dynamoDBTableName = dynamoDB["tableName"]
-            self.dynamoDBPartitionKey = dynamoDB["partitionKey"]
-            self.dynamoDBSortKey = dynamoDB["sortKey"]
-            self.dynamoDBSecondaryRegion = dynamoDB["secondaryRegion"]
-            self.bucketName = s3["bucketName"]
-            self.inputObjectPrefix = s3["inputObjectPrefix"]
-            self.generate_lambda = lambdaConfig["generate"]
 
 
 class CdkStack(Stack):
@@ -134,16 +114,16 @@ class CdkStack(Stack):
         s3ForLambdaPolicy.attach_to_role(role=role)
 
         if stackConfig.generate_lambda == True:
-            self.generate_lambda(role, stackConfig.bucketName)
+            self.generate_lambda(role, stackConfig.bucketName, stackConfig.lambdaName)
             self.create_dynamodb_table(stackConfig)
         else:
             self.upload_lambda_code()
 
-    def generate_lambda(self, role, bucketName):
+    def generate_lambda(self, role, bucketName, lambdaName):
         lambdaFunction = _lambda.Function(
             self,
             "DynamoDB_Lambda",
-            function_name="DynamoDB-S3Feeder",
+            function_name=lambdaName,
             runtime=_lambda.Runtime.PYTHON_3_12,
             code=_lambda.Code.from_asset("Lambda"),
             handler="lambda_function.lambda_handler",
