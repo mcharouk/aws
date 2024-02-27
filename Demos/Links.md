@@ -4,7 +4,7 @@
 
 # Module 1 : Infrastructure
 
-* [WAF Lenses](https://aws.amazon.com/architecture/well-architected) (Scroll down to find lenses)
+* [Well-Architected Framework Lenses](https://aws.amazon.com/architecture/well-architected) (Scroll down to find lenses)
 
 # Module 2 : Account Security
 

@@ -1,10 +1,23 @@
+# Module 3 : Networking
+
+## EIP
+
+### BYOIP
+
+[Process diagram](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-byoip.html#prepare-for-byoip)
+
+* Create a ROA (Route Origin Authorization) in your RIR (Regional Internet Registry). This ROA is used to authenticate IP advertisment to AWS
+* Provision an address range for use in AWS. AWS verify with a self-signed certificate that the client owns the address range (it matches with the one used to create the ROA)
+* Use command advertise-byoip-cidr to advertise an ip range from AWS. 
+  * AWS recommends you deactivate other places that can advertise this same address range, otherwise AWS can't guarantee that traffic to the address range will enter their network.
+
 # Module 4 : Compute
 
 ## EC2
 
 ### EC2 lifecycle
 
-* Stop an instance is equivalent to switch it off. Basically, the disks are retained (EBS-backed instances), so we can start from where it has been stopped.
+* Stopping an instance is equivalent to switch it off. Basically, the disks are retained (EBS-backed instances), so we can start from where it has been stopped.
 * Hibernate means memory state is retained. So boot start time is reduced. Long running process can go on without interruption. Great if there is a in memory caching layer.
 
 ## EBS / Instance Store
@@ -19,7 +32,7 @@ Limitations :
 
 ### Instance store
 
-* [instance store throughput](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/general-purpose-instances.html#general-purpose-ssd-perf)
+* [Instance store throughput](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/general-purpose-instances.html#general-purpose-ssd-perf)
 
 # Module 5 : Storage
 
@@ -44,6 +57,11 @@ Limitations :
   * the mount point location / folder
   * the user that will be used to access EFS.
 
+# Module 10
+
+## Direct Connect
+* [List of Direct Connect Partners](https://aws.amazon.com/directconnect/partners/)
+
 # Module 12 : Edge Services
 
 ## Route 53
@@ -53,35 +71,45 @@ Limitations :
 * Routing policies not supported by private hosted zone
   * Geoproximity
   * Ip-based routing (map a user ip list to a specific resource)
-  * 
-## CloudFront 
+  
+### Transfer a DNS Service to Route 53
+
+* Get the current DNS configuration (records to duplicate)
+* Create a public hosted zone in Route 53
+* Create all records in the newly created zone
+* Lower TTL settings of NS record to 15 minutes (to roll back in case)
+* Wait two days to ensure the new NS record TTL has propagated
+* Update the NS record to use the Route 53 name servers
+* Monitor traffic for the domain 
+* Change NS record TTL on Route 53 to a higher value (two days)
+
+### Transfer domain registration to Route 53
+
+To [Transfer domain registration](https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/domain-transfer-to-route-53.html#domain-transfer-to-route-53-requirements)
+
+* can be done through the console. High level steps requires
+  * unlocking the domain in the current registrar
+  * Get an authorization code from the current registrar
+  * Renew your domain registration before transferring it (not mandatory, depends on the current registrar)
+  * Click the link in the confirmation email
+
+
+## CloudFront
 
 ### Pricing
 
-* Data Transfer Out
-* Lambda@Edge / Cloudfront functions
-* number of requests made to cloudfront
-* data transfer between cloudfront and origin (regional data transfer)
-* Cache Invalidation
-* Origin Shield requests
+* Requests
+  * Number of requests made to cloudfront
+  * Origin Shield requests
+* Network
+  * Data Transfer Out
+  * Data transfer between cloudfront and origin (regional data transfer)
+* Compute
+  * Lambda@Edge / Cloudfront functions
+* Cache
+  * Cache Invalidation
 
 ## Outposts
 
 ### Rack vs Server
-
-Rack 
-
-* Amazon Elastic Compute Cloud (EC2)
-* Amazon Elastic Block Store (EBS)
-* Amazon Simple Storage Service (S3)
-* Amazon Relational Database Service (RDS)
-* Amazon Elasticache
-* Application Load Balancer (ALB)
-* VMware Cloud.
-* Other AWS Services
-
-Server 
-
-* Amazon Elastic Compute Cloud (EC2)
-* AWS IoT Greengrass
-* Amazon Sagemaker Edge Manager.
+[Services available](https://docs.aws.amazon.com/outposts/latest/userguide/what-is-outposts.html#services)

@@ -204,7 +204,11 @@
 
 * Les containers sont la dernière brique de compute que l'on a pas vu, après EC2 et les FaaS (lambda)
 * Les containers ont révolutionné depuis une dizaine d'années le monde des systèmes d'informations grâce à la portabilité qui les caractérise.
-* Les containers ont bcp contribué au développement d'architecture micro services qui privilégient la scalabilité, la flexibilité, la vélocité de livraison de features métiers. Une architecture qui est  fortement recommandé par AWS et qui permet de maximiser les avantages de la plateforme.
+* Les containers ont bcp contribué au développement d'architecture micro services qui privilégient 
+  * la scalabilité
+  * la flexibilité
+  * la vélocité de livraison de features métiers. 
+* L'architecture micro services est fortement recommandé par AWS pour maximiser les avantages de la plateforme.
 * Dans ce module on va traiter des sujets de conteneurs de la simple définition du concept jusqu'à décrire comment on obtient une infrastructure managée, scalable et serverless.
 
 ## Déroulé
@@ -263,6 +267,8 @@
 ## Intro
 
 * le serverless est l'aboutissement de ce que peut offrir une plateforme comme AWS, car la promesse initiale est de manager l'infrastructure du client.
+  * Les EC2 permettent d'abstraire l'infrastructure physique
+  * Le serverless permet d'abstraire l'infrastructure virtuelle et physique
 * On a déjà vu des services serverless à ce stade (lambda, S3, DynamoDB par ex.), on va voir plusieurs services supplémentaires qui complètent le tableau des services formant le noyau dur d'AWS.
 
 ## Déroulé
