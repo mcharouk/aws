@@ -17,6 +17,9 @@ route_tables = get_transit_gateway_route_tables()
 default_route_table = None
 custom_route_table = None
 
+if len(route_tables) == 0:
+    print("no route tables found")
+
 for route_table in route_tables:
     if route_table["DefaultAssociationRouteTable"] == True:
         default_route_table = route_table
@@ -69,3 +72,5 @@ if custom_route_table is not None:
     ec2.delete_transit_gateway_route_table(
         TransitGatewayRouteTableId=custom_route_table_id
     )
+else:
+    print("no custom route table found")

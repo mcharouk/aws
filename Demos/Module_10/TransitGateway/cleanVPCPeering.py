@@ -74,3 +74,5 @@ vpcPeeringConnectionId = list_vpc_peering()
 if vpcPeeringConnectionId is not None:
     delete_routes(vpcPeeringConnectionId)
     delete_vpc_peering(vpcPeeringConnectionId)
+else:
+    print("no vpc peering found")
