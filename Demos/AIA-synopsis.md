@@ -18,9 +18,12 @@
 
 ## Déroulé
 
-* Local Zone : Netflix
-* Local Zone vs Edge Locations : Poll questions
-* Well Architected Framework : Game to recognize icons
+* Local Zone
+  * Netflix
+* Local Zone vs Edge Locations
+  * Poll questions
+* Well Architected Framework
+  * Game to recognize icons
 * Well architected Tool
   * Customer success story
   * Show on Console
@@ -65,11 +68,18 @@
 
 ## Déroulé
 
-* Whiteboard + analogie pour expliquer les addresses IP
-* Table de routage : panneau d'indication
-* Whiteboard pour les différentes ENI sur une seule machine
-* Démo Security Group / ACL  + Analogie Avion / Cinéma
-* Poll question sur les security group / ACL
+* IP Addressing
+  * Whiteboard + analogie pour expliquer les addresses IP
+* VPC / Subnet
+  * Faire des rappels sur la region et les Availability zones
+* Route Table
+  * Analogie Panneau d'indication
+* ENI
+  * Whiteboard
+* Security Group vs NACL
+  * Analogie Avion / Cinema
+  * Demo
+  * Poll questions
 
 # Module 4 : Compute
 
@@ -87,21 +97,23 @@
 
 ## Déroulé 
 
-* User Story EC2 : Treat your server like cattle, not like a pet.
-* montrer les propriétés EC2 au fur et à mesure sur la console
-* Type d'instances
-  * Quizz sur les use cases par type d'instances
-  * montrer Amazon Q qui fait des recommandations sur les types d'instance en fonction du workload
-* EC2 Networking : probes ? / Instance Role 
-* Placement Group : Analogie avec le flex ?
-* Scripts and Metadata
-  * A quoi sert le user data ? Rappel sur l'AMI = static, user data = Dynamique
-  * Metadata : récupérer des informations dynamiques sur l'instance.
-* Spot Pricing
-  * Whiteboard / console (aller dans Spot Requests dans le menu, puis aller dans Pricing History)
+* EC2
+  * User Story EC2 : Treat your server like cattle, not like a pet.
+  * montrer les propriétés EC2 au fur et à mesure sur la console
+  * Type d'instances
+    * Quizz sur les use cases par type d'instances
+    * montrer Amazon Q qui fait des recommandations sur les types d'instance en fonction du workload
+  * EC2 Networking
+    * probes/reminder
+  * Placement Group : Analogie avec le flex ?
+  * Scripts and Metadata
+    * A quoi sert le user data ? Rappel sur l'AMI = static, user data = Dynamique
+    * Metadata : récupérer des informations dynamiques sur l'instance.
+  * Spot Pricing
+    * Whiteboard / console (aller dans Spot Requests dans le menu, puis aller dans Pricing History)
 * Lambda
-  * Ne pas trop montrer les slides, plutôt montrer le whiteboard de démo et la démo
-  * Demo:
+  * Montrer whiteboard de demo
+  * Demo
     * Montrer la création de la lambda + la configuration de l'event s3    
     * Lancer l'ingestion s3 et montrer les logs
     * Ensuite Montrer les limites (15 min, 10 Go), parler des use cases
@@ -118,18 +130,21 @@
 
 ## Déroulé 
 
-* Analogie sur les types de storage
-  * On a un livre, on va stocker une page ou un ensemble de pages sur des étagères différents. C'est plus performant, car lorsque l'on cherche quelque chose, on chercher dans ces pages, plutôt que des chercher dans tous le livre
-  * On a un livre, on stocke le livre dans son entiereté mais on le classe dans une hiérarchie à plusieurs niveaux (folder) d'une manière à le trouver plus facilement. Par exemple on a une bibliothèque qui classe les livres par thèmes puis par ordre alphabétique d'auteur, etc...
-  * Chaque livre a une référence. On peut facilement retrouver le livre avec sa référence (object key) mais c'est à peu près tout
-  [cloud storage types](https://www.freecodecamp.org/news/cloud-storage-options/)
-* S3 : Montrer sur la console la partie accès
-* Access Point : Analogie
-* Lifecycle policies
-  * User Story : sur l'Intelligent Tiering vs lifecycle policies
-* Demo : Bucket Versioning
-* Quizz sur les cas d'usage en synthèse d'EFS (avant la storage gateway)
-* Customer Success Story sur la storage gateway
+* Types de storage
+  * Analogie sur les types de storage
+    * On a un livre, on va stocker une page ou un ensemble de pages sur des étagères différents. C'est plus performant, car lorsque l'on cherche quelque chose, on chercher dans ces pages, plutôt que des chercher dans tous le livre
+    * On a un livre, on stocke le livre dans son entiereté mais on le classe dans une hiérarchie à plusieurs niveaux (folder) d'une manière à le trouver plus facilement. Par exemple on a une bibliothèque qui classe les livres par thèmes puis par ordre alphabétique d'auteur, etc...
+    * Chaque livre a une référence. On peut facilement retrouver le livre avec sa référence (object key) mais c'est à peu près tout
+    * [cloud storage types](https://www.freecodecamp.org/news/cloud-storage-options/)
+* S3
+  * Montrer sur la console la partie accès
+  * Access Point : Analogie
+  * Lifecycle policies -> User Story sur l'Intelligent Tiering vs lifecycle policies
+  * Demo Bucket Versioning
+* EFS
+  * Quizz sur les cas d'usage en synthèse
+* Storage Gateway
+  * Customer Success Story
 
 # Module 6 : Database
 
@@ -142,14 +157,15 @@
 
 ## Déroulé
 
-* Dynamodb customer success story pour illustrer SQL vs NoSQL
-* RDS : customer success story
-* Link Aurora (livre blanc)
-* DynamDB
+* SQL / NoSQL
+  * Dynamodb customer success story 
+* RDS
+  * Customer success story
+* DynamoDB
   * Quizz sur use cases dynamodb
-  * Demo a la fin
-* Link DynamoDB (livre blanc)
-* Elasticache : whiteboard si il y a du temps (détail l'archi Memached vs redis)
+  * Demo
+* Elasticache
+  * Whiteboard si il y a du temps (détail l'archi Memached vs redis)
 
 # Module 7 : Monitoring & scaling
 
@@ -185,7 +201,8 @@
 
 ## Déroulé
 
-* InfraAsCode comme l'Imprimante 3D : On écrit les spécifications de la maison, et c'est la machine qui execute 
+* InfraAsCode
+  * Analogie imprimante 3d
 * Cross stack / Nested Stack, c'est comme dans l'industrie. 
   * Matières premières
   * Composants de bas niveau (semi conducteurs par exemple, des vis..), 
@@ -196,7 +213,8 @@
 * System Manager
   * Whiteboard
   * Customer Success Story
-* Demo : Code Whisperer
+* Code Whisperer
+  * Demo
 
 # Module 9 : Containers
 
@@ -213,16 +231,23 @@
 
 ## Déroulé
 
-* N'expliquer avec la machine à café que si quelqu'un ne connait pas les micro services
-* On peut faire le quizz au tout début 
-* User Story : EKS 
-* Analogy : Ikea pour les container
-* Faire la démo en 2 temps
-  * !! Ne pas oublier de démarrer Rancher Desktop !!
-  * D'abord ECR. Montrer ECR sur la console pendant que le docker push s'execute
-  * Démo Fargate au moment où on parle de Fargate
+**!! Ne pas oublier de démarrer Rancher Desktop !!**
+
+* Intro
+  * Poll questions 
+* Micro services
+  * N'expliquer avec la machine à café que si quelqu'un ne connait pas les micro services
+* Container
+  * Analogie Ikea
+* ECR
+  * 1ere partie Demo
+  * Montrer ECR sur la console pour expliquer les features
+* EKS
+  * User Story
+* Fargate
+  * Démo
     * Montrer le whiteboard avec celui de la démo pour montrer l'analogie avec les EC2
-    * Executer la démo Fargate
+    * Executer la démo
 
 # Module 10 : Networking 2
 
@@ -237,17 +262,21 @@
 
 ## Déroulé 
 
-* Poll question au début des rappels réseaux
-* Interface endpoint vs gateway : parler du choix que l'on a sur S3 avec le whiteboard
-* Demo : VPC Peering
-* Quizz : Direct connect vs Site-to-site VPN
+* Intro
+  * Poll question au début des rappels réseaux
+* VPC Endpoint
+  * Whiteboard : parler du choix que l'on a sur S3
+* VPC Peering
+  * Demo
+* Direct connect vs site-to-site VPN
+  * Poll questions
 * Transit Gateway
   * Introduire le sujet sur la première slide
   * Raconter la customer success story (ZenDesk) 
   * Expliquer le fonctionnement de la transit gateway avec l'analogie sur le whiteboard
   * Puis basculer sur la console pour executer la démo
   * Redérouler les slides en précisant les différents types d'attachement, et en parlant de Network Manager
-  * Montrer le centralized inspection pattern comme cas d'usage concret
+  * Montrer la centralized inspection pattern comme cas d'usage concret (si il y a du temps)
 
 ## Requirements Direct Connect
 
@@ -273,16 +302,22 @@
 
 ## Déroulé
 
-* Passer rapidement sur les features d'API Gateway, ne pas le montrer dans la console
-* Faire la démo avec la Lambda
-* Raconter l'exemple IRP buffering pour illustrer SQS  
-* Montrer la console SQS au moment d'aborder les queues Standard et FIFO
-* Montrer les whiteboards pour expliquer le polling et le visibility timeout
-  * Les queues SQS sont capable de faire des retry automatiques de messages. Cela peut suggérer que les workers SQS sont fault tolerant. Dans le cas où ces workers ne sont pas des lambdas, quel feature peut amener de grosses économies et matche bien avec des traitements fault-tolerant ?
-* User Story : SNS
-* Faire les poll question SNS/SQS en fonction du timing
-* Passer très vite sur Kinesis et StepFunction. 
-* Parler de l'analogie tour de contrôle pour la step function, et montrer les exemples de use case sur le dashboard
+* API Gateway
+  * Passer rapidement sur les features d'API Gateway
+  * ne pas le montrer dans la console
+  * Faire la démo avec la Lambda
+* SQS
+  * Raconter l'exemple IRP buffering pour illustrer SQS  
+  * Montrer la console SQS au moment d'aborder les queues Standard et FIFO
+  * Montrer les whiteboards pour expliquer le polling et le visibility timeout
+  * Question sur les spot instances
+* SNS
+  * User Story : SNS
+  * Faire les poll question SNS/SQS en fonction du timing
+* Passer rapidement sur Kinesis
+* StepFunction
+  * analogie tour de contrôle
+  * montrer les exemples de use case sur le dashboard
 
 # Module 12 : Edge
 
@@ -295,15 +330,19 @@
 
 ## Déroulé
 
-* Poll question pour l'introduction aux Edge
-  * Maillage de trains
+* Introduction
+  * Poll questions (Rappel edge infra)
+  * Analogie Maillage de trains
 * Route 53
   * Analogy annuaire
   * montrer la geoproximity avec la console
-* Raconter l'histoire Zalando au moment du cloudfront overview
-* montrer CloudFront sur la console pour dérouler la configuration
-* Faire la Démo WAF au lieu de montrer le ppt
-* Eventuellement raconter la customer success story Firewall Manager si il y a du temps
+* CloudFront
+  * Analogy distributeur billets pour le cache
+  * Raconter l'histoire Zalando au moment du cloudfront overview
+  * montrer CloudFront sur la console pour dérouler la configuration
+* DDoS
+  * Faire la Démo WAF au lieu de montrer le ppt
+  * Eventuellement raconter la customer success story Firewall Manager si il y a du temps
 * Passer vite sur Outpost
 
 # Module 13 : Backup
