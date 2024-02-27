@@ -1,6 +1,6 @@
 demo:
   apigateway: 
     restapiname: "DemoAPIGateway"
-    generate : True
+    generate : False
   lambda: 
     name: "APIGateway-GetResourceById"

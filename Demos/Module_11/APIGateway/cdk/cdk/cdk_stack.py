@@ -1,18 +1,8 @@
-import yaml
-from aws_cdk import CfnOutput, Stack  # Duration,; aws_sqs as sqs,
+from aws_cdk import Stack  # Duration,; aws_sqs as sqs,
 from aws_cdk import aws_apigateway as apigw
 from aws_cdk import aws_lambda as _lambda
+from cdk.StackConfig import StackConfig
 from constructs import Construct
-
-
-class StackConfig:
-
-    def __init__(self):
-        with open("config.yml", "r") as config_file:
-            config = yaml.safe_load(config_file)
-            self.generate_api_gateway = config["demo"]["apigateway"]["generate"]
-            self.lambda_name = config["demo"]["lambda"]["name"]
-            self.api_gateway_rest_api_name = config["demo"]["apigateway"]["restapiname"]
 
 
 class CdkStack(Stack):
