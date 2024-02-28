@@ -1,3 +1,17 @@
+# Check-list pour démarrer un module
+
+* Synopsis (pour l'intro)
+* Démo
+  * Readme
+  * Deploiement de l'infrastructure
+* Customer Stories
+* Links
+* Images pour le gartner (Module 1 & 6)
+* Mentimeter
+* Connection à la console AWS
+* Drawio sur l'explorateur internet (ou bien client lourd si partage de tout l'écran)
+* Rancher desktop pour les containers
+
 # Points importants
 
 * Lorsque c'est possible, si des gens ont déjà utilisés les services, les inciter à partager leur expérience et leur avis sur ce qu'apporte le service
@@ -33,7 +47,6 @@
 ## Intro
 
 * Pour AWS, la sécurité est le pillier le plus important. Lorsqu'ils font des architecture en interne, et ont le choix entre plusieurs architectures, ils prennent systématiquement la plus sécurisée.
-* Une système secure est un 
 * Les système de droit étant très fin, ils sont partout dans AWS, il est donc très important de comprendre comment cela fonctionne.
 * Maitriser les droits sur AWS, c'est de ne pas faire de compromis sur la sécurité tout en minimisant les dépendances opérationnelles afin de faciliter l'innovation.
 
@@ -192,8 +205,10 @@
 ## Intro
 
 * L'automatisation de l'infrastructure est un des atouts majeurs d'une plateforme comme AWS. 
-* C'est la promesse de construire des infrastructures éphémères qui est un facteur d'optimisation des coûts
-* L'automatisation améliore l'efficacité et permet de passer plus de temps sur les features métiers.
+* Optimisation des coûts
+  * construire des infrastructures éphémères
+* Améliore l'efficacité opérationnelle
+  * L'automatisation permet de passer plus de temps sur les features métiers.
 * Qd on parle d'automatisation sur AWS c'est entre autres
   * automatisation de l'infra : AWS offre une vaste gamme de solutions plus ou moins managés pour que chacun puisse trouver le meilleur compromis entre customisation et solutions "plug and play"
   * automatisation des opérations de production (day2day maintenance)
