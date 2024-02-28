@@ -35,7 +35,7 @@ def remove_security_group_rule(security_group_id, from_port, to_port, ip_ranges)
     )
 
 
-# remove_security_group_rule(security_group_id, 80, 80, "0.0.0.0/0")
+remove_security_group_rule(security_group_id, 80, 80, "0.0.0.0/0")
 
 
 # remove network acl inbound rule
