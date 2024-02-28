@@ -24,7 +24,7 @@
 
 ### EBS Multi Attach
 
-Limitations : 
+[Limitations](https://docs.aws.amazon.com/fr_fr/AWSEC2/latest/UserGuide/ebs-volumes-multi.html#considerations) : 
 * up to 16 instances
 * supported exclusively on provisioned iops
 * can't change the volume type or size
@@ -44,7 +44,7 @@ Limitations :
   * General purpose offers better I/O. One Zone always use General purpose
   * Max I/O : previous generation performance type that is designed for highly parallelized workloads that can tolerate higher latencies
 
-* Throughput modes:
+* [Throughput modes](https://docs.aws.amazon.com/efs/latest/ug/performance.html#throughput-modes):
   * Elastic : unpredictable throughput requirements
   * Provisioned : steady state throughput requirements
   * Bursting : throughput increase with storage size. Burst means it will use unused capacities when there is a peak.
@@ -57,7 +57,7 @@ Limitations :
   * the mount point location / folder
   * the user that will be used to access EFS.
 
-# Module 10
+# Module 10 : Networking 2
 
 ## Direct Connect
 * [List of Direct Connect Partners](https://aws.amazon.com/directconnect/partners/)
