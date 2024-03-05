@@ -4,7 +4,14 @@
 
 # Module 1 : Infrastructure
 
+* [Compliance programs](https://aws.amazon.com/compliance/programs/)
 * [Well-Architected Framework Lenses](https://aws.amazon.com/architecture/well-architected) (Scroll down to find lenses)
+* [Data Centers](https://aws.amazon.com/compliance/data-center/data-centers/)
+  * Perimeter Layer
+  * Infrstructure Layer
+  * Data Layer
+  * Environmental layer
+* [Local Zones](https://aws.amazon.com/about-aws/global-infrastructure/localzones/locations/?nc=sn&loc=3&refid=c7cc5b76-1a72-46f2-936c-4ca12be47825)
 
 # Module 2 : Account Security
 

@@ -1,16 +1,18 @@
 # Check-list pour démarrer un module
 
-* Synopsis (pour l'intro)
-* Démo
-  * Readme
-  * Deploiement de l'infrastructure
-* Customer Stories
-* Links
-* Images pour le gartner (Module 1 & 6)
-* Mentimeter
-* Connection à la console AWS
-* Drawio sur l'explorateur internet (ou bien client lourd si partage de tout l'écran)
-* Rancher desktop pour les containers
+* Non visible
+  * Synopsis (pour l'intro)
+  * Rancher desktop pour les containers
+* Visible
+  * Démo
+    * Readme
+    * Deploiement de l'infrastructure
+  * Customer Stories
+  * Links
+  * Images pour le gartner (Module 1 & 6)
+  * Mentimeter
+  * Connection à la console AWS
+  * Drawio sur l'explorateur internet (ou bien client lourd si partage de tout l'écran)
 
 # Points importants
 

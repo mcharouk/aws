@@ -1,3 +1,22 @@
+# Module 1
+
+## Data centers
+
+* Perimeter Layer
+* Infrastructure Layer
+* Data Layer
+* Environmental layer
+
+# Module 2 : Account Security
+
+# Principals
+
+* Role session duration : [between 1 and 12 hours](https://docs.aws.amazon.com/singlesignon/latest/userguide/howtosessionduration.html)
+
+## Policies
+
+* [IAM evaluation logic](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_evaluation-logic.html#policy-eval-denyallow)
+
 # Module 3 : Networking
 
 ## EIP
