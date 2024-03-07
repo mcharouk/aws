@@ -96,13 +96,11 @@ Bonus :
   * Il y a 3 sec groups : les 2 premiers, auto sur port 80, le 3e 3306 (mysql)
   * **Faire attention au comportement du navigateur**, c'est du http 
 * Task 2 : create a launch template config
-  * il faut bien spécifier l'AMI **Linux 2** et pas 2023 sinon ca marche pas...
   * Il ne faut rien mettre dans le réseau (VPC/Subnet), ce sera spécifié dans l'ASG, mais il faut renseigner le Security Group par contre...
   * Points d'attention
     * Security Group -> fait planter au moment du register instance auprès de l'ALB si pas renseigné
     * Instance Profile -> le rôle associé à juste des droits Session Manager, ca ne devrait pas être trop grave si c'est mal configuré
-    * Metadata V1 and V2 (jeton facultatif) 
-      * Si V2 only : Erreur lorsqu'on essaye d'afficher la page : **Unable to retrieve AWS credentials. Please assign an IAM Role to this instance.**
+    * Metadata par défaut (V2 only)
 * Task 3 : ASG
   * Il faut le mettre dans les private subnet (et le bon VPC) -> pas d'impact si dans les public subnet, ca marche qd même
     * Attention à la grace period (300s), sinon les health check risque de ne pas marcher. Normalement c'est la conf par défaut
@@ -112,10 +110,12 @@ Bonus :
 * Task 4 : Test
 * Task 5 : Test
 * Task 6 : Add a read replica
+  * attention à bien sélectionner 1 availability zone différente de la 1ere (mais pas d'impact sur le bon fonctionnement de l'application)
 * Task 7 : NAT Gateway Resilience
   * Attention à la créer dans le bon public subnet (Le No 2)
   * table de routage associée au bon VPC
   * vérifier la table de routage, et son attachment au subnet. Le subnet associée doit être le même que celui de la NAT Gateway précédemment créé...
+  * Qd on regarde les tables de routage, on dirait que les deux sont associés au Private Subnet 2. Il faut bien aller dans les propriétés du subnet pour voir à quelle table de routage il est effectivement associé. On ne peut pas explicitement supprimer l'association qu'il y a entre la table de routage privé 1 et le private subnet 2, faute de droits suffisants.
 * Task 8 : Test High Availability of database
   
 
@@ -155,9 +155,9 @@ Bonus :
   * créer une bucket policy (attention au ARN spécifié). Bien mettre /* à la fin du ARN
 * Task 4 : uploader un fichier et tester qu'on y accède en public
 * Task 5 : 
-  * Création d'une origine (OAI) dans CloudFront
+  * Création d'une origine (OAC) dans CloudFront
     * Origin Path doit être vide
-    * OAI : attention à ne pas créer un OAC
+    * Paramètres par défaut de l'OAC normalement
   * Création d'un comportement (behavior)
     * Le chemin doit être cohérent avec le folder créé dans le bucket (on créé un folder CachedObjects normalement)
     * Le chemin doit ressembler à **CachedObjects/*.png**
@@ -166,7 +166,7 @@ Bonus :
       * Cache policy and origin request policy (recommended)
       * Cache Policy = CachingOptimized
     * dans Security/Origin Access (dans le menu à gauche)
-* Task 6 : changer la bucket policy avec le canonical user de cloudfront
+* Task 6 : changer la bucket policy. Attention au /* à la fin de l'ARN S3 et coller le bon ARN de la distrib cloudfront
 * Task 7 : bonus, mettre en place une réplication CRR
   * activer dans le bucket primaire le versioning
   * créer un nouveau bucket dans la région secondaire. Vérifier que le versioning est bien activé dessus
