@@ -1,4 +1,4 @@
-## Lab1
+# Lab1
 
 * Step 1 : region choice
   * Search bar
@@ -27,7 +27,7 @@ aws s3 mb s3://fdkfsjfls
 
 
 
-## Lab2
+# Lab2
 
 * **Normalement, les ACLs doivent être ok, rien a changé**
 
@@ -66,7 +66,7 @@ Déroulé :
 Bonus : 
 * Add ICMP rule in Private SG
 
-## Lab3
+# Lab3
 
 * Task 1 : DB creation
   * Faire attention à bien renseigner user/mdp et au nom de la base de données (dans le Aurora mysql)
@@ -79,6 +79,7 @@ Bonus :
   * Target Group
     * mettre instances comme type
     * mettre le bon VPC, sinon on pourra pas voir les instances dans la liste à sélectionner
+    * bien sélectionner les instances et cliquer sur le bouton **Include As Pending Below**
   * ALB
     * il faut bien spécifier les subnet public et pas privés... Les mettre dans le privé le rendra inaccessible depuis internet
     * sélectionner le bon SG
@@ -124,8 +125,9 @@ Bonus :
 * Task 1 : création SNS
 * Task 2 : création SQS
   * Déjà eu des problèmes avec thumbnail queue. Je sais pas pourquoi ca marche pas, mais le fait de recréer la queue l'a fait fonctionné.
+  * Faire un subscribe SNS à partir de SQS et non à partir de SNS, ca marche mieux, mais je ne sais pas pourquoi.
 * Task 3 : création notification S3
-  * changement de la resource policy SNS. Attention au remplacement des placeholders
+  * changement de la resource policy SNS pour autoriser S3 à publier dans la queue. Attention au remplacement des placeholders
   * dans l'évenement s3
     * ingest/ (ne pas oublier le /)
     * attention au coquilles dans le suffix
@@ -133,11 +135,22 @@ Bonus :
     * sélection du topic SNS
 * Task 4 : création de 3 lambdas
   * attention au rôle de la lambda (LabExecutionRole)
-  * runtime Python 3.9
+  * runtime Python 3.9. **Fails if python > 3.9**
   * trigger SQS : taille de batch de 1 mais je ne pense pas que ca a un impact négatif sur le bon fonctionnement
   * attention à changer le nom du handler
 * Task 5 : upload d'un fichier et test  
 * Task 6 : Validation du test
+  * ingest files are still there and it's normal
+  * new folders are created
+* To debug
+  * Use cloudwatch metrics to see who does not receive the message
+  * Change default statistic which is Average by SUM to have accurate numbers
+  * SNS
+    * NumberOfMessagesPublished
+    * NumberOfMessagesDelivered
+  * SQS
+    * NumberOfMessagesSent
+    * NumberOfMessagesReceived
 
 * Optionel
   * lifecycle policy

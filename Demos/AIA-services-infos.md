@@ -128,6 +128,14 @@ To [Transfer domain registration](https://docs.aws.amazon.com/Route53/latest/Dev
 * Cache
   * Cache Invalidation
 
+### Differences OAI / OAC
+
+* Temporary credentials
+* Support S3 bucket KMS encryption
+* OAC supports HTTP requests: 
+  * GET, PUT, POST, PATCH, DELETE, OPTIONS, and HEAD. 
+* OAI does not support POST or DELETE (write operations)
+
 ## Outposts
 
 ### Rack vs Server
