@@ -1,4 +1,4 @@
-# Général
+# General
 
 * [Cloud With Raj](https://www.youtube.com/@cloudwithraj)
 
@@ -7,7 +7,12 @@
 * [Compliance programs](https://aws.amazon.com/compliance/programs/)
 * [Well-Architected Framework Lenses](https://aws.amazon.com/architecture/well-architected) (Scroll down to find lenses)
 * [Data Centers](https://aws.amazon.com/compliance/data-center/data-centers/)
+
+## Locations
+
+* [Regions and AZs](https://aws.amazon.com/about-aws/global-infrastructure/regions_az/?p=ngi&loc=2)
 * [Local Zones](https://aws.amazon.com/about-aws/global-infrastructure/localzones/locations/?nc=sn&loc=3&refid=c7cc5b76-1a72-46f2-936c-4ca12be47825)
+* [Edge Locations](https://aws.amazon.com/cloudfront/features/?p=ugi&l=emea&whats-new-cloudfront.sort-by=item.additionalFields.postDateTime&whats-new-cloudfront.sort-order=desc)
 
 # Module 2 : Account Security
 
@@ -36,12 +41,19 @@
 
 # Module 11 : Serverless
 
+## API Gateway
+
 * [API Gateway Developer Portal](https://github.com/awslabs/aws-api-gateway-developer-portal)
 * [Serverless Lens](https://docs.aws.amazon.com/wellarchitected/latest/serverless-applications-lens/welcome.html)
 * [EventBridge deep dive](https://www.youtube.com/watch?v=6X4lSPkn4ps), an event bus recommended for event-driven architectures
 
 # Module 12 : Edge
 
+## DNS
+
+* [Hybrid DNS](https://docs.aws.amazon.com/whitepapers/latest/hybrid-cloud-dns-options-for-vpc/hybrid-cloud-dns-options-for-vpc.html)
+
+## DDOS
+
 * [DDoS Best Practices](https://docs.aws.amazon.com/whitepapers/latest/aws-best-practices-ddos-resiliency/aws-best-practices-ddos-resiliency.html)
 * [Focus sur Shield](https://www.youtube.com/watch?v=5cfVebJ8wTo)
-* [Hybrid DNS](https://docs.aws.amazon.com/whitepapers/latest/hybrid-cloud-dns-options-for-vpc/hybrid-cloud-dns-options-for-vpc.html)
