@@ -15,6 +15,18 @@
   * Drawio sur l'explorateur internet (ou bien client lourd si partage de tout l'écran)
 
 * [Module 1 : Infrastructure](#module-1--infrastructure)
+* [Module 2 : Security Account](#module-2--security-account)
+* [Module 3 : Networking 1](#module-3--networking-1)
+* [Module 4 : Compute](#module-4--compute)
+* [Module 5 : Storage](#module-5--storage)
+* [Module 6 : Database](#module-6--database)
+* [Module 7 : Monitoring & scaling](#module-7--monitoring--scaling)
+* [Module 8 : Automation](#module-8--automation)
+* [Module 9 : Containers](#module-9--containers)
+* [Module 10 : Networking 2](#module-10--networking-2)
+* [Module 11 : Serverless](#module-11--serverless)
+* [Module 12 : Edge](#module-12--edge)
+* [Module 13 : Backup](#module-13--backup)
 
 # Points importants
 
