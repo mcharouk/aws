@@ -32,6 +32,13 @@ IP whitelist
     "Version": "2012-10-17",
     "Id": "SourceIP",
     "Statement": [
+         {
+            "Sid": "PublicReadGetObject",
+            "Effect": "Allow",
+            "Principal": "*",
+            "Action": "s3:GetObject",
+            "Resource": "arn:aws:s3:::test-marccharouk-674648573/*"
+        },
         {
             "Sid": "SourceIP",
             "Effect": "Deny",
@@ -46,14 +53,7 @@ IP whitelist
                     "aws:SourceIp": "37.65.15.118/32"
                 }
             }
-        },
-        {
-            "Sid": "PublicReadGetObject",
-            "Effect": "Allow",
-            "Principal": "*",
-            "Action": "s3:GetObject",
-            "Resource": "arn:aws:s3:::test-marccharouk-674648573/*"
-        }
+        }       
     ]
 }
 ```
