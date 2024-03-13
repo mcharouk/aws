@@ -14,6 +14,8 @@
   * Connection à la console AWS
   * Drawio sur l'explorateur internet (ou bien client lourd si partage de tout l'écran)
 
+* [Module 1 : Infrastructure](#Module%201%20:%20Infrastructure)
+
 # Points importants
 
 * Lorsque c'est possible, si des gens ont déjà utilisés les services, les inciter à partager leur expérience et leur avis sur ce qu'apporte le service
