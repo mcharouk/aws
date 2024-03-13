@@ -18,3 +18,30 @@ policy that gives public permissions to download any file
     ]
 }
 ```
+
+IP whitelist
+```
+{
+  "Id": "SourceIP",
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "SourceIP",
+      "Action": "s3:*",
+      "Effect": "Deny",
+      "Resource": [
+        "arn:aws:s3:::DOC-EXAMPLE-BUCKET",
+        "arn:aws:s3:::DOC-EXAMPLE-BUCKET/*"
+      ],
+      "Condition": {
+        "NotIpAddress": {
+          "aws:SourceIp": [
+            "37.65.15.118/32"
+          ]
+        }
+      },
+      "Principal": "*"
+    }
+  ]
+}
+```
