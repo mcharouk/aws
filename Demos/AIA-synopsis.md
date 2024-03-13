@@ -152,7 +152,7 @@
     * Chaque livre a une référence. On peut facilement retrouver le livre avec sa référence (object key) mais c'est à peu près tout
     * [cloud storage types](https://www.freecodecamp.org/news/cloud-storage-options/)
 * S3
-  * le [readme](Demos/Module_5/README.md)
+  * le [README](Module_5/README.md)
   * Montrer sur la console la partie accès
   * Access Point : Analogie
   * Lifecycle policies -> User Story sur l'Intelligent Tiering vs lifecycle policies
