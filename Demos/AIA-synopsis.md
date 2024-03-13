@@ -130,6 +130,7 @@
 * Lambda
   * Montrer whiteboard de demo
   * Demo
+    * [Readme](Module_4/DynamoDB/cdk/README2.md)
     * Montrer la création de la lambda + la configuration de l'event s3    
     * Lancer l'ingestion s3 et montrer les logs
     * Ensuite Montrer les limites (15 min, 10 Go), parler des use cases
@@ -153,7 +154,7 @@
     * Chaque livre a une référence. On peut facilement retrouver le livre avec sa référence (object key) mais c'est à peu près tout
     * [cloud storage types](https://www.freecodecamp.org/news/cloud-storage-options/)
 * S3
-  * le [README](Module_5/README.md)
+  * [README](Module_5/README.md)
   * Montrer sur la console la partie accès
   * Access Point : Analogie
   * Lifecycle policies -> User Story sur l'Intelligent Tiering vs lifecycle policies
@@ -180,7 +181,7 @@
   * Customer success story
 * DynamoDB
   * Quizz sur use cases dynamodb
-  * Demo
+  * Demo : [Readme](Module_4/DynamoDB/cdk/README2.md)
 * Elasticache
   * Whiteboard si il y a du temps (détail l'archi Memached vs redis)
 
@@ -233,7 +234,7 @@
   * Whiteboard
   * Customer Success Story
 * Code Whisperer
-  * Demo
+  * Demo : [Readme](Module_8/CodeWhisperer/README.md)
 
 # Module 9 : Containers
 
@@ -259,7 +260,7 @@
 * Container
   * Analogie Ikea
 * ECR
-  * 1ere partie Demo
+  * 1ere partie Demo : [Readme](Module_9/Fargate/README.md)
   * Montrer ECR sur la console pour expliquer les features
 * EKS
   * User Story
