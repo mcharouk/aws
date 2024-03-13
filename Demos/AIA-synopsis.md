@@ -14,7 +14,7 @@
   * Connection à la console AWS
   * Drawio sur l'explorateur internet (ou bien client lourd si partage de tout l'écran)
 
-* [Module 1 : Infrastructure](#Module%201%20:%20Infrastructure)
+* [Module 1 : Infrastructure](#module-1--infrastructure)
 
 # Points importants
 
