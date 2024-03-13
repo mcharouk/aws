@@ -1,3 +1,9 @@
+Bucket Name
+
+```
+test-marccharouk-674648573
+```
+
 policy that gives public permissions to download any file
 
 ```
@@ -12,7 +18,7 @@ policy that gives public permissions to download any file
                 "s3:GetObject"
             ],
             "Resource": [
-                "arn:aws:s3:::demo-staticwebhosting-marccharouk-76857485/*"
+                "arn:aws:s3:::test-marccharouk-674648573/*"
             ]
         }
     ]
@@ -32,8 +38,8 @@ IP whitelist
             "Principal": "*",
             "Action": "s3:*",
             "Resource": [
-                "arn:aws:s3:::test-marccharouk-securityfeatures",
-                "arn:aws:s3:::test-marccharouk-securityfeatures/*"
+                "arn:aws:s3:::test-marccharouk-674648573",
+                "arn:aws:s3:::test-marccharouk-674648573/*"
             ],
             "Condition": {
                 "NotIpAddress": {
@@ -46,7 +52,7 @@ IP whitelist
             "Effect": "Allow",
             "Principal": "*",
             "Action": "s3:GetObject",
-            "Resource": "arn:aws:s3:::test-marccharouk-securityfeatures/*"
+            "Resource": "arn:aws:s3:::test-marccharouk-674648573/*"
         }
     ]
 }
