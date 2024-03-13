@@ -1,3 +1,17 @@
+* [Module 1 : Infrastructure](#module-1)
+* [Module 2 : Security Account](#module-2--security)
+* [Module 3 : Networking 1](#module-3--networking)
+* [Module 4 : Compute](#module-4)
+* [Module 5 : Storage](#module-5)
+* [Module 6 : Database](#module-6)
+* [Module 7 : Monitoring & scaling](#module-7--monitoring-and-scaling)
+* [Module 8 : Automation](#module-8)
+* [Module 9 : Containers](#module-9--containers)
+* [Module 10 : Networking 2](#module-10--networking-2)
+* [Module 11 : Serverless](#module-11--serverless)
+* [Module 12 : Edge](#module-12)
+* [Module 13 : Backup](#module-13)
+
 # Module 1
 
 ## Local Zones
