@@ -19,6 +19,7 @@
 * [IAM Identity Center](https://docs.aws.amazon.com/singlesignon/latest/userguide/what-is.html)
 * [Security Reference Architecture](https://docs.aws.amazon.com/prescriptive-guidance/latest/security-reference-architecture/welcome.html)
 
+
 # Module 6 : Database
 
 * [Aurora Deep dive](https://pages.awscloud.com/rs/112-TZM-766/images/EV_modernize-your-databases-with-amazon-aurora_Mar-2021.pdf)

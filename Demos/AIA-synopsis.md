@@ -1,3 +1,50 @@
+# Table of Contents
+
+- [Table of Contents](#table-of-contents)
+- [Check-list pour démarrer un module](#check-list-pour-démarrer-un-module)
+- [Points importants](#points-importants)
+- [Module 1 : Infrastructure](#module-1--infrastructure)
+  - [Intro](#intro)
+  - [Déroulé](#déroulé)
+- [Module 2 : Security Account](#module-2--security-account)
+  - [Intro](#intro-1)
+  - [Déroulé](#déroulé-1)
+- [Module 3 : Networking 1](#module-3--networking-1)
+  - [Intro](#intro-2)
+  - [Déroulé](#déroulé-2)
+- [Module 4 : Compute](#module-4--compute)
+  - [Intro](#intro-3)
+  - [Déroulé](#déroulé-3)
+- [Module 5 : Storage](#module-5--storage)
+  - [Intro](#intro-4)
+  - [Déroulé](#déroulé-4)
+- [Module 6 : Database](#module-6--database)
+  - [Intro](#intro-5)
+  - [Déroulé](#déroulé-5)
+- [Module 7 : Monitoring \& scaling](#module-7--monitoring--scaling)
+  - [Intro](#intro-6)
+  - [Déroulé](#déroulé-6)
+- [Module 8 : Automation](#module-8--automation)
+  - [Intro](#intro-7)
+  - [Déroulé](#déroulé-7)
+- [Module 9 : Containers](#module-9--containers)
+  - [Intro](#intro-8)
+  - [Déroulé](#déroulé-8)
+- [Module 10 : Networking 2](#module-10--networking-2)
+  - [Intro](#intro-9)
+  - [Déroulé](#déroulé-9)
+  - [Requirements Direct Connect](#requirements-direct-connect)
+- [Module 11 : Serverless](#module-11--serverless)
+  - [Intro](#intro-10)
+  - [Déroulé](#déroulé-10)
+- [Module 12 : Edge](#module-12--edge)
+  - [Intro](#intro-11)
+  - [Déroulé](#déroulé-11)
+- [Module 13 : Backup](#module-13--backup)
+  - [Intro](#intro-12)
+  - [Déroulé](#déroulé-12)
+  - [Infos](#infos)
+
 # Check-list pour démarrer un module
 
 * Non visible
@@ -8,25 +55,14 @@
     * Readme
     * Deploiement de l'infrastructure
   * Customer Stories
-  * Links
-  * Images pour le gartner (Module 1 & 6)
+  * Links  
   * Mentimeter
   * Connection à la console AWS
   * Drawio sur l'explorateur internet (ou bien client lourd si partage de tout l'écran)
+  * Specifics
+    * Module 1 & 6 : Images pour le gartner
+    * Module 5 : [Transfer Acceleration](https://s3-accelerate-speedtest.s3-accelerate.amazonaws.com/en/accelerate-speed-comparsion.html)
 
-* [Module 1 : Infrastructure](#module-1--infrastructure)
-* [Module 2 : Security Account](#module-2--security-account)
-* [Module 3 : Networking 1](#module-3--networking-1)
-* [Module 4 : Compute](#module-4--compute)
-* [Module 5 : Storage](#module-5--storage)
-* [Module 6 : Database](#module-6--database)
-* [Module 7 : Monitoring & scaling](#module-7--monitoring--scaling)
-* [Module 8 : Automation](#module-8--automation)
-* [Module 9 : Containers](#module-9--containers)
-* [Module 10 : Networking 2](#module-10--networking-2)
-* [Module 11 : Serverless](#module-11--serverless)
-* [Module 12 : Edge](#module-12--edge)
-* [Module 13 : Backup](#module-13--backup)
 
 # Points importants
 
@@ -169,7 +205,9 @@
     * [cloud storage types](https://www.freecodecamp.org/news/cloud-storage-options/)
 * S3
   * [README](Module_5/README.md)
-  * Montrer sur la console la partie accès
+  * Montrer sur la console : 
+    * créer un fichier et montrer l'object key
+    * montrer les accès privés, publique avec la bucket policy + block access
   * Access Point : Analogie
   * Lifecycle policies -> User Story sur l'Intelligent Tiering vs lifecycle policies
   * Demo Bucket Versioning
@@ -399,3 +437,5 @@
 * Colocation facilities : ce sont des sites multi-tenant en gros
 * Tape retrievals
 * On-premise backups are data backups that copy your hardware data to a storage device placed in-house
+
+[def]: #module-13--backup
