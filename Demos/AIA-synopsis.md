@@ -94,7 +94,7 @@
   * Whiteboard
 * Security Group vs NACL
   * Analogie Avion / Cinema
-  * Demo
+  * Demo : [ReadME](Module_3/VPCSecurity/README2.md)
   * Poll questions
 
 # Module 4 : Compute
