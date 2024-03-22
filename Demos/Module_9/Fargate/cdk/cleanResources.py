@@ -45,6 +45,17 @@ for task in response["taskDefinitionArns"]:
     print("deleting " + task)
     ecs.deregister_task_definition(taskDefinition=task)
 
+# delete all namespaces
+serviceDiscovery = boto3.client("servicediscovery")
+namespaces = serviceDiscovery.list_namespaces()
+
+if len(namespaces["Namespaces"]) == 0:
+    print("no namespaces to delete")
+
+
+for namespace in namespaces["Namespaces"]:
+    print("deleting namespace " + namespace["Name"])
+    serviceDiscovery.delete_namespace(Id=namespace["Id"])
 
 # delete all ecr repositories
 
