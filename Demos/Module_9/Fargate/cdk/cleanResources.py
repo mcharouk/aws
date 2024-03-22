@@ -1,5 +1,7 @@
 # delete all ecs services
 
+import time
+
 import boto3
 
 ecs = boto3.client("ecs")
@@ -14,8 +16,21 @@ if len(response["clusterArns"]) == 0:
 for cluster in response["clusterArns"]:
     response = ecs.list_services(cluster=cluster)
     for service in response["serviceArns"]:
+        print("setting desired count to 0 " + service)
+        ecs.update_service(cluster=cluster, service=service, desiredCount=0)
+
+        nb_running_tasks = 1
+        while nb_running_tasks > 0:
+            tasks = ecs.list_tasks(
+                cluster=cluster, serviceName=service, desiredStatus="RUNNING"
+            )
+            nb_current_tasks = len(tasks["taskArns"])
+            print("service {0} has {1} running tasks".format(service, nb_current_tasks))
+            nb_running_tasks = nb_current_tasks
+            time.sleep(3)
+
         print("deleting " + service)
-        ecs.delete_service(cluster=cluster, service=service, force=True)
+        ecs.delete_service(cluster=cluster, service=service)
     print("deleting " + cluster)
     ecs.delete_cluster(cluster=cluster)
 

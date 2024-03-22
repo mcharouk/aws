@@ -314,6 +314,10 @@
 * ECR
   * 1ere partie Demo : [Readme](Module_9/Fargate/README.md)
   * Montrer ECR sur la console pour expliquer les features
+    * replication
+    * lifecycle policies
+    * image versionning
+    * resource-based policy
 * EKS
   * User Story
 * Fargate
