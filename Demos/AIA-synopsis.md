@@ -306,7 +306,7 @@
 **!! Ne pas oublier de démarrer Rancher Desktop !!**
 
 * Intro
-  * Poll questions 
+  * Poll questions sur ELB (ALB)
 * Micro services
   * N'expliquer avec la machine à café que si quelqu'un ne connait pas les micro services
 * Container
@@ -319,10 +319,11 @@
     * image versionning
     * resource-based policy
 * EKS
-  * User Story
+  * ECS vs EKS
+  * Parler du control plane / data plane pui enchainer sur la User Story
 * Fargate
   * Démo
-    * Montrer le whiteboard avec celui de la démo pour montrer l'analogie avec les EC2
+    * Montrer le whiteboard de la démo. Eventuellement compléter avec le schéma qui compare avec le setup EC2
     * Executer la démo
 
 # Module 10 : Networking 2
