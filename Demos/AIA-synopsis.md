@@ -89,9 +89,9 @@
 * Local Zone vs Edge Locations
   * Poll questions
 * Well Architected Framework
-  * Game to recognize icons
+  * Game to recognize icons. Peut être pas nécessaire
 * Well architected Tool
-  * Customer success story
+  * Customer success story si il y a le temps
   * Show on Console
 
 # Module 2 : Security Account
