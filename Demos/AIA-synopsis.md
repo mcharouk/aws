@@ -234,6 +234,9 @@
 * DynamoDB
   * Quizz sur use cases dynamodb
   * Demo : [Readme](Module_4/DynamoDB/cdk/README2.md)
+    * Charger les données pour montrer les partition key et sort key
+    * Pour montrer les propriétés, pas trop de valeur ajoutée à montrer la console
+    * Continuer la démo sur les global tables
 * Elasticache
   * Whiteboard si il y a du temps (détail l'archi Memached vs redis)
 
