@@ -285,14 +285,10 @@ They needed an hybrid multi-cloud tool.
 
 ### Solution
 
-* mass patching at scale, covering **more than 62,000 VMs** across all its managed services
 * **reduced overhead** and **improved support efficiency** by using **a single solution**
-* **eliminate the cost and complexity** of patching their own infrastructure. The automation also **improves security** by **avoiding errors** associated with manual tasks
-* handled more than 38,000 incidents  in just **2 months** between August and September 2021
-* Used AWS Systems Manager to send **10,660 automated responses**, which not only **saved 1,480 labor hours** and reduced costs but also drove **faster response times** for customers. 
-* Overall, Rackspace automated **70 percent of manual remediation**. 
+* mass patching at scale, covering **more than 62,000 VMs** across all its managed services
 * The Amazon **CloudWatch agent** on the VMs performs monitoring and alerting based on the events happening in customers’ infrastructure. **During the same 2-month span** in 2021, Rackspace used Amazon CloudWatch to ingest **14,670 alarm events** across all its products that use the AWS service
-* automate **more than 150 runbooks**
+* Overall, Rackspace automated **70 percent of manual remediation**
 * reduces complexity for customers by providing a **single-pane view** of their environments, **even hybrid and multicloud ones**.
 
 # Module 9 : Containers
