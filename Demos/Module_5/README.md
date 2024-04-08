@@ -1,10 +1,10 @@
-Bucket Name
+# S3
 
+## Bucket Name
 ```
 test-marccharouk-674648573
 ```
-
-policy that gives public permissions to download any file
+## Public bucket policy
 
 ```
 {
@@ -25,7 +25,7 @@ policy that gives public permissions to download any file
 }
 ```
 
-IP whitelist
+## IP whitelist bucket policy
 
 ```
 {
@@ -54,6 +54,28 @@ IP whitelist
                 }
             }
         }       
+    ]
+}
+```
+
+## Glacier Vault Policy
+
+```
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "deny-based-on-archive-age",
+            "Effect": "Deny",
+            "Principal": "*",
+            "Action": "glacier:DeleteArchive",
+            "Resource": "arn:aws:glacier:eu-west-3:270188911144:vaults/hello",
+            "Condition": {
+                "NumericLessThan": {
+                    "glacier:ArchiveAgeInDays": "365"
+                }
+            }
+        }
     ]
 }
 ```
