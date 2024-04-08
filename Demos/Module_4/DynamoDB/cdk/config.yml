@@ -12,4 +12,4 @@ demo:
     inputObjectPrefix : "files"
   lambda: 
     name: "DynamoDB-S3Feeder"
-    generate: True
+    generate: False

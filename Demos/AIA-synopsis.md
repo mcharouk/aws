@@ -175,6 +175,7 @@
   * Scripts and Metadata
     * A quoi sert le user data ? Rappel sur l'AMI = static, user data = Dynamique
     * Metadata : récupérer des informations dynamiques sur l'instance.
+  * EBS : se servir du tableau pour montrer les différences entre les différents types (IOPS et throughput)
   * Spot Pricing
     * Whiteboard / console (aller dans Spot Requests dans le menu, puis aller dans Pricing History)
 * Lambda
@@ -183,8 +184,8 @@
     * [Readme](Module_4/DynamoDB/cdk/README2.md)
     * Montrer la création de la lambda + la configuration de l'event s3    
     * Lancer l'ingestion s3 et montrer les logs
-    * Ensuite Montrer les limites (15 min, 10 Go), parler des use cases
-    * Raconter la user story
+    * Ensuite Montrer les limites (15 min, 10 Go)
+    * Parler des use cases / Raconter la user story
     * A la fin montrer le monitoring de la lambda, on devrait voir le scaling dans les métriques
 
 # Module 5 : Storage
