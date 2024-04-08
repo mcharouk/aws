@@ -204,6 +204,7 @@
     * On a un livre, on stocke le livre dans son entiereté mais on le classe dans une hiérarchie à plusieurs niveaux (folder) d'une manière à le trouver plus facilement. Par exemple on a une bibliothèque qui classe les livres par thèmes puis par ordre alphabétique d'auteur, etc...
     * Chaque livre a une référence. On peut facilement retrouver le livre avec sa référence (object key) mais c'est à peu près tout
     * [cloud storage types](https://www.freecodecamp.org/news/cloud-storage-options/)
+  * Quizz sur les cas d'usage en synthèse
 * S3
   * [README](Module_5/README.md)
   * Montrer sur la console : 
@@ -212,8 +213,8 @@
   * Access Point : Analogie
   * Lifecycle policies -> User Story sur l'Intelligent Tiering vs lifecycle policies
   * Demo Bucket Versioning
-* EFS
-  * Quizz sur les cas d'usage en synthèse
+  * [Transfer Acceleration](https://s3-accelerate-speedtest.s3-accelerate.amazonaws.com/en/accelerate-speed-comparsion.html)
+* EFS  
 * Storage Gateway
   * Customer Success Story
 
