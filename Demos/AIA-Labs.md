@@ -65,6 +65,7 @@ Déroulé :
 
 Bonus : 
 * Add ICMP rule in Private SG
+* for metadata, check that request is done from **public** instance because public hostname is only available from public instance obviously
 
 # Lab3
 

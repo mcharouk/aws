@@ -196,7 +196,7 @@
 * Fais souvent partie des premiers use cases cloud pour pouvoir migrer rapidement et s'accoutumer avec cette nouvelle technologie
 * Montrer le Capstone Architecture
 
-## Déroulé 
+## Déroulé
 
 * Types de storage
   * Analogie sur les types de storage
@@ -204,7 +204,6 @@
     * On a un livre, on stocke le livre dans son entiereté mais on le classe dans une hiérarchie à plusieurs niveaux (folder) d'une manière à le trouver plus facilement. Par exemple on a une bibliothèque qui classe les livres par thèmes puis par ordre alphabétique d'auteur, etc...
     * Chaque livre a une référence. On peut facilement retrouver le livre avec sa référence (object key) mais c'est à peu près tout
     * [cloud storage types](https://www.freecodecamp.org/news/cloud-storage-options/)
-  
 * S3
   * [README](Module_5/README.md)
   * Montrer sur la console : 
@@ -233,10 +232,11 @@
 * SQL / NoSQL
   * Dynamodb customer success story 
 * RDS
-  * Customer success story
+  * Customer success story (pas sûr qu'il y ait le temps)
 * DynamoDB
   * Quizz sur use cases dynamodb
   * Demo : [Readme](Module_4/DynamoDB/cdk/README2.md)
+    * la table est créé à l'avance
     * Charger les données pour montrer les partition key et sort key
     * Pour montrer les propriétés, pas trop de valeur ajoutée à montrer la console
     * Continuer la démo sur les global tables
