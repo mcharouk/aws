@@ -21,7 +21,16 @@ class CdkStack(Stack):
 
         stackConfig = StackConfig()
 
+        role = self.createLambdaRole(stackConfig=stackConfig)
         # create an iam role assumed by lambda and attach the policy
+
+        if stackConfig.generate_lambda == True:
+            self.generate_lambda(role, stackConfig.bucketName, stackConfig.lambdaName)
+            self.create_dynamodb_table(stackConfig)
+        else:
+            self.upload_lambda_code()
+
+    def createLambdaRole(self, stackConfig):
         role = iam.Role(
             self,
             "LambdaRole",
@@ -29,6 +38,18 @@ class CdkStack(Stack):
             assumed_by=iam.ServicePrincipal("lambda.amazonaws.com"),
         )
 
+        dynamodbPolicy = self.createDynamoDBPolicy(stackConfig=stackConfig)
+        dynamodbPolicy.attach_to_role(role=role)
+
+        cloudwatchForLambdaPolicy = self.createCloudWatchPolicy(stackConfig=stackConfig)
+        cloudwatchForLambdaPolicy.attach_to_role(role=role)
+
+        s3ForLambdaPolicy = self.createS3Policy(stackConfig=stackConfig)
+        s3ForLambdaPolicy.attach_to_role(role=role)
+
+        return role
+
+    def createDynamoDBPolicy(self, stackConfig):
         dynamoDBPolicyStatement = iam.PolicyStatement(
             sid="DynamoDBPolicyStatement",
             effect=iam.Effect.ALLOW,
@@ -56,9 +77,9 @@ class CdkStack(Stack):
             "DynamoDBIdentityBasedPolicy",
             statements=[dynamoDBPolicyStatement],
         )
+        return dynamodbPolicy
 
-        dynamodbPolicy.attach_to_role(role=role)
-
+    def createCloudWatchPolicy(self, stackConfig):
         cloudwatchPolicyLogGroupStatement = iam.PolicyStatement(
             sid="CloudWatchLogGroupForLambdaPolicyStatement",
             effect=iam.Effect.ALLOW,
@@ -90,8 +111,9 @@ class CdkStack(Stack):
             ],
         )
 
-        cloudwatchForLambdaPolicy.attach_to_role(role=role)
+        return cloudwatchForLambdaPolicy
 
+    def createS3Policy(self, stackConfig):
         s3ForLambdaPolicyStatement = iam.PolicyStatement(
             sid="S3ForLambdaPolicyStatement",
             effect=iam.Effect.ALLOW,
@@ -110,14 +132,7 @@ class CdkStack(Stack):
             "s3ForLambdaPolicy",
             statements=[s3ForLambdaPolicyStatement],
         )
-
-        s3ForLambdaPolicy.attach_to_role(role=role)
-
-        if stackConfig.generate_lambda == True:
-            self.generate_lambda(role, stackConfig.bucketName, stackConfig.lambdaName)
-            self.create_dynamodb_table(stackConfig)
-        else:
-            self.upload_lambda_code()
+        return s3ForLambdaPolicy
 
     def generate_lambda(self, role, bucketName, lambdaName):
         lambdaFunction = _lambda.Function(

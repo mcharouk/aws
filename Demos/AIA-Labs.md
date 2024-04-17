@@ -168,7 +168,11 @@ Bonus :
   * consiste à décocher block public access
   * créer une bucket policy (attention au ARN spécifié). Bien mettre /* à la fin du ARN
 * Task 4 : uploader un fichier et tester qu'on y accède en public
-* Task 5 : 
+* Task 5
+  * changer la bucket policy pour l'OAC
+    * Bien remplacer les placeholder
+      * ARN de la distribution cloudfront
+      * dans Resource, ARN du bucket S3 avec /*  à la fin.
   * Création d'une origine (OAC) dans CloudFront
     * Origin Path doit être vide
     * Paramètres par défaut de l'OAC normalement
@@ -178,10 +182,7 @@ Bonus :
     * Séléctionner la bonne origine
     * Vérifier Cache Key and origin resquests caractéristiques 
       * Cache policy and origin request policy (recommended)
-      * Cache Policy = CachingOptimized
-    * dans Security/Origin Access (dans le menu à gauche)
-* Task 6 : changer la bucket policy. Attention au /* à la fin de l'ARN S3 et coller le bon ARN de la distrib cloudfront
-* Task 7 : bonus, mettre en place une réplication CRR
+* Task 6 : bonus, mettre en place une réplication CRR
   * activer dans le bucket primaire le versioning
   * créer un nouveau bucket dans la région secondaire. Vérifier que le versioning est bien activé dessus
   * bien s'assurer que Block Public Access est désactivé (pour pouvoir tester que l'objet est accessible, et pour ne pas avoir d'erreur lorsqu'on crée la bucket policy)
