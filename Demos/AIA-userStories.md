@@ -193,28 +193,6 @@ We wanted to **grow globally** and didn’t want to have to build out data cente
 
 # Module 6
 
-## RDS
-[Freshworks](https://aws.amazon.com/solutions/case-studies/freshworks-case-study/?did=cr_card&trk=cr_card)
-
-### Activity
-
-it's a SaaS : CRM, customer service
-
-### Problem
-
-Our founding team consisted of application developers. We are architects, and **we write code**; we **don’t want to deal with infrastructure**. We wanted a solution that was **predictable and reliable**
-
-* They had a previous solution on another cloud vendor. They wanted to use MySQL and the other provider didn't have at the time MySQL in its offer.
-
-### Solution
-
-* They migrated on AWS on RDS in 2013.
-
-* Using Amazon RDS for MySQL, Freshworks can handle **500,000 web requests per minute** for Freshdesk, and for all its software products combined, it can handle around **one million requests per minute**
-* On its database side, which uses **horizontal scaling**, Freshworks performs around **four million queries per second** for Freshdesk across **200 database shards**
-* In 2020, the company received **1.69 billion requests per week**, compared with **359 million requests per week in 2016**. Even for its large customers, for which the number of web requests skyrockets **during peak times**, Freshworks can provision **multiple read replicas** and distribute the API request load **in less than 30 minutes—regardless of size or region**.
-* Freshworks uses Amazon RDS **Multi-AZ** deployments—which provide **enhanced availability and durability** for Amazon RDS database instances. For example, using Amazon RDS for MySQL, Freshworks can automatically switch to a new Availability Zone if needed, and its workload takes **less than 10 seconds** to detect a point of failure
-* **Simplified disaster recovery** with cross region read replica
 
 ## DynamoDB
 
@@ -237,6 +215,30 @@ Our founding team consisted of application developers. We are architects, and **
 * Careem has reduced costs for this use case **to $1,600 per month from thousands**.
 * Under the previous MySQL architecture, adding a single column or index **involved downtime**
 * Used **DMS** to migrate from MySQL to DynamoDB
+
+
+## RDS
+[Freshworks](https://aws.amazon.com/solutions/case-studies/freshworks-case-study/?did=cr_card&trk=cr_card)
+
+### Activity
+
+it's a SaaS : CRM, customer service
+
+### Problem
+
+Our founding team consisted of application developers. We are architects, and **we write code**; we **don’t want to deal with infrastructure**. We wanted a solution that was **predictable and reliable**
+
+* They had a previous solution on another cloud vendor. They wanted to use MySQL and the other provider didn't have at the time MySQL in its offer.
+
+### Solution
+
+* They migrated on AWS on RDS in 2013.
+
+* Using Amazon RDS for MySQL, Freshworks can handle **500,000 web requests per minute** for Freshdesk, and for all its software products combined, it can handle around **one million requests per minute**
+* On its database side, which uses **horizontal scaling**, Freshworks performs around **four million queries per second** for Freshdesk across **200 database shards**
+* In 2020, the company received **1.69 billion requests per week**, compared with **359 million requests per week in 2016**. Even for its large customers, for which the number of web requests skyrockets **during peak times**, Freshworks can provision **multiple read replicas** and distribute the API request load **in less than 30 minutes—regardless of size or region**.
+* Freshworks uses Amazon RDS **Multi-AZ** deployments—which provide **enhanced availability and durability** for Amazon RDS database instances. For example, using Amazon RDS for MySQL, Freshworks can automatically switch to a new Availability Zone if needed, and its workload takes **less than 10 seconds** to detect a point of failure
+* **Simplified disaster recovery** with cross region read replica
 
 # Module 7 : Monitoring and scaling
 

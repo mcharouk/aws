@@ -81,6 +81,13 @@
 ## Direct Connect
 * [List of Direct Connect Partners](https://aws.amazon.com/directconnect/partners/)
 
+# Module 11 : Serverless
+
+## SNS
+
+* Retries works for AWS managed service (Lambda, SQS, ...) and HTTP endpoint
+* Archiving and replaying events is supported only for FIFO topics
+
 # Module 12 : Edge Services
 
 ## Route 53
