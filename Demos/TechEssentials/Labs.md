@@ -34,3 +34,26 @@ user-3 -> EC2 admin. Droit de start et stopper des EC2 mais aucun droit sur S3
 
 
 # Lab 4 : Haute disponibilité
+
+* reference in the lab the availability zone mentioned in the web app, in configuration -> availability zone
+* task 2 : create an ALB
+  * create a new Sec Group
+  * create a new target group (instance mode)
+    * health checks default settings have to be modified. Maybe it will fail if not. In order 2,5,20,30
+* task 3 : create a launch template
+  * select the box guidance for ASG
+  * select AMI Linux 2023, x64
+  * don't fill subnets or VPC, only SG
+  * fill instance role
+  * metadata : v1 & v2 !!! 
+  * user data : replace with right placeholder
+* task 4 : create an ASG
+  * not that updating ASG is not possible (IAM error), deleting it also is not possible
+  * fill VPC and all subnets
+  * !! Put max instance to 4 and not 2 or it will not autoscale... 
+  * turn On ELB health checks
+  * Target tracking policy (30% CPU)
+  * create an SNS topic for notification with own email address (must confirm subscription manually)
+  * terminate the old instance (that was here from the beginning of the lab)
+* task 5
+  * stress the application. Normally an email should have been recevied when the ASG scales
