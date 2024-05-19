@@ -1,12 +1,9 @@
 from zipfile import ZipFile
 
-import boto3
-import yaml
 from aws_cdk import CfnOutput, Stack
 from aws_cdk import aws_dynamodb as ddb
 from aws_cdk import aws_iam as iam  # Duration,; aws_sqs as sqs,
 from aws_cdk import aws_lambda as _lambda
-from aws_cdk import aws_lambda_event_sources as _lambda_es
 from aws_cdk import aws_s3 as s3
 from aws_cdk import aws_s3_assets as s3a
 from aws_cdk import aws_s3_notifications as s3n

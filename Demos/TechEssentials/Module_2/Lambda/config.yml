@@ -1,0 +1,12 @@
+aws:
+  accountId: "270188911144"
+  region: "eu-west-3"
+demo:
+  dynamodb:
+    tableName: "organizations"
+    partitionKey: "index"
+  sqs: 
+    queueName: "organizations"
+  lambda:
+    name: "LambdaDemo"
+  

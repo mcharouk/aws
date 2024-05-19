@@ -3,12 +3,12 @@ import os
 
 import aws_cdk as cdk
 from aws_cdk import Tags
-from module_2.module_2_stack import Module2Stack
+from lambdaDemo.lambda_stack import LambdaStack
 
 app = cdk.App()
-stack = Module2Stack(
+lambda_stack = LambdaStack(
     app,
-    "TechEssentialsCompute",
+    "TechEssentialsComputeLambda",
     # If you don't specify 'env', this stack will be environment-agnostic.
     # Account/Region-dependent features and context lookups will not work,
     # but a single synthesized template can be deployed anywhere.
@@ -21,6 +21,6 @@ stack = Module2Stack(
     # For more information, see https://docs.aws.amazon.com/cdk/latest/guide/environments.html
 )
 
-Tags.of(stack).add("DemoName", "TechEssentialsCompute")
+Tags.of(lambda_stack).add("DemoName", "TechEssentialsComputeLambda")
 
 app.synth()
