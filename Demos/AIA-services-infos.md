@@ -39,6 +39,10 @@
 * Stopping an instance is equivalent to switch it off. Basically, the disks are retained (EBS-backed instances), so we can start from where it has been stopped.
 * Hibernate means memory state is retained. So boot start time is reduced. Long running process can go on without interruption. Great if there is a in memory caching layer.
 
+### Burstable instances
+
+* [Burstable instances example](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/unlimited-mode-examples.html#t3_unlimited_example)
+
 ## EBS / Instance Store
 
 ### EBS Multi Attach
