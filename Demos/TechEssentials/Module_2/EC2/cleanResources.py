@@ -1,3 +1,5 @@
+import time
+
 import boto3
 
 # select all ec2 instances in vpc named ComputeDemo
@@ -13,8 +15,14 @@ vpc.instances.all().terminate()
 all_instances_terminated = False
 while all_instances_terminated == False:
     running_instances = ec2.describe_instances(
-    Filters=[{"Name": "instance-state-name", "Values": ["running", "shutting-down"]}]
-    if len(running_instances["Reservations"]) != 0 and len(running_instances["Reservations"][0]["Instances"]) != 0:        
+        Filters=[
+            {"Name": "instance-state-name", "Values": ["running", "shutting-down"]}
+        ]
+    )
+    if (
+        len(running_instances["Reservations"]) != 0
+        and len(running_instances["Reservations"][0]["Instances"]) != 0
+    ):
         print("waiting for instances to terminate")
         time.sleep(5)
     else:
