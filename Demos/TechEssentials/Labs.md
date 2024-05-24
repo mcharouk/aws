@@ -48,7 +48,7 @@ user-3 -> EC2 admin. Droit de start et stopper des EC2 mais aucun droit sur S3
   * metadata : v1 & v2 !!! 
   * user data : replace with right placeholder
 * task 4 : create an ASG
-  * not that updating ASG is not possible (IAM error), deleting it also is not possible
+  * note that updating ASG is not possible (IAM error), deleting it also is not possible
   * fill VPC and all subnets
   * !! Put max instance to 4 and not 2 or it will not autoscale... 
   * turn On ELB health checks

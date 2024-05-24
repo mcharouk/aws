@@ -20,7 +20,7 @@ class Module2Stack(Stack):
             self,
             "ComputeDemo",
             vpc_name=vpc_name,
-            cidr="10.0.0.0/16",
+            ip_addresses=ec2.IpAddresses.cidr("10.0.0.0/16"),
             nat_gateways=0,
             max_azs=1,
             create_internet_gateway=False,
@@ -38,12 +38,17 @@ class Module2Stack(Stack):
         role = self.create_ec2_role_instance()
 
     def create_ec2_security_group(self, vpc):
-        ec2.SecurityGroup(
+        securityGroup = ec2.SecurityGroup(
             self,
             "SecurityGroupEC2Instance",
             security_group_name="SecurityGroupEC2Instance",
             description="Demo EC2 Instance SecurityGroup",
             vpc=vpc,
+        )
+        securityGroup.add_ingress_rule(
+            peer=ec2.Peer.ipv4("0.0.0.0/0"),
+            connection=ec2.Port.tcp(80),
+            description="Allow all inbound http traffic",
         )
 
     def create_ec2_role_instance(self):
@@ -58,6 +63,11 @@ class Module2Stack(Stack):
                 "AmazonSSMManagedInstanceCore"
             )
         )
+
+        instance_profile = iam.CfnInstanceProfile(
+            self, "EC2InstanceProfile", roles=[role.role_name]
+        )
+
         return role
 
     def create_ssm_vpc_endpoint(self, vpc, vpc_name, subnet):

@@ -2,7 +2,7 @@
 
 * !! Step 1 : Don't forget to assign a public ip to the instance at startup !!
 
-* script to start an apache instance
+* script to start an apache instance. To execute when internet connection is ok
 
 ```
 sudo -s
