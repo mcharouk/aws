@@ -37,7 +37,7 @@ user-3 -> EC2 admin. Droit de start et stopper des EC2 mais aucun droit sur S3
 
 * reference in the lab the availability zone mentioned in the web app, in configuration -> availability zone
 * task 2 : create an ALB
-  * create a new Sec Group
+  * create a new Sec Group, don't use already existing sec groups !!
   * create a new target group (instance mode)
     * health checks default settings have to be modified. Maybe it will fail if not. In order 2,5,20,30
 * task 3 : create a launch template
