@@ -4,7 +4,7 @@ TableName
 Organizations
 ```
 
-Partition Key (Number)
+Partition Key (String)
 ```
-index
+organization_id
 ```
