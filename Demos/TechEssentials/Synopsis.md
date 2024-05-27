@@ -18,7 +18,7 @@ Console
   * Lifecycle
 * Quizz Families
 * Customer Success Story on [ECS](https://aws.amazon.com/solutions/case-studies/flywire-ecs-case-study/?did=cr_card&trk=cr_card)
-* Lambda : demo. [Readme](TechEssentials/Module_2/Lambda/READMEDemo.md)
+* Lambda : demo. [Readme](Module_2/Lambda/READMEDemo.md)
 
 # Module 3 : VPC
 
