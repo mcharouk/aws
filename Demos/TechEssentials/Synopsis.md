@@ -14,8 +14,7 @@ Console
 * Console
   * AMI
   * Families
-  * Demo : Run an EC2
-  * Lien [Script](Module_3/VPCSecurity/vpc_security/configure.sh)
+  * Demo : Run an EC2. [Readme](TechEssentials/Module_2/EC2/README_DEMO.md)
   * Lifecycle
 * Quizz Families
 * Customer Success Story on [ECS](https://aws.amazon.com/solutions/case-studies/flywire-ecs-case-study/?did=cr_card&trk=cr_card)
