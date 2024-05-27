@@ -18,13 +18,13 @@ Console
   * Lifecycle
 * Quizz Families
 * Customer Success Story on [ECS](https://aws.amazon.com/solutions/case-studies/flywire-ecs-case-study/?did=cr_card&trk=cr_card)
-* Lambda : demo
+* Lambda : demo. [Readme](TechEssentials/Module_2/Lambda/READMEDemo.md)
 
 # Module 3 : VPC
 
 * Mettre un ec2 dans un subnet privé (avec addresse IP publique). 
 * but de la démo : convertir le subnet privé en subnet public
-* lancer un script qui permet d'installer apache et une page basique
+* lancer un [script](TechEssentials/Module_2/EC2/README_DEMO.md) qui permet d'installer apache et une page basique
 * se connecter à l'instance publique
 * Montrer les ACL et SecGroup mais sans les modifier
 
