@@ -14,7 +14,7 @@ Console
 * Console
   * AMI
   * Families
-  * Demo : Run an EC2. [Readme](TechEssentials/Module_2/EC2/README_DEMO.md)
+  * Demo : Run an EC2. [Readme](Module_2/EC2/README_DEMO.md)
   * Lifecycle
 * Quizz Families
 * Customer Success Story on [ECS](https://aws.amazon.com/solutions/case-studies/flywire-ecs-case-study/?did=cr_card&trk=cr_card)
@@ -24,7 +24,7 @@ Console
 
 * Mettre un ec2 dans un subnet privé (avec addresse IP publique). 
 * but de la démo : convertir le subnet privé en subnet public
-* lancer un [script](TechEssentials/Module_2/EC2/README_DEMO.md) qui permet d'installer apache et une page basique
+* lancer un [script](Module_2/EC2/README_DEMO.md) qui permet d'installer apache et une page basique
 * se connecter à l'instance publique
 * Montrer les ACL et SecGroup mais sans les modifier
 
