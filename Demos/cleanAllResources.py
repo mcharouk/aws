@@ -3,7 +3,7 @@ import boto3
 s3 = boto3.client("s3", region_name="eu-west-3")
 logs = boto3.client("logs", region_name="eu-west-3")
 
-cdkBucketName = "cdk-hnb659fds-assets-270188911144-eu-west-3"
+cdkBucketName = "cdk-hnb659fds-assets-637423642269-eu-west-3"
 
 response = s3.list_object_versions(Bucket=cdkBucketName)
 

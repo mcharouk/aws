@@ -69,7 +69,7 @@ test-marccharouk-674648573
             "Effect": "Deny",
             "Principal": "*",
             "Action": "glacier:DeleteArchive",
-            "Resource": "arn:aws:glacier:eu-west-3:270188911144:vaults/hello",
+            "Resource": "arn:aws:glacier:eu-west-3:637423642269:vaults/hello",
             "Condition": {
                 "NumericLessThan": {
                     "glacier:ArchiveAgeInDays": "365"

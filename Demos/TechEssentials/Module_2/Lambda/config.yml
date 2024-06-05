@@ -1,5 +1,5 @@
 aws:
-  accountId: "270188911144"
+  accountId: "637423642269"
   region: "eu-west-3"
 demo:
   dynamodb:

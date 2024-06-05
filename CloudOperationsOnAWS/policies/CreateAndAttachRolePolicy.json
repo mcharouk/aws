@@ -1,0 +1,117 @@
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Action": [
+                "ssm:GetAutomationExecution",
+                "ec2:DescribeIamInstanceProfileAssociations",
+                "ec2:DisassociateIamInstanceProfile",
+                "ec2:DescribeInstances",
+                "ssm:StartAutomationExecution",
+                "iam:GetInstanceProfile",
+                "iam:ListInstanceProfilesForRole"
+            ],
+            "Resource": "*",
+            "Effect": "Allow"
+        },
+        {
+            "Condition": {
+                "ArnEquals": {
+                    "iam:PolicyARN": [
+                        "arn:aws:iam::aws:policy/AmazonSSMManagedInstanceCore",
+                        "arn:aws:iam::aws:policy/AmazonSSMPatchAssociation",
+                        "arn:aws:iam::aws:policy/CloudWatchAgentServerPolicy"
+                    ]
+                }
+            },
+            "Action": [
+                "iam:AttachRolePolicy"
+            ],
+            "Resource": [
+                "arn:aws:iam::270188911144:role/AmazonSSMRoleForInstancesQuickSetup"
+            ],
+            "Effect": "Allow"
+        },
+        {
+            "Action": [
+                "iam:AddRoleToInstanceProfile"
+            ],
+            "Resource": [
+                "arn:aws:iam::270188911144:instance-profile/AmazonSSMRoleForInstancesQuickSetup"
+            ],
+            "Effect": "Allow"
+        },
+        {
+            "Condition": {
+                "StringEquals": {
+                    "ec2:NewInstanceProfile": "arn:aws:iam::270188911144:instance-profile/AmazonSSMRoleForInstancesQuickSetup"
+                }
+            },
+            "Action": [
+                "ec2:AssociateIamInstanceProfile"
+            ],
+            "Resource": "*",
+            "Effect": "Allow"
+        },
+        {
+            "Action": [
+                "iam:CreateInstanceProfile"
+            ],
+            "Resource": [
+                "arn:aws:iam::270188911144:instance-profile/AmazonSSMRoleForInstancesQuickSetup"
+            ],
+            "Effect": "Allow"
+        },
+        {
+            "Action": [
+                "iam:GetRole"
+            ],
+            "Resource": [
+                "arn:aws:iam::270188911144:role/AmazonSSMRoleForInstancesQuickSetup",
+                "arn:aws:iam::270188911144:role/AWS-QuickSetup-HostMgmtRole-eu-west-3-pp69w"
+            ],
+            "Effect": "Allow"
+        },
+        {
+            "Condition": {
+                "StringEquals": {
+                    "iam:PassedToService": [
+                        "ec2.amazonaws.com"
+                    ]
+                }
+            },
+            "Action": [
+                "iam:PassRole"
+            ],
+            "Resource": [
+                "arn:aws:iam::270188911144:role/AmazonSSMRoleForInstancesQuickSetup"
+            ],
+            "Effect": "Allow"
+        },
+        {
+            "Condition": {
+                "StringEquals": {
+                    "iam:PassedToService": [
+                        "ssm.amazonaws.com"
+                    ]
+                }
+            },
+            "Action": [
+                "iam:PassRole"
+            ],
+            "Resource": [
+                "arn:aws:iam::270188911144:role/AWS-QuickSetup-HostMgmtRole-eu-west-3-pp69w"
+            ],
+            "Effect": "Allow"
+        },
+        {
+            "Action": [
+                "iam:CreateRole"
+            ],
+            "Resource": [
+                "arn:aws:iam::270188911144:role/AmazonSSMRoleForInstancesQuickSetup"
+            ],
+            "Effect": "Allow"
+        }
+    ]
+}

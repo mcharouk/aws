@@ -11,7 +11,7 @@ This policy must be added to bucket S3 policy
         {
             "Effect": "Allow",
             "Principal": {
-                "AWS": "270188911144"
+                "AWS": "637423642269"
             },
             "Action": "*",
             "Resource": [
@@ -20,7 +20,7 @@ This policy must be added to bucket S3 policy
             ],
             "Condition": {
                 "StringEquals": {
-                    "s3:DataAccessPointAccount": "270188911144"
+                    "s3:DataAccessPointAccount": "637423642269"
                 }
             }
         }
@@ -41,13 +41,13 @@ for folder 1
             "Sid": "Statement1",
             "Effect": "Allow",
             "Principal": {
-                "AWS": "arn:aws:iam::270188911144:role/TechLead"
+                "AWS": "arn:aws:iam::637423642269:role/TechLead"
             },
             "Action": [
                 "s3:GetObject",
                 "s3:PutObject"
             ],
-            "Resource": "arn:aws:s3:eu-west-3:270188911144:accesspoint/accesspointfolder1/object/folder1/*"
+            "Resource": "arn:aws:s3:eu-west-3:637423642269:accesspoint/accesspointfolder1/object/folder1/*"
         }
     ]
 }
