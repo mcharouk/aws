@@ -1,5 +1,5 @@
 folderName = "./Sample-data"
-bucket_name = "eventnotification-demo-457663"
+bucket_name = "eventnotification-demo-457664"
 
 # upload all content of folder in s3 bucket
 

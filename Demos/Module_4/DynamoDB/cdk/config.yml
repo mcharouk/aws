@@ -8,7 +8,7 @@ demo:
     sortKey: "FirstName"
     secondaryRegion: "eu-west-1"
   s3: 
-    bucketName: "eventnotification-demo-457663"
+    bucketName: "eventnotification-demo-457664"
     inputObjectPrefix : "files"
   lambda: 
     name: "DynamoDB-S3Feeder"

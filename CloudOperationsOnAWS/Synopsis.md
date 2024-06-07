@@ -19,11 +19,17 @@
   * PassRole
   * SCP
 
+Peut montrer les SCPs
+
+* [Policy generator](https://awspolicygen.s3.amazonaws.com/policygen.html)
+* [Policy simulator](https://policysim.aws.amazon.com)
+
 # Module 3 : System Discovery
 
 * Demo
   * System Manager ou AWS Config, mais voir en fonction de ce qu'on voit déjà dans les labs.
   * Ca peut être aussi de montrer Session Manager, la configuration et la partie audit.
+  * Session Manager. Port forward sur du RDP Windows
 
 * AWS Config peut s'intégrer avec Systems Manager Inventory pour détecter les changements dans l'inventaire (applications installées, windows registry, etc...)
 
@@ -112,18 +118,33 @@ Demo :
 
 # Module 8 : Automate Scaling
 
-Faudra surtout créer des whiteboards pour expliquer le cooldown period, instance warmup period notamment. Expliquer à quoi ca sert
+* On peut faire une démo et montrer comment on crée une spot fleet
+* On peut faire une démo sur licence manager. Il faut créer une AMI custom et lier une licence custom à l'AMI. Ensuite créer des EC2 pour dépasser la limite de licence que l'on a configuré.
+* Faudra surtout créer des whiteboards pour expliquer le cooldown period, instance warmup period notamment. Expliquer à quoi ca sert
+* Expliquer les différentes termination policies
+* Expliquer les suspended processes. A quoi ca sert, dans quel cas.
 Compliqué de faire une démo sur ce sujet
+
+
+* For cooldown period vs instance warm-up
+  * Warm-up is available for simple, step and target tracking policy. 
+  * Warm-up good for application that takes time to start. 
+  * Cooldown is not available for target tracking.
 
 # Module 9 : Monitor and maintain system health
 
-Demo : Eventbridge, CloudWatch log agent, X-Ray
+Demo : 
+* Eventbridge : SNS Mail when an EC2 instance starts
+* CloudWatch log agent
+* Create a metric from logs
+* X-Ray
 
 # Module 10 : Data Security and System Auditing
 
 [Zelkova](https://aws.amazon.com/blogs/security/protect-sensitive-data-in-the-cloud-with-automated-reasoning-zelkova/)
 
 Demo : 
+* [Demo IAM Access Analyzer](https://github.com/aws-samples/aws-iam-access-analyzer-samples?tab=readme-ov-file#validate-policy-apis)
 * Remediation with Lambda (from AWS Config)
 * Permission Boundary
 
