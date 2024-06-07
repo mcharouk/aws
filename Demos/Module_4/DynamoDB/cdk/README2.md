@@ -2,7 +2,7 @@
 
 ## Lambda Configuration
 
-lambda name
+lambda name (mandatory name)
 
 ```
 DynamoDB-S3Feeder
@@ -10,7 +10,7 @@ DynamoDB-S3Feeder
 
 s3 prefix
 ```
-files
+files/
 ```
 
 * for Demo without DynamoDB, take the zip file location that contains lambda code from cloudformation outputs

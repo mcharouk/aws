@@ -19,8 +19,6 @@
   * PassRole
   * SCP
 
-Peut montrer les SCPs
-
 * [Policy generator](https://awspolicygen.s3.amazonaws.com/policygen.html)
 * [Policy simulator](https://policysim.aws.amazon.com)
 
@@ -145,8 +143,43 @@ Demo :
 
 Demo : 
 * [Demo IAM Access Analyzer](https://github.com/aws-samples/aws-iam-access-analyzer-samples?tab=readme-ov-file#validate-policy-apis)
-* Remediation with Lambda (from AWS Config)
 * Permission Boundary
+* Show Cloudtrail
+
+## GuardDuty
+
+### Findings examples
+  * EC2
+    * detect use of an EC2 to perform a ddos attack
+    * bitcoin mining
+    * under port scan attack
+    * Malware
+  * RDS
+    * Login attempts
+  * IAM
+    * IP Calls from an IP address that is included on a threat list
+
+### Findings
+
+* in JSON
+* findings contains info about
+  * what happened
+  * by who
+  * to what resources
+  * when and where
+* A severity is associated
+* Automatic Archiving
+
+
+## Inspector
+
+* Package vulnerability
+  * Amazon Inspector assesses software installed through APT, YUM, or Microsoft Installer
+* Network reachability package
+  * if a port is exposed to internet through IGW, VGW ro VPC Peering connection. It's the agentless package. 
+* Code Vulnerability
+  * containers, lambda, ec2. Use CodeGuru Detector library.
+* Can integrate with Teamcity, Jenkins, Github actions...
 
 # Module 11 : Operate Secure and Resilient networks
 
@@ -159,7 +192,30 @@ Demo
 
 Demo : 
 * compliqué car ca parle bcp de backup, et les backup ca prend du temps... On peut se contenter de montrer sur la console, notamment de montrer Backup
-* a la limite faire une demo sur EFS : faire un EFS, et monter le mount point sur 2 EC2 et partager un fichier
+* a la limite faire une demo sur EFS : faire un EFS, et monter le mount point sur 2 EC2 ou Lambda et partager un fichier
+* On pourrait aussi faire un mount point sur un bucket S3 avec [mountpoint](https://docs.aws.amazon.com/AmazonS3/latest/userguide/mountpoint.html)
+
+##  EBS
+### Performance
+
+* GP3
+  * performance does not depend on the volume size
+* GP2
+  * performance relative to the volume size
+  * performance is burstable
+* IOPS : like GP2. Performance depends on volume size
+
+### Updating an EBS
+When we make a change on EBS (like changing disk size or performance), we have to wait 6 hours before we can do another operation of this type on the volume
+
+### Multi Attach
+* only Nitro instances
+* EBS must be an IO optimized
+* same AZ
+* clustered file system. Example : 
+  * General Parallel File System (GPFS), 
+  * Microsoft Cluster Shared Volumes (CSV)
+  * Global File System 2 (GFS2) for Linux.
 
 # Module 13 : Object Storage
 
@@ -181,4 +237,4 @@ Cloudwatch billing alarm was released in 2012 and budget was released in 2015. S
 * in Trusted Advisor
   * You see the same findings that Compute Optimizer but with more delay (up to 48 hours)
   * Trusted advisor has much more cost optimization checks and covers also other topics than cost
-  * Cost Management provides recommandations for savings plans and reserved instances, not covered by compute optimizer but provided by Trusted Advisor. Probablay the same result.
+  * Cost Management provides recommandations for savings plans and reserved instances, not covered by compute optimizer but provided by Trusted Advisor. Probably the same result.
