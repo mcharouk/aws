@@ -33,10 +33,9 @@
 
 # Module 4 : Deploy And Update Resources
 
-
 * Demo
-  * EC2 image Builder : peut être aborder d'abord les AMIs. Lancer image builder, faire la partie sur les tags, et ensuite revenir sur le résultat de l'image Builder
-  * Demo : stop or start instances by tags
+  * EC2 image Builder : peut être aborder d'abord les AMIs. Lancer image builder, faire la partie sur les tags, et ensuite revenir sur le résultat de l'image Builder  
+  * Tag Policies ?
 
 ## Tagging
 
