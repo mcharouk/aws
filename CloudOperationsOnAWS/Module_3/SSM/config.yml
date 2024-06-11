@@ -1,0 +1,5 @@
+demo:
+  sessionLogging:
+    s3:
+      bucketName: "marc-charouk-ssm-session-logging-demo"
+      keyPrefix: "session-logs"

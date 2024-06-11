@@ -53,10 +53,19 @@
 * Resource Groups 
   * AWS Config can apply a configuration specific to a group
   * CloudWatch can aggregate metrics of a resource group
-  * SSM Automation can be applied to a resource group
+  * SSM Automation can be applied to a resource group  
+  * IAM Policies can be applied on a resource group 
   * EventBridge can send event when a resource in a resource group changes.
-  * IAM Policies can be applied on a resource group
-  * Cost Anomaly Detection, Budget or cost reports by resource groups
+  * [Services that integrate with Resource groups](https://docs.aws.amazon.com/ARG/latest/userguide/integrated-services-list.html)
+
+## AMI
+
+* on AMI creation
+  * process reboot EC2 by default before creating image (this can be changed though)
+  * take a snapshot of all EBS volumes attached. Create snapshots before will make the process faster as snpashots works in increments.
+  * register image and create image : register is the process of making AMI available to yourself or other accounts for use.
+* Specific on windows : Sysprep (which is a windows commanda) must be launched before creating an AMI.
+  * Sysprep removes all system-specific information, such as the computer name, user accounts, and security identifiers (SIDs). This allows the image to be deployed on different hardware without conflicts.
 
 ## User data scripts
 
@@ -66,15 +75,6 @@
   * logs can be found at /var/log/cloud-init.log and /var/log/cloud-init-output.log
   * can check user-data from metadata, in case user-data has some env variables in a cloudformation template
   * it's possible to see the logs from the instance properties (Troubleshoot and monitor menu)
-
-## AMI 
-
-* on AMI creation
-  * process reboot EC2 by default before creating image (this can be changed though)
-  * take a snapshot of all EBS volumes attached. Create snapshots before will make the process faster as snpashots works in increments.
-  * register image and create image : register is the process of making AMI available to yourself or other accounts for use.
-* Specific on windows : Sysprep (which is a windows commanda) must be launched before creating an AMI.
-  * Sysprep removes all system-specific information, such as the computer name, user accounts, and security identifiers (SIDs). This allows the image to be deployed on different hardware without conflicts.
 
 # Module 5 : Automate Resource Deployment
 

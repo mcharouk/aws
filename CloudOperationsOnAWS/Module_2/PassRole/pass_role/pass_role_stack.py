@@ -1,14 +1,13 @@
 from aws_cdk import Stack  # Duration,; aws_sqs as sqs,
 from aws_cdk import aws_iam as iam
 from constructs import Construct
-from pass_role.StackConfig import StackConfig
 
 
 class PassRoleStack(Stack):
 
     def __init__(self, scope: Construct, construct_id: str, **kwargs) -> None:
         super().__init__(scope, construct_id, **kwargs)
-        stackConfig = StackConfig()
+
         self.createRole(
             "Admin-NetworkFirewallPolicyEditorRole",
             iam.ServicePrincipal("lambda.amazonaws.com"),
