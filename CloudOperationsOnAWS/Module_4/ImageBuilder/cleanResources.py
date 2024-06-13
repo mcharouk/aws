@@ -19,9 +19,22 @@ def delete_all_images(config):
 delete_all_images(Config(region_name="eu-west-1"))
 delete_all_images(Config(region_name="eu-west-3"))
 
+
 # list all EBS snapshots
 # delete all EBS snapshots
+def delete_all_ebs_snapshots(config):
+    print("deleting snapshots on region " + config.region_name)
+    ec2 = boto3.client("ec2", config=config)
 
+    response = ec2.describe_snapshots(OwnerIds=["self"])
+    for snapshot in response["Snapshots"]:
+        print(snapshot["SnapshotId"])
+        ec2.delete_snapshot(SnapshotId=snapshot["SnapshotId"])
+        print("Deleted snapshot: ", snapshot["SnapshotId"])
+
+
+delete_all_ebs_snapshots(Config(region_name="eu-west-1"))
+delete_all_ebs_snapshots(Config(region_name="eu-west-3"))
 
 ec2 = boto3.client("ec2")
 

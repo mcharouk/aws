@@ -1,20 +1,73 @@
 ## SSM Setup
 
-* Role for instance : AmazonSSMRoleForInstancesQuickSetup
-
 * [Link on SSM Cloudwatch setup](https://docs.aws.amazon.com/prescriptive-guidance/latest/implementing-logging-monitoring-cloudwatch/install-cloudwatch-systems-manager.html)
 
-* Create a sec group with HTTP inbound allowed
-
 ## CloudWatch
-* create a parameter store (/cloudwatch/agent/config/apache) 
-* create a custom document that includes 
-  * AWS-ConfigureAWSPackage with Name as AmazonCloudWatchAgent
-  * AmazonCloudWatch-ManageAgent document
+
+* create a custom document
+
+Document Name
+  
+```
+CloudWatchApacheInstall
+```
+
+Document Type
+
+```
+/AWS::EC2::Instance
+```
+
+Document content
+
+```
+{
+  "schemaVersion": "2.2",
+  "description": "The AWS-InstallAndManageCloudWatch command document installs the Amazon CloudWatch agent and manages the configuration of the agent for Amazon EC2 instances.",
+  "mainSteps": [
+    {
+      "inputs": {
+        "documentParameters": {
+          "name": "AmazonCloudWatchAgent",
+          "action": "Install"
+        },
+        "documentType": "SSMDocument",
+        "documentPath": "AWS-ConfigureAWSPackage"
+      },
+      "name": "installCWAgent",
+      "action": "aws:runDocument"
+    },
+    {
+      "inputs": {
+        "documentParameters": {
+          "mode": "ec2",
+          "optionalRestart": "yes",
+          "optionalConfigurationSource": "ssm",
+          "optionalConfigurationLocation": "/cloudwatch/agent/config/apache",
+          "action": "configure"
+        },
+        "documentType": "SSMDocument",
+        "documentPath": "AmazonCloudWatch-ManageAgent"
+      },
+      "name": "manageCWAgent",
+      "action": "aws:runDocument"
+    }
+  ]
+}
+```
+
 * Run document on EC2
+* check that cloudwatch log agent installed in 
 
-* check that cloudwatch log agent installed in /opt/aws/amazon-cloudwatch-agent/
+```
+/opt/aws/amazon-cloudwatch-agent/
+```
 
-## Inventory
+config file is located in 
 
-* Create association with AWS-GatherSoftwareInventory
+```
+/opt/aws/amazon-cloudwatch-agent/etc/amazon-cloudwatch-agent.d
+```
+
+
+* check logs in cloudwatch
