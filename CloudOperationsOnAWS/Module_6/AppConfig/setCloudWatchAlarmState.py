@@ -10,4 +10,13 @@ def set_alarm_state(alarm_name, state, stateReason):
     return response
 
 
-set_alarm_state("AppConfigAlarm", "ALARM", "testing appconfig rollback")
+alarm_status = "ALARM"
+# alarm_status = "OK"
+alarm_name = "AppConfigAlarm"
+
+set_alarm_state(alarm_name, alarm_status, "testing appconfig rollback")
+print(
+    "alarm status updated to [{0}] for alarm name [{1}]".format(
+        alarm_status, alarm_name
+    )
+)
