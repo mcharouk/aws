@@ -76,6 +76,16 @@
   * can check user-data from metadata, in case user-data has some env variables in a cloudformation template
   * it's possible to see the logs from the instance properties (Troubleshoot and monitor menu)
 
+## Control Tower
+
+* [Control tower customization architecture](https://docs.aws.amazon.com/controltower/latest/userguide/architecture.html)
+  * does not create any account, but deploys resources post creation.
+  * good to implement transversal controls or create resources 
+  * [Manifest file guide](https://docs.aws.amazon.com/controltower/latest/userguide/cfct-manifest-file-resources-section.html)
+* Account Factory Customization is an account creation blueprint
+  * good if resources are specific to a type of account. Not practical to implement transversal rules here as they will have to be replicated on all concerned blueprints
+
+
 # Module 5 : Automate Resource Deployment
 
 * Demo on Service Catalog
@@ -117,11 +127,6 @@ Demo :
 
 * On peut faire une démo et montrer comment on crée une spot fleet
 * On peut faire une démo sur licence manager. Il faut créer une AMI custom et lier une licence custom à l'AMI. Ensuite créer des EC2 pour dépasser la limite de licence que l'on a configuré.
-* Faudra surtout créer des whiteboards pour expliquer le cooldown period, instance warmup period notamment. Expliquer à quoi ca sert
-* Expliquer les différentes termination policies
-* Expliquer les suspended processes. A quoi ca sert, dans quel cas.
-Compliqué de faire une démo sur ce sujet
-
 
 * For cooldown period vs instance warm-up
   * Warm-up is available for simple, step and target tracking policy. 

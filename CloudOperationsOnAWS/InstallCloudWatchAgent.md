@@ -5,3 +5,7 @@
   * instanceId
   * true for attaching policy
 
+* Demonstrate Automation
+* Demonstrate State manager that will execute the automation document on startup
+* Demonstrate Command Documents (Cloudwatch installation) and apply them with Run Command
+* Demonstrate also Cloudwatch agent log to Cloudwatch
