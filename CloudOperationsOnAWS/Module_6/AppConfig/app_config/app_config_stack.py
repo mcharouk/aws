@@ -1,5 +1,6 @@
 from aws_cdk import Stack  # Duration,; aws_sqs as sqs,
 from aws_cdk import Duration
+from aws_cdk import aws_appconfig as appconfig
 from aws_cdk import aws_cloudwatch as cloudwatch
 from aws_cdk import aws_iam as iam
 from aws_cdk import aws_lambda as _lambda
@@ -70,6 +71,18 @@ class AppConfigStack(Stack):
             datapoints_to_alarm=1,
             metric=metric,
             treat_missing_data=cloudwatch.TreatMissingData.MISSING,
+        )
+
+        # create app config deployment strategy
+        appconfig.CfnDeploymentStrategy(
+            self,
+            id="DemoDeploymentStrategy",
+            name="DemoDeploymentStrategy",
+            description="Strategy to use for quick deployment in demo",
+            final_bake_time_in_minutes=1,
+            deployment_duration_in_minutes=0,
+            growth_factor=100,
+            replicate_to="NONE",
         )
 
     def createLambdaAppConfigPolicy(self):

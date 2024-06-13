@@ -56,3 +56,11 @@ Environment name
 dev
 ```
 
+Alarm Role Name
+
+```
+ssmCloudWatchAlarmDiscoveryRole
+```
+
+* !! don't forget to click on Add to add alarm !!
+* use AppConfig.Linear50PercentEvery30Seconds deployment strategy, because baketime is only 1 min
