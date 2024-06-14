@@ -24,16 +24,6 @@ class PassRoleStack(Stack):
             [self.createLambdaFullAccessPolicy(), self.createDevLambdaIamPolicy()],
         )
 
-    def createRole(self, roleName, principal, policies):
-        role = iam.Role(
-            self,
-            roleName,
-            role_name=roleName,
-            assumed_by=principal,
-        )
-        for policy in policies:
-            policy.attach_to_role(role=role)
-
     def createNetworkAdminPolicy(self):
         networkAdminPolicyStatement = iam.PolicyStatement(
             sid="networkAdminPolicy",
@@ -111,6 +101,16 @@ class PassRoleStack(Stack):
             "devLambdaIamPolicy",
             [iamAccessOnAllResourcesStatement, iamAccessOnDevResourcesStatement],
         )
+
+    def createRole(self, roleName, principal, policies):
+        role = iam.Role(
+            self,
+            roleName,
+            role_name=roleName,
+            assumed_by=principal,
+        )
+        for policy in policies:
+            policy.attach_to_role(role=role)
 
     def createPolicy(self, policyName, policyStatements):
         policy = iam.Policy(
