@@ -2,12 +2,15 @@ import os
 
 import urllib3
 
+ssm = boto3.client("ssm")
+dns_name_key_ssm = os.environ["DNS_NAME_KEY_SSM"]
+
 
 def lambda_handler(event, context):
 
-    dns_name = os.environ["DNS_NAME"]
     http = urllib3.PoolManager()
-    url = "http://{0}".format(dns_name)
+    domain_name = ssm.get_parameter(Name=dns_name_key_ssm)["Parameter"]["Value"]
+    url = "http://{0}".format(domain_name)
     print("calling {0}".format(url))
     response = http.request("GET", "http://{0}".format(dns_name))
     response_str = response.data.decode("utf-8")

@@ -4,6 +4,7 @@ from aws_cdk import aws_ec2 as ec2
 from aws_cdk import aws_elasticloadbalancingv2 as elbv2
 from aws_cdk import aws_iam as iam
 from aws_cdk import aws_lambda as _lambda
+from aws_cdk import aws_ssm as ssm
 from constructs import Construct
 
 
@@ -95,6 +96,10 @@ class RegionalStack(Stack):
                 helloGenerator_lambda_role,
                 "service-role/AWSLambdaVPCAccessExecutionRole",
             )
+            self.addManagedPolicy(
+                helloGenerator_lambda_role,
+                "AmazonSSMReadOnlyAccess",
+            )
 
             lambdaSecGroup = ec2.SecurityGroup(
                 self,
@@ -104,6 +109,16 @@ class RegionalStack(Stack):
                 disable_inline_rules=True,
                 vpc=self.vpc,
             )
+
+            dnsKeySsm = "/helloFromRegion/DNSName"
+
+            dnsParameter = ssm.StringParameter(
+                self,
+                "DnsParameter",
+                parameter_name="/helloFromRegion/DNSName",
+                string_value=alb.load_balancer_dns_name,
+            )
+
             _lambda.Function(
                 self,
                 id="HelloGenerator",
@@ -112,7 +127,20 @@ class RegionalStack(Stack):
                 code=_lambda.Code.from_asset("HelloGeneratorLambda"),
                 handler="lambda_function.lambda_handler",
                 role=helloGenerator_lambda_role,
-                environment={"DNS_NAME": alb.load_balancer_dns_name},
+                environment={"DNS_NAME_KEY_SSM": dnsKeySsm},
+                vpc=self.vpc,
+                security_groups=[lambdaSecGroup],
+            )
+
+            _lambda.Function(
+                self,
+                id="HelloGenerator2",
+                function_name="HelloGenerator2",
+                runtime=_lambda.Runtime.PYTHON_3_12,
+                code=_lambda.Code.from_asset("HelloGeneratorLambda"),
+                handler="lambda_function.lambda_handler",
+                role=helloGenerator_lambda_role,
+                environment={"DNS_NAME_KEY_SSM": dnsKeySsm},
                 vpc=self.vpc,
                 security_groups=[lambdaSecGroup],
             )
