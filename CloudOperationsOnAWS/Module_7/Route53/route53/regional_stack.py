@@ -145,6 +145,36 @@ class RegionalStack(Stack):
                 security_groups=[lambdaSecGroup],
             )
 
+            ssmEndpointSecurityGroup = ec2.SecurityGroup(
+                self,
+                "SsmVpcEndpointSG",
+                security_group_name="SsmVpcEndpointSG",
+                description="SecurityGroup For SSM VPC Endpoint",
+                disable_inline_rules=True,
+                vpc=self.vpc,
+            )
+
+            ssmEndpointSecurityGroup.add_ingress_rule(
+                peer=ec2.Peer.security_group_id(lambdaSecGroup.security_group_id),
+                connection=ec2.Port.tcp(443),
+                description="Allow all inbound https traffic from lambda SG",
+            )
+
+            # create VPC Endpoint for SSM
+            ec2.InterfaceVpcEndpoint(
+                self,
+                "SsmVpcEndpoint",
+                vpc=self.vpc,
+                service=ec2.InterfaceVpcEndpointAwsService.SSM,
+                subnets=ec2.SubnetSelection(
+                    subnet_type=ec2.SubnetType.PRIVATE_ISOLATED
+                ),
+                private_dns_enabled=True,
+                security_groups=[ssmEndpointSecurityGroup],
+                open=True,
+                lookup_supported_azs=False,
+            )
+
     def addManagedPolicy(self, role, policyName):
         role.add_managed_policy(
             iam.ManagedPolicy.from_aws_managed_policy_name(policyName)
