@@ -1,3 +1,15 @@
+## SNS
+
+* don't forget to confirm mail subscription
+
+## EventBridge
+
+rule name (name not mandatory)
+
+```
+rootuser-connection
+```
+
 Rule pattern
 
 Type of event :
@@ -20,5 +32,4 @@ Custom Pattern
 }
 ```
 
-* Create SNS Topic / mail subscriber
-* No need to create a role. SNS resource policy will be updated on rule creation
+* look at mail to confirm a notification has been received

@@ -2,6 +2,7 @@ import boto3
 
 cdkBucketNameParis = "cdk-hnb659fds-assets-637423642269-eu-west-3"
 cdkBucketNameIreland = "cdk-hnb659fds-assets-637423642269-eu-west-1"
+cdkBucketNameUsEast1 = "cdk-hnb659fds-assets-637423642269-us-east-1"
 
 
 def empty_S3_buckets(region_name, cdk_bucket_name):
@@ -52,8 +53,15 @@ def purge_cloudwatch_log_groups(region_name):
         print("No log groups to delete in region {0}".format(region_name))
 
 
-empty_S3_buckets(region_name="eu-west-3", cdk_bucket_name=cdkBucketNameParis)
-purge_cloudwatch_log_groups(region_name="eu-west-3")
+paris_region_name = "eu-west-3"
+ireland_region_name = "eu-west-1"
+useast1_region_name = "us-east-1"
 
-empty_S3_buckets(region_name="eu-west-1", cdk_bucket_name=cdkBucketNameIreland)
-purge_cloudwatch_log_groups(region_name="eu-west-1")
+empty_S3_buckets(region_name=paris_region_name, cdk_bucket_name=cdkBucketNameParis)
+purge_cloudwatch_log_groups(region_name=paris_region_name)
+
+empty_S3_buckets(region_name=ireland_region_name, cdk_bucket_name=cdkBucketNameIreland)
+purge_cloudwatch_log_groups(region_name=ireland_region_name)
+
+empty_S3_buckets(region_name=useast1_region_name, cdk_bucket_name=cdkBucketNameUsEast1)
+purge_cloudwatch_log_groups(region_name=useast1_region_name)

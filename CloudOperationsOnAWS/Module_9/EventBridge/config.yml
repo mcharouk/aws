@@ -1,0 +1,4 @@
+aws:
+  accountId: 637423642269
+  s3:
+    cloudTrailBucketName: "aws-cloudtrail-logs-637423642269-eventbridge-demo"
