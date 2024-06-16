@@ -25,8 +25,9 @@ class EventBridgeStackUsEast1(Stack):
             self,
             "CloudTrailBucket",
             bucket_name=stackConfig.s3_cloudTrailBucketName,
+            auto_delete_objects=True,
+            removal_policy=RemovalPolicy.DESTROY,  # REMOVE FOR PRODUCTION
         )
-        bucket.apply_removal_policy(RemovalPolicy.DESTROY)
 
         # create a cloudtrail trail
         cloudtrail.Trail(
