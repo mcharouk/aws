@@ -3,12 +3,12 @@ import os
 
 import aws_cdk as cdk
 from aws_cdk import Tags
-from cdk.cdk_stack import CdkStack
+from cdk.cdk_stack import LambdaDynamoStack
 
 app = cdk.App()
-stack = CdkStack(
+stack = LambdaDynamoStack(
     app,
-    "CdkStack",
+    "LambdaDynamoStack",
     # If you don't specify 'env', this stack will be environment-agnostic.
     # Account/Region-dependent features and context lookups will not work,
     # but a single synthesized template can be deployed anywhere.

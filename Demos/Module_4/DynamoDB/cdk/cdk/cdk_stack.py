@@ -11,7 +11,7 @@ from cdk.StackConfig import StackConfig
 from constructs import Construct
 
 
-class CdkStack(Stack):
+class LambdaDynamoStack(Stack):
 
     def __init__(self, scope: Construct, construct_id: str, **kwargs) -> None:
         super().__init__(scope, construct_id, **kwargs)
