@@ -1,78 +1,9 @@
 # Access point
 
-## delegate access to access point policy
+This setup shows how access policy works : 
 
-This policy must be added to bucket S3 policy
+* a bucket policy that delegates permissions to access point policies
+* 2 access points
+  * **AccessPointDemoRole** has r/w access on folder 1 through access-point-folder1, but not through access-point-folder2
+  * **AccessPointDemoRole** has no access on folder 2 on both access-points
 
-```
-{
-    "Version": "2012-10-17",
-    "Statement": [
-        {
-            "Effect": "Allow",
-            "Principal": {
-                "AWS": "637423642269"
-            },
-            "Action": "*",
-            "Resource": [
-                "arn:aws:s3:::accesspointdemo-marccharouk-548675484",
-                "arn:aws:s3:::accesspointdemo-marccharouk-548675484/*"
-            ],
-            "Condition": {
-                "StringEquals": {
-                    "s3:DataAccessPointAccount": "637423642269"
-                }
-            }
-        }
-    ]
-}
-```
-
-## Access point policy
-
-(object folder in resource path is mandatory)
-
-for folder 1
-```
-{
-    "Version": "2012-10-17",
-    "Statement": [
-        {
-            "Sid": "Statement1",
-            "Effect": "Allow",
-            "Principal": {
-                "AWS": "arn:aws:iam::637423642269:role/TechLead"
-            },
-            "Action": [
-                "s3:GetObject",
-                "s3:PutObject"
-            ],
-            "Resource": "arn:aws:s3:eu-west-3:637423642269:accesspoint/accesspointfolder1/object/folder1/*"
-        }
-    ]
-}
-```
-
-## Minimal access policies to IAM
-
-TechLead Should have this policy attached
-
-```
-{
-    "Version": "2012-10-17",
-    "Statement": [
-        {
-            "Sid": "VisualEditor0",
-            "Effect": "Allow",
-            "Action": [
-                "s3:GetAccessPoint",
-                "s3:ListAllMyBuckets",
-                "s3:ListAccessPoints",
-                "s3:ListBucket",
-                "s3:ListMultiRegionAccessPoints"
-            ],
-            "Resource": "*"
-        }
-    ]
-}
-```

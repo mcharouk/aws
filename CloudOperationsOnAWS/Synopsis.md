@@ -225,6 +225,10 @@ When we make a change on EBS (like changing disk size or performance), we have t
 
 * Montrer la replication en plus de ce que je montre d'habitude
 * [Use case Express One Zone](https://aws.amazon.com/blogs/storage/clickhouse-cloud-amazon-s3-express-one-zone-making-a-blazing-fast-analytical-database-even-faster/)
+*  [Explications](https://community.aws/content/2ZDARM0xDoKSPDNbArrzdxbO3ZZ/s3-express-one-zone)
+  * stocke les données sur une seule AZ, réduit la latence je pense en particulier en écriture
+  * Un directory bucket récupère à sa création de la puissance pour supporter plusieurs dizaines de milliers de transactions pas secondes. IL ne croit pas graduellement en fonction de la demande comme sur les autres classes, donc il n'a pas de problème en cas de burst soudain comme c'est le cas pour des workloads de machine learning.
+  * a un concept de session pour s'authentifier. Il ne s'uthentifie pas à chaque requête mais plutôt est basé sur un token qu'on repasse pendant un temps determiné, pour minimiser la latence dû à l'authentification. La session donne accès à la totalité du bucket en lecture, ou écriture ou ReadWrite. Pas de distinction entre les objets d'un bucket.
 
 # Module 14 : 
 

@@ -128,7 +128,7 @@ Bonus :
   * Déjà eu des problèmes avec thumbnail queue. Je sais pas pourquoi ca marche pas, mais le fait de recréer la queue l'a fait fonctionné.
   * Faire un subscribe SNS à partir de SQS et non à partir de SNS, ca marche mieux, mais je ne sais pas pourquoi.
 * Task 3 : création notification S3
-  * changement de la resource policy SNS pour autoriser S3 à publier dans la queue. Attention au remplacement des placeholders
+  * changement de l'access policy SNS pour autoriser S3 à publier dans la queue. !!! Attention au remplacement des placeholders !!! sinon on ne peut pas créer le trigger s3
   * dans l'évenement s3
     * ingest/ (ne pas oublier le /)
     * attention au coquilles dans le suffix
