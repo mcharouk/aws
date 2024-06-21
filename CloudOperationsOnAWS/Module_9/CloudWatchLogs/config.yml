@@ -1,0 +1,5 @@
+aws:
+  logs:
+    groupName: "logs_demo"
+    streamName: "webServer-i87465854"
+    waitTime: 30

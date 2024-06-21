@@ -80,17 +80,40 @@
   * the mount point location / folder
   * the user that will be used to access EFS.
 
+### Snowball
+
+* before using Snowball, it must be unlocked
+* 2 forms of credentials that can be obtained through the console
+  * an encrypted manifest file (key stored on KMS). The manifest file contains (among other info) the encryption keys that are used to encrypt the data at rest on snowball
+  * KMS keys are never stored on the device and all memory is erased when it is disconnected and returned to AWS 
+  * an unlock code
+
+  
+* Snowball must have an IP Address to be able to unlock it.
+
 # Module 10 : Networking 2
 
 ## Direct Connect
 * [List of Direct Connect Partners](https://aws.amazon.com/directconnect/partners/)
 
+* DTO : 0.0282 $ / GB for Paris or Ireland region
+
+## Site-to-site VPN
+
+* DTO : 0.09 $ / GB for Paris or Ireland region
+
 # Module 11 : Serverless
+
+## SQS
+
+* redrive policy is the number of times a consumer can process the message before it is automatically moved to a dead letter queue
 
 ## SNS
 
 * Retries works for AWS managed service (Lambda, SQS, ...) and HTTP endpoint
 * Archiving and replaying events is supported only for FIFO topics
+
+
 
 # Module 12 : Edge Services
 

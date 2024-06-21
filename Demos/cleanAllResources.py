@@ -47,6 +47,10 @@ def purge_cloudwatch_log_groups(region_name):
         if len(log_groups["logGroups"]) == 0:
             print("No log groups to delete in region {0}".format(region_name))
         for group in log_groups["logGroups"]:
+            log_group_name = group["logGroupName"]
+            if log_group_name == "logs_demo":
+                print(f"skipping log group {log_group_name}")
+                continue
             print(f"Deleting {group['logGroupName']} in region {region_name}")
             logs.delete_log_group(logGroupName=group["logGroupName"])
     else:
