@@ -137,8 +137,8 @@ Demo :
 
 Demo : 
 * Eventbridge : SNS Mail when an EC2 instance starts
-* CloudWatch log agent
-* Create a metric from logs
+* CloudWatch log insights
+* CloudWatch metric insights
 * X-Ray
 
 # Module 10 : Data Security and System Auditing
@@ -189,7 +189,6 @@ Demo :
 
 Demo
 * Pourrait reprendre ma démo sur les networks ACL / Sec Group de l'archiOnAWS
-* VPC flow logs avec Cloudwatch Insights
 * reprendre la demo sur le WAF
 
 # Module 12 : Mountable Storage
