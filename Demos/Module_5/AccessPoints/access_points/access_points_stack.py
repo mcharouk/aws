@@ -132,20 +132,6 @@ class AccessPointsStack(Stack):
             resources=["*"],
         )
 
-        """
-        getAccessPointsStatement = iam.PolicyStatement(
-            sid="GetAccessPoints",
-            effect=iam.Effect.ALLOW,
-            actions=["s3:GetAccessPoint"],
-            resources=["*"],
-            conditions={
-                "StringLike": {
-                    "s3:DataAccessPointArn": f"arn:aws:s3:{self.region}:{self.account}:accesspoint/{accesspoint_folder1_name}"
-                }
-            },
-        )
-        """
-
         return self.createPolicy(
             "AccessPointDemoPolicy",
             [listAccessPointsStatement],

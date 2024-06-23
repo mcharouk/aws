@@ -3,12 +3,12 @@ import os
 
 import aws_cdk as cdk
 from aws_cdk import Tags
-from cloud_watch_metrics.cloud_watch_metrics_stack import CloudWatchMetricsStack
+from mount_points.mount_points_stack import MountPointsStack
 
 app = cdk.App()
-stack = CloudWatchMetricsStack(
+stack = MountPointsStack(
     app,
-    "CloudWatchMetricsStack",
+    "MountPointsStack",
     env=cdk.Environment(
         region=os.getenv("CDK_DEFAULT_REGION"), account=os.getenv("CDK_DEFAULT_ACCOUNT")
     ),
@@ -24,5 +24,5 @@ stack = CloudWatchMetricsStack(
     # For more information, see https://docs.aws.amazon.com/cdk/latest/guide/environments.html
 )
 
-Tags.of(stack).add("DemoName", "CloudWatchMetrics")
+Tags.of(stack).add("DemoName", "MountPoints")
 app.synth()
