@@ -24,11 +24,11 @@ class AccessPointsStack(Stack):
 
         bucket.add_to_resource_policy(self.createBucketPolicy(bucket=bucket))
 
-        self.uploadObject(bucket, "folder1", "./resources/folder1")
-        self.uploadObject(bucket, "folder2", "./resources/folder2")
+        self.uploadObject(bucket, "finance", "./resources/finance")
+        self.uploadObject(bucket, "human-resources", "./resources/human-resources")
 
-        accesspoint_folder1_name = "accesspoint-folder1"
-        accesspoint_folder2_name = "accesspoint-folder2"
+        accesspoint_folder1_name = "accesspoint-finance"
+        accesspoint_folder2_name = "accesspoint-human-resources"
         # create an access point for bucket created above
 
         role = self.createRole(
@@ -61,7 +61,7 @@ class AccessPointsStack(Stack):
                         },
                         "Action": ["s3:GetObject", "s3:PutObject", "s3:DeleteObject"],
                         "Resource": [
-                            f"arn:aws:s3:{self.region}:{self.account}:accesspoint/{accesspoint_folder_name}/object/folder1/*"
+                            f"arn:aws:s3:{self.region}:{self.account}:accesspoint/{accesspoint_folder_name}/object/finance/*"
                         ],
                     }
                 ],
