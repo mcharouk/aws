@@ -23,28 +23,42 @@ class AccessPointsStack(Stack):
         )
 
         bucket.add_to_resource_policy(self.createBucketPolicy(bucket=bucket))
-
-        self.uploadObject(bucket, "finance", "./resources/finance")
-        self.uploadObject(bucket, "human-resources", "./resources/human-resources")
-
-        accesspoint_folder1_name = "accesspoint-finance"
-        accesspoint_folder2_name = "accesspoint-human-resources"
-        # create an access point for bucket created above
-
-        role = self.createRole(
-            "AccessPointDemoRole",
-            iam.AccountPrincipal(self.account),
-            [self.createAccessRoleDemoPolicy(accesspoint_folder1_name)],
+        root_folder_finance = "finance"
+        root_folder_human_resources = "human-resources"
+        self.uploadObject(bucket, root_folder_finance, "./resources/finance")
+        self.uploadObject(
+            bucket, root_folder_human_resources, "./resources/human-resources"
         )
 
-        self.createAccessPointFolder1(bucket_name, role, accesspoint_folder1_name)
-        self.createAccessPointFolder2(bucket_name, role, accesspoint_folder2_name)
+        accesspoint_finance_name = "accesspoint-finance"
+        accesspoint_humanResources_name = "accesspoint-human-resources"
+        # create an access point for bucket created above
 
-    def createAccessPointFolder1(
-        self,
-        bucket_name,
-        human_role,
-        accesspoint_folder_name,
+        accessRoleDemoPolicy = self.createAccessRoleDemoPolicy()
+        finance_role = self.createRole(
+            "AccessPointFinanceDemoRole",
+            iam.AccountPrincipal(self.account),
+            [accessRoleDemoPolicy],
+        )
+
+        human_resources_role = self.createRole(
+            "AccessPointHumanResourcesDemoRole",
+            iam.AccountPrincipal(self.account),
+            [accessRoleDemoPolicy],
+        )
+
+        self.createAccessPoint(
+            bucket_name, finance_role, accesspoint_finance_name, root_folder_finance
+        )
+        self.createAccessPoint(
+            bucket_name,
+            human_resources_role,
+            accesspoint_humanResources_name,
+            root_folder_human_resources,
+        )
+
+    def createAccessPoint(
+        self, bucket_name, human_role, accesspoint_folder_name, root_folder
     ):
         s3.CfnAccessPoint(
             self,
@@ -61,35 +75,7 @@ class AccessPointsStack(Stack):
                         },
                         "Action": ["s3:GetObject", "s3:PutObject", "s3:DeleteObject"],
                         "Resource": [
-                            f"arn:aws:s3:{self.region}:{self.account}:accesspoint/{accesspoint_folder_name}/object/finance/*"
-                        ],
-                    }
-                ],
-            },
-        )
-
-    def createAccessPointFolder2(
-        self,
-        bucket_name,
-        human_role,
-        accesspoint_folder_name,
-    ):
-        s3.CfnAccessPoint(
-            self,
-            f"{accesspoint_folder_name}Demo",
-            bucket=bucket_name,
-            name=accesspoint_folder_name,
-            policy={
-                "Version": "2012-10-17",
-                "Statement": [
-                    {
-                        "Effect": "Deny",
-                        "Principal": {
-                            "AWS": f"arn:aws:iam::{self.account}:role/{human_role.role_name}"
-                        },
-                        "Action": ["s3:GetObject", "s3:PutObject", "s3:DeleteObject"],
-                        "Resource": [
-                            f"arn:aws:s3:{self.region}:{self.account}:accesspoint/{accesspoint_folder_name}/object/*"
+                            f"arn:aws:s3:{self.region}:{self.account}:accesspoint/{accesspoint_folder_name}/object/{root_folder}/*"
                         ],
                     }
                 ],
@@ -118,7 +104,7 @@ class AccessPointsStack(Stack):
             conditions={"StringEquals": {"s3:DataAccessPointAccount": self.account}},
         )
 
-    def createAccessRoleDemoPolicy(self, accesspoint_folder1_name):
+    def createAccessRoleDemoPolicy(self):
         listAccessPointsStatement = iam.PolicyStatement(
             sid="ListAccesspoints",
             effect=iam.Effect.ALLOW,
