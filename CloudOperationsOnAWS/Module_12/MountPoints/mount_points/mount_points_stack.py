@@ -48,7 +48,7 @@ class MountPointsStack(Stack):
         # create an s3 bucket named accesspointdemo-marccharouk-548675486
         bucket = s3.Bucket(
             self,
-            "AccessPointDemoBucket",
+            "mountPointDemo",
             bucket_name=bucket_name,
             removal_policy=RemovalPolicy.DESTROY,
             auto_delete_objects=True,
