@@ -18,9 +18,7 @@
 * Demo
   * PassRole
   * SCP
-
-* [Policy generator](https://awspolicygen.s3.amazonaws.com/policygen.html)
-* [Policy simulator](https://policysim.aws.amazon.com)
+  * [Policy Generator](https://awspolicygen.s3.amazonaws.com/policygen.html) / [Policy simulator](https://policysim.aws.amazon.com)
 
 # Module 3 : System Discovery
 
@@ -29,7 +27,10 @@
   * Ca peut être aussi de montrer Session Manager, la configuration et la partie audit.
   * Session Manager. Port forward sur du RDP Windows
 
-* AWS Config peut s'intégrer avec Systems Manager Inventory pour détecter les changements dans l'inventaire (applications installées, windows registry, etc...)
+* AWS Config peut s'intégrer avec Systems Manager Inventory pour détecter les changements dans l'inventaire et stocker l'historique des changements (applications installées, windows registry, etc...)
+* AWS Config s'intègre à Organizations dans un double sens
+  * un Aggregator à configurer dans le compte d'administrateur. On peut aggéger les configurations et findings de différents comptes ou de tous les comptes d'une organisation donnée
+  * Des Organization rules peuvent être définis dans le compte d'administrateur qui se déploieront dans les comptes de l'organization. Cela permet de manager des règles communes de manière centralisé
 
 # Module 4 : Deploy And Update Resources
 

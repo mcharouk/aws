@@ -1,3 +1,4 @@
+# Activate session logging does not work with cloudformation, that's why it must be activated by a python script
 import boto3
 from StackConfig import StackConfig
 
@@ -16,14 +17,14 @@ with open("activateSessionLogging.json", "r") as file:
         "S3-KEY-PREFIX", sessionLoggingKeyPrefix
     )
 
-# update document named SSM-SessionManagerRunShell with filedata contentwith latest version
+# update document named SSM-SessionManagerRunShell with filedata content with latest version
 
 client = boto3.client("ssm")
 
 response = client.update_document(
     Name="SSM-SessionManagerRunShell",
     Content=filedata,
-    DocumentFormat="JSON",    
+    DocumentFormat="JSON",
     DocumentVersion="$LATEST",
 )
 
