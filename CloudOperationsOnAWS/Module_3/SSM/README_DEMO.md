@@ -15,23 +15,8 @@ Get-Content -Path $testFileName
 Get-ChildItem -Path $env:AdministratorDocumentsPath
 ```
 
-Start port forwarding / get output of cloudformation stack, it's more dynamic
-
-```
-aws ssm start-session --target i-0c18c79a4842c50bf --document-name AWS-StartPortForwardingSession --parameters "localPortNumber=54321, portNumber=3389" --region eu-west-3
-```
-
-Windows instance RDP connection
-
-* Host : 
-``` 
-localhost:54321
-```
-
-* User
-
-```
-[InstanceId]\Administrator
-```
-
-* Password : decrypt password with a key pair
+* for port forwarding command, take cloudformation stack output
+* for windows rdp connection, take cloudformation stack output for both
+  * host
+  * username
+* Password : decrypt password with a key pair. Private key can be retrieved in parameter store
