@@ -111,8 +111,8 @@ Account Factory Customization is an account creation blueprint
 # Module 5 : Automate Resource Deployment
 
 * Demo on Service Catalog
-* [Customer Success Story Service Catalog](https://aws.amazon.com/solutions/case-studies/expedia-service-catalog-case-study/?did=cr_card&trk=cr_card)
 * [Service catalog example](https://aws.amazon.com/blogs/machine-learning/part-2-how-natwest-group-built-a-secure-compliant-self-service-mlops-platform-using-aws-service-catalog-and-amazon-sagemaker/) and [associated customer success story](https://aws.amazon.com/solutions/case-studies/natwest-group-case-study/?did=cr_card&trk=cr_card)
+
 * Cloud formation: could be useless if audience uses Terraform.
   * Demo with init scripts and wait conditions. 
   * Demo with stackset on multiple regions

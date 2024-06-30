@@ -14,6 +14,61 @@
 * By using AWS Config, Experian enjoys visibility and can correct misconfiguration in 2–5 minutes, compared to 24 hours using third-party tools.
 * Experian decreased the number of security alerts in its Amazon S3 buckets (as they work on data use cases, s3 is a central service in their workload) by 80 percent from June to August 2021
 
+# Module 5 : Automate Resource Deployment
+
+## Expedia
+
+[DBaaS for Expedia](https://aws.amazon.com/solutions/case-studies/expedia-service-catalog-case-study/?did=cr_card&trk=cr_card)
+
+### Context 
+* Expedia : 9,000 applications across more than 400 AWS accounts
+
+* Expedia Group wanted to facilitate simple, self-serve database provisioning across its developer teams. 
+* It needed a way to enforce good governance and best practices while keeping the provisioning process simple and manageable
+
+### Solution 
+
+* has developed a DBaaS platform with Service Catalog
+* support many database technologies, SQL and NoSQL
+* Developers use the AWS Service Catalog console to view the products that they can deploy, input basic information such as database type and tags, and then launch the database
+* Cerebro takes care of the underlying network configurations and sets up monitoring and security parameters automatically by pushing CloudFormation templates into the new accounts
+
+### Results
+
+* Developers had to wait a few days after submitting a ticket to the database team, but now developers can deploy a database themselves in only a few minutes
+* Because the process is so simple, developers can spend more time focusing on their work rather than on database configurations
+
+
+## NatWest Group
+
+### Context
+
+* NatWest Group is a relationship bank for a digital world that provides financial services to more than 19 million customers across the UK
+* The process of creating new environments took from a few days to weeks or even months.
+* A reliance on central platform teams to build, provision, secure, deploy, and manage infrastructure and data sources made it difficult to onboard new teams to work in the cloud.
+* Teams who decided to migrate their workloads to the cloud had to go through an elaborate compliance process. 
+* Each infrastructure component had to be analyzed separately, which increased security audit timelines.
+
+* The teams had to read a set of documentation guides written by platform teams. 
+* Initial environment setup was complex. 
+* Technical challenges often made it difficult to onboard new team members. 
+* After the development environments were configured, the route to release software in production was similarly complex and lengthy.
+* need for automation and standardization as a precursor to quick and efficient project delivery on AWS
+
+### Solution
+
+Teams now can deploy in self service
+* A Studio environment
+* Studio user profiles
+* Model deployment pipelines
+* Training pipelines
+* Inference pipelines
+* A system for monitoring and alerting
+
+### Results 
+
+NatWest can now provision new, scalable, and secure AWS environments in a matter of hours, compared to days or even weeks
+
 # Module 12 : Mountable Storage
 
 ## PLANA
