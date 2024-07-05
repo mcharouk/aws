@@ -19,6 +19,24 @@ class GlobalStack(Stack):
             helloFromRegion_lambda_role, "service-role/AWSLambdaBasicExecutionRole"
         )
 
+        helloGenerator_lambda_role = self.createRole(
+            "HelloGeneratorLambdaRole",
+            iam.ServicePrincipal("lambda.amazonaws.com"),
+            [],
+        )
+
+        self.addManagedPolicy(
+            helloGenerator_lambda_role, "service-role/AWSLambdaBasicExecutionRole"
+        )
+        self.addManagedPolicy(
+            helloGenerator_lambda_role,
+            "service-role/AWSLambdaVPCAccessExecutionRole",
+        )
+        self.addManagedPolicy(
+            helloGenerator_lambda_role,
+            "AmazonSSMReadOnlyAccess",
+        )
+
     def addManagedPolicy(self, role, policyName):
         role.add_managed_policy(
             iam.ManagedPolicy.from_aws_managed_policy_name(policyName)

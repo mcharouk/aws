@@ -27,6 +27,12 @@ class RegionalStack(Stack):
             "HelloFromRegionLambdaRole",
         )
 
+        helloGenerator_lambda_role = iam.Role.from_role_name(
+            self,
+            "HelloGeneratorLambdaRole",
+            "HelloGeneratorLambdaRole",
+        )
+
         self.vpc = ec2.Vpc(
             self,
             "VPC",
@@ -83,23 +89,6 @@ class RegionalStack(Stack):
         )
 
         if createHelloGeneratorLambda is True:
-            helloGenerator_lambda_role = self.createRole(
-                "HelloGeneratorLambdaRole",
-                iam.ServicePrincipal("lambda.amazonaws.com"),
-                [],
-            )
-
-            self.addManagedPolicy(
-                helloGenerator_lambda_role, "service-role/AWSLambdaBasicExecutionRole"
-            )
-            self.addManagedPolicy(
-                helloGenerator_lambda_role,
-                "service-role/AWSLambdaVPCAccessExecutionRole",
-            )
-            self.addManagedPolicy(
-                helloGenerator_lambda_role,
-                "AmazonSSMReadOnlyAccess",
-            )
 
             lambdaSecGroup = ec2.SecurityGroup(
                 self,
@@ -112,7 +101,7 @@ class RegionalStack(Stack):
 
             dnsKeySsm = "/helloFromRegion/DNSName"
 
-            dnsParameter = ssm.StringParameter(
+            ssm.StringParameter(
                 self,
                 "DnsParameter",
                 parameter_name="/helloFromRegion/DNSName",
@@ -123,19 +112,6 @@ class RegionalStack(Stack):
                 self,
                 id="HelloGenerator",
                 function_name="HelloGenerator",
-                runtime=_lambda.Runtime.PYTHON_3_12,
-                code=_lambda.Code.from_asset("HelloGeneratorLambda"),
-                handler="lambda_function.lambda_handler",
-                role=helloGenerator_lambda_role,
-                environment={"DNS_NAME_KEY_SSM": dnsKeySsm},
-                vpc=self.vpc,
-                security_groups=[lambdaSecGroup],
-            )
-
-            _lambda.Function(
-                self,
-                id="HelloGenerator2",
-                function_name="HelloGenerator2",
                 runtime=_lambda.Runtime.PYTHON_3_12,
                 code=_lambda.Code.from_asset("HelloGeneratorLambda"),
                 handler="lambda_function.lambda_handler",

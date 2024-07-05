@@ -35,9 +35,9 @@ parisStack = RegionalStack(
 irelandStack = RegionalStack(
     app,
     "IrelandRegionStack",
-    createHelloGeneratorLambda=False,
-    vpc_cidr_range="192.168.1.0/20",
     env=cdk.Environment(region="eu-west-1", account=os.getenv("CDK_DEFAULT_ACCOUNT")),
+    vpc_cidr_range="192.168.1.0/20",
+    createHelloGeneratorLambda=True,
     cross_region_references=True,
     # If you don't specify 'env', this stack will be environment-agnostic.
     # Account/Region-dependent features and context lookups will not work,

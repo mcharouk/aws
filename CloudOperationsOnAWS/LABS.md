@@ -30,3 +30,17 @@ Systems manager
     * if so, it stop it, change instance size attribute, and restart it after a configurable wait time.
 * Task 4
   * Check the logs in cloudwatch
+
+# Lab 4
+
+* Task 1 : install cloudwatch agent
+  * Install SSM Agent Cmd : deselect S3 logging
+  * Install CloudWatch Log Agent Cmd : deselect S3 logging
+* Task 2 : Start CloudWatch Agent
+  * Check that ssm is selected
+  * Check that configure is selected
+  * Check that Optional restart is selected
+  * AgentConfigFile as name of ssm parameter
+  * Unselect S3 Bucket
+* Task 6.2
+  * Careful about the command to trigger the alarm. Region and name must eventually be changed
