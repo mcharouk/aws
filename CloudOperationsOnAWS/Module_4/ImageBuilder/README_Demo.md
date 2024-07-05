@@ -92,4 +92,6 @@ phases:
 
 * Click on Image on the left menu
 * Click on the version
-
+* Click on workflow tab to see the different steps with their status
+* on the first drop down list, we can select the build or test stage to see the corresponding steps
+* In output tab, we can see the AMIs when they will be created

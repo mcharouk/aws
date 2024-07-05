@@ -202,9 +202,19 @@ AWS-AttachIAMToInstance
 
 # Module 7 : Configure Highly Available systems
 
-ALB / Route 53
+## NLB
 
-Demo : 
+### Metrics
+
+Common scenarios for an RST (Reset) packet :
+
+* When a host receives a packet for a port that isn't open
+* To reject an unwanted connection attempt
+* When a host detects an invalid segment or sequence number
+* To clear a "half-open" connection (where one side has closed but the other hasn't)
+
+## Demo
+
     * Avoir 2 ELB qui pointe sur une application sur 2 régions différentes
     * Créer une private hosted zone Route 53 associé aux deux VPC
     * Créer un record failover qui pointe sur les deux ALB
