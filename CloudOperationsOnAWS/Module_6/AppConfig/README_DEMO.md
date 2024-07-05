@@ -62,4 +62,11 @@ Alarm Role Name
 ssmCloudWatchAlarmDiscoveryRole
 ```
 
+Alarm Name
+
+```
+AppConfigAlarm
+```
+
+
 * !! don't forget to click on Add to add alarm !!

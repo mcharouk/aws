@@ -70,7 +70,7 @@ class AppConfigStack(Stack):
             evaluation_periods=1,
             datapoints_to_alarm=1,
             metric=metric,
-            treat_missing_data=cloudwatch.TreatMissingData.MISSING,
+            treat_missing_data=cloudwatch.TreatMissingData.NOT_BREACHING,
         )
 
         # create app config deployment strategy

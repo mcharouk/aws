@@ -139,6 +139,67 @@ Account Factory Customization is an account creation blueprint
 
 * OpsCenter, Explorer and Change Manager integrates with AWS Organizations.
 
+## OpsCenter
+
+can integrate data from cloudtrail logs. Here are some examples : 
+
+* **Unauthorized API Calls**: CloudTrail logs can capture API calls made to AWS services, including those that may be unauthorized or suspicious. An OpsItem could be created to investigate and remediate any unauthorized API calls.
+
+* **Resource Configuration Changes**: CloudTrail logs record changes made to AWS resources, such as creating, modifying, or deleting resources. An OpsItem could be created to track and investigate any unexpected or unauthorized resource configuration changes.
+
+* **Failed Deployments**: CloudTrail logs can capture failed deployments or provisioning attempts, which could indicate an issue with your infrastructure or deployment process. An OpsItem could be created to investigate and resolve these failures.
+
+* **Security Incidents**: CloudTrail logs can record security-related events, such as changes to IAM policies or roles, or access to sensitive resources. An OpsItem could be created to investigate and respond to potential security incidents identified from the CloudTrail logs.
+
+* **Compliance Violations**: CloudTrail logs can be used to monitor for compliance violations, such as resources being created or modified outside of your organization's policies. An OpsItem could be created to address and remediate any identified compliance issues.
+
+## AWS Chatbot
+
+* Chatbot is a service that improves productivity. It allow to perform actions on AWS resources from a chat platform. It supports
+  * Amazon Chime
+  * Slack
+  * Teams
+* The chat channel can also be notified from AWS Services events, through EventBridge or SNS. For example a cloudwatch alarm in alarm state, or an incident manager response plans trigger.
+* It can be integrated with Amazon Q
+
+## Incident Manager
+
+* Possible to create a cloudwatch alarm that creates an opsitem and related to a specific response plan
+* A runbook is basically an automation document, where we can have automated tasks (a script on anything of this type) and manual steps.
+* When each of the step is resumed, it creates a timeline. In the timeline we can see how long each step took, start time/end time. In the timeline, all actions are logged, like for example if someone has added a metric in the cloudwatch dashboard, the time the cloudwatch alarm has been raised, etc...
+* post analysis will display a page that resumes the incident with a page that displays questions about what happened and what could be done to improve. New Opsitems can be automatically created from post analysis answers.
+* AWS managed post analysis template could be used or any custom defined template
+
+## Automation Document
+
+* Example of Command / Session Document
+
+```
+AWSFleetManager-DeleteUser
+```
+
+* Example of Automation Document
+
+```
+AWS-AttachEBSVolume
+```
+
+more complex one
+
+```
+AWS-AttachIAMToInstance
+```
+
+## Change Manager
+
+* request change through change templates
+* associate approvers to change templates (through SNS topics)
+* different level of approvers can be defined
+* integrates with change calendar
+* attach automation document to change templates. Can be run on schedule or as soon as change is approved
+* possible to create changes without any approvment process
+* cloudwatch alarm to monitor change, and rollback if alarm is triggered
+
 # Module 7 : Configure Highly Available systems
 
 ALB / Route 53
