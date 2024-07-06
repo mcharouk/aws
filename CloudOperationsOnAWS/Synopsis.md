@@ -230,6 +230,8 @@ Common scenarios for an RST (Reset) packet :
   * Warm-up is available for simple, step and target tracking policy. 
   * Warm-up good for application that takes time to start. 
   * Cooldown is not available for target tracking.
+  * During a cooldown period, when a scheduled action starts at the scheduled time, it can trigger a scaling activity immediately without waiting for the cooldown period to expire
+  * The cooldown period helps to prevent the Auto Scaling group from launching or terminating additional instances before the previous scaling activity takes effect. Instance warmup is more made for application that takes time to start.
 
 # Module 9 : Monitor and maintain system health
 

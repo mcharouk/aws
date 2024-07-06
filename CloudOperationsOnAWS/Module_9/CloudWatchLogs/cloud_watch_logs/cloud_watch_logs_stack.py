@@ -27,7 +27,7 @@ class CloudWatchLogsStack(Stack):
 
         # create QueryDefinition
 
-        queryDefinitionName = "pattern_tab"
+        queryDefinitionName = "1_pattern_tab"
         queryString = logs.QueryString(
             filter_statements=[f'@logStream = "{log_stream_name}"'],
             fields=["@message"],
@@ -40,7 +40,7 @@ class CloudWatchLogsStack(Stack):
             query_string=queryString,
         )
 
-        queryDefinitionName = "extract_structured_from_plain_text"
+        queryDefinitionName = "2_extract_structured_from_plain_text"
         queryString = logs.QueryString(
             parse_statements=[
                 '@message "* - - [* +0000] \\"* * HTTP/1.1\\" * *" as log_ip, log_time, log_method, log_path, log_status, log_bytes'
@@ -61,7 +61,7 @@ class CloudWatchLogsStack(Stack):
             query_string=queryString,
         )
 
-        queryDefinitionName = "count_per_log_status_and_hour"
+        queryDefinitionName = "3_count_per_log_status_and_hour"
         queryString = logs.QueryString(
             parse_statements=[
                 '@message "* - - [* +0000] \\"* * HTTP/1.1\\" * *" as log_ip, log_time, log_method, log_path, log_status, log_bytes'

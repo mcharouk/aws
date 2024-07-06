@@ -44,3 +44,16 @@ Systems manager
   * Unselect S3 Bucket
 * Task 6.2
   * Careful about the command to trigger the alarm. Region and name must eventually be changed
+
+# Lab 5
+
+* Task 1 : subscribe to a SNS topic
+  * don't forget to confirm the mail subscription
+* Task 2 : create a backup plan a backup vault, and assign specific EBS resource to the plan
+* task 3 : Replace placeholder region and sns topic ARN with the one provided by the LAB left menu.
+  * Backup vault name should be changed too if the student didn't respect the name given by the lab
+  * In the verification command, the name must match also backup plan name
+* Task 4 : select the right Vault, right EBS volume and the correct IAM role
+* Other tasks are about inspecting resources
+
+# Lab 6
