@@ -2,7 +2,7 @@ $param1=$args[0]
 
 if ( $param1 -eq "deploy" )
 {
-    python logMetrics.py
+    python loadMetrics.py
     cdk deploy --require-approval never    
 }
 ElseIf( $param1 -eq "destroy" )

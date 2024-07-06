@@ -31,14 +31,15 @@ def generate_metrics_for_plant(factory_name, machine_name):
     }
 
 
-metrics = []
-for i in range(int((datetime.datetime.now() - midnight).total_seconds() / 60 / 5)):
-    for factory_name in factory_names:
+now = datetime.datetime.now()
+
+for factory_name in factory_names:
+    metrics = []
+    for i in range(int((now - midnight).total_seconds() / 60 / 5)):
         for machine_name in machine_names:
             metric = generate_metrics_for_plant(factory_name, machine_name)
             metrics.append(metric)
-
-client.put_metric_data(
-    Namespace=namespace,
-    MetricData=metrics,
-)
+    print(
+        f"loading metrics for factory {factory_name}. Total datapoints size : {str(len(metrics))}"
+    )
+    client.put_metric_data(Namespace=namespace, MetricData=metrics)

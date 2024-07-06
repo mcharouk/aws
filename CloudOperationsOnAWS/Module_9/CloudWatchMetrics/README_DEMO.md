@@ -8,7 +8,9 @@ SELECT MAX(Temperature) FROM "ExampleCorp-Factory" GROUP BY MachineName
 ```
 ## Math expression
 
-* show pre built dashboard
+* go on pre built dashboard
+* click on the widget and View in Metrics to demonstrate Math expression
+  * for a single factory, we can display min, max, and average temperature for all its hovens
 
 ## Variable
 
