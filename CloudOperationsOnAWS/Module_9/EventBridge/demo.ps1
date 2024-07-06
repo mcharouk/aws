@@ -2,12 +2,12 @@ $param1=$args[0]
 
 if ( $param1 -eq "deploy" )
 {
-    cdk deploy --require-approval never    
+    cdk deploy --all --require-approval never    
 }
 ElseIf( $param1 -eq "destroy" )
 {
     python cleanResources.py
-    cdk destroy -f    
+    cdk destroy -f --all  
 }
 Else
 {

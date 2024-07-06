@@ -4,10 +4,12 @@ $StackName="scorekeep"
 if ( $param1 -eq "deploy" )
 {
     aws cloudformation deploy --template .\xray-scorekeep\cloudformation\cf-resources.yaml --stack-name $StackName --capabilities CAPABILITY_NAMED_IAM
+    aws cloudformation wait stack-create-complete --stack-name $StackName 
 }
 ElseIf( $param1 -eq "destroy" )
 {
     aws cloudformation delete-stack --stack-name $StackName 
+    aws cloudformation wait stack-delete-complete --stack-name $StackName 
 }
 Else
 {
