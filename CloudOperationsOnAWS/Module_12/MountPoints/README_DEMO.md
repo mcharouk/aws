@@ -12,15 +12,16 @@ Create EFS
 sudo -s
 ```
 
-Instance 1
+Instance 1 : replace EFS Id with newly created one
 
 ```
 EFS_ID='fs-0a7a2c4b799cb4275.efs.eu-west-3.amazonaws.com'
 sudo mount -t efs -o tls $EFS_ID:/ /mnt/efs
+sudo chmod 777 /mnt/efs
 echo "Hello From EFS" > /mnt/efs/HelloFromEFS.txt
 ```
 
-Instance 2
+Instance 2 : replace EFS Id with newly created one
 
 ```
 EFS_ID='fs-0a7a2c4b799cb4275.efs.eu-west-3.amazonaws.com'

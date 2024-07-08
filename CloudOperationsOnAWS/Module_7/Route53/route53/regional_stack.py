@@ -104,7 +104,7 @@ class RegionalStack(Stack):
             ssm.StringParameter(
                 self,
                 "DnsParameter",
-                parameter_name="/helloFromRegion/DNSName",
+                parameter_name=dnsKeySsm,
                 string_value=alb.load_balancer_dns_name,
             )
 

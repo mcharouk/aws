@@ -315,6 +315,17 @@ Demo
 * Pourrait reprendre ma démo sur les networks ACL / Sec Group de l'archiOnAWS
 * reprendre la demo sur le WAF
 
+## ACM
+
+Some intermediate CAs benefits :
+
+* Compromise isolation. If an issue CA is compromised, damage reduced to CAs signed by the intermediate CA only
+* Root CA can be left offline, which enhances security posture
+* specific certificated policies or validation requirements can be added to intermediate CAs, providing more flexibility
+* Intermediate CAs could be managed by different people. This setup can scale on maintenance
+
+Issuing CA has the operational responsability of issuing certificates with some Public Key infrastructure. They receive authority from root CA or intermediate CAs
+
 # Module 12 : Mountable Storage
 
 Demo : 
@@ -330,7 +341,10 @@ Demo :
 * GP2
   * performance relative to the volume size
   * performance is burstable
-* IOPS : like GP2. Performance depends on volume size
+* IOPS :
+  * Like GP2, IOPS is tied to volume size but
+    * IOPS : Maximum of 500 IOPS / GB allocated
+    * GP2 : Maximum of 3 IOPS / GB allocated
 
 ### Updating an EBS
 When we make a change on EBS (like changing disk size or performance), we have to wait 6 hours before we can do another operation of this type on the volume
