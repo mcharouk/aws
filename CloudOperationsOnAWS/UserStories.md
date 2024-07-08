@@ -92,3 +92,17 @@ NatWest can now provision new, scalable, and secure AWS environments in a matter
   * Amazon FSx for Lustre 
   * AWS ParallelCluster for configuring HPC resources for each simulation quickly and flexibly.
 * The airflow simulations can now be completed in 5−8 hours instead of 10 days
+
+
+# Module 13 : Object Storage
+
+[Clickhouse - S3 Express One Zone](https://aws.amazon.com/blogs/storage/clickhouse-cloud-amazon-s3-express-one-zone-making-a-blazing-fast-analytical-database-even-faster/)
+
+* Clickhouse is a columnar database
+* Delivers up to the second analytics
+* Needs to support ingestion of **hundreds of millions of events/sec** to execute **complex analytical queries**
+* Use S3 as storage. Added local disk to cache hot data. But cache was costly and difficult to operate. 
+* Used S3 Express One Zone to replace these local disks
+
+* 65% improvement in TCO as data is no more replicated on several AZs. Compute was spread accross all AZs so local storage too.
+* 283% lower query latencies
