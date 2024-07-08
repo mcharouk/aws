@@ -1,0 +1,5 @@
+import boto3
+import LicenseConfigurationFactory
+
+LicenseConfigurationFactory.remove_license_configuration()
+LicenseConfigurationFactory.create_license_configuration()

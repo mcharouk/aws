@@ -224,7 +224,10 @@ Common scenarios for an RST (Reset) packet :
 # Module 8 : Automate Scaling
 
 * On peut faire une démo et montrer comment on crée une spot fleet
-* On peut faire une démo sur licence manager. Il faut créer une AMI custom et lier une licence custom à l'AMI. Ensuite créer des EC2 pour dépasser la limite de licence que l'on a configuré.
+* On peut faire une démo sur license manager. Il faut créer une AMI custom et lier une licence custom à l'AMI. Ensuite créer des EC2 pour dépasser la limite de licence que l'on a configuré.
+
+
+## Autoscaling policies
 
 * For cooldown period vs instance warm-up
   * Warm-up is available for simple, step and target tracking policy. 
@@ -232,6 +235,10 @@ Common scenarios for an RST (Reset) packet :
   * Cooldown is not available for target tracking.
   * During a cooldown period, when a scheduled action starts at the scheduled time, it can trigger a scaling activity immediately without waiting for the cooldown period to expire
   * The cooldown period helps to prevent the Auto Scaling group from launching or terminating additional instances before the previous scaling activity takes effect. Instance warmup is more made for application that takes time to start.
+
+## License manager
+
+[Automate licenses detection using Tags and Lamdbas](https://aws.amazon.com/blogs/modernizing-with-aws/automatically-create-self-managed-licenses-in-multiple-accounts-using-tags/)
 
 # Module 9 : Monitor and maintain system health
 

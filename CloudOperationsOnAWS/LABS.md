@@ -57,3 +57,15 @@ Systems manager
 * Other tasks are about inspecting resources
 
 # Lab 6
+
+* Task 1
+  * create SNS Topic
+  * EventBridge rule triggered when an SSM document has status success
+  * EventBridge triggers SNS
+* Task 2
+  *  the drift has to be applied on the stack that has description Lab 6 Capstone lab
+  * The document to applied is named AWS-DisablePublicAccessForSecurityGroup and remove the SSH inbound rule that have been added manually
+* Task 3
+  * The SSM Document is named AWS-ConfigureS3BucketVersioning
+  * pass the role arn to the remediation rule
+  * pass Enabled to versioningState
