@@ -70,17 +70,10 @@ Queries sample
 select distinct useridentity.sessionContext.sessionIssuer.arn
 from cloudtrail_logs_aws_cloudtrail_logs_637423642269_095b0741;
 
--- services with the most write calls
-SELECT eventsource, count(*) from cloudtrail_logs_aws_cloudtrail_logs_637423642269_095b0741 
-where readonly = 'false'
-group by eventsource
-order by count(*) DESC
-LIMIT 50;
-
--- api calls with the most write calls
-SELECT eventname, count(*) from cloudtrail_logs_aws_cloudtrail_logs_637423642269_095b0741 
+-- api calls with the most write calls by service
+SELECT eventsource, eventname, count(*) from cloudtrail_logs_aws_cloudtrail_logs_637423642269_095b0741 
 where readonly ='false'
-group by eventname 
+group by eventsource, eventname 
 order by count(*) DESC
 LIMIT 50;
 

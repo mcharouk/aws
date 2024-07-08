@@ -279,7 +279,7 @@ Demo :
   * RDS
     * Login attempts
   * IAM
-    * IP Calls from an IP address that is included on a threat list
+    * AWS API Calls from an IP address that is included on a threat list
 
 ### Findings
 
@@ -302,6 +302,12 @@ Demo :
 * Code Vulnerability
   * containers, lambda, ec2. Use CodeGuru Detector library.
 * Can integrate with Teamcity, Jenkins, Github actions...
+
+* [list of common vulnerabilities by region](https://docs.aws.amazon.com/inspector/v1/userguide/inspector_cves.html)
+* [CVE official site](https://cve.mitre.org/)
+* CVE Examples 
+  * CVE-2024-39807
+  * CVE-2024-39830
 
 # Module 11 : Operate Secure and Resilient networks
 
