@@ -358,8 +358,20 @@ When we make a change on EBS (like changing disk size or performance), we have t
   * Microsoft Cluster Shared Volumes (CSV)
   * Global File System 2 (GFS2) for Linux.
 
+
+## EFS
+
+* General purpose : limited to 35 000 IOPS
+* Max I/O : Unlimited IOPS
+* Max I/O has higher latency so it's recommended in most cases to use General Purpose
+* In General Purpose mode, cloudwatch metric PercentIOLimit indicates how close workload is to IOPS limit.
+
+
 # Module 13 : Object Storage
 
+* Directory buckets
+  * no flat storage, organized in directories
+  * Only use storage class One-Zone
 * Montrer la replication en plus de ce que je montre d'habitude
 * [Use case Express One Zone](https://aws.amazon.com/blogs/storage/clickhouse-cloud-amazon-s3-express-one-zone-making-a-blazing-fast-analytical-database-even-faster/)
 *  [Explications](https://community.aws/content/2ZDARM0xDoKSPDNbArrzdxbO3ZZ/s3-express-one-zone)
@@ -367,21 +379,67 @@ When we make a change on EBS (like changing disk size or performance), we have t
   * Un directory bucket récupère à sa création de la puissance pour supporter plusieurs dizaines de milliers de transactions par secondes. Il ne croit pas graduellement en fonction de la demande comme sur les autres classes, donc il n'a pas de problème en cas de burst soudain comme c'est le cas pour des workloads de machine learning.
   * a un concept de session pour s'authentifier. Il ne s'uthentifie pas à chaque requête mais plutôt est basé sur un token qu'on repasse pendant un temps determiné, pour minimiser la latence dû à l'authentification. La session donne accès à la totalité du bucket en lecture, ou écriture ou ReadWrite. Pas de distinction entre les objets d'un bucket.
 
+* Use cases
+  * ML
+  * Interactive data analytics
+  * HPC
+  * Financial modeling
+  * media content workloads (Visual Effects, rendering, and transcoding needs)
+
 
 
 # Module 14 : 
 
 Demo compliqué sur ce sujet, on peut montrer la console.
 
-Voir un peu Cost Anomaly Detection
+## Cost and Usage reports
 
-[https://docs.aws.amazon.com/cost-management/latest/userguide/budgets-create-filters.html](budget filters)
+* longer retention
+* break down by resource Id
+* Export report to Quicksight, Redshift, etc... More control on permissions (line and column level access)    
+
+
+## Cost Anomaly Detection
+* can segment by AWS service
+* can evaluate specific 
+  * cost allocation tags
+  * member accounts within an organization (AWS Organizations)
+  * cost categories
+
+## CloudWatch Billing Alarm
 
 Cloudwatch billing alarm was released in 2012 and budget was released in 2015. So the first one is more a legacy feature. 
 * Has more limited filter capacities
 * Does not trigger on based on forecasted usage, only on current usage.
 
+## AWS Budget
+
+[https://docs.aws.amazon.com/cost-management/latest/userguide/budgets-create-filters.html](budget filters)
+
+## Trusted Advisor
+
 * in Trusted Advisor
   * You see the same findings that Compute Optimizer but with more delay (up to 48 hours)
   * Trusted advisor has much more cost optimization checks and covers also other topics than cost
   * Cost Management provides recommandations for savings plans and reserved instances, not covered by compute optimizer but provided by Trusted Advisor. Probably the same result.
+
+## Cost Optimization Hub
+
+Cost Optimization Hub generates recommendations for the following resources:
+
+* EC2 instances
+* ASG
+* EBS
+* Lambda
+* ECS
+* Amazon RDS DB instances (compute & storage)
+* Commitment
+  * Compute Saving Plans
+  * EC2 Instance Saving plans
+  * SageMaker Saving plans
+  * Reserved Instances
+    * EC2
+    * RDS
+    * OpenSearch
+    * Redshift
+    * Elasticache 
