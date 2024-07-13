@@ -103,6 +103,7 @@ RDS Proxy can improve high availability when a failover occurs
 # WAF
 
 * regarding AWS managed rules, rules cannot be changed, but action can be changed to count, allowing traffic
+* Sampled requests are available for 6 hours on AWS management console
 
 # Cloudwatch
 
@@ -136,3 +137,29 @@ RDS Proxy can improve high availability when a failover occurs
     * A cluster with vSphere HA enabled
     * A shared datastore
 * CachePercentDirty is a metric that indicates the amount of data that has not yet been loaded on S3 when using a File Gateway.
+
+# Inspector
+
+* assessment templates requires two mandatory parameters
+  * duration (frequency of scans)
+  * Rules Packages
+
+# Shield
+
+* Network ACLs are changed if attacks are on layer 3 or 4
+* WAF ACLs are updated if attacks are on layer 7
+* AWS support center must be contacted so that AWS Shield Response team can engage DDoS experts to mitigate DDoS attacks.
+* cloudwatch metrics under namespace AWS/DDoSProtection (Advanced Shield only)
+
+# Secrets Manager
+
+* Secret cross region replication can be activated. Keep same key name accross regions and copies
+  * secrets
+  * resource policies
+  * rotation policies
+  * tags
+
+
+# GuardDuty
+
+* GuardDuty sends initial events notifications within 5 minutes of the findings and all subsequent findings every 6 hours.
