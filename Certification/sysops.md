@@ -54,6 +54,7 @@ aws autoscaling set-instance-protection --instance-ids i-5f2e8a0d --auto-scaling
   * CLI cannot be used, it does not work on versioning enabled buckets.
 * CRR can copy directly on Glacier if needed (even Deep Archive), no need to create lifecycle policies
 * Replication Time Control (RTC) : copy all objects within 15 min. Includes S3 replication metrics and S3 event notifications. It monitors the copies that are pending, total size of pending objects, maximum replication time
+* S3 inventory can also be used to monitor replication status
 
 # Glacier
 
@@ -86,6 +87,12 @@ RDS Proxy can improve high availability when a failover occurs
   * Root EBS volume is encrypted and you don't have permission on the key 
 
 * To aggregate EC2 instances metrics, it is necessary to activate detailed monitoring
+
+## Termination policy
+
+* termination protection is not possible on Spot instances
+* does not prevent ASG from terminating an instance
+* use instance protection instead to prevent ASG to scale-in
 
 # ALB
 
@@ -188,15 +195,6 @@ RDS Proxy can improve high availability when a failover occurs
 * AWS support center must be contacted so that AWS Shield Response team can engage DDoS experts to mitigate DDoS attacks.
 * cloudwatch metrics under namespace AWS/DDoSProtection (Advanced Shield only)
 
-# Secrets Manager
-
-* Secret cross region replication can be activated. Keep same key name accross regions and copies
-  * secrets
-  * resource policies
-  * rotation policies
-  * tags
-
-
 # GuardDuty
 
 * GuardDuty sends initial events notifications within 5 minutes of the findings and all subsequent findings every 6 hours.
@@ -272,6 +270,12 @@ when a resource is shared via RAM, both owners and granted principals can receiv
 ```
 aws secretsmanager delete-secret --secret-id mysecret --force-delete-without-recovery
 ```
+
+* Secret cross region replication can be activated. Keep same key name accross regions and copies
+  * secrets
+  * resource policies
+  * rotation policies
+  * tags
 
 # Systems Manager
 
