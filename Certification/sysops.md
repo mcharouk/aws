@@ -88,11 +88,14 @@ RDS Proxy can improve high availability when a failover occurs
 
 * To aggregate EC2 instances metrics, it is necessary to activate detailed monitoring
 
+* Amazon-issued certificate cannot be installed in EC2. Third party certificates must be installed to have an end-to-end SSL workload
+
 ## Termination policy
 
 * termination protection is not possible on Spot instances
 * does not prevent ASG from terminating an instance
 * use instance protection instead to prevent ASG to scale-in
+* When the attribute InstanceInitiatedShutdownBehavior is set, the instance can initiate its shutdown event if termination has been set
 
 # ALB
 
@@ -141,6 +144,8 @@ RDS Proxy can improve high availability when a failover occurs
   * in static web hosting, not possible to communicate with HTTPS between S3 and Cloudfront. But still CloudFront can be configured in HTTPS. 
   * otherwise, the protocol will be Match Viewer
 
+* OAI cannot be used with S3 in static web hosting mode
+
 # WAF
 
 * regarding AWS managed rules, rules cannot be changed, but action can be changed to count, allowing traffic
@@ -152,6 +157,11 @@ RDS Proxy can improve high availability when a failover occurs
 
 * it's possible to aggregate mutliple configuration files by using append-config option. File names must be different
 * cloudwatch:PutDashboard to create or update dashboard. There is no cloudwatch:createDashboard
+
+## Synthetics
+
+* cloudwatch synthetics is a node.js script that can be used to simulate a user traffic. It can be run on a schedule. It's used to detect issues before the customer.
+* There are UI canaries that offer programmatic access to a headless Chrome browser via [Puppeteer](https://developer.chrome.com/docs/puppeteer)
 
 # Route 53
 
