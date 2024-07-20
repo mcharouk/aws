@@ -145,6 +145,8 @@ RDS Proxy can improve high availability when a failover occurs
   * otherwise, the protocol will be Match Viewer
 
 * OAI cannot be used with S3 in static web hosting mode
+* Error 4XX or 5XX
+  * when origin returns error, Cloudfront can cache them, but cloudfront itself does not generate any error.
 
 # WAF
 
@@ -301,3 +303,7 @@ to setup an hybrid VM
 ## Documents
 
 * AWSSupport-TroubleshootS3PublicRead to help diagnose issues with accessing objects from a public S3 endpoint
+
+# CloudFormation
+
+* while changeset have been validated, AWS remove them all
