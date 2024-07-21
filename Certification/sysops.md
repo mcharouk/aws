@@ -15,6 +15,7 @@ terminate-instance-in-auto-scaling-group --instance-id <value>  --no-should-decr
 ## Suspended processes
 
 * If you suspend **AZRebalance** and a scale-out or scale-in event occurs, the scaling process **still tries to balance the Availability Zones**. For example, during scale-out, it launches the instance in the Availability Zone with the fewest instances.
+* AZRebalance balances the number of EC2 instances in the group evenly across all of the specified Availability Zones when the group becomes unbalanced, for example, when a previously unavailable Availability Zone returns to a healthy state
 
 - If you suspend the **Launch** process, **AZRebalance neither launches new instances nor terminates existing instances**. This is because AZRebalance terminates instances only after launching the replacement instances.
 
@@ -45,7 +46,7 @@ aws autoscaling set-instance-protection --instance-ids i-5f2e8a0d --auto-scaling
 * a Content-MD5 value can be passed as a request header to check the integrity of the file
 * MFA Delete. Without MFA
   * cannot delete any object
-  * cannot change versioning state of a cluster
+  * cannot disable versioning state of a cluster
 * Separate lifecycle policies must be written for current objects versions and previous object versions on a bucket with versioning enabled.
 * To delete a bucket with versioning enabled
   * delete programatically the bucket with SDK
@@ -307,3 +308,7 @@ to setup an hybrid VM
 # CloudFormation
 
 * while changeset have been validated, AWS remove them all
+
+# Snowball
+
+* not possible to copy directly data to Glacier. Must copy to S3 and then use lifecycle policies to transition to Glacier
