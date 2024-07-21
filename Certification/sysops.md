@@ -47,6 +47,7 @@ aws autoscaling set-instance-protection --instance-ids i-5f2e8a0d --auto-scaling
 * MFA Delete. Without MFA
   * cannot delete any object
   * cannot disable versioning state of a cluster
+  * can only be activated by the root account using AWS CLI
 * Separate lifecycle policies must be written for current objects versions and previous object versions on a bucket with versioning enabled.
 * To delete a bucket with versioning enabled
   * delete programatically the bucket with SDK
@@ -56,6 +57,7 @@ aws autoscaling set-instance-protection --instance-ids i-5f2e8a0d --auto-scaling
 * CRR can copy directly on Glacier if needed (even Deep Archive), no need to create lifecycle policies
 * Replication Time Control (RTC) : copy all objects within 15 min. Includes S3 replication metrics and S3 event notifications. It monitors the copies that are pending, total size of pending objects, maximum replication time
 * S3 inventory can also be used to monitor replication status
+* It's possible to receive 5xx errors from S3 at rare occasions. A retry will probably fix the issue
 
 # Glacier
 
@@ -91,6 +93,8 @@ RDS Proxy can improve high availability when a failover occurs
 
 * Amazon-issued certificate cannot be installed in EC2. Third party certificates must be installed to have an end-to-end SSL workload
 
+* you can only share AMIs is there are unencrypted or encrypted with a customer managed CMK
+
 ## Termination policy
 
 * termination protection is not possible on Spot instances
@@ -101,6 +105,7 @@ RDS Proxy can improve high availability when a failover occurs
 # ALB
 
 * S3 bucket for access logs must be in the same region but can be in a different account
+* If all instances of a target group are unhealthy, ALB will forward requests to them. It's only when there is at least one healthy, that ALB redirects only to the healthy target
 
 ## Sticky Session
 * sticky sessions can be defined at the **target group** level
@@ -160,6 +165,9 @@ RDS Proxy can improve high availability when a failover occurs
 
 * it's possible to aggregate mutliple configuration files by using append-config option. File names must be different
 * cloudwatch:PutDashboard to create or update dashboard. There is no cloudwatch:createDashboard
+* Cloudwatch Agent uses open source tools to collect metrics
+  * on Linux : StatsD or collectd
+  * on Windows : only StatsD is supported
 
 ## Synthetics
 
@@ -247,7 +255,15 @@ Creating Trails
 
 # Elasticache
 
+## Redis
+
+
 * CPUUtilization and EngineCPUUtilization can be used to understand CPU utilization for Redis clusters. EngineCPUUtilization provides additional visibility to CPU utilization of the Redis process level.
+* when Redis is in multi AZ
+  * replication is asynchronous
+  * When primary node is rebooted, it's cleared of data. When it comes back online, the read replicas are cleared too, and it results in data loss.
+  * Can manually promote read replicas to primary only when Multi AZ **AND** automatic failover are **disabled**
+  * When choosing the read replica to promote, Redis takes the one with the least replication lag
 
 # RAM
 
@@ -308,6 +324,11 @@ to setup an hybrid VM
 # CloudFormation
 
 * while changeset have been validated, AWS remove them all
+* to debug a user data script and needs to access cfn-init-output.log, just provide the option to avoid rolling back
+
+```
+Set OnFailure=DO_NOTHING
+```
 
 # Snowball
 
