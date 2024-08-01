@@ -157,7 +157,7 @@ RDS Proxy can improve high availability when a failover occurs
 # WAF
 
 * regarding AWS managed rules, rules cannot be changed, but action can be changed to count, allowing traffic
-* Sampled requests are available for 6 hours on AWS management console
+* Sampled requests are available for 3 hours on AWS management console
 * Regional or Global WebACL can be created. Global WebACL must be created in region us-east-1
 
 
