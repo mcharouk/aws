@@ -168,6 +168,7 @@ RDS Proxy can improve high availability when a failover occurs
 * Cloudwatch Agent uses open source tools to collect metrics
   * on Linux : StatsD or collectd
   * on Windows : only StatsD is supported
+* Alarm history retention is 14 days
 
 ## Synthetics
 
