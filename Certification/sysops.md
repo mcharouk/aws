@@ -232,10 +232,18 @@ RDS Proxy can improve high availability when a failover occurs
 
 # CloudTrail
 
-Creating Trails 
+## Trails
+
 * requires providing **bucket ARN** of member accounts
 * no additional cross account access is required
 * the S3 in console listing is only for the master account
+* Logs are automatically encrypted
+
+## Cloudtrail Insights 
+
+* identify and respond to unusual activity associated with API calls and API error rates
+* notification through S3 (results in /CloudTrail-Insight folder)
+* Analyze only management events
 
 # Config
 
@@ -306,6 +314,12 @@ aws secretsmanager delete-secret --secret-id mysecret --force-delete-without-rec
   * resource policies
   * rotation policies
   * tags
+  
+* If a KMS key has been updated for a secret, it must be updated afterwards by using command
+
+```
+aws secretsmanager update-secret --secret-id MyTestSecret
+```
 
 # Systems Manager
 
