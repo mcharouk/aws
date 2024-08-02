@@ -433,9 +433,14 @@ When we make a change on EBS (like changing disk size or performance), we have t
 * As it's not integrated with Cloudwatch, a custom solution has to be implemented for alerting
 * Less detailed than CloudTrail events
 
+## Glacier retrievals
 
+* Expedited : comes with On-Demand or Reserved Capacity
+* Standard (with or without batch). With Batch uses S3 batch operations. 
+  * Glacier Flexible : Batch Operations starts within minutes and takes 3-5 hours to complete
+  * Glacier Deep archive : Batch operations starts after 9 hours and finish within 12 hours
 
-# Module 14 : 
+# Module 14 : Cost Reporting - Alerts Optimization
 
 Demo compliqué sur ce sujet, on peut montrer la console.
 
@@ -447,6 +452,7 @@ Demo compliqué sur ce sujet, on peut montrer la console.
 
 
 ## Cost Anomaly Detection
+
 * can segment by AWS service
 * can evaluate specific 
   * cost allocation tags
@@ -461,7 +467,7 @@ Cloudwatch billing alarm was released in 2012 and budget was released in 2015. S
 
 ## AWS Budget
 
-[https://docs.aws.amazon.com/cost-management/latest/userguide/budgets-create-filters.html](budget filters)
+[Budget Filters](https://docs.aws.amazon.com/cost-management/latest/userguide/budgets-create-filters.html)
 
 ## Trusted Advisor
 
