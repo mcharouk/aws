@@ -401,10 +401,6 @@ When we make a change on EBS (like changing disk size or performance), we have t
 
 # Module 13 : Object Storage
 
-## S3 access logs
-
-
-
 ## Express One-Zone
  
 * Directory buckets
@@ -471,22 +467,31 @@ Cloudwatch billing alarm was released in 2012 and budget was released in 2015. S
 
 ## Trusted Advisor
 
-* in Trusted Advisor
-  * You see the same findings that Compute Optimizer but with more delay (up to 48 hours)
-  * Trusted advisor has much more cost optimization checks and covers also other topics than cost
-  * Cost Management provides recommandations for savings plans and reserved instances, not covered by compute optimizer but provided by Trusted Advisor. Probably the same result.
+* You see the same findings that Compute Optimizer but with more delay (up to 48 hours)
+* Trusted advisor has much more cost optimization checks and covers also other topics than cost
+* Cost Management provides recommandations for savings plans and reserved instances, not covered by compute optimizer but provided by Trusted Advisor. Probably the same result.
+
+* Trusted Advisor covers (more than compute optimizer)
+  * EIP
+  * underutilized Redshift clusters
+  * idle load balancers
+  * lambda functions with excessive timeouts or high error rates
+  * S3 cost optimizations
+  * ECR without lifecycle policies
+  * Amazon Comprehend (NLP service) underutilized endpoints
 
 ## Cost Optimization Hub
 
 Cost Optimization Hub generates recommendations for the following resources:
 
-* EC2 instances
-* ASG
-* EBS
-* Lambda
-* ECS
-* Amazon RDS DB instances (compute & storage)
-* Commitment
+* From Compute Optimizer
+  * EC2 instances
+  * ASG
+  * EBS
+  * Lambda
+  * ECS
+  * Amazon RDS DB instances (compute & storage)
+* From Commitments
   * Compute Saving Plans
   * EC2 Instance Saving plans
   * SageMaker Saving plans
