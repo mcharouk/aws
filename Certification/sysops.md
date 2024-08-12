@@ -3,6 +3,7 @@
 ## Launch template vs launch configuration
 
 * it's recommended to use launch templates as they can be versioned and supports latest EC2 features.
+* Launch configurations have been officially deprecated (not possible anymore to create them)
 
 ## EC2 Termination
 
