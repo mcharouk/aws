@@ -40,7 +40,8 @@
 
 ## Tagging
 
-* [Tagging strategy best practices](https://docs.aws.amazon.com/whitepapers/latest/tagging-best-practices/building-your-tagging-strategy.html)
+* [Tagging best practices blog](https://docs.aws.amazon.com/whitepapers/latest/tagging-best-practices/building-your-tagging-strategy.html)
+* [Example of tags](https://docs.aws.amazon.com/whitepapers/latest/tagging-best-practices/defining-and-publishing-a-tagging-schema.html)
 
 * Tagging Categories
   * Finance and Line of Business : mainly for cost
