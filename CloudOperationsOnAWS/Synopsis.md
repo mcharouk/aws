@@ -263,12 +263,6 @@ Can indicate a TCP RST attack where an actor tries to interrupt communication be
 * On peut faire une démo et montrer comment on crée une spot fleet
 * On peut faire une démo sur license manager. Il faut créer une AMI custom et lier une licence custom à l'AMI. Ensuite créer des EC2 pour dépasser la limite de licence que l'on a configuré.
 
-## License Manager
-
-* on peut créer des host resource group afin de lancer automatiquement des EC2 sur un ensemble de Dedicated Hosts qui consomment la même license.
-* AWS se chargera d'incrémenter ou décrementer la license en fonction de la création/suppression de nouveaux Dedicated Hosts
-
-
 ## Autoscaling policies
 
 * For cooldown period vs instance warm-up
@@ -281,7 +275,15 @@ Can indicate a TCP RST attack where an actor tries to interrupt communication be
 
 ## License manager
 
-[Automate licenses detection using Tags and Lamdbas](https://aws.amazon.com/blogs/modernizing-with-aws/automatically-create-self-managed-licenses-in-multiple-accounts-using-tags/)
+### Tag custom architecture
+
+[Automate licenses detection using Tags and Lambdas](https://aws.amazon.com/blogs/modernizing-with-aws/automatically-create-self-managed-licenses-in-multiple-accounts-using-tags/)
+* This is an architecture that can update nb of licenses by using tags, and is based on lambdas triggered by EventBridge, when a stackset have been deployed
+
+### Host resource group
+
+* on peut créer des host resource group afin de lancer automatiquement des EC2 sur un ensemble de Dedicated Hosts qui consomment la même license.
+* AWS se chargera d'incrémenter ou décrementer la license en fonction de la création/suppression de nouveaux Dedicated Hosts
 
 # Module 9 : Monitor and maintain system health
 
