@@ -37,8 +37,7 @@ aws autoscaling set-instance-protection --instance-ids i-5f2e8a0d --auto-scaling
 
 ## Step vs simple scaling policy
 
-* Step apply only a percentage to change
-* Simple can apply a percentage and a number of instances
+* Step and simple can apply a percentage and a number of instances
 
 # S3
 
@@ -66,6 +65,8 @@ aws autoscaling set-instance-protection --instance-ids i-5f2e8a0d --auto-scaling
   * There is a one time transition charge to Glacier, per object.
 
 * Glacier Vault lock will complete within **24 hours** using LockID generated during initiate Vault Lock
+
+* To preserve file names in Glacier, use lifecycle policies
 
 
 # KMS
@@ -108,6 +109,7 @@ RDS Proxy can improve high availability when a failover occurs
 * If all instances of a target group are unhealthy, ALB will forward requests to them. It's only when there is at least one healthy, that ALB redirects only to the healthy target
 
 ## Sticky Session
+
 * sticky sessions can be defined at the **target group** level
 * Based on cookies
   * Duration-based stickiness : cookie named AWSALB
@@ -150,7 +152,8 @@ RDS Proxy can improve high availability when a failover occurs
   * in static web hosting, not possible to communicate with HTTPS between S3 and Cloudfront. But still CloudFront can be configured in HTTPS. 
   * otherwise, the protocol will be Match Viewer
 
-* OAI cannot be used with S3 in static web hosting mode
+* OAI cannot be used with S3 in static web hosting mode, use an OAC instead.
+
 * Error 4XX or 5XX
   * when origin returns error, Cloudfront can cache them, but cloudfront itself does not generate any error.
 
@@ -163,12 +166,13 @@ RDS Proxy can improve high availability when a failover occurs
 
 # Cloudwatch
 
-* it's possible to aggregate mutliple configuration files by using append-config option. File names must be different
+* it's possible to aggregate multiple configuration files by using append-config option. File names must be different
 * cloudwatch:PutDashboard to create or update dashboard. There is no cloudwatch:createDashboard
 * Cloudwatch Agent uses open source tools to collect metrics
   * on Linux : StatsD or collectd
   * on Windows : only StatsD is supported
 * Alarm history retention is 14 days
+* 3 sections for the cloudwatch log agent : agent (set metric frequency, region), metric and logs
 
 ## Synthetics
 

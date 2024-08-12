@@ -240,6 +240,8 @@ Common scenarios for an RST (Reset) packet :
 * When a host detects an invalid segment or sequence number
 * To clear a "half-open" connection (where one side has closed but the other hasn't)
 
+Can indicate a TCP RST attack where an actor tries to interrupt communication between two adresses
+
 ## Demo
 
     * Avoir 2 ELB qui pointe sur une application sur 2 régions différentes
@@ -426,7 +428,7 @@ When we make a change on EBS (like changing disk size or performance), we have t
 
 ## S3 access logs
 
-* Timeliness and devlivery events are not guaranteed
+* Timeliness and delivery events are not guaranteed
 * As it's not integrated with Cloudwatch, a custom solution has to be implemented for alerting
 * Less detailed than CloudTrail events
 
