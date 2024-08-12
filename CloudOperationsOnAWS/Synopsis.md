@@ -12,7 +12,6 @@
 
 * Well architected tool : story from ArchitectingOnAWS
 
-
 # Module 2 : Access management
 
 * Demo
@@ -121,7 +120,6 @@ Account Factory Customization is an account creation blueprint
 # Module 5 : Automate Resource Deployment
 
 * Demo on Service Catalog
-* [Service catalog example](https://aws.amazon.com/blogs/machine-learning/part-2-how-natwest-group-built-a-secure-compliant-self-service-mlops-platform-using-aws-service-catalog-and-amazon-sagemaker/) and [associated customer success story](https://aws.amazon.com/solutions/case-studies/natwest-group-case-study/?did=cr_card&trk=cr_card)
 
 * Cloud formation: could be useless if audience uses Terraform.
   * Demo with init scripts and wait conditions. 
@@ -493,10 +491,10 @@ Cloudwatch billing alarm was released in 2012 and budget was released in 2015. S
 * Trusted advisor has much more cost optimization checks and covers also other topics than cost
 * Cost Management provides recommandations for savings plans and reserved instances, not covered by compute optimizer but provided by Trusted Advisor. Probably the same result.
 
-* Trusted Advisor covers (more than compute optimizer)
+* Trusted Advisor Covers (more than compute optimizer)
   * EIP
-  * underutilized Redshift clusters
-  * idle load balancers
+  * Underutilized Redshift clusters
+  * Idle load balancers
   * lambda functions with excessive timeouts or high error rates
   * S3 cost optimizations
   * ECR without lifecycle policies

@@ -41,6 +41,8 @@
 
 ## NatWest Group
 
+[AWS Blog](https://aws.amazon.com/blogs/machine-learning/part-2-how-natwest-group-built-a-secure-compliant-self-service-mlops-platform-using-aws-service-catalog-and-amazon-sagemaker/) and [customer success story](https://aws.amazon.com/solutions/case-studies/natwest-group-case-study/?did=cr_card&trk=cr_card)
+
 ### Context
 
 * NatWest Group is a relationship bank for a digital world that provides financial services to more than 19 million customers across the UK
@@ -48,7 +50,6 @@
 * A reliance on central platform teams to build, provision, secure, deploy, and manage infrastructure and data sources made it difficult to onboard new teams to work in the cloud.
 * Teams who decided to migrate their workloads to the cloud had to go through an elaborate compliance process. 
 * Each infrastructure component had to be analyzed separately, which increased security audit timelines.
-
 * The teams had to read a set of documentation guides written by platform teams. 
 * Initial environment setup was complex. 
 * Technical challenges often made it difficult to onboard new team members. 
@@ -84,6 +85,8 @@ NatWest can now provision new, scalable, and secure AWS environments in a matter
   * EC2 on EFA (Elastic Fabric Adapter)
   * FSx for Lustre
 
+Note : ParallelCluster is an open source tool (released by AWS) that can automate clusters using a text file or a GUI. Integrates with Slurm or AWS Batch (both are scheduler that will create resources based on the submitted jobs)
+
 ### Results
 
 * 70 percent reduction in HPC simulation costs by using
@@ -92,7 +95,6 @@ NatWest can now provision new, scalable, and secure AWS environments in a matter
   * Amazon FSx for Lustre 
   * AWS ParallelCluster for configuring HPC resources for each simulation quickly and flexibly.
 * The airflow simulations can now be completed in 5−8 hours instead of 10 days
-
 
 # Module 13 : Object Storage
 
