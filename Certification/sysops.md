@@ -69,7 +69,7 @@ aws autoscaling set-instance-protection --instance-ids i-5f2e8a0d --auto-scaling
 
 * To preserve file names in Glacier, use lifecycle policies
 
-* Can upload an archive up to 40 TB
+* Can upload an archive up to 40 TB (archives contains multiple files)
 
 
 # KMS
