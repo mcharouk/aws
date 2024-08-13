@@ -14,7 +14,9 @@ class Module2Stack(Stack):
 
         vpc_name = "ComputeDemo"
         private_subnet = ec2.SubnetConfiguration(
-            name="Private", subnet_type=ec2.SubnetType.PRIVATE_ISOLATED
+            name="Private",
+            subnet_type=ec2.SubnetType.PRIVATE_ISOLATED,
+            map_public_ip_on_launch=True,
         )
         vpc = ec2.Vpc(
             self,
