@@ -35,7 +35,7 @@ class Module2Stack(Stack):
         # create a security group for an EC2 instance that can connect to the VPC interface endpoint
 
         # an EC2 instance role that has systems manager access permissions
-        role = self.create_ec2_role_instance()
+        self.create_ec2_role_instance()
 
     def create_ec2_security_group(self, vpc):
         securityGroup = ec2.SecurityGroup(
@@ -64,9 +64,7 @@ class Module2Stack(Stack):
             )
         )
 
-        instance_profile = iam.CfnInstanceProfile(
-            self, "EC2InstanceProfile", roles=[role.role_name]
-        )
+        iam.CfnInstanceProfile(self, "EC2InstanceProfile", roles=[role.role_name])
 
         return role
 

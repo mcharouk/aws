@@ -173,8 +173,7 @@ attachment cannot reach the transit gateway
 * different groups on a single domain.
 * IGMP uses to subscribe/unsubscribe groups, but can be static as well
 * A non-Nitro instance cannot be a multicast sender.
-* When using a non-Nitro instance as 
-a receiver, Source/Destination check must be disabled
+* When using a non-Nitro instance as a receiver, Source/Destination check must be disabled
 
 ## Shared TGW
 
@@ -193,7 +192,7 @@ a receiver, Source/Destination check must be disabled
 
 * Longest prefix Match
 * Static over propagated. if prefix are the same, VGW tends to not be prioritized because usually we enable the dynamic propagation. 
-* For VGW router, DX Propagated over VPN static over VPN propagated
+* For VGW router, DX Propagated OVER VPN static OVER VPN propagated
 
 # BYOIP
 
@@ -413,8 +412,6 @@ Cluster mode
 Local Mode
 * Traffic unevenly distributed. Always redirected to the same node.
 * client ip address is preserved
-
-
 
 For ALB, client id is in X-Forwarder-For header
 
