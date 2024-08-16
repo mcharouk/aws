@@ -355,3 +355,8 @@ Set OnFailure=DO_NOTHING
 # Snowball
 
 * not possible to copy directly data to Glacier. Must copy to S3 and then use lifecycle policies to transition to Glacier
+
+
+# ACM
+
+* it's possible to attach a list of certificates to a single ALB listener

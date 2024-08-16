@@ -448,8 +448,8 @@ When we make a change on EBS (like changing disk size or performance), we have t
 
 ## Glacier retrievals
 
-* Expedited : comes with On-Demand or Reserved Capacity
-* Standard (with or without batch). With Batch uses S3 batch operations. 
+* Expedited : comes with On-Demand or Reserved Capacity. On-demand gives no guarantee that capacity will be available when needed.
+* Standard (with or without batch). With Batch uses S3 batch operations
   * Glacier Flexible : Batch Operations starts within minutes and takes 3-5 hours to complete
   * Glacier Deep archive : Batch operations starts after 9 hours and finish within 12 hours
 

@@ -8,6 +8,7 @@ if ( $param1 -eq "deploy" )
 }
 ElseIf( $param1 -eq "destroy" )
 {
+    python cleanResources.py
     aws cloudformation delete-stack --stack-name $StackName 
     aws cloudformation wait stack-delete-complete --stack-name $StackName 
 }
