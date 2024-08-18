@@ -4,6 +4,7 @@
 
 * AWS API with Postman
 * CodeWhisperer
+* Deploy a Lambda with VSCode Toolkit
 
 ## AWS Signature
 
@@ -16,15 +17,30 @@
 
 ## SDK metrics
 * [SDK metrics](https://boto3.amazonaws.com/v1/documentation/api/1.17.109/guide/sdk-metrics.html#definitions-for-sdk-metrics) helps diagnose communication issues between client and AWS
-* Requires CloudWatch Agent installed on the client
+  * Number of API calls that fails because of client errors
+  * Number of API calls that fails because of server errors
+  * End ot end latency
+  * Throttle count (reached throttle limit of AWS services)
+* For Java, you can enable that in [SDK](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/metrics-list.html)
+* Available for .NET too
+
+## AWS CLI
+
+[AWS CLI Builder (not official)](https://awsclibuilder.com/home) is a nice tool to generate aws cli commands
+
+## AWS SDK
+
+[Example of adjusting api retries parameters](https://boto3.amazonaws.com/v1/documentation/api/latest/guide/retries.html#configuring-a-retry-mode)
 
 # Module 4 : Permissions
 
 ## Demo
 
 * Permissions Boundary
+  * but instead of showing denied statement on the console, can use the cli for that
 * Different profile with programmatic access
 * Can show assumeRole result with SessionToken
+* Can show policy simulator
 
 # Module 5 : Storage 1
 
@@ -75,8 +91,8 @@
 ## Demo
 
 * Canary release
-* Swagger import/export
-* Query validation
+* Swagger import/export. Swagger extensions are showed in Lab 6
+* Query validation. Shown in Lab 5
 
 # Module 11 : Micro services
 
@@ -91,6 +107,21 @@
 ## Demo
 
 * Webapp with user pools and identity pools
+* Explore the [React sample](https://docs.aws.amazon.com/cognito/latest/developerguide/getting-started-test-application-react.html) provided by AWS
+
+## Cognito
+
+A an app client is a configuration specific to a mobile or web application
+
+settings at app client level
+
+* analytics
+* hosted UI (self-managed Cognito users)
+* resource servers and custom scopes
+* Threat protection (action you can define if account is compromised). This can happen when users reuse credentials at more than one site, or when they use insecure passwords
+* Attribute read and write permissions (ability to read or write user attributes from your specific application)
+* Token expiration and revocation
+* Authentication flows
 
 # Module 13
 
@@ -99,3 +130,9 @@
 * Rancher Desktop not compatible with sam invoke. Can only demonstrate sam local generate-events for example
 * Can show a SAM template with deployment of a serverless API, a serverless function and a simple table
 
+# Module 14
+
+## Demo
+
+* Logs insights
+* X-ray is shown in the lab
