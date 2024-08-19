@@ -4,7 +4,7 @@
 
 * AWS API with Postman
 * CodeWhisperer
-* Deploy a Lambda with VSCode Toolkit
+* Deploy a stack and check it with VSCode Toolkit (AWS explorer)
 
 ## AWS Signature
 
@@ -19,7 +19,7 @@
 * [SDK metrics](https://boto3.amazonaws.com/v1/documentation/api/1.17.109/guide/sdk-metrics.html#definitions-for-sdk-metrics) helps diagnose communication issues between client and AWS
   * Number of API calls that fails because of client errors
   * Number of API calls that fails because of server errors
-  * End ot end latency
+  * End to end latency
   * Throttle count (reached throttle limit of AWS services)
 * For Java, you can enable that in [SDK](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/metrics-list.html)
 * Available for .NET too
@@ -38,7 +38,7 @@
 
 * Permissions Boundary
   * but instead of showing denied statement on the console, can use the cli for that
-* Different profile with programmatic access
+* Different profile with programatic access
 * Can show assumeRole result with SessionToken
 * Can show policy simulator
 
@@ -65,7 +65,6 @@
 
 * NoSQL Workbench
 * DynamoDB Local
-* Java : Document interfaces and object persistent interface. We see them in Module 8...
 
 # Module 8 : Database 2
 
@@ -84,7 +83,14 @@
 
 # Module 10 : Gateway
 
-* Difference between HTTP API and REST API
+* [Difference between HTTP API and REST API](https://docs.aws.amazon.com/apigateway/latest/developerguide/http-api-vs-rest.html). To resume, HTTP API is more basic but cheaper
+  * no WAF integration
+  * no Edge location (only regional)
+  * no X-Ray tracing
+  * no request validation / request body transformation
+  * no cache
+  * no canary release
+  * no api keys, no quotas, no throttling
 * Etudier comment fonctionnent les websockets de manière macro sur l'API Gateway
 * API Gateway swagger extensions
 

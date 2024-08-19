@@ -63,3 +63,43 @@ Policy Statement
     ]
 }
 ```
+
+
+## Command lines
+
+
+### SQS
+
+create topic sqs (denied because of permission boundary)
+
+```
+aws sqs create-queue --queue-name sqs-demo-queue
+```
+
+### SNS
+
+create topic sns (denied because no resource based policy)
+
+```
+aws sns create-topic --name sns-demo-topic
+```
+
+### S3
+
+create s3 bucket (allowed)
+
+```
+aws s3api create-bucket --bucket marccharouk-permissionboundary-demo-657489457
+```
+
+List buckets
+
+```
+aws s3api list-buckets
+```
+
+delete s3 bucket
+
+```
+aws s3api delete-bucket --bucket marccharouk-permissionboundary-demo-657489457
+```

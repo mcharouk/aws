@@ -17,6 +17,17 @@
 
 * [IAM evaluation logic](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_evaluation-logic.html#policy-eval-denyallow)
 
+## IAM Identity Center
+
+* Synchronize users in IAM Identity Center with external provider
+* Assign permission sets in IAM Identity Center to accounts
+* in Accounts, assign user or groups to an account and a permission set
+
+
+
+* [SAML 2.0 Federation Schema for service access](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_providers_saml.html#CreatingSAML-configuring)
+* [SAML 2.0 Federation schema for console sign-in](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_providers_enable-console-saml.html)
+
 # Module 3 : Networking
 
 ## EIP
