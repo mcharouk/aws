@@ -1,0 +1,12 @@
+[profile sqsAdmin]
+region=eu-west-3
+output=json
+
+[profile snsAdmin]
+region=eu-west-3
+output=table
+
+[profile dynamoDBAdminRole]
+role_arn = $dynamoDbAdminRole
+source_profile = sqsAdmin
+region=eu-west-3

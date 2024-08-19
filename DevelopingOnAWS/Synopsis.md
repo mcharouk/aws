@@ -55,7 +55,7 @@
 ## Demo
 
 * Multipart Upload With low-level commands
-* Pre-signed URL
+* Pre-signed URL : we see that in a lab (don't remember which one)
 * S3 Batch Operations
 * Static Web Hosting with CORS configuration
 
@@ -76,7 +76,7 @@
 
 ## Demo
 
-* Show cold start
+* Show cold start (execute a lambda twice. Second time log in cold start section will not run)
 * Docker Container and Lambda
 * Layers
 * Aliases with API Gateway

@@ -1,0 +1,23 @@
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head>
+    <title>My Website Home Page</title>
+</head>
+<body>
+  <h1>Welcome to my website</h1>
+  <p>Now hosted on Amazon S3!</p>
+
+  <div id="tofetch"/>
+  <script>
+        var tofetch = document.getElementById("tofetch");
+
+        fetch('https://demo-marccharouk-staticwebhosting-123456-static-images.s3.eu-west-3.amazonaws.com/assets/hello_from_second_site.html')
+        .then((response) => { 
+            return response.text();
+        })
+        .then((html) => {
+            tofetch.innerHTML = html     
+        });
+  </script>
+
+</body>
+</html>
