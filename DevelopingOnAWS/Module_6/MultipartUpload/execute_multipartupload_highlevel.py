@@ -11,8 +11,9 @@ s3_resource = boto3.resource("s3")
 
 test_file = "C:/Users/charouk.m/Documents/AWS/1GB.bin"
 bucket_name = "demo-marccharouk-multipartupload-58767497"
-object_key = "1GB.bin"
+object_key = "1GB-highlevel.bin"
 region = "eu-west-3"
+
 
 # check bucket exists
 try:
