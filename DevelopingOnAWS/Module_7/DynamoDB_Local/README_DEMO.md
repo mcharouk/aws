@@ -1,6 +1,10 @@
 ## Installation
 
-go to installation folder and execute 
+### Instructions
+
+* [Binaries here](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/DynamoDBLocal.DownloadingAndRunning.html)
+* Java 17 or greater required
+* Go to installation folder and execute 
 
 ```
 java -Djava.library.path=./DynamoDBLocal_lib -jar DynamoDBLocal.jar -sharedDb
@@ -8,8 +12,8 @@ java -Djava.library.path=./DynamoDBLocal_lib -jar DynamoDBLocal.jar -sharedDb
 
 ### Notes
 
-* there is a docker image that does not work with Rancher Desktop
-* it can be attached as a Maven Dependency too
+* There is a docker image that does not work with Rancher Desktop
+* It can be attached as a Maven Dependency too
 
 
 ## Commands
