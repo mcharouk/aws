@@ -3,7 +3,7 @@ $param1=$args[0]
 if ( $param1 -eq "deploy" )
 {
     cdk deploy --require-approval never  
-    python generateAwsCredentials.py  
+    python deploy_cloudformation_stack.py  
 }
 ElseIf( $param1 -eq "destroy" )
 {

@@ -3,12 +3,12 @@ import os
 
 import aws_cdk as cdk
 from aws_cdk import Tags
-from static_web_hosting.static_web_hosting_stack import StaticWebHostingStack
+from lab_stack.lab_stack_stack import LabStackStack
 
 app = cdk.App()
-stack = StaticWebHostingStack(
+stack = LabStackStack(
     app,
-    "StaticWebHostingStack",
+    "LabStackStack",
     # If you don't specify 'env', this stack will be environment-agnostic.
     # Account/Region-dependent features and context lookups will not work,
     # but a single synthesized template can be deployed anywhere.
@@ -20,6 +20,5 @@ stack = StaticWebHostingStack(
     # env=cdk.Environment(account='123456789012', region='us-east-1'),
     # For more information, see https://docs.aws.amazon.com/cdk/latest/guide/environments.html
 )
-
-Tags.of(stack).add("DemoName", "StaticWebHosting")
+Tags.of(stack).add("DemoName", "LabStack")
 app.synth()
