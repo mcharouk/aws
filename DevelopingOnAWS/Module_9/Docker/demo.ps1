@@ -7,6 +7,7 @@ if ( $param1 -eq "deploy" )
 ElseIf( $param1 -eq "destroy" )
 {
     cdk destroy -f
+    .\kill-container.ps1
     python cleanResources.py
 }
 Else
