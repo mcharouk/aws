@@ -3,12 +3,12 @@ import os
 
 import aws_cdk as cdk
 from aws_cdk import Tags
-from batch_operations.batch_operations_stack import BatchOperationsStack
+from layers.layers_stack import LayersStack
 
 app = cdk.App()
-stack = BatchOperationsStack(
+stack = LayersStack(
     app,
-    "BatchOperationsStack",
+    "LayersStack",
     # If you don't specify 'env', this stack will be environment-agnostic.
     # Account/Region-dependent features and context lookups will not work,
     # but a single synthesized template can be deployed anywhere.
@@ -21,6 +21,6 @@ stack = BatchOperationsStack(
     # For more information, see https://docs.aws.amazon.com/cdk/latest/guide/environments.html
 )
 
-Tags.of(stack).add("DemoName", "S3BatchOperations")
+Tags.of(stack).add("DemoName", "LambdaLayer")
 
 app.synth()

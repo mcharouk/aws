@@ -59,6 +59,11 @@
 * S3 Batch Operations
 * Static Web Hosting with CORS configuration
 
+## Pre-signed URL
+
+give a use case (draw.io)
+
+
 # Module 7 : Database 1
 
 ## Demo
@@ -79,7 +84,19 @@
 * Show cold start (execute a lambda twice. Second time log in cold start section will not run)
 * Docker Container and Lambda
 * Layers
-* Aliases with API Gateway
+* Aliases with API Gateway. included in API Gateway Canary Demo
+
+## Lambda limits
+
+* nb layers : 5
+* package size (layers included) : 50 Mb zipped, 250 Mb unzipped
+* container image code : 10 GB
+
+## Layers
+
+* Python : ideally, create a wheel file, but a simple script file can be part of a layer
+* Java : create a JAR
+* .NET : Runtime Package Store feature. It takes as input a .csproj that lists all dependencies. [More on that](https://aws.amazon.com/blogs/developer/aws-lambda-layers-with-net-core/)
 
 # Module 10 : Gateway
 
@@ -115,6 +132,10 @@
 * Webapp with user pools and identity pools
 * Explore the [React sample](https://docs.aws.amazon.com/cognito/latest/developerguide/getting-started-test-application-react.html) provided by AWS
 
+## Oauth 2.0
+
+* Expliquer les différents mode d'authent : Client Credentials, Implicit (pourquoi ce n'est pas secure), Authorization Code
+
 ## Cognito
 
 A an app client is a configuration specific to a mobile or web application
@@ -129,14 +150,15 @@ settings at app client level
 * Token expiration and revocation
 * Authentication flows
 
-# Module 13
+
+# Module 13 : Devops
 
 ## Demo
 
 * Rancher Desktop not compatible with sam invoke. Can only demonstrate sam local generate-events for example
 * Can show a SAM template with deployment of a serverless API, a serverless function and a simple table
 
-# Module 14
+# Module 14 : Debug
 
 ## Demo
 

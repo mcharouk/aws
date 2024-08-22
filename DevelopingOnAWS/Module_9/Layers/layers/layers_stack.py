@@ -1,33 +1,42 @@
-from aws_cdk import Stack  # Duration,; aws_sqs as sqs,
-from aws_cdk import aws_apigateway as apigw
+from zipfile import ZipFile
+
+from aws_cdk import CfnOutput, Stack  # Duration,; aws_sqs as sqs,
 from aws_cdk import aws_iam as iam
-from aws_cdk import aws_lambda as _lambda
+from aws_cdk import aws_s3_assets as s3a
 from constructs import Construct
 
 
-class AwsExplorerStack(Stack):
+class LayersStack(Stack):
 
     def __init__(self, scope: Construct, construct_id: str, **kwargs) -> None:
         super().__init__(scope, construct_id, **kwargs)
 
-        lambda_name = "HelloWorldLambda"
-        lambda_role = self.createRole(
-            roleName="HelloWorldLambdaRole",
+        self.createRole(
+            roleName="LayerLambdaRole",
             principal=iam.ServicePrincipal("lambda.amazonaws.com"),
-            policies=[self.createLambdaCloudWatchPolicy(lambda_name)],
+            policies=[self.createLambdaCloudWatchPolicy()],
         )
 
-        lambdaFunction = _lambda.Function(
+        self.upload_lambda_code()
+
+    def upload_lambda_code(self):
+        lambda_code_rel_path = "main-function/Lambda-code.zip"
+        with ZipFile(lambda_code_rel_path, "w") as zip_object:
+            # Adding files that need to be zipped
+            zip_object.write(
+                filename="main-function/lambda_function.py",
+                arcname="lambda_function.py",
+            )
+
+        asset = s3a.Asset(self, "MainLambdaFunctionCode", path=lambda_code_rel_path)
+
+        CfnOutput(
             self,
-            id="HelloWorld_Lambda",
-            function_name=lambda_name,
-            runtime=_lambda.Runtime.PYTHON_3_11,
-            code=_lambda.Code.from_asset("Lambda"),
-            handler="lambda_function.lambda_handler",
-            role=lambda_role,
+            "s3_url_lambdacode",
+            value=asset.s3_object_url,
         )
 
-    def createLambdaCloudWatchPolicy(self, lambda_name):
+    def createLambdaCloudWatchPolicy(self):
         logGroupStatement = iam.PolicyStatement(
             sid="logGroupStatement",
             effect=iam.Effect.ALLOW,
@@ -39,11 +48,7 @@ class AwsExplorerStack(Stack):
             sid="logStreamStatement",
             effect=iam.Effect.ALLOW,
             actions=["logs:CreateLogStream", "logs:PutLogEvents"],
-            resources=[
-                "arn:aws:logs:eu-west-3:*:log-group:/aws/lambda/{0}:*".format(
-                    lambda_name
-                )
-            ],
+            resources=["arn:aws:logs:eu-west-3:*:log-group:/aws/lambda/*:*"],
         )
 
         return self.createPolicy(
