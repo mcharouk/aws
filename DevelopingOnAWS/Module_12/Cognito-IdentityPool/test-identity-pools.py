@@ -7,17 +7,10 @@ import json
 
 import boto3
 import utils
+from Config import Config
 
 utils.change_current_directory()
-
-with open("identity-config.json") as json_file:
-    data = json.load(json_file)
-    COGNITO_UP_ID = data["COGNITO_UP_ID"]
-    COGNITO_UP_CLIENT_ID = data["COGNITO_UP_CLIENT_ID"]
-    COGNITO_UP_CLIENT_SECRET = data["COGNITO_UP_CLIENT_SECRET"]
-    COGNITO_IP_ID = data["COGNITO_IP_ID"]
-    REGION_NAME = data["REGION_NAME"]
-    BUCKET_NAME = data["BUCKET_NAME"]
+config = Config()
 
 # USER_NAME = "bruce.wayne"
 # USER_PASSWORD = "batman"
@@ -38,13 +31,13 @@ def get_secret_hash(username, app_client_id, client_secret):
 # initiate-auth with cognito user pool
 idp = boto3.client("cognito-idp")
 response = idp.initiate_auth(
-    ClientId=COGNITO_UP_CLIENT_ID,
+    ClientId=config.user_pool_client_id,
     AuthFlow="USER_PASSWORD_AUTH",
     AuthParameters={
         "USERNAME": USER_NAME,
         "PASSWORD": USER_PASSWORD,
         "SECRET_HASH": get_secret_hash(
-            USER_NAME, COGNITO_UP_CLIENT_ID, COGNITO_UP_CLIENT_SECRET
+            USER_NAME, config.user_pool_client_id, config.user_pool_client_secret
         ),
     },
 )
@@ -58,9 +51,9 @@ print(f"id token is {id_token}")
 cognito_identity = boto3.client("cognito-identity")
 
 response = cognito_identity.get_id(
-    IdentityPoolId=COGNITO_IP_ID,
+    IdentityPoolId=config.identity_pool_id,
     Logins={
-        f"cognito-idp.eu-west-3.amazonaws.com/{COGNITO_UP_ID}": id_token,
+        f"cognito-idp.eu-west-3.amazonaws.com/{config.user_pool_id}": id_token,
     },
 )
 
@@ -73,7 +66,7 @@ print(f"identity_id is {identity_id}")
 credentials = cognito_identity.get_credentials_for_identity(
     IdentityId=identity_id,
     Logins={
-        f"cognito-idp.eu-west-3.amazonaws.com/{COGNITO_UP_ID}": id_token,
+        f"cognito-idp.eu-west-3.amazonaws.com/{config.user_pool_id}": id_token,
     },
 )
 
@@ -94,7 +87,7 @@ s3_client = boto3.client(
     aws_access_key_id=ACCESS_KEY,
     aws_secret_access_key=SECRET_KEY,
     aws_session_token=SESSION_TOKEN,
-    region_name=REGION_NAME,
+    region_name=config.region_name,
 )
 
 
@@ -113,8 +106,8 @@ def get_object(bucket_name, key):
         print(e)
 
 
-get_object(BUCKET_NAME, "bruce_wayne/identity.txt")
-get_object(BUCKET_NAME, "clark_kent/identity.txt")
+get_object(config.bucket_name, "bruce_wayne/identity.txt")
+get_object(config.bucket_name, "clark_kent/identity.txt")
 
 
 s3_client.close()

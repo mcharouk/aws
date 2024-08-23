@@ -1,8 +1,0 @@
-{
-    "COGNITO_UP_ID": "eu-west-3_9VTrjIgbA",
-    "COGNITO_UP_CLIENT_ID": "p72531ig8bq3hn0tioavnrfr8",
-    "COGNITO_UP_CLIENT_SECRET": "1rrl1l1fp0s8c5tg4mvcm8irtkhor07poalqid88f2kdg2pkmnb5",
-    "COGNITO_IP_ID": "eu-west-3:3e1c3d24-f50d-45d2-9335-07eca4dbf870",
-    "REGION_NAME": "eu-west-3",
-    "BUCKET_NAME": "marc-charouk-identitypool-demo"
-}
