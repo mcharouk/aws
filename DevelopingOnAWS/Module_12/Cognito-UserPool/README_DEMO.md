@@ -21,6 +21,12 @@ http://localhost:8501/
 streamlit run streamlit-app.py
 ```
 
+* [Call login to self-hosted UI](https://github.com/mcharouk/aws/blob/main/DevelopingOnAWS/Module_12/Cognito-UserPool/webapp/components/authenticate.py?plain=1#L210)
+* [Get auth code in request parameters](https://github.com/mcharouk/aws/blob/main/DevelopingOnAWS/Module_12/Cognito-UserPool/webapp/components/authenticate.py?plain=1#L40)
+* [Get access and id token with auth code](https://github.com/mcharouk/aws/blob/main/DevelopingOnAWS/Module_12/Cognito-UserPool/webapp/components/authenticate.py?plain=1#L74)
+
+
+
 ## Sign-up
 
 * birth date format is YYYY-MM-DD
