@@ -1,0 +1,15 @@
+[[pages]]
+path = "app.py"
+name = "Home"
+
+[[pages]]
+path = "menu/page_2.py"
+name = "Page 2"
+
+[[pages]]
+path = "menu/page_3.py"
+name = "Page 3"
+
+[[pages]]
+path = "menu/settings.py"
+name = "Settings"

@@ -1,0 +1,4 @@
+COGNITO_DOMAIN = "https://{{COGNITO_DOMAIN}}.auth.eu-west-3.amazoncognito.com"
+CLIENT_ID = "{{CLIENT_ID}}"
+CLIENT_SECRET = "{{CLIENT_SECRET}}"
+APP_URI = "http://localhost:8501/"

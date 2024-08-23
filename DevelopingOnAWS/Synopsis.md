@@ -120,6 +120,7 @@ give a use case (draw.io)
 # Module 11 : Micro services
 
 * Strangler Pattern diagrams
+* [Saga Pattern with step function](https://docs.aws.amazon.com/prescriptive-guidance/latest/patterns/implement-the-serverless-saga-pattern-by-using-aws-step-functions.html)
 
 ## Demo
 
@@ -138,6 +139,8 @@ give a use case (draw.io)
 
 ## Cognito
 
+### App Client
+
 A an app client is a configuration specific to a mobile or web application
 
 settings at app client level
@@ -149,7 +152,14 @@ settings at app client level
 * Attribute read and write permissions (ability to read or write user attributes from your specific application)
 * Token expiration and revocation
 * Authentication flows
+  * public client (no secret required) to interact with Cognito
+  * confidential client (client secret required)
+  * client secret (a fixed string that your app must use in all API requests to the app client)
 
+ ### Scopes
+
+ * scopes are linked to an app client, not possible to associate a user or a group to a scope.
+ * scopes can seggregate permissions between applications, not end-users.
 
 # Module 13 : Devops
 

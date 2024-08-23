@@ -1,0 +1,432 @@
+---
+AWSTemplateFormatVersion: 2010-09-09
+Description: AWS Step Functions sample project introducing lambda function integration. 
+Resources:
+  BuyStockLambda:
+    Type: 'AWS::Lambda::Function'
+    Properties:
+      Handler: index.lambdaHandler
+      Code:
+        ZipFile: |
+          const crypto = require("crypto");
+
+          function getRandomInt(max) {
+              return Math.floor(Math.random() * Math.floor(max)) + 1;
+          }
+
+          /**
+          * Sample Lambda function which mocks the operation of buying a random number of shares for a stock.
+          * For demonstration purposes, this Lambda function does not actually perform any  actual transactions. It simply returns a mocked result.
+          * 
+          * @param {Object} event - Input event to the Lambda function
+          * @param {Object} context - Lambda Context runtime methods and attributes
+          *
+          * @returns {Object} object - Object containing details of the stock buying transaction
+          * 
+          */
+          exports.lambdaHandler = async (event, context) => {
+              // Get the price of the stock provided as input
+              const stock_price = event["stock_price"]
+              var date = new Date();
+              // Mocked result of a stock buying transaction
+              let transaction_result = {
+                  'id': crypto.randomBytes(16).toString("hex"), // Unique ID for the transaction
+                  'price': stock_price.toString(), // Price of each share
+                  'type': "buy", // Type of transaction(buy/ sell)
+                  'qty': getRandomInt(10).toString(),  // Number of shares bought / sold(We are mocking this as a random integer between 1 and 10)
+                  'timestamp': date.toISOString(),  // Timestamp of the when the transaction was completed
+              }
+              return transaction_result
+          };
+      Role: !GetAtt 
+        - LambdaFunctionRole
+        - Arn
+      Runtime: nodejs18.x
+  GenerateBuySellRecommendationLambda:
+    Type: 'AWS::Lambda::Function'
+    Properties:
+      Handler: index.lambdaHandler
+      Code:
+        ZipFile: |
+          /**
+          * Sample Lambda function which mocks the operation of recommending buying or selling of stocks.
+          * For demonstration purposes this Lambda function simply returns a "buy" or "sell" string depending on stock price.
+          * 
+          * @param {Object} event - Input event to the Lambda function
+          * @param {Object} context - Lambda Context runtime methods and attributes
+          *
+          * @returns {String} - Either "buy" or "sell" string of recommendation.
+          * 
+          */
+          exports.lambdaHandler = async (event, context) => {
+              const { stock_price } = event;
+              // If the stock price is greater than 50 recommend selling. Otherwise, recommend buying.
+              return stock_price > 50 ? 'sell' : 'buy';
+          };
+      Role: !GetAtt 
+        - LambdaFunctionRole
+        - Arn
+      Runtime: nodejs18.x
+  CheckStockPriceLambda:
+    Type: 'AWS::Lambda::Function'
+    Properties:
+      Handler: index.lambdaHandler
+      Code:
+        ZipFile: |
+          function getRandomInt(max) {
+              return Math.floor(Math.random() * Math.floor(max));
+          }
+
+          /**
+          * Sample Lambda function which mocks the operation of checking the current price of a stock.
+          * For demonstration purposes this Lambda function simply returns a random integer between 0 and 100 as the stock price.
+          * 
+          * @param {Object} event - Input event to the Lambda function
+          * @param {Object} context - Lambda Context runtime methods and attributes
+          *
+          * @returns {Object} object - Object containing the current price of the stock
+          * 
+          */
+          exports.lambdaHandler = async (event, context) => {
+              // Check current price of the stock
+              const stock_price = getRandomInt(100)  // Current stock price is mocked as a random integer between 0 and 100
+              return { 'stock_price': stock_price }
+          };
+      Role: !GetAtt 
+        - LambdaFunctionRole
+        - Arn
+      Runtime: nodejs18.x
+  LambdaFunctionEventSourceMapping:
+    Type: 'AWS::Lambda::EventSourceMapping'
+    Properties:
+      BatchSize: 10
+      Enabled: true
+      EventSourceArn: !GetAtt 
+        - RequestHumanApprovalSqs
+        - Arn
+      FunctionName: !GetAtt 
+        - ApproveSqsLambda
+        - Arn
+  SellStockLambda:
+    Type: 'AWS::Lambda::Function'
+    Properties:
+      Handler: index.lambdaHandler
+      Code:
+        ZipFile: |
+          const crypto = require("crypto");
+
+          function getRandomInt(max) {
+              return Math.floor(Math.random() * Math.floor(max)) + 1;
+          }
+
+          /**
+          * Sample Lambda function which mocks the operation of selling a random number of shares for a stock.
+          * For demonstration purposes, this Lambda function does not actually perform any  actual transactions. It simply returns a mocked result.
+          * 
+          * @param {Object} event - Input event to the Lambda function
+          * @param {Object} context - Lambda Context runtime methods and attributes
+          *
+          * @returns {Object} object - Object containing details of the stock selling transaction
+          * 
+          */
+          exports.lambdaHandler = async (event, context) => {
+              // Get the price of the stock provided as input
+              const stock_price = event["stock_price"]
+              var date = new Date();
+              // Mocked result of a stock selling transaction
+              let transaction_result = {
+                  'id': crypto.randomBytes(16).toString("hex"), // Unique ID for the transaction
+                  'price': stock_price.toString(), // Price of each share
+                  'type': "sell", // Type of transaction(buy/ sell)
+                  'qty': getRandomInt(10).toString(),  // Number of shares bought / sold(We are mocking this as a random integer between 1 and 10)
+                  'timestamp': date.toISOString(),  // Timestamp of the when the transaction was completed
+              }
+              return transaction_result
+          };
+      Role: !GetAtt 
+        - LambdaFunctionRole
+        - Arn
+      Runtime: nodejs18.x
+  ApproveSqsLambda:
+    Type: 'AWS::Lambda::Function'
+    Properties:
+      Handler: index.lambdaHandler
+      Code:
+        ZipFile: |
+          const { SFN } = require("@aws-sdk/client-sfn");
+
+          /**
+          * Sample Lambda function that will automatically approve any task submitted to sqs by state machine.
+          * For demonstration purposes this Lambda function simply returns a random integer between 0 and 100 as the stock price.
+          * 
+          * @param {Object} event - Input event to the Lambda function
+          * @param {Object} context - Lambda Context runtime methods and attributes
+          * 
+          */
+          exports.lambdaHandler = (event, context, callback) => {
+              const stepfunctions = new SFN();
+
+              // For every record in sqs queue
+              for (const record of event.Records) {
+                  const messageBody = JSON.parse(record.body);
+                  const taskToken = messageBody.TaskToken;
+
+                  const params = {
+                      output: "\"approved\"",
+                      taskToken: taskToken
+                  };
+
+                  console.log(`Calling Step Functions to complete callback task with params ${JSON.stringify(params)}`);
+
+                  // Approve
+                  stepfunctions.sendTaskSuccess(params, (err, data) => {
+                      if (err) {
+                          console.error(err.message);
+                          callback(err.message);
+                          return;
+                      }
+                      console.log(data);
+                      callback(null);
+                  });
+              }
+          };
+      Role: !GetAtt 
+        - ManualApprovalFunctionRole
+        - Arn
+      Runtime: nodejs18.x
+  ReportResultSnsTopic:
+    Type: 'AWS::SNS::Topic'
+  LambdaFunctionRole:
+    Type: 'AWS::IAM::Role'
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: 2012-10-17
+        Statement:
+          - Action:
+              - 'sts:AssumeRole'
+            Effect: Allow
+            Principal:
+              Service:
+                - lambda.amazonaws.com
+      ManagedPolicyArns:
+        - 'arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole'
+  StockTradingStateMachineRole:
+    Type: 'AWS::IAM::Role'
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: 2012-10-17
+        Statement:
+          - Action:
+              - 'sts:AssumeRole'
+            Effect: Allow
+            Principal:
+              Service:
+                - states.amazonaws.com
+      ManagedPolicyArns: []
+      Policies:
+        - PolicyName: StockTradingStateMachineRolePolicy0
+          PolicyDocument:
+            Statement:
+              - Action:
+                  - 'lambda:InvokeFunction'
+                Resource: !GetAtt 
+                  - CheckStockPriceLambda
+                  - Arn
+                Effect: Allow
+        - PolicyName: StockTradingStateMachineRolePolicy1
+          PolicyDocument:
+            Statement:
+              - Action:
+                  - 'lambda:InvokeFunction'
+                Resource: !GetAtt 
+                  - GenerateBuySellRecommendationLambda
+                  - Arn
+                Effect: Allow
+        - PolicyName: StockTradingStateMachineRolePolicy2
+          PolicyDocument:
+            Statement:
+              - Action:
+                  - 'lambda:InvokeFunction'
+                Resource: !GetAtt 
+                  - BuyStockLambda
+                  - Arn
+                Effect: Allow
+        - PolicyName: StockTradingStateMachineRolePolicy3
+          PolicyDocument:
+            Statement:
+              - Action:
+                  - 'lambda:InvokeFunction'
+                Resource: !GetAtt 
+                  - SellStockLambda
+                  - Arn
+                Effect: Allow
+        - PolicyName: StockTradingStateMachineRolePolicy4
+          PolicyDocument:
+            Statement:
+              - Action:
+                  - 'sqs:SendMessage*'
+                Resource: !GetAtt 
+                  - RequestHumanApprovalSqs
+                  - Arn
+                Effect: Allow
+        - PolicyName: StockTradingStateMachineRolePolicy5
+          PolicyDocument:
+            Statement:
+              - Action:
+                  - 'sns:Publish'
+                Resource: !Ref ReportResultSnsTopic
+                Effect: Allow
+        - PolicyName: StockTradingStateMachineRolePolicy6
+          PolicyDocument:
+            Statement:
+              - Action:
+                  - "xray:PutTraceSegments"
+                  - "xray:PutTelemetryRecords"
+                  - "xray:GetSamplingRules"
+                  - "xray:GetSamplingTargets"
+                Effect: Allow
+                Resource: "*"
+  RequestHumanApprovalSqs:
+    Type: 'AWS::SQS::Queue'
+    Properties:
+      SqsManagedSseEnabled: true
+  ManualApprovalFunctionRole:
+    Type: 'AWS::IAM::Role'
+    Properties:
+      Policies:
+        - PolicyName: SQSReceiveMessagePolicy
+          PolicyDocument:
+            Version: 2012-10-17
+            Statement:
+              - Action:
+                  - 'sqs:ReceiveMessage'
+                  - 'sqs:DeleteMessage'
+                  - 'sqs:GetQueueAttributes'
+                  - 'sqs:ChangeMessageVisibility'
+                Resource: !GetAtt 
+                  - RequestHumanApprovalSqs
+                  - Arn
+                Effect: Allow
+        - PolicyName: CloudWatchLogsPolicy
+          PolicyDocument:
+            Statement:
+              - Action:
+                  - 'logs:CreateLogGroup'
+                  - 'logs:CreateLogStream'
+                  - 'logs:PutLogEvents'
+                Resource: !Sub 'arn:${AWS::Partition}:logs:*:*:*'
+                Effect: Allow
+        - PolicyName: StatesExecutionPolicy
+          PolicyDocument:
+            Version: 2012-10-17
+            Statement:
+              - Action:
+                  - 'states:SendTaskSuccess'
+                  - 'states:SendTaskFailure'
+                Resource: !Ref StockTradingStateMachine
+                Effect: Allow
+      AssumeRolePolicyDocument:
+        Version: 2012-10-17
+        Statement:
+          - Action: 'sts:AssumeRole'
+            Effect: Allow
+            Principal:
+              Service: lambda.amazonaws.com
+  StockTradingStateMachine:
+    Type: 'AWS::StepFunctions::StateMachine'
+    Properties:
+      DefinitionSubstitutions:
+        GenerateBuySellRecommendationLambdaArn: !GetAtt 
+          - GenerateBuySellRecommendationLambda
+          - Arn
+        RequestHumanApprovalSqsUrl: !Ref RequestHumanApprovalSqs
+        ReportResultSnsTopicArn: !Ref ReportResultSnsTopic
+        SellStockLambdaArn: !GetAtt 
+          - SellStockLambda
+          - Arn
+        CheckStockPriceLambdaArn: !GetAtt 
+          - CheckStockPriceLambda
+          - Arn
+        BuyStockLambdaArn: !GetAtt 
+          - BuyStockLambda
+          - Arn
+      RoleArn: !GetAtt 
+        - StockTradingStateMachineRole
+        - Arn
+      TracingConfiguration:
+        Enabled: true
+      DefinitionString: |
+        {
+            "StartAt": "Check Stock Price",
+            "States": {
+                "Check Stock Price": {
+                    "Type": "Task",
+                    "Resource": "${CheckStockPriceLambdaArn}",
+                    "Next": "Generate Buy/Sell recommendation"
+                },
+                "Generate Buy/Sell recommendation": {
+                    "Type": "Task",
+                    "Resource": "${GenerateBuySellRecommendationLambdaArn}",
+                    "ResultPath": "$.recommended_type",
+                    "Next": "Request Human Approval"
+                },
+                "Request Human Approval": {
+                    "Type": "Task",
+                    "Resource": "arn:aws:states:::sqs:sendMessage.waitForTaskToken",
+                    "Parameters": {
+                        "QueueUrl": "${RequestHumanApprovalSqsUrl}",
+                        "MessageBody": {
+                            "Input.$": "$",
+                            "TaskToken.$": "$$.Task.Token"
+                        }
+                    },
+                    "ResultPath": null,
+                    "Next": "Buy or Sell?"
+                },
+                "Buy or Sell?": {
+                    "Type": "Choice",
+                    "Choices": [
+                        {
+                            "Variable": "$.recommended_type",
+                            "StringEquals": "buy",
+                            "Next": "Buy Stock"
+                        },
+                        {
+                            "Variable": "$.recommended_type",
+                            "StringEquals": "sell",
+                            "Next": "Sell Stock"
+                        }
+                    ]
+                },
+                "Buy Stock": {
+                    "Type": "Task",
+                    "Resource": "${BuyStockLambdaArn}",
+                    "Next": "Report Result"
+                },
+                "Sell Stock": {
+                    "Type": "Task",
+                    "Resource": "${SellStockLambdaArn}",
+                    "Next": "Report Result"
+                },
+                "Report Result": {
+                    "Type": "Task",
+                    "Resource": "arn:aws:states:::sns:publish",
+                    "Parameters": {
+                        "TopicArn": "${ReportResultSnsTopicArn}",
+                        "Message": {
+                            "Input.$": "$"
+                        }
+                    },
+                    "End": true
+                }
+            }
+        }
+Outputs:
+  StateMachineArn:
+    Value:
+      Ref: StockTradingStateMachine
+  ExecutionInput:
+    Description: Sample input to StartExecution.
+    Value:
+      >
+        {}
