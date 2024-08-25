@@ -1,0 +1,100 @@
+# create an AWS SAM Template with a lambda and an api gateway
+# lambda runtime is python 3.11
+
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+
+Globals:
+  Function:
+    Tags:
+      DemoName: SAMLambdaDeployment
+
+Parameters:
+  Environment:
+    Type: String
+    Default: dev
+    AllowedValues:
+      - dev
+      - prod
+Conditions:
+  CreateProdResources: 
+    Fn::Equals: [Ref: Environment, prod]  
+Resources:
+
+  LambdaSAMDemo:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: lambda_function.lambda_handler
+      Runtime: python3.11
+      CodeUri: ./lambda-code
+      Events:
+        ApiEvent:
+          Type: Api
+          Properties:
+            Path: /
+            Method: get
+            RestApiId: !Ref MyApi
+      AutoPublishAlias: live
+      DeploymentPreference:
+        #if prod, then Canary else allatonce
+        Type: !If [CreateProdResources, Canary10Percent5Minutes, AllAtOnce]
+        Alarms:
+          # A list of alarms that you want to monitor
+          - !Ref AliasErrorMetricGreaterThanZeroAlarm
+          - !Ref LatestVersionErrorMetricGreaterThanZeroAlarm
+  # create an alarm to monitor lambda failed executions on alias
+  AliasErrorMetricGreaterThanZeroAlarm:
+    Type: AWS::CloudWatch::Alarm
+    Properties:
+      AlarmDescription: Lambda alias error count greater than 0
+      AlarmName: LambdaAliasErrorCountGreaterThanZero
+      ComparisonOperator: GreaterThanThreshold
+      Dimensions:
+        - Name: FunctionName
+          Value: !Ref LambdaSAMDemo
+        - Name: Resource
+          Value: !Sub ${LambdaSAMDemo}:live
+      EvaluationPeriods: 1
+      MetricName: Errors
+      Namespace: AWS/Lambda
+      Period: 60
+      Statistic: Sum
+      Threshold: 0
+      Tags:
+        - Key: DemoName
+          Value: SAMLambdaDeployment
+  
+  LatestVersionErrorMetricGreaterThanZeroAlarm:
+    Type: AWS::CloudWatch::Alarm
+    Properties:
+      AlarmDescription: Lambda Function Error > 0
+      AlarmName: LatestVersionErrorGreaterThanZeroAlarm
+      ComparisonOperator: GreaterThanThreshold
+      Dimensions:
+        - Name: Resource
+          Value: !Sub ${LambdaSAMDemo}:live
+        - Name: FunctionName
+          Value: !Ref LambdaSAMDemo
+        - Name: ExecutedVersion
+          Value: !GetAtt LambdaSAMDemo.Version.Version
+      EvaluationPeriods: 2
+      MetricName: Errors
+      Namespace: AWS/Lambda
+      Period: 60
+      Statistic: Sum
+      Threshold: 0
+      Tags:
+        - Key: DemoName
+          Value: SAMLambdaDeployment
+  MyApi:
+    Type: AWS::Serverless::Api
+    Properties:
+      Name: my-api
+      StageName: Prod
+      Tags:
+        DemoName: SAMLambdaDeployment
+
+Outputs:
+  ApiUrl:
+    Description: API Gateway URL
+    Value: !Sub "https://${MyApi}.execute-api.${AWS::Region}.amazonaws.com/Prod"

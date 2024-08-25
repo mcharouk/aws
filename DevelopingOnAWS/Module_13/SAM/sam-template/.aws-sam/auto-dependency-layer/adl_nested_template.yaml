@@ -1,0 +1,22 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: AWS SAM CLI Nested Stack for Auto Dependency Layer Creation
+Metadata:
+  SamCliInfo: 1.121.0
+  key: AWS SAM CLI sync command
+Outputs:
+  LambdaSAMDemo9829e7ebDepLayer:
+    Value:
+      Ref: LambdaSAMDemo9829e7ebDepLayer
+Resources:
+  LambdaSAMDemo9829e7ebDepLayer:
+    Metadata:
+      CreatedBy: AWS SAM CLI sync command
+    Properties:
+      CompatibleRuntimes:
+      - python3.11
+      ContentUri: C:\Users\charouk.m\Documents\AWS\aws\DevelopingOnAWS\Module_13\SAM\sam-template\.aws-sam\auto-dependency-layer\LambdaSAMDemo9829e7ebDepLayer
+      Description: Auto created layer for dependencies of function LambdaSAMDemo
+      LayerName: SAMDemoStackb14ee83a-LambdaSAMDemo9829e7eb-DepLayer
+      RetentionPolicy: Delete
+    Type: AWS::Serverless::LayerVersion
+Transform: AWS::Serverless-2016-10-31
