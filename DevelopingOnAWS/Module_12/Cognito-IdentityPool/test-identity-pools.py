@@ -12,11 +12,11 @@ from Config import Config
 utils.change_current_directory()
 config = Config()
 
-# USER_NAME = "bruce.wayne"
-# USER_PASSWORD = "batman"
+# USER_NAME = "john.foo"
+# USER_PASSWORD = "john.foo"
 
-USER_NAME = "clark.kent"
-USER_PASSWORD = "superman"
+USER_NAME = "dave.bar"
+USER_PASSWORD = "dave.bar"
 
 
 def get_secret_hash(username, app_client_id, client_secret):
@@ -106,8 +106,8 @@ def get_object(bucket_name, key):
         print(e)
 
 
-get_object(config.bucket_name, "bruce_wayne/identity.txt")
-get_object(config.bucket_name, "clark_kent/identity.txt")
+get_object(config.bucket_name, "finance/some-file.txt")
+get_object(config.bucket_name, "rh/some-file.txt")
 
 
 s3_client.close()

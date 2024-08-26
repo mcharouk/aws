@@ -54,67 +54,20 @@ class CognitoIdentityPoolStack(Stack):
             user_pool_client_name="MyAppClient",
         )
 
-        bruce_wayne_user = cognito.CfnUserPoolUser(
-            self,
-            "BruceWayneUser",
-            user_pool_id=user_pool.user_pool_id,
-            username="bruce.wayne",
-            user_attributes=[
-                cognito.CfnUserPoolUser.AttributeTypeProperty(
-                    name="preferred_username",
-                    value="bruce_wayne",
-                )
-            ],
+        self.create_user(
+            user_pool=user_pool,
+            user_id="JohnFooUser",
+            user_name="john.foo",
+            user_password="john.foo",
+            department="finance",
         )
 
-        clark_kent_user = cognito.CfnUserPoolUser(
-            self,
-            "ClarkKentUser",
-            user_pool_id=user_pool.user_pool_id,
-            username="clark.kent",
-            user_attributes=[
-                cognito.CfnUserPoolUser.AttributeTypeProperty(
-                    name="preferred_username",
-                    value="clark_kent",
-                )
-            ],
-        )
-        cr.AwsCustomResource(
-            self,
-            "SetBruceWaynePassword",
-            on_create=cr.AwsSdkCall(
-                service="CognitoIdentityServiceProvider",
-                action="adminSetUserPassword",
-                parameters={
-                    "UserPoolId": user_pool.user_pool_id,
-                    "Username": bruce_wayne_user.username,
-                    "Password": "batman",
-                    "Permanent": True,
-                },
-                physical_resource_id=cr.PhysicalResourceId.of("SetBruceWaynePassword"),
-            ),
-            policy=cr.AwsCustomResourcePolicy.from_sdk_calls(
-                resources=cr.AwsCustomResourcePolicy.ANY_RESOURCE,
-            ),
-        )
-
-        cr.AwsCustomResource(
-            self,
-            "SetClarkKentPassword",
-            on_create=cr.AwsSdkCall(
-                service="CognitoIdentityServiceProvider",
-                action="adminSetUserPassword",
-                parameters={
-                    "UserPoolId": user_pool.user_pool_id,
-                    "Username": clark_kent_user.username,
-                    "Password": "superman",
-                    "Permanent": True,
-                },
-                physical_resource_id=cr.PhysicalResourceId.of("SetBruceWaynePassword"),
-            ),
-            policy=cr.AwsCustomResourcePolicy.from_sdk_calls(
-                resources=cr.AwsCustomResourcePolicy.ANY_RESOURCE,
-            ),
+        self.create_user(
+            user_pool=user_pool,
+            user_id="DaveBarUser",
+            user_name="dave.bar",
+            user_password="dave.bar",
+            department="rh",
         )
 
         bucket_name = "marc-charouk-identitypool-demo"
@@ -156,11 +109,44 @@ class CognitoIdentityPoolStack(Stack):
                 effect=iam.Effect.ALLOW,
                 actions=["s3:GetObject*"],
                 resources=[
-                    "{0}/${{aws:PrincipalTag/preferred_username}}/*".format(
-                        bucket.bucket_arn
-                    )
+                    "{0}/${{aws:PrincipalTag/department}}/*".format(bucket.bucket_arn)
                 ],
             ),
         )
 
         # policy.attach_to_role(role)
+
+    def create_user(self, user_pool, user_id, user_name, user_password, department):
+        user = cognito.CfnUserPoolUser(
+            self,
+            user_id,
+            user_pool_id=user_pool.user_pool_id,
+            username=user_name,
+            user_attributes=[
+                cognito.CfnUserPoolUser.AttributeTypeProperty(
+                    name="department",
+                    value=department,
+                )
+            ],
+        )
+
+        user_password_id = f"{user_id}Password"
+        cr.AwsCustomResource(
+            self,
+            user_password_id,
+            on_create=cr.AwsSdkCall(
+                service="CognitoIdentityServiceProvider",
+                action="adminSetUserPassword",
+                parameters={
+                    "UserPoolId": user_pool.user_pool_id,
+                    "Username": user.username,
+                    "Password": user_password,
+                    "Permanent": True,
+                },
+                physical_resource_id=cr.PhysicalResourceId.of(f"Set{user_password_id}"),
+            ),
+            policy=cr.AwsCustomResourcePolicy.from_sdk_calls(
+                resources=cr.AwsCustomResourcePolicy.ANY_RESOURCE,
+            ),
+        )
+        return user

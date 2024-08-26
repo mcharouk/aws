@@ -1,6 +1,13 @@
 {
     "configurations": [
         {
+            "type": "java",
+            "name": "DynamoDBDemoMain",
+            "request": "launch",
+            "mainClass": "DynamoDBDemoMain",
+            "projectName": "dynamodb-mapper"
+        },
+        {
             "type": "aws-sam",
             "request": "direct-invoke",
             "name": "lambda-python3.11:HelloWorldFunction (python3.11)",
