@@ -2,6 +2,20 @@
     "configurations": [
         {
             "type": "java",
+            "name": "DynamoDBDemoGenericMain",
+            "request": "launch",
+            "mainClass": "DynamoDBDemoGenericMain",
+            "projectName": "dynamodb-mapper"
+        },
+        {
+            "type": "java",
+            "name": "DynamoDBDemoDocumentsMain",
+            "request": "launch",
+            "mainClass": "DynamoDBDemoDocumentsMain",
+            "projectName": "dynamodb-mapper"
+        },
+        {
+            "type": "java",
             "name": "DynamoDBDemoMain",
             "request": "launch",
             "mainClass": "DynamoDBDemoMain",

@@ -10,22 +10,18 @@ public class Notes {
     private String note;
     
     public Notes() {
-    }
-
-    
+    }    
 
     public Notes(String userId, String noteId) {
         this.userId = userId;
         this.noteId = noteId;
     }
-
-
-
     public Notes(String userId, String noteId, String note) {
         this.userId = userId;
         this.noteId = noteId;
         this.note = note;
     }
+    
     @DynamoDbPartitionKey
     public String getUserId() {
         return userId;

@@ -3,6 +3,8 @@ import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.google.common.reflect.TypeToken;
+
 import software.amazon.awssdk.core.internal.waiters.ResponseOrException;
 import software.amazon.awssdk.enhanced.dynamodb.DynamoDbEnhancedClient;
 import software.amazon.awssdk.enhanced.dynamodb.DynamoDbTable;
@@ -20,33 +22,31 @@ import software.amazon.awssdk.services.dynamodb.model.AttributeValue;
 import software.amazon.awssdk.services.dynamodb.model.DescribeTableResponse;
 import software.amazon.awssdk.services.dynamodb.waiters.DynamoDbWaiter;
 
-public class NotesService {
+public class NotesGenericService<T> {
 
-    private static final Logger logger = LoggerFactory.getLogger(NotesService.class);
+    private static final Logger logger = LoggerFactory.getLogger(NotesGenericService.class);
 
-    private static NotesService INSTANCE;
+    private final DynamoDbClient client = DynamoDbClient.builder().region(Region.EU_WEST_3).build();
+    private final DynamoDbEnhancedClient enhancedClient = DynamoDbEnhancedClient.create();
+    private final DynamoDbTable<T> ddbTable;
+    private final Class<T> classType;
+    
+    public NotesGenericService(String tableName, TableSchema<T> tableSchema){
+        TypeToken<T> typeToken = new TypeToken<T>(getClass()) {};  
+        this.classType = (Class<T>) typeToken.getRawType();
 
-    private NotesService() {
-    }
+        this.ddbTable = enhancedClient.table(tableName, tableSchema);;
+     }
 
-    public static NotesService getInstance() {
-        if (INSTANCE == null) {
-            INSTANCE = new NotesService();
-        }
-        return INSTANCE;
-    }
-
-    private DynamoDbClient client = DynamoDbClient.builder().region(Region.EU_WEST_3).build();
-    private DynamoDbEnhancedClient enhancedClient = DynamoDbEnhancedClient.create();
-    private DynamoDbTable<Notes> notesTable = enhancedClient.table("Notes", TableSchema.fromBean(Notes.class));
+    
 
     public void createTable() {
-        notesTable.createTable();
+        ddbTable.createTable();
 
         try (DynamoDbWaiter waiter = DynamoDbWaiter.builder().client(client).build()) { // DynamoDbWaiter is
                                                                                         // Autocloseable
             ResponseOrException<DescribeTableResponse> response = waiter
-                    .waitUntilTableExists(builder -> builder.tableName("Notes").build())
+                    .waitUntilTableExists(builder -> builder.tableName(ddbTable.tableName()).build())
                     .matched();
             DescribeTableResponse tableDescription = response.response().orElseThrow(
                     () -> new RuntimeException("Notes table was not created."));
@@ -55,11 +55,11 @@ public class NotesService {
         }
     }
 
-    public void batchWriteItems(Notes[] notes) {
+    public void batchWriteItems(T[] notes) {
         // Build WriteBatch Item (one per table)
-        Builder<Notes> writeBatchBuilder = WriteBatch.builder(Notes.class)
-                .mappedTableResource(notesTable);
-        for (Notes note : notes) {
+        Builder<T> writeBatchBuilder = WriteBatch.builder(classType)
+                .mappedTableResource(ddbTable);
+        for (T note : notes) {
             writeBatchBuilder.addPutItem(note);
         }
         WriteBatch writeBatch = writeBatchBuilder.build();
@@ -73,12 +73,12 @@ public class NotesService {
         logger.info("Batch write successful");
     }
 
-    public Notes getItemByPartitionKey(Notes notes) {
-        return notesTable.getItem(notes);
+    public T getItemByPartitionKey(T notes) {
+        return ddbTable.getItem(notes);
 
     }
 
-    public PageIterable<Notes> getItemByUserIdLikeString(String userId, String likeString) {
+    public PageIterable<T> getItemByUserIdLikeString(String userId, String likeString) {
         QueryConditional keyEqual = QueryConditional.keyEqualTo(b -> b.partitionValue(userId));
 
         final Expression filterLikeString = Expression.builder().expression("contains(#column, :containString)")
@@ -90,26 +90,26 @@ public class NotesService {
                 .filterExpression(filterLikeString)
                 .build();
 
-        return notesTable.query(tableQuery);
+        return ddbTable.query(tableQuery);
     }
 
-    public PageIterable<Notes> scanTable() {
-        return notesTable.scan();
+    public PageIterable<T> scanTable() {
+        return ddbTable.scan();
     }
 
-    public void putItem(Notes note) {
-        notesTable.putItem(note);
+    public void putItem(T note) {
+        ddbTable.putItem(note);
         logger.info("PutItem successful");
     }
 
     public void deleteTable() {
-        notesTable.deleteTable();
+        ddbTable.deleteTable();
 
         try (DynamoDbWaiter waiter = DynamoDbWaiter.builder().client(client).build()) { // DynamoDbWaiter is
             // Autocloseable
             waiter
-                    .waitUntilTableNotExists(builder -> builder.tableName("Notes").build())
-                    .matched();            
+                    .waitUntilTableNotExists(builder -> builder.tableName(ddbTable.tableName()).build())
+                    .matched();
             // The actual error can be inspected in response.exception()
             logger.info("Notes table was deleted.");
         }
