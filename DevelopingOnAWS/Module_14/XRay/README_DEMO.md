@@ -28,3 +28,20 @@
 * used X-Ray
 * used Event pattern objects
 * used parameter (parameter store)
+* user structured logging
+
+## Application Insights
+
+* create a resource group with Tag DemoName=XRay
+* create a new application in Insights with resource group
+
+* create additional alarms
+* create specific dashboard for problems detected
+* monitor events related to components
+* list problems detected
+
+To resolve problem, it must be in status STABILIZING first at least. We have to wait some time after the resolution to obtain this status
+
+```
+aws application-insights update-problem --problem-id [PROBLEM_ID] --update-status RESOLVED
+```

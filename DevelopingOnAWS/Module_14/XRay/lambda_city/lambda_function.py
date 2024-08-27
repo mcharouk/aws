@@ -3,20 +3,25 @@ import random
 
 import boto3
 import requests
-from aws_lambda_powertools import Tracer
+from aws_lambda_powertools import Logger, Tracer
 from aws_lambda_powertools.utilities import parameters
 from aws_lambda_powertools.utilities.data_classes import APIGatewayProxyEventV2
+from aws_lambda_powertools.utilities.typing import LambdaContext
 
 tracer = Tracer(service="weather-function")
 dynamodb = boto3.resource("dynamodb")
 weather_url = parameters.get_parameter("/xraydemo/weather-url")
+logger = Logger(service="city-function")
 
 
 @tracer.capture_lambda_handler
-def lambda_handler(event, context):
+@logger.inject_lambda_context
+def lambda_handler(event, context: LambdaContext):
     event = APIGatewayProxyEventV2(event)
     country = event.get_query_string_value("country")
     city = event.get_query_string_value("city")
+
+    logger.append_keys(city=city, country=country)
 
     # list = [1, 2, 3, 4, 5]
     # if random.choice(list) == 4:
@@ -58,11 +63,16 @@ def lambda_handler(event, context):
 
 def get_from_dynamo_db(city, country):
     table = dynamodb.Table("cities")
+
+    logger.info(f"Getting item from DynamoDB: {city}, {country}")
     response = table.get_item(Key={"city_ascii": city, "iso2": country})
     return response["Item"]
 
 
 def get_weather(latitude, longitude):
+    fields = {"latitude": latitude, "longitude": longitude}
+    logger.info(f"Getting weather for {latitude}, {longitude}", extra=fields)
+
     response = requests.get(f"{weather_url}?latitude={latitude}&longitude={longitude}")
     return response.json()
 
