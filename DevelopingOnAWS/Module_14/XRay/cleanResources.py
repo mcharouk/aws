@@ -18,7 +18,7 @@ else:
 # delete all application in CloudWatch Application Insights
 import boto3
 
-application_insights = boto3.client("applicationinsights")
+application_insights = boto3.client("application-insights")
 resource_group = boto3.client("resource-groups")
 
 
@@ -27,7 +27,6 @@ applications = response["ApplicationInfoList"]
 resource_group_name = ""
 for application in applications:
     resource_group_name = application["ResourceGroupName"]
-    print(f"Deleting application {resource_group_name}")
     application_insights.delete_application(ResourceGroupName=resource_group_name)
     print(f"Deleted application linked to resource group {resource_group_name}")
     # delete resource group
