@@ -52,3 +52,5 @@ url = s3.generate_presigned_url(
 )
 
 print(f"PresignedURL is [{url}]")
+
+s3.close()

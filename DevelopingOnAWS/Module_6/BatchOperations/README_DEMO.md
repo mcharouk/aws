@@ -3,7 +3,7 @@
 ## Job creation
 
 * for manifest format, specify CSV
-* specify manifest file path
+* specify manifest file path that indicates the list of files to process
 
 ```
 s3://demo-marccharouk-batchoperations-678474-files/manifest.csv
