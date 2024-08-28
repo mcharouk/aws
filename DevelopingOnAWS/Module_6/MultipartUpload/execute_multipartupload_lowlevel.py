@@ -11,7 +11,6 @@ object_key = "1GB-lowlevel.bin"
 region = "eu-west-3"
 
 
-
 # check bucket exists
 try:
     s3.head_bucket(Bucket=bucket_name)
@@ -28,6 +27,9 @@ except Exception as e:
 s3.create_bucket(
     Bucket=bucket_name, CreateBucketConfiguration={"LocationConstraint": region}
 )
+waiter = s3.get_waiter("bucket_exists")
+waiter.wait(Bucket=bucket_name)
+
 print("Bucket created")
 
 # create part
@@ -54,8 +56,9 @@ with open(test_file, "rb") as f:
         uploadPartResponse = upload_part.upload(
             Body=part_data,
         )
-        print(f"Transfer finished, collecting ETag {uploadPartResponse["ETag"]} and part number {part_index}")
-        parts.append({"PartNumber": part_index, "ETag": uploadPartResponse["ETag"]})
+        etag = uploadPartResponse["ETag"]
+        print(f"Transfer finished, collecting ETag {etag} and part number {part_index}")
+        parts.append({"PartNumber": part_index, "ETag": etag})
         part_index += 1
 
 print("All parts uploaded, completing multipart upload")
@@ -70,4 +73,3 @@ completeResult = s3.complete_multipart_upload(
 print("Multipart upload completed")
 
 s3.close()
-

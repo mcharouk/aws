@@ -31,6 +31,8 @@ except Exception as e:
 s3.create_bucket(
     Bucket=bucket_name, CreateBucketConfiguration={"LocationConstraint": region}
 )
+waiter = s3.get_waiter("bucket_exists")
+waiter.wait(Bucket=bucket_name)
 print("Bucket created")
 
 # multipart_threshold : above this size limit, multipart will be activated
@@ -39,14 +41,16 @@ print("Bucket created")
 # use threads : must be true so that concurrency can occur
 from boto3.s3.transfer import TransferConfig
 
+MB = 1024**2
 config = TransferConfig(
-    multipart_threshold=1024 * 25,
+    multipart_threshold=100 * MB,
     max_concurrency=10,
-    multipart_chunksize=1024 * 10,
+    multipart_chunksize=10 * MB,
     use_threads=True,
 )
 
 
+# this class is for tracking progress. It's not mandatory
 class ProgressPercentage(object):
     def __init__(self, filename):
         self._filename = filename

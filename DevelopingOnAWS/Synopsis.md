@@ -6,6 +6,7 @@
 * CodeWhisperer
 * Deploy a stack and check it with VSCode Toolkit (AWS explorer)
 
+
 ## AWS Signature
 
 * create a hashed string from request parameters
@@ -49,6 +50,10 @@
 * Bucket Versioning
 * Bucket Policies
 * Access Points
+
+## Headers
+
+ETag is hash of the object. Can be used to check integrity
 
 # Module 6 : Storage 2
 
