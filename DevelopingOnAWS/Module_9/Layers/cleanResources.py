@@ -34,11 +34,27 @@ try:
     response = lambda_client.get_function(FunctionName=function_name)
     lambda_client.delete_function(FunctionName=function_name)
     print(f"Lambda function {function_name} has been deleted.")
-    print(response)
+
 except lambda_client.exceptions.ResourceNotFoundException:
     print(f"Lambda function {function_name} does not exist.")
 
 lambda_zip_name = "main-function/Lambda-code.zip"
+
+
+# get all lambda layer versions
+layer_name = "lambda-utils"
+response = lambda_client.list_layer_versions(LayerName=layer_name)
+if len(response["LayerVersions"]) == 0:
+    print(f"No layer versions found for {layer_name}.")
+else:
+    # delete all lambda layer version
+    for layer_version in response["LayerVersions"]:
+        lambda_client.delete_layer_version(
+            LayerName=layer_name, VersionNumber=layer_version["Version"]
+        )
+        print(
+            f"Layer version {layer_version['Version']} of {layer_name} has been deleted."
+        )
 
 # remove lambda zip name if it exists
 if os.path.exists(lambda_zip_name):

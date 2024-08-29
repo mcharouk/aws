@@ -95,17 +95,57 @@ give a use case (draw.io)
 * Layers
 * Aliases with API Gateway. included in API Gateway Canary Demo
 
+* AWS lets 30 min. to demo the lambda
+* We can take time to show 
+  * cloudwatch metrics / logs
+  * environment variables
+  * aliases / versions
+  * take time to show how it looks like, all the different tabs
+
+## Lambda code
+
+### Stream of event 
+
+it's possible to get a stream of event, in a sense of input stream / output stream. This way the client can serialize the event like he wants to. For example we can stream the event to convert it directly to an object. There's an example [here](https://docs.aws.amazon.com/lambda/latest/dg/java-handler.html#java-handler-interfaces)
+
+### Advice
+
+* Decouple business logic from lambda handler. The idea is to decouple lambda handler which is bind to lambda context from business logic. This way, it's easier to unit test the code, no need to reference anything related to lambda in the test code.
+
 ## Lambda limits
 
 * nb layers : 5
-* package size (layers included) : 50 Mb zipped, 250 Mb unzipped
+* package size (**layers included**) : 50 Mb zipped, 250 Mb unzipped
 * container image code : 10 GB
+* payload size (Not adjustable)
+  * synchronous : 6 MB
+  * asynchronous : 256 Ko
 
 ## Layers
 
 * Python : ideally, create a wheel file, but a simple script file can be part of a layer
 * Java : create a JAR
 * .NET : Runtime Package Store feature. It takes as input a .csproj that lists all dependencies. [More on that](https://aws.amazon.com/blogs/developer/aws-lambda-layers-with-net-core/)
+
+## Extensions
+
+* An internal extension can be used to add capabilities directly to the handler code because it runs in the same process. For example intercept all http calls to log them or add some headers or anything
+* An external extension does not run within the same process, it works asynchronously, and so it does not impact function performance
+* Lambda extension comes as a **lambda layer**
+* Third parties extensions
+  * Dynatrace, datadog, etc... provides external extensions to add monitoring metrics, traces, etc..
+  * Hashicorp Vault : extension to make available passwords to lambda, without making lambda code aware of Vault
+  * AWS : AppConfig, Lambda Insights, ADOT, AWS Parameters and secrets, CodeGuru Profiler (analyze code performance and provide recommendations)
+
+## Permissions
+
+* In push mode (synchronous / asynchronous), resource based policies must be updated to authorize the event services (S3, SNS, APIGw) to invoke lambda
+* In pull mode, it's the execution role that must be updated -> because it's the lambda the fetch the service
+
+## Concurrency
+
+* Reserved Concurrency : maximum number of concurrent instances allocated to the function. It's to avoid throttling, for example if a maximum quota account have been reached. No other function will be able to use the reserved concurrency. Use it for critical lambda functions that cannot afford to fail because of that reason. Incurs **NO** additional charges.
+* Provisioned Concurrency : it's the number of instances to pre-warm, to avoid cold start penalty. Incurs additional charges
 
 # Module 10 : Gateway
 
