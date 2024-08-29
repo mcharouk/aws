@@ -82,6 +82,10 @@ give a use case (draw.io)
 
 * CRUD operations with DynamoDBMapper
 
+## 
+
+* [Counter in DDB](https://aws.amazon.com/blogs/database/implement-resource-counters-with-amazon-dynamodb/)
+
 # Module 9 : Compute
 
 ## Demo

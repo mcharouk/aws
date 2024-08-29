@@ -14,7 +14,7 @@ public class DynamoDBDemoDocumentsMain {
     
 
     public static void main(String[] args) {
-        NotesGenericService<EnhancedDocument> notesDocumentService = new NotesGenericService<EnhancedDocument>("Notes", TableSchema.documentSchemaBuilder()
+        NotesGenericService<EnhancedDocument> notesDocumentService = new NotesGenericService<EnhancedDocument>(TableSchema.documentSchemaBuilder()
                     // Specify the primary key attributes.
                     .addIndexPartitionKey(TableMetadata.primaryIndexName(), "userId", AttributeValueType.S)
                     .addIndexSortKey(TableMetadata.primaryIndexName(), "noteId", AttributeValueType.S)
@@ -38,7 +38,7 @@ public class DynamoDBDemoDocumentsMain {
         logger.info("Getting a Note by partition Key");
         
         EnhancedDocument enhancedDocument = createEnhancedDocument(student_user_id, "2");
-        EnhancedDocument result = notesDocumentService.getItemByPartitionKey(enhancedDocument);
+        EnhancedDocument result = notesDocumentService.getItem(enhancedDocument);
         logger.info(result.toJson());
         //result.getListOfUnknownType(attributeName)
         //result.getMapOfUnknownType(attributeName)

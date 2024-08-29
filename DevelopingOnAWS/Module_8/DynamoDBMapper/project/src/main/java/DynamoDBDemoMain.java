@@ -8,7 +8,7 @@ public class DynamoDBDemoMain {
     private static final Logger logger = LoggerFactory.getLogger(DynamoDBDemoMain.class);
 
     public static void main(String[] args) {
-        NotesGenericService<Notes> notesService = new NotesGenericService<Notes>("Notes", TableSchema.fromBean(Notes.class));
+        NotesGenericService<Notes> notesService = new NotesGenericService<Notes>(TableSchema.fromBean(Notes.class));
 
         logger.info("Creating Table Notes");
         notesService.createTable();
@@ -25,7 +25,7 @@ public class DynamoDBDemoMain {
 
         logger.info("Getting a Note by partition Key");
         Notes note = new Notes(student_user_id, "2");
-        note = notesService.getItemByPartitionKey(note);
+        note = notesService.getItem(note);
         logger.info(note.toString());
 
         logger.info("Return notes that contains a specific string");

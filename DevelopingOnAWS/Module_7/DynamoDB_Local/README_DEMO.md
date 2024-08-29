@@ -1,5 +1,9 @@
 ## Installation
 
+### Intro
+
+Maybe it's to execute this demo in Module 8 and explain how command works with a live demo instead of showing the slides
+
 ### Instructions
 
 * [Binaries here](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/DynamoDBLocal.DownloadingAndRunning.html)
@@ -21,7 +25,7 @@ java -Djava.library.path=./DynamoDBLocal_lib -jar DynamoDBLocal.jar -sharedDb
 Create first table
 
 ```
-aws dynamodb create-table --attribute-definitions AttributeName=LastName,AttributeType=S AttributeName=FirstName,AttributeType=S --table-name Employee --key-schema AttributeName=LastName,KeyType=HASH AttributeName=FirstName,KeyType=RANGE --provisioned-throughput ReadCapacityUnits=5,WriteCapacityUnits=5 --region eu-west-3 --output json --endpoint-url http://localhost:8000
+aws dynamodb create-table --cli-input-json file://table_schema.json --region eu-west-3 --output json --endpoint-url http://localhost:8000
 ```
 
 list-tables

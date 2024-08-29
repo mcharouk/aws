@@ -1,0 +1,28 @@
+{
+    "TableName": "Employee",
+    "AttributeDefinitions": [
+        {
+            "AttributeName": "LastName",
+            "AttributeType": "S"
+        },
+        {
+            "AttributeName": "FirstName",
+            "AttributeType": "S"
+        }
+    ],
+    "KeySchema": [
+        {
+            "AttributeName": "LastName",
+            "KeyType": "HASH"
+        },
+        {
+            "AttributeName": "FirstName",
+            "KeyType": "RANGE"
+        }
+    ],
+    "BillingMode": "PROVISIONED",
+    "ProvisionedThroughput": {
+        "ReadCapacityUnits": 5,
+        "WriteCapacityUnits": 5
+    }
+}

@@ -30,8 +30,9 @@ public class NotesGenericService<T> {
     private final DynamoDbEnhancedClient enhancedClient = DynamoDbEnhancedClient.create();
     private final DynamoDbTable<T> ddbTable;
     private final Class<T> classType;
+    private final String tableName = "Notes";
     
-    public NotesGenericService(String tableName, TableSchema<T> tableSchema){
+    public NotesGenericService(TableSchema<T> tableSchema){
         TypeToken<T> typeToken = new TypeToken<T>(getClass()) {};  
         this.classType = (Class<T>) typeToken.getRawType();
 
@@ -73,7 +74,7 @@ public class NotesGenericService<T> {
         logger.info("Batch write successful");
     }
 
-    public T getItemByPartitionKey(T notes) {
+    public T getItem(T notes) {
         return ddbTable.getItem(notes);
 
     }
@@ -87,7 +88,7 @@ public class NotesGenericService<T> {
 
         QueryEnhancedRequest tableQuery = QueryEnhancedRequest.builder()
                 .queryConditional(keyEqual)
-                .filterExpression(filterLikeString)
+                .filterExpression(filterLikeString)                
                 .build();
 
         return ddbTable.query(tableQuery);
