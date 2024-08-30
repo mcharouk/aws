@@ -14,7 +14,8 @@
 * encrypt the hashed string with the signing key, and pass it in headers or query parameters
 * AWS will apply the same process when it receives the request. If the same string is found, the request is accepted
 * The request must reach AWS within 5 minutes, or AWS will deny the request (protection against replay attacks)
-
+* [Documentation](https://docs.aws.amazon.com/AmazonS3/latest/API/sig-v4-authenticating-requests.html#signing-request-intro)
+* [Detailed Documentation](https://docs.aws.amazon.com/AmazonS3/latest/API/sig-v4-header-based-auth.html#create-signature-presign-entire-payload)
 
 ## SDK metrics
 * [SDK metrics](https://boto3.amazonaws.com/v1/documentation/api/1.17.109/guide/sdk-metrics.html#definitions-for-sdk-metrics) helps diagnose communication issues between client and AWS
@@ -43,6 +44,10 @@
 * Can show assumeRole result with SessionToken
 * Can show policy simulator
 
+## CLI global config
+
+[link](https://docs.aws.amazon.com/cli/v1/userguide/cli-configure-files.html)
+
 # Module 5 : Storage 1
 
 ## Demo
@@ -64,11 +69,6 @@ ETag is hash of the object. Can be used to check integrity
 * S3 Batch Operations
 * Static Web Hosting with CORS configuration
 
-## Pre-signed URL
-
-give a use case (draw.io)
-
-
 # Module 7 : Database 1
 
 ## Demo
@@ -82,7 +82,7 @@ give a use case (draw.io)
 
 * CRUD operations with DynamoDBMapper
 
-## 
+## Links
 
 * [Counter in DDB](https://aws.amazon.com/blogs/database/implement-resource-counters-with-amazon-dynamodb/)
 
@@ -136,6 +136,7 @@ it's possible to get a stream of event, in a sense of input stream / output stre
   * Dynatrace, datadog, etc... provides external extensions to add monitoring metrics, traces, etc..
   * Hashicorp Vault : extension to make available passwords to lambda, without making lambda code aware of Vault
   * AWS : AppConfig, Lambda Insights, ADOT, AWS Parameters and secrets, CodeGuru Profiler (analyze code performance and provide recommendations)
+  * [List of extensions](https://docs.aws.amazon.com/lambda/latest/dg/extensions-api-partners.html)
 
 ## Permissions
 
@@ -146,6 +147,17 @@ it's possible to get a stream of event, in a sense of input stream / output stre
 
 * Reserved Concurrency : maximum number of concurrent instances allocated to the function. It's to avoid throttling, for example if a maximum quota account have been reached. No other function will be able to use the reserved concurrency. Use it for critical lambda functions that cannot afford to fail because of that reason. Incurs **NO** additional charges.
 * Provisioned Concurrency : it's the number of instances to pre-warm, to avoid cold start penalty. Incurs additional charges
+
+## Snapstart
+
+### Limitations
+
+* increase deployment time
+* requires function versions
+* only Java 11 and later managed runtime (no docker)
+* does not support provisioned concurrency, EFS, ephemeral storage up to 512 Mb
+
+
 
 # Module 10 : Gateway
 
@@ -165,8 +177,38 @@ it's possible to get a stream of event, in a sense of input stream / output stre
 * Canary release
 * Swagger import/export. Swagger extensions are showed in Lab 6
 * Query validation. Shown in Lab 5
+* **Take a look at SDK Generation**
+
+
+## API gateway steps
+
+### Method request
+
+* set what is mandatory or not in header or query parameters
+* set validation model
+* set request paths
+
+### Integration request
+
+* set the backend to forward the request to
+* set header, query string, etc... to forward to the backend
+* set body mapping before sending it to backend
+
+### Integration response
+
+* for each status code returned
+  * define body mappings
+  * header values 
+
+### Method responses
+
+* for each status code returned
+  * header that must be returned
+  * model of body
 
 # Module 11 : Micro services
+
+**should AVOID to get too deep into architectural patterns and deep dive into step function**
 
 * Strangler Pattern diagrams
 * [Saga Pattern with step function](https://docs.aws.amazon.com/prescriptive-guidance/latest/patterns/implement-the-serverless-saga-pattern-by-using-aws-step-functions.html)
@@ -174,6 +216,39 @@ it's possible to get a stream of event, in a sense of input stream / output stre
 ## Demo
 
 * Step functions
+
+## Devops practices
+
+* Agile project management
+* Shift left with CI/CD (Testing, building)
+* Implement automation
+  * critical in micro services, as there are much more components to build & deploy
+* Monitor the DevOps pipeline and applications
+* Observability 
+  * critical in micro services architecture
+* Gather continuous feedback
+* ​​​​​​​Change the culture
+
+## Step functions
+
+
+### State data process
+
+[link](https://docs.aws.amazon.com/step-functions/latest/dg/concepts-input-output-filtering.html)
+
+* Input Path : select fields to be passed to the task
+* Parameters : map input fields to the task parameters
+* Result Selector : select which field will be passed to output
+* Result Path : decide how the result will be merged with the input
+* Output Path : select subset of fields to provide the output
+
+### Result Path
+
+* ne rien mettre (Null) permet de reforwarder tout l'ancien output sans prendre en compte le résultat de la tâche en cours
+* mettre un $ permet d'overrider l'ancien message avec le nouveau message
+* mettre un $.toto permet de rajouter ou remplacer le champ toto dans l'ancien message
+
+
 
 # Module 12 : Access
 

@@ -2,7 +2,11 @@
 
 * !! Step 1 : Don't forget to assign a public ip to the instance at startup !!
 
-* script to start an apache instance. To execute when internet connection is ok
+
+* create an internet gateway
+* create a route table that routes to IGW
+* connect to EC2 and execute this scripts when internet connection is ok
+* access EC2 with its public IP or public domain name
 
 ```
 sudo -s

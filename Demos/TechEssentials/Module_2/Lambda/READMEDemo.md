@@ -6,6 +6,9 @@ Lambda Name
 LambdaDemo
 ```
 
+* add a SQS trigger to lambda
+* insert following message in SQS Queue
+
 Body message
 
 ```
