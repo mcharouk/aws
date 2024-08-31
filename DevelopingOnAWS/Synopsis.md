@@ -161,6 +161,16 @@ it's possible to get a stream of event, in a sense of input stream / output stre
 
 # Module 10 : Gateway
 
+## Demo
+
+* Canary release
+* Swagger import/export. Swagger extensions are showed in Lab 6
+* Query validation. Shown in Lab 5
+* **Take a look at SDK Generation**
+
+
+## HTTPS vs REST API
+
 * [Difference between HTTP API and REST API](https://docs.aws.amazon.com/apigateway/latest/developerguide/http-api-vs-rest.html). To resume, HTTP API is more basic but cheaper
   * no WAF integration
   * no Edge location (only regional)
@@ -171,13 +181,6 @@ it's possible to get a stream of event, in a sense of input stream / output stre
   * no api keys, no quotas, no throttling
 * Etudier comment fonctionnent les websockets de manière macro sur l'API Gateway
 * API Gateway swagger extensions
-
-## Demo
-
-* Canary release
-* Swagger import/export. Swagger extensions are showed in Lab 6
-* Query validation. Shown in Lab 5
-* **Take a look at SDK Generation**
 
 
 ## API gateway steps
@@ -248,18 +251,12 @@ it's possible to get a stream of event, in a sense of input stream / output stre
 * mettre un $ permet d'overrider l'ancien message avec le nouveau message
 * mettre un $.toto permet de rajouter ou remplacer le champ toto dans l'ancien message
 
-
-
 # Module 12 : Access
 
 ## Demo
 
 * Webapp with user pools and identity pools
 * Explore the [React sample](https://docs.aws.amazon.com/cognito/latest/developerguide/getting-started-test-application-react.html) provided by AWS
-
-## Oauth 2.0
-
-* Expliquer les différents mode d'authent : Client Credentials, Implicit (pourquoi ce n'est pas secure), Authorization Code
 
 ## Cognito
 
