@@ -22,13 +22,22 @@ if os.path.exists(env_file_location):
 else:
     print(f"File {env_file_location} does not exist")
 
+# get user pool with name UserPoolDemo
+cognito = boto3.client("cognito-idp")
+
 response = cognito.list_user_pools(MaxResults=1)
 if len(response["UserPools"]) == 0:
     print("No user pools found")
     exit()
 
-user_pool_id = response["UserPools"][0]["Id"]
-# get cognito domain url
+user_pool_id = ""
+for user_pool in response["UserPools"]:
+    if user_pool["Name"] == "UserPoolDemo":
+        user_pool_id = user_pool["Id"]
+
+if user_pool_id == "":
+    print("No user pool named UserPoolDemo found")
+    exit()
 
 response = cognito.describe_user_pool(UserPoolId=user_pool_id)
 cognito_domain = response["UserPool"]["Domain"]

@@ -8,7 +8,7 @@ IdentityPoolTestRole
 ```
 
 * in custom mappings
-  * Tag Key : department 
+  * Tag Key : department
   * Claim : department
 * put any name for identity pool
   

@@ -3,14 +3,21 @@
 * sign-in with email
 * confirmation by mail
 * add some required user attributes
+* Cognito pool name
+
+```
+UserPoolDemo
+```
+
 * self hosted UI
   * callback URL **AND** sign-out URL
+
 
 ```
 http://localhost:8501/
 ```
 * in client app, activate profile scope with email and openid. This will allow to get user attributes in id token
-
+* 
 
 ## Run the application
 
