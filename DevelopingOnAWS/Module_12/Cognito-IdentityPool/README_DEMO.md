@@ -7,9 +7,17 @@
 IdentityPoolTestRole
 ```
 
-* in custom mappings
-  * Tag Key : department
-  * Claim : department
+* Leave **Role Settings** to default
+* in **Attributes for access control** section, choose custom mappings
+  * Claim
+  ``` 
+  custom:department
+  ```
+  * Tag Key
+  ``` 
+  department
+  ```
+
 * put any name for identity pool
   
 ## Identity pool post creation

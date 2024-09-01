@@ -12,11 +12,13 @@ from Config import Config
 utils.change_current_directory()
 config = Config()
 
-# USER_NAME = "john.foo"
-# USER_PASSWORD = "john.foo"
+# finance user
+USER_NAME = "john.foo"
+USER_PASSWORD = "john.foo"
 
-USER_NAME = "dave.bar"
-USER_PASSWORD = "dave.bar"
+# rh user
+# USER_NAME = "dave.bar"
+# USER_PASSWORD = "dave.bar"
 
 
 def get_secret_hash(username, app_client_id, client_secret):
@@ -47,7 +49,7 @@ id_token = response["AuthenticationResult"]["IdToken"]
 
 print(f"id token is {id_token}")
 
-# get cognito identity id with id_token
+# get cognito identity id with id_token. Each user has a unique identity id, generated the first time he calls identity pool
 cognito_identity = boto3.client("cognito-identity")
 
 response = cognito_identity.get_id(

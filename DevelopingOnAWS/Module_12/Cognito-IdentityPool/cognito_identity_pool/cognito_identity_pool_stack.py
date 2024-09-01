@@ -12,7 +12,7 @@ class CognitoIdentityPoolStack(Stack):
     def __init__(self, scope: Construct, construct_id: str, **kwargs) -> None:
         super().__init__(scope, construct_id, **kwargs)
 
-        # create cognito user pool
+        # create cognito user pool with department as custom attribute
         user_pool = cognito.UserPool(
             self,
             "UserPoolForIdentityPoolDemo",
@@ -29,12 +29,11 @@ class CognitoIdentityPoolStack(Stack):
             sign_in_aliases=cognito.SignInAliases(
                 username=True, email=False, phone=False, preferred_username=False
             ),
-            standard_attributes=cognito.StandardAttributes(
-                preferred_username=cognito.StandardAttribute(
-                    required=True,
-                    mutable=True,
-                )
-            ),
+            custom_attributes={
+                "department": cognito.StringAttribute(
+                    min_len=2, max_len=10, mutable=True
+                ),
+            },
             account_recovery=cognito.AccountRecovery.NONE,
             deletion_protection=False,
         )
@@ -117,6 +116,7 @@ class CognitoIdentityPoolStack(Stack):
         # policy.attach_to_role(role)
 
     def create_user(self, user_pool, user_id, user_name, user_password, department):
+
         user = cognito.CfnUserPoolUser(
             self,
             user_id,
@@ -124,7 +124,7 @@ class CognitoIdentityPoolStack(Stack):
             username=user_name,
             user_attributes=[
                 cognito.CfnUserPoolUser.AttributeTypeProperty(
-                    name="department",
+                    name="custom:department",
                     value=department,
                 )
             ],
