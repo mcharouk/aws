@@ -309,3 +309,23 @@ settings at app client level
 
 * Logs insights
 * X-ray is shown in the lab
+
+## Monitoring vs Obsverability
+
+* Monitoring : collect metrics and generate reports / dashboards
+* Observability : looks at component interactions and data collected by monitoring to find the root cause of issues. Includes tracing. 
+
+* Monitoring  : collects data on a single component
+* Observability : looks at the distributed system as a whole
+
+* Monitoring : helps you discover there is an issue
+* Observability : help you discover why
+
+### Observability plan
+
+What must be collected to
+* understand what your resources are doing
+* understand how your deployments can affect your resources. Should be able to see the effect of changes in real time
+* what issues could interfer with user's experiences. Track those potential issues with metrics, alarms...
+* improve performance. Performance has a direct impact on revenue. infra revenue + customer satisfaction
+

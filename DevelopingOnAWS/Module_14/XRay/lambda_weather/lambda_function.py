@@ -1,4 +1,6 @@
 import json
+import os
+import time
 
 import requests
 from aws_lambda_powertools import Logger, Tracer
@@ -8,6 +10,9 @@ from aws_lambda_powertools.utilities.typing import LambdaContext
 MODULES = ["requests"]
 tracer = Tracer(patch_modules=MODULES, service="weather-function")
 logger = Logger(service="weather-function")
+
+os.environ["TZ"] = "Europe/Paris"
+time.tzset()
 
 
 @tracer.capture_lambda_handler

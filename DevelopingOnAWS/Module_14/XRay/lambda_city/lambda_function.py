@@ -1,5 +1,7 @@
 import json
+import os
 import random
+import time
 
 import boto3
 import requests
@@ -12,6 +14,9 @@ tracer = Tracer(service="weather-function")
 dynamodb = boto3.resource("dynamodb")
 weather_url = parameters.get_parameter("/xraydemo/weather-url")
 logger = Logger(service="city-function")
+
+os.environ["TZ"] = "Europe/Paris"
+time.tzset()
 
 
 @tracer.capture_lambda_handler
