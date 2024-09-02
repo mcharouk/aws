@@ -289,6 +289,10 @@ settings at app client level
 * Rancher Desktop not compatible with sam invoke. Can only demonstrate sam local generate-events for example
 * Can show a SAM template with deployment of a serverless API, a serverless function and a simple table
 
+## Lecture
+
+[What is devops ?](https://aws.amazon.com/devops/what-is-devops/)
+
 # Module 14 : Debug
 
 ## Demo
