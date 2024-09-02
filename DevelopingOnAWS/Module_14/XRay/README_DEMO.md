@@ -31,7 +31,7 @@ aws application-insights update-problem --problem-id [PROBLEM_ID] --update-statu
 
 ## Exceptions
 
-* update **City** lambda code, uncomment line 21 to 23 to generate random errors
+* update **City** lambda code, uncomment line 49 to 51 to generate random errors
 * execute testAPI.py to generate some errors
 * Look at tracemap. Errors appears in Red
 * Look at traces, Errors appears clearly on the table
