@@ -356,6 +356,7 @@ Demo :
 * CVE Examples 
   * CVE-2024-39807
   * CVE-2024-39830
+*  [list of code findings](https://github.com/aws-samples/amazon-codeguru-detectors). Behind the scene, Inspector uses [CodeGuru Detector Library](https://docs.aws.amazon.com/codeguru/detector-library/)
 
 # Module 11 : Operate Secure and Resilient networks
 
