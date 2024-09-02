@@ -28,10 +28,6 @@ def lambda_handler(event, context: LambdaContext):
 
     logger.append_keys(city=city, country=country)
 
-    # list = [1, 2, 3, 4, 5]
-    # if random.choice(list) == 4:
-    #    raise Exception("Unlucky guy, you encounter a random exception")
-
     # get item from table cities with partition key as city and sort key as country
 
     with tracer.provider.in_subsegment("## get_cities_info") as subsegment:
@@ -49,6 +45,10 @@ def lambda_handler(event, context: LambdaContext):
 
     with tracer.provider.in_subsegment("## get_weather") as subsegment:
         weather_response = get_weather(latitude, longitude)
+
+    # list = [1, 2, 3, 4, 5]
+    # if random.choice(list) == 4:
+    #    raise Exception("Unlucky guy, you encounter a random exception")
 
     response_json = {
         "capital": capital,
