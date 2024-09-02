@@ -289,6 +289,16 @@ settings at app client level
 * Rancher Desktop not compatible with sam invoke. Can only demonstrate sam local generate-events for example
 * Can show a SAM template with deployment of a serverless API, a serverless function and a simple table
 
+## Phases
+
+* with **sam init**, it's possible to specify application configuration, the corresponding sam template will be created.
+
+* **sam build** install and organizes dependencies
+  * for containers
+    * execute a docker build
+  * for non containers
+    * install dependencies with a requirements.txt (Python), a package.json (NodeJS), maven (Java), etc...
+
 ## Lecture
 
 [What is devops ?](https://aws.amazon.com/devops/what-is-devops/)

@@ -1,0 +1,27 @@
+version = 0.1
+
+[default]
+[default.global]
+[default.global.parameters]
+stack_name = "SAMDemoStack"
+
+[default.deploy.parameters]
+capabilities = "CAPABILITY_IAM"
+confirm_changeset = false
+resolve_s3 = true
+s3_prefix = "SAMDemoStack"
+region = "eu-west-3"
+
+[default.package]
+[default.package.parameters]
+region="eu-west-3"
+s3_bucket="marc-charouk-samdemo-576758948"
+
+[prod.deploy.parameters]
+stack_name = "SAMDemoStackProd"
+resolve_s3 = true
+s3_prefix = "SAMDemoStackProd"
+region = "eu-west-3"
+capabilities = "CAPABILITY_IAM"
+parameter_overrides = "Environment=\"prod\""
+
