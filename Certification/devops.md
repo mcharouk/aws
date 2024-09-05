@@ -603,6 +603,7 @@ to install X Ray on an ECS Cluster
 # ACM
 
 * ACM can be used to publish private certificates.
+
 ## Certificate Revocation
 
 ### CRL Entries
@@ -611,11 +612,14 @@ to install X Ray on an ECS Cluster
   * The client download the CRL entries and process it in local. 
     * Consumes more memory
     * revocation can take 60 minutes to be broadcasted.
+    * As the list can be cached, it can contain stale data.
 
 ### OCSP
-  * It's an URL to call to know if certificate has been revoked. The client will call the endpoint. 
-    * Consumes more bandwidth, 
-    * revocation can take 30 min to be broadcasted.
+  * notify endpoints they have been revoked without the need for customers to operate infrastructure themselves
+  * It's an URL to call to know if certificate has been revoked. The client browser will call the endpoint. 
+  * A custom URL can be provided for custom branding or custom security considerations.
+  * Consumes more bandwidth
+  * revocation can take 30 min to be broadcasted.
 
 # S3
 
