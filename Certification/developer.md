@@ -34,7 +34,12 @@ aws ec2 monitor-instances --instance-ids [instances-comma-separated-list]
 
 # SQS
 
-* ChangeMessageVisibility action to change Visibility Timeout
+* To change Visibility Timeout
+
+```
+aws sqs change-message-visibility --queue-url myQueue --receipt-handle MyReceipt --visibility-timeout 30
+```
+
 * user SQS Extended Client Library to manage payload on S3 (if payload exceeds 256 Ko). Available in Python or Java
 * DLQ and Standard queue must reside in same region and account and must be of the same type (Standard or FIFO)
 * Create Delay queues to delay the delivery of message to consumer. It's a queue with the Delivery Delay set to something > 0
@@ -54,7 +59,7 @@ aws ec2 monitor-instances --instance-ids [instances-comma-separated-list]
   * AfterInstall
   * ApplicationStart
   * ValidateService
-* Id deployment log file has been deleted, codeDeploy service must be restarted to create a new one
+* If deployment log file has been deleted, codeDeploy service must be restarted to create a new one
 
 # Code Build
 
@@ -66,11 +71,11 @@ aws ec2 monitor-instances --instance-ids [instances-comma-separated-list]
 
 * For each phase, we give parameters
   * run-as (linux user name)
-  * on-failure (abort or continue)
+  * on-failure (ABORT or CONTINUE)
   * commands (all commands to run)
   * finally (run even if a command fails)
 
-* custom images can be pulled from ECR, Docker hub ar any private registry
+* custom images can be pulled from ECR, Docker hub or any private registry
 * CodeBuild doesn't cache the image
 
 # XRay
@@ -80,7 +85,7 @@ aws ec2 monitor-instances --instance-ids [instances-comma-separated-list]
 ```
 ~/xray-daemon$ ./xray -o
 ```
-* X ray can work cross regions
+* X ray can work cross-regions
 * Enable **Active Tracing** when there is no upstream service that has x-ray activated
 * Trace header is excluded from SQS message size. It's not part of a message content, but is part of a default http header
 * Lambda environment variables
