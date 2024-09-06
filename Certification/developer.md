@@ -1,6 +1,12 @@
 # EC2
 
 * Multi volume snapshots can snapshot all or part of an EC2 instance. So Resource Type must be Instance when starting a snapshot from the console
+* to enable detailed monitoring
+
+```
+aws ec2 monitor-instances --instance-ids [instances-comma-separated-list]
+```
+
 
 ## EC2 instance connect
 
@@ -13,8 +19,10 @@
 ## Reserved Instances
 
 * Capacity reservation (Reserved Instances) can be shared accross all accounts whether on the same organization or not.
+* Capacity reservation is only supported for Zonal instances, not regional instances
 * It's possible to queue purchase of reserved instances, to be sure reserved instances will be covered without any interruption.
 * Can be queued only on Regional Reserved Instances (not Zonal) and not for Reserved Instances from other sellers than AWS. 
+
 
 ## Dedicated host recovery
 
@@ -112,6 +120,7 @@
 * Weighted alias : percentage is a number between 0 and 1
 * When processing an SQS queue, property ReportBatchItemFailures helps re-processing only items that have failed when processing a batch of items
 * When publishing a new version, must specify the current version id. This is to prevent multiple developers publishing versions at the same time that results into conflicts.
+* multi-architecture container images are not supported for Lambda with Docker
 
 # Exceptions
 
@@ -160,3 +169,25 @@ sam local invoke
 
 * LocalCryptoMaterialsCache is provided by AWS SDK and help caching data keys for reuse.
 
+# Parameter Store
+
+* to get a secret string decrypted or unencrypted use flag
+
+```
+--with-decryption | --no-with-decryption
+```
+
+* parameter store params can be shared accross accounts (from Feb 2024)
+
+# ELB
+
+Cross-Zone Load Balancing is always enabled by default for **ALB**
+
+# Billing And Cost Management
+
+* IAM User access must be explicitly activated in Billing and Cost Mgt to allow Users to see the data
+* AWS requires approximately **5** weeks of usage data to generate budget **forecasts**
+
+# ASG
+
+* Target Tracking Policy does not support directly scaling based on ApproximateNumberOfMessages. But it's possible to calculate a custom metric taking account of ApproximateNumberOfMessages, Number of instances in ASG, and acceptable backlog size per instance to use target tracking. More details [here](https://docs.aws.amazon.com/autoscaling/ec2/userguide/as-using-sqs-queue.html)
