@@ -25,7 +25,7 @@ aws ec2 monitor-instances --instance-ids [instances-comma-separated-list]
   * Optionnally install EC2 Instance Connect CLI locally if connection is not browser based
 
 
-### Capacity Resrvations
+## Capacity Resrvations
 
 * Capacity reservation can be shared accross all accounts whether on the same organization or not.
 * Capacity reservation is only supported for Zonal instances, not regional instances
@@ -61,8 +61,13 @@ aws sqs change-message-visibility --queue-url myQueue --receipt-handle MyReceipt
 # ECR
 
 * to retag docker images, use put-image and --image-tag option
+
+```
+aws ecr put-image --repository-name myRepo --image-manifest manifest.json --image-tag myImageTag
+```
+
 * enhanced scanning to use inspector and activate continuous scanning. Must specify filter, without it, no images will be scanned
-* use docker manifest push instead of docker push to push multi architecture images
+* use **docker manifest push** instead of **docker push** to push multi architecture images
 
 # CodeDeploy
 
@@ -123,8 +128,9 @@ aws sqs change-message-visibility --queue-url myQueue --receipt-handle MyReceipt
 
 * for custom platform, needs to specify AMI and associated region
 * cron.yaml file must be provided if a worker must also run periodic tasks
-* Beanstalk creates a new version of application each time a new code is uploaded. Packages are stored on S3 and must be explicity deleted if needed
+* Beanstalk creates a new version of application each time a new code is uploaded. Packages are stored on S3 and must be explicity deleted if needed (Lifecycle policies)
 * Configurations (in .ebextensions) and code must be provided in a single zip file
+* ElasticBeanstalk does not manage any Cloudfront distribution, though it can be created apart.
 
 # DynamoDB
 
@@ -222,13 +228,13 @@ sam local invoke
 
 * Target Tracking Policy does not support directly scaling based on ApproximateNumberOfMessages. But it's possible to calculate a custom metric taking account of ApproximateNumberOfMessages, Number of instances in ASG, and acceptable backlog size per instance to use target tracking. More details [here](https://docs.aws.amazon.com/autoscaling/ec2/userguide/as-using-sqs-queue.html)
 
-# Caching 
+# Caching
 
-* an alternative to write through cache strategy, is to write the data in the backend and invalidate the cache. It can lower the amount of memory the cache uses, by only storing the keys that are effectively used
+* a flavor of mix of lazy loading and write through caching strategy, is to write the data in the backend and invalidate the cache, instead of just setting a TTL to the key. It can lower the amount of memory the cache uses, by only storing the keys that are effectively used
 
 # CloudFront
 
-* failover
+* Failover
   * routes all incoming requests to the primary origin, even when a previous request failed over. It only sends requests to 2ndary after a request the the primary fails.
   * Only failover on GET, HEAD or OPTIONS method.
 * CloudFront functions works only on a viewer request, not for an origin request. Lambda@Edge are the only option in this case. 
