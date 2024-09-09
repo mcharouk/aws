@@ -85,6 +85,7 @@ aws sqs change-message-visibility --queue-url myQueue --receipt-handle MyReceipt
 
 * custom images can be pulled from ECR, Docker hub or any private registry
 * CodeBuild doesn't cache the image
+* you can use CodeBuild Agent, which is a local version of CodeBuild, to quickly debug an issue in the build
 
 # XRay
 
@@ -150,6 +151,10 @@ Status Code 429 is for Too Many Requests. Raised when some services are throttli
 * Object Lock is tied to a specific version of an object
 * Expedited Retrieval is not possible from Glacier Deep Archive.
 * PrincipalOrgPaths condition in Principal to control access to a specific OU
+* Consistency model
+  * if you delete a bucket and immediately list all buckets, the old bucket might still appear in the list
+  * After a successful write of a **new** object, OR an **overwrite** or **delete** of an existing object, any subsequent read request immediately receives the latest version of the object. 
+  * strong consistency for list operations. After a write, you can immediately perform a listing of the objects in a bucket with any changes reflected. 
 
 # Fault Injection Simulator
 
@@ -215,3 +220,18 @@ sam local invoke
 # Caching 
 
 * an alternative to write through cache strategy, is to write the data in the backend and invalidate the cache. It can lower the amount of memory the cache uses, by only storing the keys that are effectively used
+
+# CloudFront
+
+* failover
+  * routes all incoming requests to the primary origin, even when a previous request failed over. It only sends requests to 2ndary after a request the the primary fails.
+  * Only failover on GET, HEAD or OPTIONS method.
+* CloudFront functions works only on a viewer request, not for an origin request. Lambda@Edge are the only option in this case. 
+* Viewer requests are triggered before getting data from the cache or just after retrieving data from the cache.
+
+# API Gateway
+
+* charged only for method-level metrics, not for stage or API-level metrics.
+* For enabling Cloudwatch method level metrics, 
+  * you have to provide a specific IAM role that enables API Gateway to write to CloudWatch Logs.
+  * you have to enable STS for the region
