@@ -1,3 +1,11 @@
+# AWS CLI
+
+* For pagination use  
+  * --page-size
+  * --max-items
+  * --starting-token
+
+
 # EC2
 
 * Multi volume snapshots can snapshot all or part of an EC2 instance. So Resource Type must be Instance when starting a snapshot from the console
@@ -86,6 +94,9 @@ aws sqs change-message-visibility --queue-url myQueue --receipt-handle MyReceipt
 ~/xray-daemon$ ./xray -o
 ```
 * X ray can work cross-regions
+* to configure it cross account
+  * Configure X-Ray daemon to use an IAM instance role
+  * Create a role in the target account and allow roles in each sub-accouts to assume it.
 * Enable **Active Tracing** when there is no upstream service that has x-ray activated
 * Trace header is excluded from SQS message size. It's not part of a message content, but is part of a default http header
 * Lambda environment variables
@@ -98,6 +109,9 @@ aws sqs change-message-visibility --queue-url myQueue --receipt-handle MyReceipt
   * **edge(ServiceA, ServiceB)** select all traces between A and B
   * **annotation\[key\]** filters by annotation
   * **group.name** or **group.arn**
+* to work on ECS
+  *  X-ray agent must be deployed as a **sidecar**
+  *  A correct IAM **task** role must be provided
 
 # Beanstalk
 
@@ -186,7 +200,8 @@ sam local invoke
 
 # ELB
 
-Cross-Zone Load Balancing is always enabled by default for **ALB**
+* Cross-Zone Load Balancing is always enabled by default for **ALB**
+* When ALB does not have any registered target group, it throws an 503 exception (Service Unavailable)
 
 # Billing And Cost Management
 
@@ -196,3 +211,7 @@ Cross-Zone Load Balancing is always enabled by default for **ALB**
 # ASG
 
 * Target Tracking Policy does not support directly scaling based on ApproximateNumberOfMessages. But it's possible to calculate a custom metric taking account of ApproximateNumberOfMessages, Number of instances in ASG, and acceptable backlog size per instance to use target tracking. More details [here](https://docs.aws.amazon.com/autoscaling/ec2/userguide/as-using-sqs-queue.html)
+
+# Caching 
+
+* an alternative to write through cache strategy, is to write the data in the backend and invalidate the cache. It can lower the amount of memory the cache uses, by only storing the keys that are effectively used
