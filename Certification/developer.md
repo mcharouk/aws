@@ -24,13 +24,18 @@ aws ec2 monitor-instances --instance-ids [instances-comma-separated-list]
   * EC2 instance connect must be installed on instance (manual install or use an AMI where it is already installed)
   * Optionnally install EC2 Instance Connect CLI locally if connection is not browser based
 
+
+### Capacity Resrvations
+
+* Capacity reservation can be shared accross all accounts whether on the same organization or not.
+* Capacity reservation is only supported for Zonal instances, not regional instances
+* Capacity Reservation implies no discount and no commitment. It's just a feature to guarantee availability on some EC2 instances types on need.
+* Suppose you have Reserved instances. You release the EC2 instance so that anyone else can take benefit of the discount, he will have the guarantee they will be able to provision such instance, particularly if they are on a highly demanded EC2 instance.
+
 ## Reserved Instances
 
-* Capacity reservation (Reserved Instances) can be shared accross all accounts whether on the same organization or not.
-* Capacity reservation is only supported for Zonal instances, not regional instances
 * It's possible to queue purchase of reserved instances, to be sure reserved instances will be covered without any interruption.
 * Can be queued only on Regional Reserved Instances (not Zonal) and not for Reserved Instances from other sellers than AWS. 
-
 
 ## Dedicated host recovery
 
