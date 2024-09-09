@@ -1,6 +1,6 @@
 # AWS CLI
 
-* For pagination use  
+* For pagination use
   * --page-size
   * --max-items
   * --starting-token
