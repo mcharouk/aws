@@ -1,3 +1,7 @@
+# IAM
+
+* GetSessionToken used to input MFA credentials and retrieve temp credentials. It must be called with long-term user credentials.
+
 # AWS CLI
 
 * For pagination use
@@ -78,6 +82,7 @@ aws ecr put-image --repository-name myRepo --image-manifest manifest.json --imag
   * ApplicationStart
   * ValidateService
 * If deployment log file has been deleted, codeDeploy service must be restarted to create a new one
+* No need to install agent when using with ECS or Lambda. Only EC2 or On-premise requires Agent.
 
 # Code Build
 
@@ -140,6 +145,16 @@ aws ecr put-image --repository-name myRepo --image-manifest manifest.json --imag
   * NONE (default)
   * TOTAL (amount of RCU)
   * INDEXES (amount of RCU for each table and index that was accessed)
+* DynamoDB Streams are in near real time. To process them in real time, they must use Kinesis Adapter.
+
+## Locking
+
+* Optimistic Locking
+  * update based on a version number. Only can update the item if the version has not changed. Prevents changes that can be made by others.
+* Pessimistic Locking
+  * It locks the object in the database, preventing users to update it. This operation can interrupt user operations.
+* Overly optimistic locking
+  * for scenarios where there is no concurrency on a single item. No checks are performed.
 
 # Kinesis 
 
@@ -152,6 +167,8 @@ aws ecr put-image --repository-name myRepo --image-manifest manifest.json --imag
 * When processing an SQS queue, property ReportBatchItemFailures helps re-processing only items that have failed when processing a batch of items
 * When publishing a new version, must specify the current version id. This is to prevent multiple developers publishing versions at the same time that results into conflicts.
 * multi-architecture container images are not supported for Lambda with Docker
+* By default, there's a limit of 1000 concurrent executions for all lambda functions in an account (can be increased to 10 000s)
+* Lambda will keep at least 100 executions unreserved. Max reserved concurrency by default is 900 executions.
 
 # Exceptions
 
@@ -246,3 +263,5 @@ sam local invoke
 * For enabling Cloudwatch method level metrics, 
   * you have to provide a specific IAM role that enables API Gateway to write to CloudWatch Logs.
   * you have to enable STS for the region
+* The cache can be invalidated by the client by setting an HTTP Header. Authorization can be activated to allow only specific users to invalidate it.
+* an API Key must be associated with a usage plan to gain access. The usage plan defines on what API, stages, methods it operates. To associate api keys with a usage plan , use **CreateUsagePlanKey** operation
