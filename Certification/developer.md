@@ -285,3 +285,7 @@ sam local invoke
   * random
   * spread
 * When managing EC2 instances, if an EC2 instance is terminated while it was in stopped status, ECS will not deregister it from the cluster automatically, you have to do it explicitly with the CLI.
+
+# Cloudwatch
+
+* it's possible to change the KMS key associated to a log group, but it must be done with the CLI only
