@@ -26,7 +26,7 @@ aws ec2 monitor-instances --instance-ids [instances-comma-separated-list]
   * Configure IAM roles to be able to connect with Instance Connect
   * Open Inbound SSH on SG
   * EC2 instance connect must be installed on instance (manual install or use an AMI where it is already installed)
-  * Optionnally install EC2 Instance Connect CLI locally if connection is not browser based
+  * Optionally install EC2 Instance Connect CLI locally if connection is not browser based
 
 
 ## Capacity Resrvations
@@ -83,6 +83,7 @@ aws ecr put-image --repository-name myRepo --image-manifest manifest.json --imag
   * ValidateService
 * If deployment log file has been deleted, codeDeploy service must be restarted to create a new one
 * No need to install agent when using with ECS or Lambda. Only EC2 or On-premise requires Agent.
+* To deploy an ECS task, the required params are container name, container port and task definition
 
 # Code Build
 
@@ -101,6 +102,13 @@ aws ecr put-image --repository-name myRepo --image-manifest manifest.json --imag
 * custom images can be pulled from ECR, Docker hub or any private registry
 * CodeBuild doesn't cache the image
 * you can use CodeBuild Agent, which is a local version of CodeBuild, to quickly debug an issue in the build
+
+* CodeBuild can cache the artifacts either on S3 or in local.
+  * Local stores the cache in the container host. It should be used when the build are very frequent, and the artifacts are big in size. [Doc is here](https://confluence.eulerhermes.com/pages/editpage.action?pageId=228559429)
+
+# CodePipeline
+
+* code pipeline can have multiple stages. Each stage can have multiple actions that can be run in parallel.
 
 # XRay
 
@@ -265,3 +273,15 @@ sam local invoke
   * you have to enable STS for the region
 * The cache can be invalidated by the client by setting an HTTP Header. Authorization can be activated to allow only specific users to invalidate it.
 * an API Key must be associated with a usage plan to gain access. The usage plan defines on what API, stages, methods it operates. To associate api keys with a usage plan , use **CreateUsagePlanKey** operation
+
+# ECS
+
+* Cluster Queries are expressions to group objects by AZ, instance type, or any custom attribute that can be set at container instances.
+* Task Placement Constraints : define which instances will be used for tasks. At least one instance must match the constraint.
+  * distinctInstance : Place each task on a distinct instance
+  * memberOf. Place task on container instances that satisfy an expression (can use custom attributes and cluster queries)
+* Task Placement Strategies
+  * binpack
+  * random
+  * spread
+* When managing EC2 instances, if an EC2 instance is terminated while it was in stopped status, ECS will not deregister it from the cluster automatically, you have to do it explicitly with the CLI.
