@@ -19,7 +19,6 @@
 aws ec2 monitor-instances --instance-ids [instances-comma-separated-list]
 ```
 
-
 ## EC2 instance connect
 
 * Necessary steps
@@ -147,7 +146,7 @@ aws ecr put-image --repository-name myRepo --image-manifest manifest.json --imag
 
 # DynamoDB
 
-* for TTL, any field name can be chosen for the expiry timestamp 
+* for TTL, any field name can be chosen for the expiry timestamp
 * can use DynamoDBCrudPolicy policy to give access
 * On a Query, it's possible to return Consumed Capacity. 3 values can be provided
   * NONE (default)

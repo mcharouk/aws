@@ -182,6 +182,29 @@ it's possible to get a stream of event, in a sense of input stream / output stre
 * Etudier comment fonctionnent les websockets de manière macro sur l'API Gateway
 * API Gateway swagger extensions
 
+## Websockets
+
+* routes (like rest endpoints)
+  * connect
+  * disconnect
+  * default
+  * custom
+* route selection expression : the field that points to the route to use. For example if the expression is
+
+```
+$request.body.action
+```
+
+this message will be forwarded to the **joinroom** action
+
+```
+{"action":"joinroom","roomname":"developers"}
+```
+
+* each possible value of action, can be routed to a different backend (MOCK, HTTP, LAMBDA)
+* provide a websocket URL that starts with **wss://**. To be used by the client
+* provide an HTTPS URL that can be used by the server to push messages to the client
+* when using the HTTPS URL, must provide also a connection id that is given at the connect step and should be saved somewhere (in a DB for example) to be able to find the right client to push messages.
 
 ## API gateway steps
 
