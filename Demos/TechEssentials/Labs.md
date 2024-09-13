@@ -102,7 +102,7 @@ Configure S3 and DynamoDB so that the prebuilt web application can access them
   * fill VPC and all subnets
   * !! Put max instance to 4 and not 2 or it will not autoscale... 
   * turn On ELB health checks
-  * Target tracking policy (30% CPU)
+  * Target tracking policy (30% CPU). For some weird reasons, when i created ASG it didn't create the target tracking policy. I had to create it afterwards.
   * create an SNS topic for notification with own email address (must confirm subscription manually)
   * terminate the old instance (that was here from the beginning of the lab)
 * task 5

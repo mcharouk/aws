@@ -129,8 +129,12 @@ it's possible to get a stream of event, in a sense of input stream / output stre
 
 ## Extensions
 
-* An internal extension can be used to add capabilities directly to the handler code because it runs in the same process. For example intercept all http calls to log them or add some headers or anything
-* An external extension does not run within the same process, it works asynchronously, and so it does not impact function performance
+* An internal extension can be used to add capabilities directly to the handler code because it runs in the same process. It can modify process startup 
+  * with language specific env variables (JAVA_TOOL_OPTIONS, NODE_OPTIONS)
+  * by delegating runtime startup to a custom script 
+* An external extension does not run within the same process, it works asynchronously, and so it does not impact function performance.
+  * It can be written in another language
+  * can start before the runtime process and can continue after the runtime shuts down
 * Lambda extension comes as a **lambda layer**
 * Third parties extensions
   * Dynatrace, datadog, etc... provides external extensions to add monitoring metrics, traces, etc..
