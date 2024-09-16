@@ -1,3 +1,18 @@
+# Technical Foundations
+
+## Model
+
+* Model store deeper and larger content that other ML models that are more specialized
+* 2 constraints
+  * Have sufficient quality training data
+  * Have sufficient power calculation
+
+## Transformers
+
+* Easy to parallelize
+* retain location of words, can bind a word to its context. Captures importance of each word in a sentence and relationship between words.
+* **Position encoders** encode words position and can differentiate the meaning of a word based on its position in a sentence.
+
 # Risks and Mitigations
 
 ## Fairness
@@ -68,7 +83,26 @@ This is a hallucination because the Mona Lisa was actually painted in 1503-1506.
 * *Understand* : consider the impact genAI will have on employees. This will determine the level and effort needed
 
 
+## Prepare your employees
 
+* Educate your employees. The natural reaction in front of something that we don't understand is fear.
+* **Think scale, not replace**. 
+  * Scale on market : GenAI can give ideas that the company never had before, so it drives innovation.
+    * improve marketing campaign
+    * create new products and services
+  * Scale on number of tasks : GenAI can be seen as an assistant to be more efficient (for example developers will not disappear because of IA)
+    * increase efficiency
+    * reduce costs
+    * improve customer service
+  * Scale on new roles
+
+### Feedback loop
+
+* Encourage staff to share thoughts and worrying
+* Put IA in place that it is practical and useful for employees
+* Create a feedback loop to improve the product
+
+* Make analogy with computer, smartphones, etc... It's an opprtunity to learn new tech, new ways of doing, but without losing every knowledge they have already acquired.
 
 
 # GenAI Services
@@ -81,6 +115,7 @@ This is a hallucination because the Mona Lisa was actually painted in 1503-1506.
     * Many connectors
     * Implement Guardrails
     * Implement responses fallback on plugins, or on LLM answers 
+* Q Apps on top of Q for Business
 
 ## Q for developers
 
