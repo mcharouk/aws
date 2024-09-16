@@ -28,11 +28,11 @@ aws ec2 monitor-instances --instance-ids [instances-comma-separated-list]
   * Optionally install EC2 Instance Connect CLI locally if connection is not browser based
 
 
-## Capacity Resrvations
+## Capacity Reservations
 
 * Capacity reservation can be shared accross all accounts whether on the same organization or not.
 * Capacity reservation is only supported for Zonal instances, not regional instances
-* Capacity Reservation implies no discount and no commitment. It's just a feature to guarantee availability on some EC2 instances types on need.
+* Capacity Reservation implies no discount and no commitment. It's just a feature to guarantee availability on some EC2 instances types on need. But there are additional charges during the time of reservation (same pricing that if EC2 was up and running).
 * Suppose you have Reserved instances. You release the EC2 instance so that anyone else can take benefit of the discount, he will have the guarantee they will be able to provision such instance, particularly if they are on a highly demanded EC2 instance.
 
 ## Reserved Instances
@@ -280,9 +280,9 @@ sam local invoke
   * distinctInstance : Place each task on a distinct instance
   * memberOf. Place task on container instances that satisfy an expression (can use custom attributes and cluster queries)
 * Task Placement Strategies
-  * binpack
+  * binpack (save mximum resources): can be configured with CPU or Memory
   * random
-  * spread
+  * spread (by instances id, or AZ)
 * When managing EC2 instances, if an EC2 instance is terminated while it was in stopped status, ECS will not deregister it from the cluster automatically, you have to do it explicitly with the CLI.
 
 # Cloudwatch
