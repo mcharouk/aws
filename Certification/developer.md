@@ -1,6 +1,14 @@
 # IAM
 
 * GetSessionToken used to input MFA credentials and retrieve temp credentials. It must be called with long-term user credentials.
+* To simulate a policy with CLI, use commands below
+  * first one is to get all the context keys needed by the policy (IP address, dates, etc...)
+  * second one is to simulate
+  
+```
+aws iam get-context-keys-for-custom-policy
+aws iam simulate-custom-policy
+```
 
 # AWS CLI
 
@@ -133,9 +141,17 @@ aws ecr put-image --repository-name myRepo --image-manifest manifest.json --imag
   * **annotation\[key\]** filters by annotation
   * **group.name** or **group.arn**
 * to work on ECS
-  *  X-ray agent must be deployed as a **sidecar**
+  *  X-ray agent must be deployed as a **sidecar** if it's on Fargate. On EC2, it can be deployed as a sidecar or as a deamonset.
   *  A correct IAM **task** role must be provided
 * GetTraceSummaries : can get data by TraceId and EventTime only
+* These attributes are required when sending a segment to X-ray
+  * Name
+  * Id 
+  * trace_id
+  * start_time
+  * end_time
+  * in_progress
+
 # Beanstalk
 
 * for custom platform, needs to specify AMI and associated region
@@ -166,16 +182,18 @@ aws ecr put-image --repository-name myRepo --image-manifest manifest.json --imag
 # Kinesis 
 
 * IteratorAge (now deprected in favour of **IteratorAgeMilliseconds**). Time difference between now and last GetRecord call to the stream. This can indicates that consumer is lagging to process all messages 
+* Kinesis streams have encryption at rest automatically activated
 
 # Lambda
 
 * MobileSDK can be used to get easy information on devices using Context object.
 * Weighted alias : percentage is a number between 0 and 1
-* When processing an SQS queue, property ReportBatchItemFailures helps re-processing only items that have failed when processing a batch of items
+* When processing an SQS queue, property ReportBatchItemFailures helps re-processing only items that have failed when processing a batch of items. It's a property that should be return in the lambda response and that contains all the items that have failed. They will be retried at a latter time.
 * When publishing a new version, must specify the current version id. This is to prevent multiple developers publishing versions at the same time that results into conflicts.
 * multi-architecture container images are not supported for Lambda with Docker
-* By default, there's a limit of 1000 concurrent executions for all lambda functions in an account (can be increased to 10 000s)
-* Lambda will keep at least 100 executions unreserved. Max reserved concurrency by default is 900 executions.
+* By default, 
+  * there's a limit of 1000 concurrent executions for all lambda functions in an account (can be increased to 10 000s)
+  * Lambda will keep at least 100 executions unreserved. Max reserved concurrency by default is 900 executions.
 
 # Exceptions
 
@@ -280,7 +298,7 @@ sam local invoke
   * distinctInstance : Place each task on a distinct instance
   * memberOf. Place task on container instances that satisfy an expression (can use custom attributes and cluster queries)
 * Task Placement Strategies
-  * binpack (save mximum resources): can be configured with CPU or Memory
+  * binpack (save maximum resources): can be configured with CPU or Memory
   * random
   * spread (by instances id, or AZ)
 * When managing EC2 instances, if an EC2 instance is terminated while it was in stopped status, ECS will not deregister it from the cluster automatically, you have to do it explicitly with the CLI.
