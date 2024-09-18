@@ -25,7 +25,8 @@ ASGDemo
   * No group metrics collection
   * Desired 1, Min 1, Max 2
   * No scaling policies
-* Try to kill the created instance to show it's automatically restarted. Might take a few minutes to detect instance has been terminated
+
+* If there is time only : Try to kill the created instance to show it's automatically restarted. Might take a few minutes to detect instance has been terminated
 
 ## Cloudwatch
 
@@ -33,6 +34,7 @@ Alarm Name
 ```
 ASGScaleOutDemoAlarm
 ```
+
 
 * create an alarm on metric EC2 / By AutoscalingGroup / ASGDemo / CPUUtilization
 * Statistic : Average

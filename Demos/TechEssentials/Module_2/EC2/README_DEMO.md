@@ -1,7 +1,13 @@
 # Demo steps
 
-* !! Step 1 : Don't forget to assign a public ip to the instance at startup !!
+## Step 1, during Module 2
 
+* create an EC2 instance
+* **Don't forget to assign a public ip to the instance at startup**
+* Assign Security Group
+* Assign IAM Instance Role (for SSM)
+
+## Step 2, during Module 3
 
 * create an internet gateway
 * create a route table that routes to IGW

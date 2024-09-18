@@ -9,9 +9,26 @@
 
 ## Transformers
 
-* Easy to parallelize
-* retain location of words, can bind a word to its context. Captures importance of each word in a sentence and relationship between words.
-* **Position encoders** encode words position and can differentiate the meaning of a word based on its position in a sentence.
+* Easy to parallelize, because it processes a sentence as a whole, not word by word, like former models (RNN -> Recurent Neural Network)
+  * **Position encoders** encode words position. Learns the importance of word order
+  * Self attention
+    * know which word it's attending to based on previous words. Learned from data. Like this, it can learn all the grammatical rules. 
+    * remember the context around a word. Captures importance of each word in a sentence and relationship between words.
+    * can understand the underlying concept behind a sentence. Much more powerful than previous methods for translation.
+  
+* Transformers are made of encoders and decoders. Encoders capture the meaning, decoder can restitue the result, according tho the meaning.
+
+* bank : homonyme anglais de **banque** et **rive**
+
+* Words are transformed in tokens. Tokens are encoded in multidimensional vectors
+
+## Tuning a Model
+
+use cases : 
+
+* Domain-specific language generation : learn the specific terminology, style, and conventions of a domain
+* Code generation for specific programming languages or frameworks
+* Task-specific performance improvement: For tasks like sentiment analysis, named entity recognition, or text classification in specific contexts, fine-tuning can significantly improve the model's accuracy compared to prompt-based approaches
 
 # Risks and Mitigations
 
@@ -55,15 +72,17 @@ This is a hallucination because the Mona Lisa was actually painted in 1503-1506.
 * Bedrock guardrails can filter content provided by user or by LLM
   * can filter harmful content (hate, insults, sexual, violence, misconduct, prompt attack)
   * can provide topics that are denied. For example the LLM will not be able to reply to questions about security, finance, etc...
-  * Sensitive information filtering (PII)
+  * Sensitive information filtering (PII) (  [list of blocked or masked attributes](https://docs.aws.amazon.com/bedrock/latest/userguide/guardrails-sensitive-filters.html)  )
   * Word filters : provide a list of words or sentences that are denied
   * Grounding : Check response accuracy based on your entreprise data (RAG)
+
+
 
 # GenAI Organization Overview
 
 * People first approach : investment in technology + change of culture
   * Provide people the training and the resources to effectively use GenAI technology
-  * Implements processes and governance
+  * Implements processes and governance (to ensure responsible and ethical use of the technology)
   * Requires full implication of C-level executives, director and senior leaders
 
 ## Start with leaders
@@ -100,10 +119,64 @@ This is a hallucination because the Mona Lisa was actually painted in 1503-1506.
 
 * Encourage staff to share thoughts and worrying
 * Put IA in place that it is practical and useful for employees
-* Create a feedback loop to improve the product
+* Create a feedback loop to improve the product. Might ask the users to rate the response, provide multiple FM models to see which one people prefer
 
 * Make analogy with computer, smartphones, etc... It's an opprtunity to learn new tech, new ways of doing, but without losing every knowledge they have already acquired.
 
+
+## Team Success
+
+* Transparency : for GenAI to display its sources
+* When building with SageMaker, use Clarify to explain the model
+* Security : encryption, data access (IAM), guardrails on PPI
+
+## GenAI & Cloud Operating Model
+
+Impacts on Cloud Operating Model : 
+
+* Enhanced Automation: Automate routine tasks, allowing your team to focus on strategic initiatives.
+* Innovation Acceleration: Develop and deploy new AI-driven services quickly.
+* Efficient Resource Management: Optimize cloud resources and reduce operational costs.
+* Improved Decision Making: Leverage AI for data-driven insights and predictive analytics.
+
+A Robust Cloud Operating Model supports : 
+
+* Smooth Integration: **Seamlessly incorporate AI** into your cloud strategy.
+  * Focus on DQ and data availability
+* Skill Development: **Upskill your workforce** to handle AI-powered tools and platforms.
+  * Collaborate with experts in the field
+* Scalability: **Ensure your cloud infrastructure can scale** with AI demands.
+  * Invest in Cloud Infrastructure
+* Governance: **Maintain strong oversight and compliance** as AI capabilities grow.
+  * Prioritize Security And Privacy
+  * Transparency and accountability
+  * Ethical principles and guidelines
+
+### Envision
+
+* It's about having a vision of how GenAI will impact the business 
+  * who are the stakeholders involved ? 
+  * What are desired outcomes
+  * what KPIs ?
+  * Are we mature enough ?
+  * create a clear vision and roadmap for leveraging Gen AI to achieve their business objectives
+
+### Discover
+
+* Discover the different uses cases by , aligned with desired outcomes defined in Envision step
+* Discover the challenges, security concerns, ethical issues.
+
+### Build
+
+* Define clear guidelines and processes for integrating Gen AI into your cloud environment. Ensure alignment with existing governance and compliance frameworks.
+* Investing in Skills and Training
+* Adapt Cloud Infrastructure to prepare for GenAI
+
+### Deliver
+
+* Implement small scale AI Projects as POC to demonstrate technology potential
+* Graudally integrate successfull applications in daily operations. Prioritize solutions with high impact and clear ROI.
+* Always creates the feedback loop to evaluate results and to scale up your GenAI initiatives with new model or services.
 
 # GenAI Services
 
@@ -134,3 +207,29 @@ This is a hallucination because the Mona Lisa was actually painted in 1503-1506.
 * Reachability Analyzer (troobleshoot network issues)
 * Redshift (generate SQL Queries)
 * ChatBot (integrated with chat groups). Chatbot can integrate with Teams, Slack and Chime
+
+
+## Bedrock
+
+[Use case](https://aws.amazon.com/solutions/case-studies/sbi-life-case-study/?did=cr_card&trk=cr_card)
+
+### Health care
+
+[Pfizer](https://aws.amazon.com/solutions/case-studies/pfizer-PACT-case-study/?did=cr_card&trk=cr_card)
+
+* The development of one drug can result in approximately **20,000 documents**, and scientists often must look for data **manually** using a variety of tools to find historical data
+* Pfizer uses Amazon Kendra to index documents
+* PACT teams now use generative AI, accessing Anthropic’s Claude 2.1 through Amazon Bedrock, to summarize results and to provide orders in natural language
+* give order by chat or by voice
+* Pfizer estimates that, annually, scientists could save up to **16,000 hours** of searching and extracting data
+  
+### Media
+
+[ABP News](https://aws.amazon.com/solutions/case-studies/abp-network/?did=cr_card&trk=cr_card)
+
+* ABP News is an Indian Television news channel
+* ABP Network posts content on social networks across 8 languages
+* use Bedrock to generate up to 170 variations of the same image to pick the best one. 10s only needed for that operation, by using simple prompts.
+* up to 10 percent boost in audience engagement and click-through rates on ABP LIVE
+* eliminated the need of purchasing costly stock images.
+* image turnaround is now **5x faster**, with a **50%** cost reduction

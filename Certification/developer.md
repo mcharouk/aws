@@ -135,7 +135,7 @@ aws ecr put-image --repository-name myRepo --image-manifest manifest.json --imag
 * to work on ECS
   *  X-ray agent must be deployed as a **sidecar**
   *  A correct IAM **task** role must be provided
-
+* GetTraceSummaries : can get data by TraceId and EventTime only
 # Beanstalk
 
 * for custom platform, needs to specify AMI and associated region
