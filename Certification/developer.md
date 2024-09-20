@@ -306,3 +306,10 @@ sam local invoke
 # Cloudwatch
 
 * it's possible to change the KMS key associated to a log group, but it must be done with the CLI only
+* CloudWatch embedded metric format allows to easily create custom metrics from logs
+  * You send metrics by using a log format and cloudwatch will convert them into metrics
+
+
+# StepFunction
+
+* can user StepFunction Local to test step un local and using mock integrations

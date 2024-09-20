@@ -17,10 +17,22 @@
     * can understand the underlying concept behind a sentence. Much more powerful than previous methods for translation.
   
 * Transformers are made of encoders and decoders. Encoders capture the meaning, decoder can restitue the result, according tho the meaning.
+* Words are transformed in tokens. Tokens are encoded in multidimensional vectors
 
 * bank : homonyme anglais de **banque** et **rive**
 
-* Words are transformed in tokens. Tokens are encoded in multidimensional vectors
+## Context
+
+* Context Window is the number of tokens the model can take as input when generating responses. Typically a few thousands words, depends on the model
+
+## Inference parameters
+
+* Max New Tokens : max number of tokens a LLM can produce
+* Top K : the model returns a dict with probabilities attached to each word. When using Top K, we select the next word from the top K words with the highest probabilities
+* Repetition Penalty : discourage the repetition of tokens in generated text
+* Temperature : adjusts the level of randomness when selecting the next token. A higher temperature value indicates a broader and more evenly distributed probability range, promoting greater diversity in token selection, that is creativity. On the other hand, a lower temperature value results in a more focused and peaked probability distribution, leading to less variation and potentially more conservative choices.
+* Do Sample : determines whether the model selects the next token based on their probabilities or simply chooses the token with the highest probability. False means get only highest probability
+
 
 ## Tuning a Model
 
@@ -208,28 +220,3 @@ A Robust Cloud Operating Model supports :
 * Redshift (generate SQL Queries)
 * ChatBot (integrated with chat groups). Chatbot can integrate with Teams, Slack and Chime
 
-
-## Bedrock
-
-[Use case](https://aws.amazon.com/solutions/case-studies/sbi-life-case-study/?did=cr_card&trk=cr_card)
-
-### Health care
-
-[Pfizer](https://aws.amazon.com/solutions/case-studies/pfizer-PACT-case-study/?did=cr_card&trk=cr_card)
-
-* The development of one drug can result in approximately **20,000 documents**, and scientists often must look for data **manually** using a variety of tools to find historical data
-* Pfizer uses Amazon Kendra to index documents
-* PACT teams now use generative AI, accessing Anthropic’s Claude 2.1 through Amazon Bedrock, to summarize results and to provide orders in natural language
-* give order by chat or by voice
-* Pfizer estimates that, annually, scientists could save up to **16,000 hours** of searching and extracting data
-  
-### Media
-
-[ABP News](https://aws.amazon.com/solutions/case-studies/abp-network/?did=cr_card&trk=cr_card)
-
-* ABP News is an Indian Television news channel
-* ABP Network posts content on social networks across 8 languages
-* use Bedrock to generate up to 170 variations of the same image to pick the best one. 10s only needed for that operation, by using simple prompts.
-* up to 10 percent boost in audience engagement and click-through rates on ABP LIVE
-* eliminated the need of purchasing costly stock images.
-* image turnaround is now **5x faster**, with a **50%** cost reduction
