@@ -56,6 +56,9 @@ use cases :
 
 * careful about using public AI models. You're private data can be used for training and so could be reused in answers
 * For example AI could reuse code to answer developers with some light modifications like changing variable names
+* Legal ambiguities on copyrights :
+  * Generate paintings in the style of someone
+  * Get the voice of some singer and use it in some song.
 
 ## Toxicity
 
@@ -63,17 +66,18 @@ use cases :
 * it's not easy for an LLM sometimes to differentiate between unappropriate content and opinions.
 * LLM can be manipulated with prompts or have biased that comes from the training data
 
-
 ## Hallucinations
 
-User input: "When did Leonardo da Vinci paint the Mona Lisa?"
+* User input: "When did Leonardo da Vinci paint the Mona Lisa?"
 AI-generated response: "Leonardo da Vinci painted the Mona Lisa in 1815."
 This is a hallucination because the Mona Lisa was actually painted in 1503-1506. The AI model has made a mistake because it is not trained on enough data about the Mona Lisa
 
+* When filing a response, lawyers for the plaintiff (demandeur) cited at least six other cases to show precedent, but the court found that the cases didn’t exist and had “bogus judicial decisions with bogus quotes and bogus internal citations,” leading a federal judge to consider sanctions. A member of the law team then revealed he had used a generative AI model to conduct legal research for the court filing that referenced the cases and that the artificial intelligence tool assured him the cases were real.
 
 ## Plagiarism and cheating
 
 * the issue is how it can be used by LLM users. For example, for education assignments, students can just copy/paste the content. Hard to detect that it came from an IA
+* there are some [detectors](https://www.zerogpt.com/) that can evaluate if some content has been written by a genAI or not.
 
 ## Disruption of the nature of work
 
@@ -88,7 +92,9 @@ This is a hallucination because the Mona Lisa was actually painted in 1503-1506.
   * Word filters : provide a list of words or sentences that are denied
   * Grounding : Check response accuracy based on your entreprise data (RAG)
 
-
+* Try to test multiple model to consider the best one
+* Keep a human in the loop / Generative AI-assisted reviews
+* Prompting / RAG (RAG against hallucinations) / Model parameters
 
 # GenAI Organization Overview
 
@@ -142,9 +148,10 @@ This is a hallucination because the Mona Lisa was actually painted in 1503-1506.
 * When building with SageMaker, use Clarify to explain the model
 * Security : encryption, data access (IAM), guardrails on PPI
 
+
 ## GenAI & Cloud Operating Model
 
-Impacts on Cloud Operating Model : 
+Impacts on [Cloud Operating Model](https://docs.aws.amazon.com/prescriptive-guidance/latest/strategy-cloud-operating-model/introduction.html#key-concepts): 
 
 * Enhanced Automation: Automate routine tasks, allowing your team to focus on strategic initiatives.
 * Innovation Acceleration: Develop and deploy new AI-driven services quickly.
@@ -168,15 +175,27 @@ A Robust Cloud Operating Model supports :
 
 * It's about having a vision of how GenAI will impact the business 
   * who are the stakeholders involved ? 
-  * What are desired outcomes
+  * What are desired outcomes ?
   * what KPIs ?
-  * Are we mature enough ?
-  * create a clear vision and roadmap for leveraging Gen AI to achieve their business objectives
+  * create a clear vision and roadmap for leveraging Gen AI to achieve their business objectives ?
+  * Discover the challenges, security concerns, ethical issues.
+
+* how to find use cases
+  * customer success stories, news
+  * search for pain points for your employees and search when GenAI can help (Working Backwards)
+
+* To know if GenAI is the good techno for a use case
+  * can i add sufficient guardrails ?
+  * can i break the problem in the sub tasks ?
+  * Can i reuse or extend existing capabilities ?
+  * What skill sets does my team have ?
+
+[Generative AI Innovation Center](https://aws.amazon.com/ai/generative-ai/innovation-center/)
 
 ### Discover
 
-* Discover the different uses cases by , aligned with desired outcomes defined in Envision step
-* Discover the challenges, security concerns, ethical issues.
+* Evaluate the your current cloud capabilities, prior to generative AI, to benchmark maturity. 
+* Consult with operational leaders to identify any team constraints and upskilling opportunities.
 
 ### Build
 
@@ -186,9 +205,25 @@ A Robust Cloud Operating Model supports :
 
 ### Deliver
 
-* Implement small scale AI Projects as POC to demonstrate technology potential
-* Graudally integrate successfull applications in daily operations. Prioritize solutions with high impact and clear ROI.
-* Always creates the feedback loop to evaluate results and to scale up your GenAI initiatives with new model or services.
+* Develop a road-map for implementation steps of the new model.
+* Measure your improvements against original desired outcomes. 
+* Test and refine the model as your organization continues developing your generative AI capabilities.
+
+
+## Key for Success
+
+* People enablement
+  * experts
+  * data strategy
+  * cloud infrastructure
+  * Prioritize Security
+    * data security
+    * be transparent and accountable
+  * Continuously evaluate and improve
+    * data refresh
+    * upgrades
+    * testing, validation
+* Governance
 
 # GenAI Services
 
