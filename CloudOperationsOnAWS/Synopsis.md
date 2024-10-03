@@ -140,30 +140,48 @@ cfn-wire contains logs of signal calls from EC2 to Cloudformation. It can be use
   * AppConfig / Parameter Store
   * Automation Document with State Manager
 
+## Fleet Manager
+
 * Fleet Manager allows to connect to instances, view file structure, log files, change windows registry... without to ssh to the instance. It's a convenient way to manage a fleet of servers.
+
+## State Manager / Maintenance Windows
 * State manager vs Maintenance Windows
   * They both can run scripts on schedule on a set of instance.
   * State manager [can run commands as soon as](https://docs.aws.amazon.com/systems-manager/latest/userguide/systems-manager-state-manager-targets-and-rate-controls.html#systems-manager-state-manager-targets-and-rate-controls-about-targets:%7E:text=If%20you%20create%20new,uses%20an%20Automation%20runbook.) a new instance is created for example by an autoscaling group. Maintenance windows works only by schedules.
   * State manager report instances that do not comply, they can be seen in application manager for example, or Compliance. Maintenance Windows do not report anything
   * Maintenance Windows can run Automation documents. State manager runs only RunCommands on managed nodes, although it can run automation documents on other resources like S3
 
+## Explorer
+
 * Explorer shows aggregated data on all resources. Application Manager show aggregated data on a set of resources. Data shown is not exactly the same
+  * Widgets
+  * Filters
+  * Direct link to service screens
+  * Group by Account, region, tag
+  * Reporting (csv generation on S3 bucket)
 
 * OpsCenter, Explorer and Change Manager integrates with AWS Organizations.
 
 ## OpsCenter
 
-can integrate data from cloudtrail logs. Here are some examples : 
+* Standardize format of operational work items (OpsItem) while providing contextual data 
+* Features
+  * Automatic and Manual creation
+  * Searchable
+  * Bulk Edit (Status, Priority, Severity, Category)
+  * Remediation (Define Runbooks with System Manager Automation)
+  * Notification
+  * Summary reports (KPIs dashboard)
+* can integrate data from cloudtrail logs. Here are some examples
+  * **Unauthorized API Calls**: CloudTrail logs can capture API calls made to AWS services, including those that may be unauthorized or suspicious. An OpsItem could be created to investigate and remediate any unauthorized API calls.
 
-* **Unauthorized API Calls**: CloudTrail logs can capture API calls made to AWS services, including those that may be unauthorized or suspicious. An OpsItem could be created to investigate and remediate any unauthorized API calls.
+  * **Resource Configuration Changes**: CloudTrail logs record changes made to AWS resources, such as creating, modifying, or deleting resources. An OpsItem could be created to track and investigate any unexpected or unauthorized resource configuration changes.
 
-* **Resource Configuration Changes**: CloudTrail logs record changes made to AWS resources, such as creating, modifying, or deleting resources. An OpsItem could be created to track and investigate any unexpected or unauthorized resource configuration changes.
+  * **Failed Deployments**: CloudTrail logs can capture failed deployments or provisioning attempts, which could indicate an issue with your infrastructure or deployment process. An OpsItem could be created to investigate and resolve these failures.
 
-* **Failed Deployments**: CloudTrail logs can capture failed deployments or provisioning attempts, which could indicate an issue with your infrastructure or deployment process. An OpsItem could be created to investigate and resolve these failures.
+  * **Security Incidents**: CloudTrail logs can record security-related events, such as changes to IAM policies or roles, or access to sensitive resources. An OpsItem could be created to investigate and respond to potential security incidents identified from the CloudTrail logs.
 
-* **Security Incidents**: CloudTrail logs can record security-related events, such as changes to IAM policies or roles, or access to sensitive resources. An OpsItem could be created to investigate and respond to potential security incidents identified from the CloudTrail logs.
-
-* **Compliance Violations**: CloudTrail logs can be used to monitor for compliance violations, such as resources being created or modified outside of your organization's policies. An OpsItem could be created to address and remediate any identified compliance issues.
+  * **Compliance Violations**: CloudTrail logs can be used to monitor for compliance violations, such as resources being created or modified outside of your organization's policies. An OpsItem could be created to address and remediate any identified compliance issues.
 
 ## AWS Chatbot
 
@@ -212,6 +230,14 @@ AWS-AttachIAMToInstance
 * possible to create changes without any approvment process
 * cloudwatch alarm to monitor change, and rollback if alarm is triggered
 
+## Application Manager
+
+* View CloudFormation Stacks, Applications (based on tags, resource groups), service catalogs, automation document in a single pane of glass
+* Display opsitems, cost explorer widget, application insights, alarms, cloudwatch logs
+* See resources associated with application. 
+  * Can execute runbooks on each of these resources
+  * Can see AWS Config, cloudtrail logs, alarms related to these resources
+
 ## Patch Manager
 
 ### AWS-AmazonLinux2023DefaultPatchBaseline
@@ -239,7 +265,7 @@ AWS-AttachIAMToInstance
 
 ### Metrics
 
-Common scenarios for an RST (Reset) packet :
+Reset packets are used to abruptly terminate TCP connections :
 
 * When a host receives a packet for a port that isn't open
 * To reject an unwanted connection attempt

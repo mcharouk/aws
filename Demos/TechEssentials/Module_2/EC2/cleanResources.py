@@ -1,33 +1,33 @@
-import time
-
 import boto3
 
 # select all ec2 instances in vpc named ComputeDemo
 
 ec2 = boto3.client("ec2")
 vpc_list = ec2.describe_vpcs(Filters=[{"Name": "tag:Name", "Values": ["ComputeDemo"]}])
+
+if (len(vpc_list["Vpcs"])) == 0:
+    print("no vpc named ComputeDemo")
+    exit(0)
+
 vpc_id = vpc_list["Vpcs"][0]["VpcId"]
 
 ec2_res = boto3.resource("ec2")
 vpc = ec2_res.Vpc(vpc_id)
-vpc.instances.all().terminate()
 
-all_instances_terminated = False
-while all_instances_terminated == False:
-    running_instances = ec2.describe_instances(
-        Filters=[
-            {"Name": "instance-state-name", "Values": ["running", "shutting-down"]}
-        ]
-    )
-    if (
-        len(running_instances["Reservations"]) != 0
-        and len(running_instances["Reservations"][0]["Instances"]) != 0
-    ):
-        print("waiting for instances to terminate")
-        time.sleep(5)
-    else:
-        all_instances_terminated = True
-        print("all instances terminated in vpc " + vpc_id)
+# get all instances id in vpc
+
+instances = vpc.instances.all()
+instance_ids = [instance.id for instance in instances]
+print("instance ids in vpc " + vpc_id + " are " + str(instance_ids))
+
+if len(list(instances)) > 0:
+    print("terminating instances in vpc " + vpc_id)
+    instances.terminate()
+    waiter = ec2.get_waiter("instance_terminated")
+    waiter.wait(InstanceIds=instance_ids)
+    print("instances terminated in vpc " + vpc_id)
+else:
+    print("no instances in vpc " + vpc_id)
 
 subnet_list = ec2.describe_subnets(Filters=[{"Name": "vpc-id", "Values": [vpc_id]}])
 subnet_id = subnet_list["Subnets"][0]["SubnetId"]
