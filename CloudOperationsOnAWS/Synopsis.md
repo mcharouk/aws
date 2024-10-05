@@ -26,10 +26,34 @@
   * Ca peut être aussi de montrer Session Manager, la configuration et la partie audit.
   * Session Manager. Port forward sur du RDP Windows
 
+## CloudShell
+
+* /mnt/efs : temp data (does not persist across sessions)
+* /mnt/persistent : persistent data
+* use S3 when need more space
+* git is installed so use it to save code
+* not suitable for long running process (close after 20 min of inactivity)
+
+
+## AWS Config
+
 * AWS Config peut s'intégrer avec Systems Manager Inventory pour détecter les changements dans l'inventaire et stocker l'historique des changements (applications installées, windows registry, etc...)
 * AWS Config s'intègre à Organizations dans un double sens
   * un Aggregator à configurer dans le compte d'administrateur. On peut aggéger les configurations et findings de différents comptes ou de tous les comptes d'une organisation donnée
   * Des Organization rules peuvent être définis dans le compte d'administrateur qui se déploieront dans les comptes de l'organization. Cela permet de manager des règles communes de manière centralisé
+* AWS Config à des capacités de recherche dans l'inventaire (feature named *Advanced Queries*)
+  * SQL-like
+  * NLP (Bedrock)
+* Track relationship between items. This example queries all EC2 and ENI link to a specific SG
+
+```
+SELECT 
+    resourceId 
+WHERE 
+    resourceType IN ('AWS::EC2::Instance', 'AWS::EC2::NetworkInterface') 
+    AND relationships.resourceId = 'sg-abcd1234'
+```
+* [More information](https://docs.aws.amazon.com/config/latest/developerguide/querying-AWS-resources.html)
 
 # Module 4 : Deploy And Update Resources
 
@@ -127,7 +151,12 @@ Account Factory Customization is an account creation blueprint
 
 ## Cloudformation
 
-cfn-wire contains logs of signal calls from EC2 to Cloudformation. It can be used to debug for example a network issue between cloudformation and EC2
+* CreationPolicy only blocks current resource, not all the stack, unlike WaitCondition
+* CreationPolicy only available for following resources
+  * EC2
+  * ASG
+  * AppStream
+* cfn-wire contains logs of signal calls from EC2 to Cloudformation. It can be used to debug for example a network issue between cloudformation and EC2
 
 ## Service Catalog
 
@@ -417,10 +446,18 @@ Demo :
 * GP2
   * performance relative to the volume size
   * performance is burstable
+  * Throughput  
+    * Volumes < 170 GB : Max 128 Mbps
+    * 170 Gb < Volumes < 334 GB : Max 250 Mbps
+    * volumes > 334 GB : 250 Mbps
 * IOPS :
   * Like GP2, IOPS is tied to volume size but
     * IOPS : Maximum of 500 IOPS / GB allocated
     * GP2 : Maximum of 3 IOPS / GB allocated
+  * EBS-Optimized instances deliver dedicated throughput to EBS depending on the instance type used. Example
+    * a m4.large has a max Throughput of 56.25 Mbps
+    * a m7a.8xlarge has a max Throughput of 1350 Mbps
+    * listing [here](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ebs-optimized.html#current)
 
 ### Updating an EBS
 
