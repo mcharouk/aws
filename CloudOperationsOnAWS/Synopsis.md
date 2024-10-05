@@ -445,17 +445,22 @@ When we make a change on EBS (like changing disk size or performance), we have t
 
 # Module 13 : Object Storage
 
+* Montrer la replication en plus de ce que je montre d'habitude
+
 ## Express One-Zone
  
 * Directory buckets
   * no flat storage, organized in directories
   * Only use storage class One-Zone
-* Montrer la replication en plus de ce que je montre d'habitude
 * [Use case Express One Zone](https://aws.amazon.com/blogs/storage/clickhouse-cloud-amazon-s3-express-one-zone-making-a-blazing-fast-analytical-database-even-faster/)
+* En général ce sont des use cases qui matchent bien avec S3 (analytics, data science, données non structurées), write-once/read-many mais avec quelques spécificités
+  * besoin d'un accès à faible latence
+  * bcp de petits fichiers. La latence de S3 standard est en effet négligeable si il s'agit peu de gros fichiers. C'est le nombre de fichiers qui pose surtout problème.
+  * Exemple : on souhaite récupérer plein d'images pour faire du training de machine learning. Le temps de récupération de ces images se fera sentir sur un S3 standard.
 *  [Explications](https://community.aws/content/2ZDARM0xDoKSPDNbArrzdxbO3ZZ/s3-express-one-zone)
-  * stocke les données sur une seule AZ, réduit la latence je pense en particulier en écriture. Amélioration en lecture qd le compute se trouve dans la même AZ.
+  * stocke les données sur une seule AZ, réduit la latence je pense en particulier en écriture. Amélioration en lecture surtout qd le compute se trouve dans la même AZ.
   * Un directory bucket récupère à sa création de la puissance pour supporter plusieurs dizaines de milliers de transactions par secondes (IO). Il ne croit pas graduellement en fonction de la demande comme sur les autres classes, donc il n'a pas de problème en cas de burst soudain comme c'est le cas pour des workloads de machine learning.
-  * a un concept de session pour s'authentifier. Il ne s'uthentifie pas à chaque requête mais plutôt est basé sur un token qu'on repasse pendant un temps determiné, pour minimiser la latence dû à l'authentification. La session donne accès à la totalité du bucket en lecture, ou écriture ou ReadWrite. Pas de distinction entre les objets d'un bucket.
+  * a un concept de session pour s'authentifier. Il ne s'authentifie pas à chaque requête mais plutôt est basé sur un token qu'on repasse pendant un temps determiné, pour minimiser la latence dû à l'authentification. La session donne accès à la totalité du bucket en lecture, ou écriture ou ReadWrite. Pas de distinction entre les objets d'un bucket.
 * Up to 10x times faster than S3 standard
 * Requests costs are reduced (50%)
 

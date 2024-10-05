@@ -100,11 +100,32 @@ Note : ParallelCluster is an open source tool (released by AWS) that can automat
 
 [Clickhouse - S3 Express One Zone](https://aws.amazon.com/blogs/storage/clickhouse-cloud-amazon-s3-express-one-zone-making-a-blazing-fast-analytical-database-even-faster/)
 
-* Clickhouse is a columnar database
-* Delivers up to the second analytics
-* Needs to support ingestion of **hundreds of millions of events/sec** to execute **complex analytical queries**
-* Use S3 as storage. Added local disk to cache hot data. But cache was costly and difficult to operate. 
-* Used S3 Express One Zone to replace these local disks
+## Context
+* ClickHouse Cloud is a SaaS solution offering a separated storage and compute architecture for running ClickHouse, a columnar database management system designed for real-time analytics.
+* This architecture leverages Amazon S3 for primary data storage, offering benefits like scalability, cost efficiency, and ease of use.
+* However, achieving low query latency for real-time applications while relying on object storage presented a challenge.
+Initial solutions involved implementing a sophisticated caching layer on local disks, which proved costly and complex to manage.
 
-* 65% improvement in TCO as data is no more replicated on several AZs. Compute was spread accross all AZs so local storage too.
-* 283% lower query latencies
+## Issue
+
+* Balancing Performance and Cost: ClickHouse Cloud needed to achieve low query latency comparable to local disk performance while leveraging the cost-effectiveness and scalability of Amazon S3 as the primary data store.
+* Caching Layer Limitations: The existing caching layer on local disks, while effective in improving performance, introduced significant costs and operational overhead due to data replication and synchronization across multiple Availability Zones.
+
+## Solution
+
+### Solution Description
+
+Leveraging Amazon S3 Express One Zone: ClickHouse Cloud adopted the newly launched Amazon S3 Express One Zone storage class for both primary data storage and caching.
+
+* S3 Express One Zone as Primary Storage: This approach aimed to improve query performance for cold data (data not present in the cache) by leveraging the low latency and high throughput of S3 Express One Zone.
+* S3 Express One Zone as Caching Layer: This strategy aimed to replace the local disk-based caching layer with a more cost-effective and operationally efficient solution by storing a single copy of cached data in S3 Express One Zone, accessible across multiple Availability Zones.
+
+
+### Technology Used
+Amazon S3 Express One Zone: A new storage class offering single-digit millisecond latency and high throughput, optimized for performance-sensitive applications.
+
+### Key Performance Indicators
+
+* Query Latency for Cold Data: Using S3 Express One Zone as the primary storage resulted in an average **36%** improvement in query latency **for cold data**, with some queries experiencing up to a **283%** improvement.
+* Caching Layer TCO: Replacing the local disk-based caching layer with S3 Express One Zone is expected to deliver up to a **65% reduction in TCO** for storing cached data due to reduced storage needs and elimination of data synchronization costs.
+* Cost per Request: S3 Express One Zone offers a 50% reduction in request costs compared to S3 Standard, further contributing to cost savings.
