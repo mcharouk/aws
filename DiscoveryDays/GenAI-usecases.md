@@ -79,6 +79,45 @@ Amazon Bedrock
 * 50% reduction in image acquisition cost (eliminating the need to purchase costly stock images)
 * 10% boost in audience engagement and click-through rates
 
+
+# Tymex
+
+## Context
+
+* TymeX is a digital banking platform focused on providing services to underserved and underbanked populations.
+* They prioritize an agile development culture and employee satisfaction to drive innovation and deliver high-quality products.
+* Recognizing the potential of AI, TymeX embarked on a journey to integrate generative AI into their operations, focusing on security and compliance within the banking industry.
+
+## Issue
+
+* TymeX developers faced challenges with time-consuming tasks in the software development lifecycle, hindering their ability to focus on innovation and feature development.
+* There was a need to improve efficiency in understanding complex documentation and streamline internal processes.
+* Maintaining a high level of security and compliance in AI implementation was crucial for the banking sector.
+
+## Solution
+
+### Solution Description
+
+* TymeX partnered with AWS to implement and develop generative AI solutions to address their challenges.
+* They adopted a two-phased approach: initially leveraging existing AWS AI services and subsequently building custom AI applications.
+* The solution focused on automating recurring development tasks, enhancing code quality, and providing AI-powered assistance to developers.
+* An internal AI chatbot was developed to streamline internal communication and support various tasks, including HR processes.
+
+### Technology Used
+
+* Amazon Q Developer
+* Amazon Bedrock
+
+### Key Performance Indicators (KPIs)
+
+* Developer Productivity: Developers experienced a 40% increase in productivity due to automation and AI assistance.
+* Code Coverage: Unit testing efficiency increased significantly, achieving 89% code coverage in 30 minutes compared to the previous 5 hours (a 90% improvement).
+* Time to Market: Development cycles were accelerated, with the second digital bank built in 18 months compared to the first in 3 years, and the third expected in just 9 months.
+* Employee Satisfaction: Developers gained more time for innovation, skill development, and learning new technologies.
+* Chatbot Adoption: The internal AI chatbot "Tymee" received a 77% positive feedback score from internal users.
+* Document Processing: AI-powered chat-to-document feature summarizes 100-page documents in under 10 seconds, improving efficiency in understanding complex information.
+
+
 # Amazon Pharmacy
 
 * Used RAG with SageMaker (no Bedrock)
