@@ -1,15 +1,13 @@
-# Table of contents
-
 # Table of Contents
 
-- [SBI Life Insurance](#sbi-life-insurance)  
-- [Pfizer - Health care](#health-care)
-- [ABP Network - Media](#media)  
+- [SBI Life Insurance - Insurance](#sbi-life-insurance)  
+- [Pfizer - Health care](#pfizer)
+- [ABP Network - Media](#abp-network)  
 - [Tymex - Code Generation](#tymex)
 - [Amazon Pharmacy](#amazon-pharmacy)
 - [Amazon Ads](#amazon-ads)
 - [Amazon's New AI-Powered Children's Story Feature](#amazons-new-ai-powered-childrens-story-feature)
-- [Bravante](#bravante)
+- [Bravante - Oil Industry](#bravante)
 
 # SBI Life Insurance
 
@@ -46,7 +44,7 @@ The Information Systems Department of SBI Life Insurance is responsible for deve
 * Shorter training periods: Reduced training periods by about **30 %**
 * Increased applicant interest: Attracted applicants who want to be involved in the intelligent operations projects.
 
-# Health care
+# Pfizer
 
 * Used RAG
 
@@ -59,7 +57,7 @@ The Information Systems Department of SBI Life Insurance is responsible for deve
 * Pfizer estimates that, annually, scientists could save up to **16,000 hours** of searching and extracting data
 * minimize the time spent in data discovery up to **80** percent for **1 500** PSSM scientists
   
-# Media
+# ABP Network
 
 * Used prompting
 * [ABP News](https://aws.amazon.com/solutions/case-studies/abp-network/?did=cr_card&trk=cr_card)
