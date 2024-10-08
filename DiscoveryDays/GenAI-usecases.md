@@ -1,3 +1,16 @@
+# Table of contents
+
+# Table of Contents
+
+- [SBI Life Insurance](#sbi-life-insurance)  
+- [Pfizer - Health care](#health-care)
+- [ABP Network - Media](#media)  
+- [Tymex - Code Generation](#tymex)
+- [Amazon Pharmacy](#amazon-pharmacy)
+- [Amazon Ads](#amazon-ads)
+- [Amazon's New AI-Powered Children's Story Feature](#amazons-new-ai-powered-childrens-story-feature)
+- [Bravante](#bravante)
+
 # SBI Life Insurance
 
 [Use case](https://aws.amazon.com/solutions/case-studies/sbi-life-case-study/?did=cr_card&trk=cr_card)
@@ -44,6 +57,7 @@ The Information Systems Department of SBI Life Insurance is responsible for deve
 * PACT teams now use generative AI, accessing Anthropic’s Claude 2.1 through Amazon Bedrock, to summarize results and to provide orders in natural language
 * give order by chat or by voice
 * Pfizer estimates that, annually, scientists could save up to **16,000 hours** of searching and extracting data
+* minimize the time spent in data discovery up to **80** percent for **1 500** PSSM scientists
   
 # Media
 
@@ -65,6 +79,8 @@ The Information Systems Department of SBI Life Insurance is responsible for deve
 * ABP Network deployed Amazon Bedrock and generative AI on AWS for greater efficiency, innovation, and cost savings.
 * The solution included an image-generating application, which empowers the editorial team to generate multiple image variations quickly, and a video production application for transcribing, translating, and dubbing videos into multiple languages.
 * The image-generating application creates up to 170 image variations in under 10 seconds using simple text prompts, streamlining the image procurement process.
+* image turnaround time is now **5x** faster, with image acquisition costing **50 %** less
+* **10 % boost** in audience engagement and click-through rates
 * The video production application transcribes, translates, and dubs a single 300 to 600-second video into four languages within four to six minutes, reducing video localization time by 88%.
 
 ## Technology Used
@@ -81,6 +97,9 @@ Amazon Bedrock
 
 
 # Tymex
+
+
+[Tymex Use Case](https://aws.amazon.com/solutions/case-studies/tymex/)
 
 ## Context
 
@@ -132,3 +151,87 @@ Amazon Bedrock
 * Finally selected the best model
 
 * [Amazon Ads](https://aws.amazon.com/blogs/machine-learning/learn-how-amazon-ads-created-a-generative-ai-powered-image-generation-capability-using-amazon-sagemaker/)
+
+
+# Amazon's New AI-Powered Children's Story Feature
+
+## Personalized Stories
+
+* Users can choose themes (e.g., "underwater," "enchanted forest"), protagonists (e.g., pirate, mermaid), colors, and adjectives (e.g., "silly," "mysterious") to guide story generation.
+* AI generates a unique five-scene story with illustrations, background music, and sound effects based on the chosen prompts.
+
+## Hybrid Approach
+
+* Combines AI generation with curated elements for a balance of creativity and control.
+* Uses a library of artist-rendered and AI-generated backgrounds and objects.
+* AI determines object arrangement and animation.
+* Music generation blends composer-created patterns with AI-generated melodies.
+
+
+## Story Generation Process
+
+* Planner Model: Takes user prompts and creates a detailed keyword plan for each scene.
+* Text Generator Model: Uses the plan to generate the story text.
+* Trained on human-written stories, including those created by Amazon writers.
+* Coherence ranker ensures plot consistency and overall quality.
+
+## Scene Generation
+
+* Uses a pipeline of models due to limited training data.
+* NLP Modules:
+  * Coreference resolution clarifies pronoun references.
+  * Dependency parsing maps relationships between objects.
+* Scene Generation Model:
+  * Selects a background based on theme and NLP output.
+  * Chooses and positions objects from the library.
+
+## Music Generation
+
+* Library of artist-created musical elements (chord progressions, harmonies, rhythms).
+* AI melody generator expands the library with new melodies.
+* Text-to-speech and paralinguistic analysis inform music duration and mood.
+
+## Safety Measures:
+
+* Curated training data to exclude offensive content
+* Pre-curated input prompts
+* Automated filtering of inappropriate outputs
+* Requires parental consent through the Alexa app
+
+# Bravante
+
+[Bravante Use Case](https://aws.amazon.com/solutions/case-studies/bravante-generative-ai/?nc1=h_ls&did=cr_card&trk=cr_card)
+
+## Context
+* RRC Tecnologia, the robotics and technology arm of Grupo Bravante, specializes in marine engineering, particularly in the decommissioning of oil equipment and pipeline removal.
+* Brazilian law mandates the restoration of the seabed after oil exploration, requiring accurate location and removal of submerged equipment.
+* Traditional methods rely on analyzing scattered and diverse documents, leading to inaccuracies and high costs due to the expensive daily rates of certification vessels.
+
+## Issue
+
+* Locating and removing submerged oil pipelines is a complex and costly process due to reliance on outdated and fragmented documentation.
+* Inaccurate location data leads to wasted time and resources, with certification vessels costing $250,000 per day.
+* Manual analysis of thousands of documents is time-consuming and prone to errors, hindering efficient decommissioning efforts.
+
+## Solution
+
+### Solution Description
+
+* RRC Tecnologia partnered with AWS and Flexa Cloud to develop a Generative AI-powered solution to automate document analysis and improve the accuracy of pipeline location data.
+* The solution creates a centralized, reliable data source for pipeline information, streamlining the decommissioning process.
+* It leverages advanced AI models to interpret and classify data from various document formats, providing valuable insights for naval engineers.
+
+### Technology Used
+
+* Amazon S3: Stores the vast repository of pipeline documents, providing secure and scalable storage.
+* Amazon Textract: Extracts text and data from various document formats (images, spreadsheets, PDFs) using OCR.
+* Amazon Bedrock: Offers access to pre-trained foundational models like Anthropic's Claude-2 via APIs, facilitating development and experimentation.
+* Amazon Aurora: Stores the processed data in a structured database, enabling efficient querying and analysis.
+
+### Key Performance Indicators (KPIs)
+
+* Reduction in operational load on surveying engineers: Automating document analysis frees up engineers for other tasks.
+* Man-hours savings: Automation significantly reduces the time spent on manual document review.
+* Increased mapping accuracy: AI-powered analysis improves the precision of pipeline location data.
+* Reduction in the number of daily vessels required for field certification: Expected reduction of up to 40%, resulting in significant cost savings.
+* Cost savings: Projected to save millions of dollars by minimizing the use of expensive certification vessels (daily rate of $250,000).

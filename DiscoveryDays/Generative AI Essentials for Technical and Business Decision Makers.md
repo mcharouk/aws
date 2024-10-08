@@ -6,6 +6,14 @@
 * 2 constraints
   * Have sufficient quality training data
   * Have sufficient power calculation
+* Examples of Foundation models
+  * Amazon Titan
+  * Jurassic
+  * GPT
+  * Cohere
+  * Claude (Anthropic)
+  * Stable Diffusion (text to image)
+  * BLOOM
 
 ## Transformers
 
@@ -139,7 +147,7 @@ This is a hallucination because the Mona Lisa was actually painted in 1503-1506.
 * Put IA in place that it is practical and useful for employees
 * Create a feedback loop to improve the product. Might ask the users to rate the response, provide multiple FM models to see which one people prefer
 
-* Make analogy with computer, smartphones, etc... It's an opprtunity to learn new tech, new ways of doing, but without losing every knowledge they have already acquired.
+* Make analogy with computer, smartphones, etc... It's an opportunity to learn new tech, new ways of doing, but without losing every knowledge they have already acquired.
 
 
 ## Team Success
