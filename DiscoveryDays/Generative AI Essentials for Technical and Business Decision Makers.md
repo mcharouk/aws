@@ -67,6 +67,8 @@ use cases :
 * Legal ambiguities on copyrights :
   * Generate paintings in the style of someone
   * Get the voice of some singer and use it in some song.
+* If LLM is working on private data, it could inadvertendly expose private informations in the prompt. *Based on (private fact), my analysis is (...)*
+
 
 ## Toxicity
 
@@ -158,6 +160,15 @@ This is a hallucination because the Mona Lisa was actually painted in 1503-1506.
 
 
 ## GenAI & Cloud Operating Model
+
+Cloud Operating Model categories
+
+* Operations leadership
+* Cloud operations
+* Platform enablement
+* Service management
+* Cost and governance
+
 
 Impacts on [Cloud Operating Model](https://docs.aws.amazon.com/prescriptive-guidance/latest/strategy-cloud-operating-model/introduction.html#key-concepts): 
 

@@ -118,7 +118,9 @@ Amazon Bedrock
 * TymeX partnered with AWS to implement and develop generative AI solutions to address their challenges.
 * They adopted a two-phased approach: initially leveraging existing AWS AI services and subsequently building custom AI applications.
 * The solution focused on automating recurring development tasks, enhancing code quality, and providing AI-powered assistance to developers.
-* An internal AI chatbot was developed to streamline internal communication and support various tasks, including HR processes.
+* An internal AI chatbot was developed to streamline internal communication
+  * AI to select good CV of engineering and development roles
+  * AI to summarize complex documents about compliant software design and compliance documentation
 
 ### Technology Used
 
@@ -127,13 +129,12 @@ Amazon Bedrock
 
 ### Key Performance Indicators (KPIs)
 
-* Developer Productivity: Developers experienced a 40% increase in productivity due to automation and AI assistance.
-* Code Coverage: Unit testing efficiency increased significantly, achieving 89% code coverage in 30 minutes compared to the previous 5 hours (a 90% improvement).
+* Developer Productivity: Developers experienced a **40%** increase in productivity due to automation and AI assistance.
+* Code Coverage: Unit testing efficiency increased significantly, achieving **89%** code coverage in **30 minutes** compared to the previous **5 hours** (a **90%** improvement).
 * Time to Market: Development cycles were accelerated, with the second digital bank built in 18 months compared to the first in 3 years, and the third expected in just 9 months.
 * Employee Satisfaction: Developers gained more time for innovation, skill development, and learning new technologies.
 * Chatbot Adoption: The internal AI chatbot "Tymee" received a 77% positive feedback score from internal users.
-* Document Processing: AI-powered chat-to-document feature summarizes 100-page documents in under 10 seconds, improving efficiency in understanding complex information.
-
+* Document Processing: AI-powered chat-to-document feature summarizes 100-page documents in under 10 seconds, improving efficiency in understanding complex information. Documents about compliant software design and compliance documentation to launch financial institutions internationnally.
 
 # Amazon Pharmacy
 
@@ -210,6 +211,7 @@ Amazon Bedrock
 * Locating and removing submerged oil pipelines is a complex and costly process due to reliance on outdated and fragmented documentation.
 * Inaccurate location data leads to wasted time and resources, with certification vessels costing $250,000 per day.
 * Manual analysis of thousands of documents is time-consuming and prone to errors, hindering efficient decommissioning efforts.
+* Considering the more than **800 km** of pipelines to be decommissioned, the data repository has over **10 thousand documents**
 
 ## Solution
 
