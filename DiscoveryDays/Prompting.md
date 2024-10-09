@@ -1,22 +1,30 @@
 # Relation Embedding, Self Attention, Feed Forward
 
-Let's imagine you're building an LLM to translate English to French. You input the sentence: **The cat sat on the mat** Here's how the components work together:
+Let's imagine you're building an LLM to translate English to French. You input the sentence:
+```
+The cat sat on the mat
+```
+ Here's how the components work together:
 
 ## Embedding:
 
-Each word in the sentence ("The", "cat", "sat", etc.) is first transformed from a simple string of characters into a vector, a list of numbers representing its meaning and relationship to other words. This is the "embedding" of the word.
-For example, the embedding for "cat" might encode that it's a furry, domesticated animal often kept as a pet.
+* Each word in the sentence ("The", "cat", "sat", etc.) is first transformed from a simple string of characters into a vector, a list of numbers representing its meaning and relationship to other words. This is the "embedding" of the word.
+* For example, the embedding for "cat" might encode that it's a furry, domesticated animal often kept as a pet.
 
 ## Self-Attention:
 
-Now, imagine the model needs to figure out what "it" refers to in the sentence **The cat sat on the mat. It was very soft**
-Self-attention helps the model understand the relationships between words, even across longer distances. It would recognize that "it" likely refers to the "mat" because of their proximity and the context of sitting on something soft.
+* Now, imagine the model needs to figure out what "it" refers to in the sentence
+
+```
+The cat sat on the mat. It was very soft 
+```
+* Self-attention helps the model understand the relationships between words, even across longer distances. It would recognize that "it" likely refers to the "mat" because of their proximity and the context of sitting on something soft.
 
 ## Feed-Forward Network:
 
-With the contextual information provided by self-attention, the feed-forward network now processes each word's embedding to generate the French translation.
-For "cat," the network might initially consider translations like "chat" (male cat) or "chatte" (female cat).
-However, because self-attention highlighted the relationship between "cat" and "it" (referring to the soft mat), the feed-forward network can deduce that the gender of the cat is irrelevant in this context and simply use "chat," the general word for "cat"
+* With the contextual information provided by self-attention, the feed-forward network now processes each word's embedding to generate the French translation.
+* For "cat," the network might initially consider translations like "chat" (male cat) or "chatte" (female cat).
+* However, because self-attention highlighted the relationship between "cat" and "it" (referring to the soft mat), the feed-forward network can deduce that the gender of the cat is irrelevant in this context and simply use "chat," the general word for "cat"
 
 ## In summary:
 
