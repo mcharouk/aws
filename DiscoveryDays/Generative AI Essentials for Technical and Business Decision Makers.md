@@ -68,6 +68,7 @@ use cases :
   * Generate paintings in the style of someone
   * Get the voice of some singer and use it in some song.
 * If LLM is working on private data, it could inadvertendly expose private informations in the prompt. *Based on (private fact), my analysis is (...)*
+* Bedrock is integrated in with cloudwatch, with a feature that can mask 10s of sensitive data types in the logs.
 
 
 ## Toxicity
@@ -154,8 +155,11 @@ This is a hallucination because the Mona Lisa was actually painted in 1503-1506.
 
 ## Team Success
 
-* Transparency : for GenAI to display its sources
-* When building with SageMaker, use Clarify to explain the model
+* Transparency
+  * for GenAI to display its sources
+  * When building with SageMaker, use Clarify to explain the model
+  * be transparent to tell when AI is being used, how it works, risks associated
+  * transparency is also in audit trails. AWS AI services are all integrated with CloudTrail (Bedrock, Q for Developer, ...). Logs all intermediate steps when using Bedrock agents.
 * Security : encryption, data access (IAM), guardrails on PPI
 
 
@@ -243,6 +247,8 @@ A Robust Cloud Operating Model supports :
     * upgrades
     * testing, validation
 * Governance
+  * Transparency and accountability
+    * have a mechanism for humans to challenge decision made by AI
 
 # GenAI Services
 

@@ -65,8 +65,9 @@ Let's imagine you're building an LLM to translate English to French. You input t
 > When I ask you a question, generate three additional questions that would help you give a more accurate answer. When I have answered the three questions, combine the answers to produce the final answers to my original question.
 
 
-
 # Few Shot Prompt
+
+[Langchain Example selector](https://python.langchain.com/v0.1/docs/modules/model_io/prompts/example_selectors/)
 
 ## Sentence 1
 
