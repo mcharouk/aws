@@ -1,9 +1,9 @@
 # Relation Embedding, Self Attention, Feed Forward
 
 Let's imagine you're building an LLM to translate English to French. You input the sentence:
-```
-The cat sat on the mat
-```
+
+> The cat sat on the mat
+
  Here's how the components work together:
 
 ## Embedding:
@@ -15,9 +15,8 @@ The cat sat on the mat
 
 * Now, imagine the model needs to figure out what "it" refers to in the sentence
 
-```
-The cat sat on the mat. It was very soft 
-```
+> The cat sat on the mat. It was very soft 
+
 * Self-attention helps the model understand the relationships between words, even across longer distances. It would recognize that "it" likely refers to the "mat" because of their proximity and the context of sitting on something soft.
 
 ## Feed-Forward Network:
@@ -54,23 +53,17 @@ The cat sat on the mat. It was very soft
 
 ## Flipped Interaction PAttern
 
-```
-From now on, I would like you to ask me questions to [do a specific task]. When you have enough information to [do the task], create [output you want].
-```
-
-* this method 
+> From now on, I would like you to ask me questions to [do a specific task]. When you have enough information to [do the task], create [output you want].
 
 ## Question Refinement Pattern
 
-```
-From now on, when I ask a question, suggest a better version of the question to use that incorporates information specific to [use case] and ask me if I would like to use your question instead.
-```
+
+> From now on, when I ask a question, suggest a better version of the question to use that incorporates information specific to [use case] and ask me if I would like to use your question instead.
 
 ## The Cognitive Verifier Pattern
 
-```
-When I ask you a question, generate three additional questions that would help you give a more accurate answer. When I have answered the three questions, combine the answers to produce the final answers to my original question.
-```
+> When I ask you a question, generate three additional questions that would help you give a more accurate answer. When I have answered the three questions, combine the answers to produce the final answers to my original question.
+
 
 
 # Few Shot Prompt
@@ -78,47 +71,49 @@ When I ask you a question, generate three additional questions that would help y
 ## Sentence 1
 
 Phrase originale
-```
-Research firm fends off allegations of impropriety over new technology.
-```
+
+> Research firm fends off allegations of impropriety over new technology.
+
 
 Traduction
 
-```
-Un cabinet de recherche réfute les allégations d'irrégularités concernant une nouvelle technologie.
-```
+
+> Un cabinet de recherche réfute les allégations d'irrégularités concernant une nouvelle technologie.
+
 
 ## Sentence 2
 
 
 Phrase originale
-```
-Offshore windfarms continue to thrive as vocal minority in opposition dwindles.
-```
+
+> Offshore windfarms continue to thrive as vocal minority in opposition dwindles.
+
 
 Traduction
 
-```
-Les parcs éoliens offshore continuent de prospérer alors que la minorité qui s’y oppose s’amenuise.
-```
+> Les parcs éoliens offshore continuent de prospérer alors que la minorité qui s’y oppose s’amenuise.
+
 
 
 ## Sentence 3
 
 Phrase originale
-```
-Manufacturing plant is the latest target in investigation by state officials.
-```
+
+> Manufacturing plant is the latest target in investigation by state officials.
+
 
 Traduction
 
-```
-L'usine de fabrication est la dernière cible d'une enquête menée par les autorités de l'État.
-```
+> L'usine de fabrication est la dernière cible d'une enquête menée par les autorités de l'État.
+
 
 ## Insights
 
 * Inverting True or False has no effect on the final result. The effect is mainly on output format.
 Some LLM (Claude ?) has even told me that my feeling were probably inverted before giving me its final answer
 
-* Interesting insight : when i add some context, for instance *You are an environmental activist who fights against companies that commit harmful acts against the environment*, the LLM changes its output to match the role, it no more stands with the company.
+* Interesting insight : when i add some context, for instance 
+
+> You are an environmental activist who fights against companies that commit harmful acts against the environment
+
+the LLM changes its output to match the role, it no more stands with the company.
