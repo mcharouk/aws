@@ -152,17 +152,6 @@ This is a hallucination because the Mona Lisa was actually painted in 1503-1506.
 
 * Make analogy with computer, smartphones, etc... It's an opportunity to learn new tech, new ways of doing, but without losing every knowledge they have already acquired.
 
-
-## Team Success
-
-* Transparency
-  * for GenAI to display its sources
-  * When building with SageMaker, use Clarify to explain the model
-  * be transparent to tell when AI is being used, how it works, risks associated
-  * transparency is also in audit trails. AWS AI services are all integrated with CloudTrail (Bedrock, Q for Developer, ...). Logs all intermediate steps when using Bedrock agents.
-* Security : encryption, data access (IAM), guardrails on PPI
-
-
 ## GenAI & Cloud Operating Model
 
 Cloud Operating Model categories
@@ -199,7 +188,10 @@ A Robust Cloud Operating Model supports :
 * It's about having a vision of how GenAI will impact the business 
   * who are the stakeholders involved ? 
   * What are desired outcomes ?
-  * what KPIs ?
+  * what KPIs
+    * Cost Reduction
+    * utilization de l'IA / Satisfaction
+    * Metriques sur l'efficacité
   * create a clear vision and roadmap for leveraging Gen AI to achieve their business objectives ?
   * Discover the challenges, security concerns, ethical issues.
 
@@ -212,8 +204,6 @@ A Robust Cloud Operating Model supports :
   * can i break the problem in the sub tasks ?
   * Can i reuse or extend existing capabilities ?
   * What skill sets does my team have ?
-
-[Generative AI Innovation Center](https://aws.amazon.com/ai/generative-ai/innovation-center/)
 
 ### Discover
 
@@ -231,24 +221,46 @@ A Robust Cloud Operating Model supports :
 * Develop a road-map for implementation steps of the new model.
 * Measure your improvements against original desired outcomes. 
 * Test and refine the model as your organization continues developing your generative AI capabilities.
+  * regularly check model performance
+  * define what to do on a foundation model upgrade
 
+## Team Success
 
-## Key for Success
+### People enablement
 
-* People enablement
-  * experts
-  * data strategy
-  * cloud infrastructure
-  * Prioritize Security
-    * data security
-    * be transparent and accountable
-  * Continuously evaluate and improve
-    * data refresh
-    * upgrades
-    * testing, validation
-* Governance
-  * Transparency and accountability
-    * have a mechanism for humans to challenge decision made by AI
+* Experts : [Generative AI Innovation Center](https://aws.amazon.com/ai/generative-ai/innovation-center/)à
+* Data strategy
+* Cloud infrastructure
+* Security
+  * Use cases oriented
+    * Define Specific application use Cases (easier to control)
+    * Guardrails on PPI
+    * Human in the loop process to check outputs (once every week for ex.)
+    * Tag/Identify confidential data
+    * Scan the code (prompt attacks)
+  * Infra oriented
+    * Encryption at rest and in transit. Data and model
+    * Data access (IAM), LakeFormation. Minimize access
+      * blur/anonymize data used for training
+    * Data lifecycle rules      
+    * Audit/log the data that comes in and out
+* Continuously evaluate and improve
+  * data refresh
+  * upgrades
+  * testing, validation
+
+### Governance
+
+* Transparency
+  * Tell when AI is being used, how it works, risks associated (Service Cards)
+  * Transparency is also in audit trails. 
+    * AWS AI services are all integrated with CloudTrail (Bedrock, Q for Developer, ...). 
+    * Logs all intermediate steps when using Bedrock agents.
+  * Ask for GenAI to display its sources
+  * When building with SageMaker, use Clarify to explain the model. Use explainable algorithms
+  * have a mechanism for humans to challenge decision made by AI
+* Ethical principles
+  * look for bias in model
 
 # GenAI Services
 
