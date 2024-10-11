@@ -7,8 +7,8 @@ if ( $param1 -eq "deploy" )
 }
 ElseIf( $param1 -eq "destroy" )
 {
-    cdk destroy -f --all
     python cleanResources.py
+    cdk destroy -f --all
 }
 Else
 {
