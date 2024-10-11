@@ -16,7 +16,7 @@ session-logs
 
 * sometimes it does not work instantaneously, i didn't found why
 * don't require encryption
-* might need to restart SSM agent to make it work
+* Need to restart SSM agent to make it work
 
 ```
 Stop-Service AmazonSSMAgent
@@ -25,6 +25,7 @@ Stop-Service AmazonSSMAgent
 ```
 Start-Service AmazonSSMAgent
 ```
+
 * reconnect to a new session
 
 ## Execute commands
