@@ -14,6 +14,7 @@ session-logs
 
 ### Cloudwatch 
 
+* sometimes it does not work instantaneously, i didn't found why
 * don't require encryption
 * might need to restart SSM agent to make it work
 

@@ -88,7 +88,7 @@ class SsmStack(Stack):
             instance_name,
             instance_name=instance_name,
             instance_type=ec2.InstanceType.of(
-                ec2.InstanceClass.BURSTABLE2, ec2.InstanceSize.MICRO
+                ec2.InstanceClass.BURSTABLE4_GRAVITON, ec2.InstanceSize.MICRO
             ),
             machine_image=amzn_windows,
             vpc=vpc,
