@@ -234,7 +234,7 @@ A Robust Cloud Operating Model supports :
 * Security
   * Use cases oriented
     * Define Specific application use Cases (easier to control)
-    * Guardrails on PPI
+    * Guardrails on PII
     * Human in the loop process to check outputs (once every week for ex.)
     * Tag/Identify confidential data
     * Scan the code (prompt attacks)
@@ -253,12 +253,18 @@ A Robust Cloud Operating Model supports :
 
 * Transparency
   * Tell when AI is being used, how it works, risks associated (Service Cards)
-  * Transparency is also in audit trails. 
+  * [Service Card Structure](https://aws.amazon.com/blogs/machine-learning/introducing-aws-ai-service-cards-a-new-resource-to-enhance-transparency-and-advance-responsible-ai/)
+    * Basic concepts to help customers better understand the service or service features
+    * Intended use cases and limitations
+    * Responsible AI design considerations
+    * Guidance on deployment and performance optimization
+  * Transparency is also in audit trails
     * AWS AI services are all integrated with CloudTrail (Bedrock, Q for Developer, ...). 
     * Logs all intermediate steps when using Bedrock agents.
   * Ask for GenAI to display its sources
-  * When building with SageMaker, use Clarify to explain the model. Use explainable algorithms
-  * have a mechanism for humans to challenge decision made by AI
+  * Use explainable algorithms
+  * Use SageMaker Clarify to explain the model. 
+  * Have a mechanism for humans to challenge decision made by AI
 * Ethical principles
   * look for bias in model
 
