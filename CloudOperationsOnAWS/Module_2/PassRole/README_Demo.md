@@ -1,9 +1,11 @@
-Role name to assume
+* any name to lambda function
+
+* Role name to assume
 ```
 DevLambdaAdminRole
 ```
 
-Policy to update
+* Policy to update
 
 ```
 {

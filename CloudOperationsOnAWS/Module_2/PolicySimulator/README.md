@@ -1,6 +1,6 @@
-# Policy generator & Simulator
+# Policy generator & Simulator Demo
 
-!!! Must be connected on an account where there is no SCP to work !!!
+## Policy Generator
 
 * [Policy Generator](https://awspolicygen.s3.amazonaws.com/policygen.html)
 * Create a Policy 
@@ -18,6 +18,17 @@
   * Click on Add Statement
   * Click on Generate Policy
   * Replace TagKey with Project
+
+## Policy Simulator
+
+### Deactivate SCP
+
+* SCP that have conditions does not work on Policy Simulator. In my case, it's better to deactivate them
+* On Top right select Mode : Existing Policies
+* Select any role
+* uncheck the box *AWS Organization SCPs*
+
+### Simulate the policy
 
 * [Policy Simulator](https://policysim.aws.amazon.com/)
   * On Top right select Mode : New Policy
