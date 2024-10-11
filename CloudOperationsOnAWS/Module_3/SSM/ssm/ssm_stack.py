@@ -1,11 +1,11 @@
 from aws_cdk import Stack  # Duration,; aws_sqs as sqs,
-from aws_cdk import CfnOutput
+from aws_cdk import CfnOutput, RemovalPolicy
 from aws_cdk import aws_ec2 as ec2
 from aws_cdk import aws_iam as iam
+from aws_cdk import aws_logs as logs
 from aws_cdk import aws_s3 as s3
 from constructs import Construct
 from StackConfig import StackConfig
-from aws_cdk import RemovalPolicy
 
 
 class SsmStack(Stack):
@@ -22,6 +22,14 @@ class SsmStack(Stack):
             sessionLoggingBucketName,
             bucket_name=sessionLoggingBucketName,
             encryption=s3.BucketEncryption.S3_MANAGED,
+            removal_policy=RemovalPolicy.DESTROY,
+        )
+
+        # create cloudwatch log group
+        logs.LogGroup(
+            self,
+            "SSM-Session-Logging",
+            log_group_name="ssm-session-logging",
             removal_policy=RemovalPolicy.DESTROY,
         )
 
@@ -87,7 +95,7 @@ class SsmStack(Stack):
             role=role,
             vpc_subnets=ec2.SubnetSelection(subnet_type=ec2.SubnetType.PUBLIC),
             security_group=securityGroup,
-            key_name=key_pair.key_pair_name,
+            key_pair=key_pair,
         )
 
         local_port = "54321"
@@ -121,9 +129,25 @@ class SsmStack(Stack):
             resources=["*"],
         )
 
+        cloudwatchResourcesStatement = iam.PolicyStatement(
+            sid="cloudWatchAllAccess",
+            effect=iam.Effect.ALLOW,
+            actions=[
+                "logs:CreateLogStream",
+                "logs:DescribeLogStreams",
+                "logs:DescribeLogGroups",
+                "logs:PutLogEvents",
+            ],
+            resources=["*"],
+        )
+
         return self.createPolicy(
             "ssmCustomPolicy",
-            [s3loggingAccessStatement, s3AllResourcesStatement],
+            [
+                s3loggingAccessStatement,
+                s3AllResourcesStatement,
+                cloudwatchResourcesStatement,
+            ],
         )
 
     def createPolicy(self, policyName, policyStatements):
