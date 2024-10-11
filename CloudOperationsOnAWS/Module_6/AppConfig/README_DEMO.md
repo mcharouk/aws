@@ -70,3 +70,10 @@ AppConfigAlarm
 
 
 * !! don't forget to click on Add to add alarm !!
+
+## Deployment
+
+* deploy a first time to make configuration available to lambda
+* deploy a second time by providing a invalid configuration
+* deploy a third time by setting alarm status to ALARM
+* deploy a last time by setting alarm status to OK. Change lambda code to force a new environment execution and see the effect of changes.
