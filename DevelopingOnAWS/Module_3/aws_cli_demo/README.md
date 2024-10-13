@@ -17,7 +17,7 @@ aws s3 rm s3://mcharouk-clidemo-867876 --recursive
 ```
 
 * remove bucket
-* 
+
 ```
 aws s3 rb s3://mcharouk-clidemo-867876
 ```
