@@ -1,3 +1,4 @@
+* subscribe to sns topic to see the output of step function with an email (last task in step sends a message on sns topic)
 * show JSON state language, syntax overview
 * show designer,
   * integration with all AWS Service
