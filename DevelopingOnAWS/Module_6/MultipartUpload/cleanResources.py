@@ -10,6 +10,7 @@ try:
     print("Bucket already exists")
     # delete all files in bucket
     s3_resource.Bucket(bucket_name).objects.all().delete()
+    print("Bucket emptied")
     s3.delete_bucket(
         Bucket=bucket_name,
     )
