@@ -30,7 +30,7 @@ def get_secret_hash(username, app_client_id, client_secret):
     return secret_hash
 
 
-# initiate-auth with cognito user pool
+# authenticate with user pool id to get id_token
 idp = boto3.client("cognito-idp")
 response = idp.initiate_auth(
     ClientId=config.user_pool_client_id,
