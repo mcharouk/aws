@@ -66,3 +66,7 @@ delete dynamodb table
 ```
 aws dynamodb delete-table --table-name SampleTable --profile dynamoDBAdminRole
 ```
+
+## SDK Demo
+
+* look at sdk-demo.py
