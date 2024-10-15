@@ -319,6 +319,7 @@ settings at app client level
 ## Phases
 
 * with **sam init**, it's possible to specify application configuration, the corresponding sam template will be created.
+  * specify lambda configuration (runtime, zip or docker image, tracing, application insights, etc...)
 
 * **sam build** install and organizes dependencies
   * for containers

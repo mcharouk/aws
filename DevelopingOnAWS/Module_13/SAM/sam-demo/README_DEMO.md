@@ -34,13 +34,13 @@ sam local generate-event apigateway aws-proxy
   * parameter override in production
   * show conditions in template
 
-* deploy first version in dev. Save API Gateway URL in a temp file
+* deploy first version in dev. Save API Gateway URL in a temp file (used to demonstrate sync feature)
 
 ```
 sam deploy
 ```
 
-* deploy first production version. Save API Gateway URL in a temp file
+* deploy first production version. Save API Gateway URL in a temp file (used to demonstrate canary rel feature)
 
 ```
 sam deploy --config-env prod
@@ -48,24 +48,33 @@ sam deploy --config-env prod
 
 ## new development : SAM sync
 
-* change lambda code
+### test sync without watch feature
 
+* change lambda code
+* execute command
 ```
 sam sync --code
 ```
 
-* test change has been deployed
+* execute Powershell script in another terminal (for clarity)
 
 ```
 Invoke-RestMethod -Uri [URLProvidedAsCFOutput]
-```
+``` 
 
-* launch synchronization mode
+### test sync with watch feature
+
+* launch synchronization mode in a dedicated terminal
 
 ```
 sam sync --watch
 ```
 * change lambda code, check time it's taking to redeploy, should be about 7s
+
+* execute Powershell script
+```
+Invoke-RestMethod -Uri [URLProvidedAsCFOutput]
+```
 
 ## Deployments
 
