@@ -332,10 +332,10 @@ settings at app client level
 [What is devops ?](https://aws.amazon.com/devops/what-is-devops/)
 
 # Module 14 : Debug
-
 ## Demo
 
 * Logs insights
+
 * X-ray is shown in the lab
 
 ## Monitoring vs Obsverability
@@ -357,3 +357,11 @@ What must be collected to
 * what issues could interfer with user's experiences. Track those potential issues with metrics, alarms...
 * improve performance. Performance has a direct impact on revenue. infra revenue + customer satisfaction
 
+## XRay
+
+* for lambda
+  * only check checkbox to enable XRay
+  * additional code for sub segments, annotations
+* for others
+  * install x Ray agent as daemon
+  * use X Ray SDK to activate it

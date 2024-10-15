@@ -33,6 +33,7 @@ aws application-insights update-problem --problem-id [PROBLEM_ID] --update-statu
 
 * update **City** lambda code, uncomment line 49 to 51 to generate random errors
 * execute testAPI.py to generate some errors
+* on application insights, a problem is detected. Logs might take time to appear in problem dashboard (2 mins)
 * Look at tracemap. Errors appears in Red
 * Look at traces, Errors appears clearly on the table
 * Click on a trace in error status, to see details
@@ -41,6 +42,7 @@ aws application-insights update-problem --problem-id [PROBLEM_ID] --update-statu
 
 
 ## Powertools
+
 * used X-Ray
 * used Event pattern objects
 * used parameter (parameter store)
