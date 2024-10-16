@@ -1,9 +1,9 @@
 import boto3
 
-# get outputs of cloudformation stack named AwsCredentialsStack
+# get outputs of cloudformation stack named CredentialsPriority
 cloudformation = boto3.client("cloudformation")
 
-response = cloudformation.describe_stacks(StackName="AwsCredentialsStack")
+response = cloudformation.describe_stacks(StackName="CredentialsPriority")
 outputs = response["Stacks"][0]["Outputs"]
 
 johnFooAccessKeyId = ""
