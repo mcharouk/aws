@@ -30,7 +30,7 @@ class CredentialsPriorityStack(Stack):
             self,
             "SecretAccessKeyForJohnFooUser",
             secret_name="JohnFoo-SecretAccessKey",
-            secret_string_value=johnFooUser.secret_access_key,
+            secret_string_value=accessKeyForJohnFooUser.secret_access_key,
         )
 
         s3_admin_role_name = "S3AdminRole"
