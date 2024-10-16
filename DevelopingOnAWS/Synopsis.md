@@ -34,44 +34,14 @@
 
 [Example of adjusting api retries parameters](https://boto3.amazonaws.com/v1/documentation/api/latest/guide/retries.html#configuring-a-retry-mode)
 
-## Errors
-
-* for python, all errors (client and server side exceptions) are catched through ClientError class.
-* you can parse error details in the response. Here is a response example
-* refer to documentation for all possible codes as they can widely vary by services and by action
-
-```
-{
-    'Error': {
-        'Code': 'SomeServiceException',
-        'Message': 'Details/context around the exception or error'
-    },
-    'ResponseMetadata': {
-        'RequestId': '1234567890ABCDEF',
-        'HostId': 'host ID data will appear here as a hash',
-        'HTTPStatusCode': 400,
-        'HTTPHeaders': {'header metadata key/values will appear here'},
-        'RetryAttempts': 0
-    }
-}
-```
-
-* can catch a specific exception like that, but it's better to catch ClientError to be sure to catch all possible exceptions
-
-```
-except client.exceptions.LimitExceedException as error:
-    logger.warn('API call limit exceeded; backing off and retrying...')
-```
-
-
 # Module 4 : Permissions
 
 ## Demo
 
 * Permissions Boundary
   * but instead of showing denied statement on the console, can use the cli for that
+* Different profile with programatic access
 * Can show assumeRole result with SessionToken
-* Different profile with programatic access (SDK)
 * Can show policy simulator
 
 ## CLI global config

@@ -9,7 +9,7 @@ Role Name
 LambdaRole
 ```
 
-### Identity Based Policy
+### Policy
 
 Policy Name
 ``` 
@@ -17,6 +17,26 @@ S3AndSQSFullAccess
 ```
 
 * Give aws managed policies
+* Alternative
+
+```
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "Statement1",
+            "Effect": "Allow",
+            "Action": [
+                "sqs:*",
+                "s3:*"
+            ],
+            "Resource": [
+                "*"
+            ]
+        }
+    ]
+}
+```
 
 ## PermissionBoundary policy
 
@@ -65,7 +85,7 @@ aws sqs create-queue --queue-name sqs-demo-queue --profile lambdarole
 
 ### SNS
 
-create topic sns (denied because no policy allow action)
+create topic sns (denied because no resource based policy)
 
 ```
 aws sns create-topic --name sns-demo-topic --profile lambdarole

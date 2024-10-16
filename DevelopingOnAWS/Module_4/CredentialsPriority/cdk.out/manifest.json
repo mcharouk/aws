@@ -1,0 +1,121 @@
+{
+  "version": "36.0.18",
+  "artifacts": {
+    "CredentialsPriorityStack.assets": {
+      "type": "cdk:asset-manifest",
+      "properties": {
+        "file": "CredentialsPriorityStack.assets.json",
+        "requiresBootstrapStackVersion": 6,
+        "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version"
+      }
+    },
+    "CredentialsPriorityStack": {
+      "type": "aws:cloudformation:stack",
+      "environment": "aws://unknown-account/unknown-region",
+      "properties": {
+        "templateFile": "CredentialsPriorityStack.template.json",
+        "terminationProtection": false,
+        "tags": {
+          "DemoName": "CredentialsPriority"
+        },
+        "validateOnSynth": false,
+        "assumeRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-deploy-role-${AWS::AccountId}-${AWS::Region}",
+        "cloudFormationExecutionRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-cfn-exec-role-${AWS::AccountId}-${AWS::Region}",
+        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}/c84a7003635a1edc75fcd8f987311e3e401f01ff4636b5011bb8beeb6d126a8c.json",
+        "requiresBootstrapStackVersion": 6,
+        "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version",
+        "additionalDependencies": [
+          "CredentialsPriorityStack.assets"
+        ],
+        "lookupRole": {
+          "arn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-lookup-role-${AWS::AccountId}-${AWS::Region}",
+          "requiresBootstrapStackVersion": 8,
+          "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version"
+        }
+      },
+      "dependencies": [
+        "CredentialsPriorityStack.assets"
+      ],
+      "metadata": {
+        "/CredentialsPriorityStack": [
+          {
+            "type": "aws:cdk:stack-tags",
+            "data": [
+              {
+                "Key": "DemoName",
+                "Value": "CredentialsPriority"
+              }
+            ]
+          }
+        ],
+        "/CredentialsPriorityStack/marc.charouk.demo/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "marccharoukdemo684241B2"
+          }
+        ],
+        "/CredentialsPriorityStack/myUserCredentials/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "myUserCredentialsE051B828"
+          }
+        ],
+        "/CredentialsPriorityStack/SecretAccessKeyForMyUser/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "SecretAccessKeyForMyUserD9F776DE"
+          }
+        ],
+        "/CredentialsPriorityStack/S3FullAccessRole/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "S3FullAccessRole3495E34B"
+          }
+        ],
+        "/CredentialsPriorityStack/myUser-AccessKeyId": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "myUserAccessKeyId"
+          }
+        ],
+        "/CredentialsPriorityStack/s3FullAccessRole-Arn": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "s3FullAccessRoleArn"
+          }
+        ],
+        "/CredentialsPriorityStack/CDKMetadata/Default": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CDKMetadata"
+          }
+        ],
+        "/CredentialsPriorityStack/CDKMetadata/Condition": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CDKMetadataAvailable"
+          }
+        ],
+        "/CredentialsPriorityStack/BootstrapVersion": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "BootstrapVersion"
+          }
+        ],
+        "/CredentialsPriorityStack/CheckBootstrapVersion": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CheckBootstrapVersion"
+          }
+        ]
+      },
+      "displayName": "CredentialsPriorityStack"
+    },
+    "Tree": {
+      "type": "cdk:tree",
+      "properties": {
+        "file": "tree.json"
+      }
+    }
+  }
+}
