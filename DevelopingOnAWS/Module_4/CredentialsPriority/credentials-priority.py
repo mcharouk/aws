@@ -6,11 +6,20 @@ import utils
 
 utils.change_current_directory()
 
+unset_aws_profile = True
 load_env_variables = False
 load_credentials_in_code = False
 
-# print environment variables named AWS_PROFILE
 
+def print_env_variables(key_name):
+    if key_name not in os.environ:
+        print(f"{key_name} is not set")
+        return
+    print(f"{key_name} has value [{os.environ[key_name]}]")
+
+
+# print environment variables named AWS_PROFILE
+sts = None
 
 with open("config.json", "r") as file:
     config = json.load(file)
@@ -26,13 +35,13 @@ if load_credentials_in_code:
         RoleSessionName="s3-admin-session",
     )
     # create new boto3 session
-    session = boto3.Session(
+    s3FullAccessRole_session = boto3.Session(
         aws_access_key_id=assumed_role["Credentials"]["AccessKeyId"],
         aws_secret_access_key=assumed_role["Credentials"]["SecretAccessKey"],
         aws_session_token=assumed_role["Credentials"]["SessionToken"],
     )
     # create s3 client
-    sts = session.client("sts")
+    sts = s3FullAccessRole_session.client("sts")
 
 
 if load_env_variables:
@@ -40,14 +49,14 @@ if load_env_variables:
     os.environ["AWS_ACCESS_KEY_ID"] = johnFoo_accesskeyId
     os.environ["AWS_SECRET_ACCESS_KEY"] = johnFoo_secretAccessKey
 
-
-def print_env_variables(key_name):
-    print(f"{key_name} has value {os.environ[key_name]}")
-
+# remove environment variables
+if unset_aws_profile:
+    os.environ.pop("AWS_PROFILE", None)
 
 print_env_variables("AWS_PROFILE")
 print_env_variables("AWS_ACCESS_KEY_ID")
 print_env_variables("AWS_SECRET_ACCESS_KEY")
+
 
 if sts is None:
     print("creating default sts client")
