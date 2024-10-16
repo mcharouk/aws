@@ -1,0 +1,9 @@
+{
+    "john.foo": {
+        "accessKeyId": "$johnFooAccessKeyId",
+        "secretAccessKey": "$johnFooSecretAccessKey"
+    },
+    "S3AdminRole": {
+        "arn": "$s3AdminRoleArn"
+    }
+}
