@@ -54,7 +54,6 @@
 
 * Bucket Versioning
 * Bucket Policies
-* Access Points
 
 ## Headers
 
@@ -85,6 +84,7 @@ ETag is hash of the object. Can be used to check integrity
 ## Links
 
 * [Counter in DDB](https://aws.amazon.com/blogs/database/implement-resource-counters-with-amazon-dynamodb/)
+* [Single table design foundation](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/data-modeling-foundations.html#data-modeling-foundations-single)
 
 # Module 9 : Compute
 

@@ -18,5 +18,6 @@ LambdaUsingLayer
 * Python 3.11 or 3.12
 * Use created iam role (LambdaLayerRole)
 * Code to get on s3 (Cloudformation output)
+* Execute the lambda to show it's not recognizing the dependencies
 * Add the layer
 * Execute the lambda
