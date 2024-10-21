@@ -32,3 +32,7 @@ file_name = "sample.csv"
 # empty the bucket
 # delete the bucket
 ```
+
+# refactoring example
+
+right click in the code in refactoring_example.py, and click on Amazon Q -> refactor
