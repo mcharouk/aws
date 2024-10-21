@@ -226,11 +226,17 @@ this message will be forwarded to the **joinroom** action
 
 ### Integration response
 
+* set at least 
+  * one default status code
+  * one default response
+
+### Response Mappiong template
+
 * for each status code returned
   * define body mappings
   * header values 
 
-### Method responses
+### Method responses (Response Model)
 
 * for each status code returned
   * header that must be returned
