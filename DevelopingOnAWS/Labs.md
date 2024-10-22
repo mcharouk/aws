@@ -62,17 +62,35 @@ s3Client.put_bucket_policy(Bucket=bucket, Policy=bucket_policy)
 
 ## Description
 
+* Interact with DynamoDB programmatically using low-level, document, and high-level APIs in your programs.
+* Document and high level, only for Java and .NET. Document in lab and bean in bonus question.
+* Create a table using waiters
+* Load a table by reading JSON objects from a file.
+* Query with projection expressions
+* Scan and paginate
+* Update items with conditional writes
+* Using PartiQL
 
 ## Tasks
-Straightforward Lab
 
+Straightforward Lab
 
 # Lab 4
 
 ## Description
 
+* Create a lambda function
+* use Environment variables
+* use Polly and upload the mp3 generated file in S3
+* Publish function
+* Invoke Lambda in multiple way (console, from CLI)
+* Bonus : create remaining lambdas
+
 ## Tasks
-Lambda function invoke. Must add --cli-binary-format to make it work when json is directly input in command line.
+
+### Invoking a function
+
+Must add --cli-binary-format to make it work when json is directly input in command line.
 Not necessary if payload is given in a json file
 
 ```
@@ -83,11 +101,24 @@ aws lambda invoke --function-name dictate-function --payload '{"UserId": "newbie
 
 ## Description
 
+* create a REST API with a resource
+* add a GET Method
+* Map the response to limit the amount of data returned
+* add a POST Method and configure some model validation
+* add CORS Configuration and deploy in a stage
+
 ## Tasks
 
 # Lab 6
 
 ## Description
+
+* Create a user pool and app client
+* add new users
+* test user authentication
+* configure API Gateway to use Cognito as authorizer
+* use a swagger file to configure API Gateway
+* test front end
 
 ## Tasks
 
@@ -100,6 +131,13 @@ aws lambda invoke --function-name dictate-function --payload '{"UserId": "newbie
 # Lab 7
 
 ## Description
+
+* Enable X Ray Tracing and logging in the lambda code
+* create sub segment and add annotations
+* enable X Ray tracing in SAM template
+* deploy application with SAM
+* analyze traces : search by HTTP Status code, search for exception
+* fix the error and deploy again
 
 ## Tasks
 
