@@ -1,3 +1,9 @@
+* create bucket (help)
+
+```
+aws s3api create-bucket help
+```
+
 * create bucket (low-level api)
 
 ```

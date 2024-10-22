@@ -1,5 +1,14 @@
 # Lab 1
 
+## Description
+
+* configure permissions on Cloud9 that will be used to execute commands (EC2 instance profile)
+* check explorer, by using EC2 instance as profile
+* verify permissions by executing s3 commands
+* add permissions to current user and check the effect on command (delete s3 bucket)
+
+## Tasks
+
 Analyzing Environment
 
 * Sometimes 2 cmds are presented are options. Only one works, solution is at the end of the lab
@@ -13,20 +22,23 @@ Analyzing Environment
 
 # Lab 2
 
+## Description
+
 It consists of 
-* creating a bucket
-* uploading object
-* download and re-uploading with json conversion
+* creating a bucket with waiters, check bucket existence, etc...
+* upload a file
+* uploading and downloading an object (byte array)
 * activate static web hosting with aws cli
   * check that bucket variable **mybucket** has been correctly set
+* Bonus : activate static web hosting with sdk
 
 ## Optional Task
 
 upload S3 files
 
 ```
-s3Client.upload_file(filename, bucket, key, ExtraArgs={'ContentType': contentType})
-print(f"uploaded {filename} to key {key} and bucket {bucket}")
+s3Client.upload_file(name, bucket, key, ExtraArgs={'ContentType': contentType})
+print(f"uploaded {name} to key {key} and bucket {bucket}")
 ```
 
 enable static web hosting
@@ -48,11 +60,18 @@ s3Client.put_bucket_policy(Bucket=bucket, Policy=bucket_policy)
 
 # Lab 3 (DynamoDB)
 
+## Description
+
+
+## Tasks
 Straightforward Lab
 
 
 # Lab 4
 
+## Description
+
+## Tasks
 Lambda function invoke. Must add --cli-binary-format to make it work when json is directly input in command line.
 Not necessary if payload is given in a json file
 
@@ -62,9 +81,15 @@ aws lambda invoke --function-name dictate-function --payload '{"UserId": "newbie
 
 # Lab 5 
 
-API Gateway
+## Description
+
+## Tasks
 
 # Lab 6
+
+## Description
+
+## Tasks
 
 * There is a step in Lab 6 where student can look at the code details that will identify a user with Cognito
 * Apart from this, in the web app src code
@@ -73,6 +98,10 @@ API Gateway
   * This method is called from src/Routes/Login.js where the web form is defined
 
 # Lab 7
+
+## Description
+
+## Tasks
 
 * when selecting the X-Ray traces
   * we can see traces associated to delete function
