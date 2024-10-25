@@ -294,14 +294,26 @@ AWS-AttachIAMToInstance
 
 ### Metrics
 
-Reset packets are used to abruptly terminate TCP connections :
+* Active Flow Count : Number of connections in the time period
+* New Flow Count : Number of new connections in the time period
+* ConsumedLBCapacityUnits : LCU impact pricing. See dedicated section for that 
+* Reset packets are used to abruptly terminate TCP connections :
 
-* When a host receives a packet for a port that isn't open
-* To reject an unwanted connection attempt
-* When a host detects an invalid segment or sequence number
-* To clear a "half-open" connection (where one side has closed but the other hasn't)
+  * When a host receives a packet for a port that isn't open
+  * To reject an unwanted connection attempt
+  * When a host detects an invalid segment or sequence number
+  * To clear a "half-open" connection (where one side has closed but the other hasn't)
 
 Can indicate a TCP RST attack where an actor tries to interrupt communication between two adresses
+
+### Pricing
+
+* charged only on the dimension with the highest usage. 
+* An LCU contains:
+  * 25 new connections per second.
+  * 3,000 active connections per minute or 1,500 active connections per minute while using Mutual TLS.
+  * 1 GB per hour for Amazon Elastic Compute Cloud (EC2) instances, containers, and IP addresses as targets, and 0.4 GB per hour for Lambda functions as targets. When using the Mutual TLS feature, data processed includes the bytes for the certificate metadata that the load balancer inserts into headers for every request that is routed to the targets.
+  * 1,000 rule evaluations per second
 
 ## Demo
 
@@ -382,7 +394,7 @@ Demo :
 * RDS
   * Login attempts
 * IAM
-  * AWS API Calls from an IP address that is included on a threat list
+  * AWS API Calls from an IP address that is included on a threat list. IP list can be provided by a third party or by current organization.
 
 ### Findings
 
@@ -392,8 +404,8 @@ Demo :
   * by who
   * to what resources
   * when and where
-* A severity is associated
-* Automatic Archiving
+* A severity is associated (Low, Medium, High)
+* [Automatic Archiving](https://docs.aws.amazon.com/guardduty/latest/ug/findings_suppression-rule.html)
 
 
 ## Inspector
@@ -492,7 +504,7 @@ When we make a change on EBS (like changing disk size or performance), we have t
 * [Use case Express One Zone](https://aws.amazon.com/blogs/storage/clickhouse-cloud-amazon-s3-express-one-zone-making-a-blazing-fast-analytical-database-even-faster/)
 * En général ce sont des use cases qui matchent bien avec S3 (analytics, data science, données non structurées), write-once/read-many mais avec quelques spécificités
   * besoin d'un accès à faible latence
-  * bcp de petits fichiers. La latence de S3 standard est en effet négligeable si il s'agit peu de gros fichiers. C'est le nombre de fichiers qui pose surtout problème.
+  * bcp de petits fichiers. La latence de S3 standard est en effet négligeable si il s'agit de gros fichiers. C'est le nombre de fichiers qui pose surtout problème.
   * Exemple : on souhaite récupérer plein d'images pour faire du training de machine learning. Le temps de récupération de ces images se fera sentir sur un S3 standard.
 *  [Explications](https://community.aws/content/2ZDARM0xDoKSPDNbArrzdxbO3ZZ/s3-express-one-zone)
   * stocke les données sur une seule AZ, réduit la latence je pense en particulier en écriture. Amélioration en lecture surtout qd le compute se trouve dans la même AZ.
