@@ -1,6 +1,100 @@
 {
  "Resources": {
-  "ContractorS3Role9DEC55C1": {
+  "contractorgroup7EA4A15E": {
+   "Type": "AWS::IAM::Group",
+   "Properties": {
+    "GroupName": "contractor"
+   },
+   "Metadata": {
+    "aws:cdk:path": "AssumeRoleDemoStack/contractor_group/Resource"
+   }
+  },
+  "contractorgroupDefaultPolicyAEFC0336": {
+   "Type": "AWS::IAM::Policy",
+   "Properties": {
+    "Groups": [
+     {
+      "Ref": "contractorgroup7EA4A15E"
+     }
+    ],
+    "PolicyDocument": {
+     "Statement": [
+      {
+       "Action": "cloudshell:*",
+       "Effect": "Allow",
+       "Resource": "*"
+      },
+      {
+       "Action": "sts:AssumeRole",
+       "Effect": "Allow",
+       "Resource": {
+        "Fn::Join": [
+         "",
+         [
+          "arn:aws:iam::",
+          {
+           "Ref": "AWS::AccountId"
+          },
+          ":role/S3access"
+         ]
+        ]
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "PolicyName": "contractorgroupDefaultPolicyAEFC0336"
+   },
+   "Metadata": {
+    "aws:cdk:path": "AssumeRoleDemoStack/contractor_group/DefaultPolicy/Resource"
+   }
+  },
+  "contractorpasswordF0A387B2": {
+   "Type": "AWS::SecretsManager::Secret",
+   "Properties": {
+    "GenerateSecretString": {
+     "ExcludeCharacters": "'\"@/\\",
+     "IncludeSpace": false,
+     "PasswordLength": 8,
+     "RequireEachIncludedType": true
+    },
+    "Name": "contractor_password"
+   },
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete",
+   "Metadata": {
+    "aws:cdk:path": "AssumeRoleDemoStack/contractor_password/Resource"
+   }
+  },
+  "contractorCFB2ED58": {
+   "Type": "AWS::IAM::User",
+   "Properties": {
+    "Groups": [
+     {
+      "Ref": "contractorgroup7EA4A15E"
+     }
+    ],
+    "LoginProfile": {
+     "Password": {
+      "Fn::Join": [
+       "",
+       [
+        "{{resolve:secretsmanager:",
+        {
+         "Ref": "contractorpasswordF0A387B2"
+        },
+        ":SecretString:::}}"
+       ]
+      ]
+     }
+    },
+    "UserName": "contractor"
+   },
+   "Metadata": {
+    "aws:cdk:path": "AssumeRoleDemoStack/contractor/Resource"
+   }
+  },
+  "s3role2867CC88": {
    "Type": "AWS::IAM::Role",
    "Properties": {
     "AssumeRolePolicyDocument": {
@@ -30,7 +124,6 @@
      ],
      "Version": "2012-10-17"
     },
-    "Description": "Role with S3 full access",
     "ManagedPolicyArns": [
      {
       "Fn::Join": [
@@ -45,103 +138,37 @@
       ]
      }
     ],
-    "RoleName": "ContractorS3Role",
-    "Tags": [
-     {
-      "Key": "DemoName",
-      "Value": "AssumeRole"
-     }
-    ]
+    "RoleName": "S3access"
    },
    "Metadata": {
-    "aws:cdk:path": "AssumeRoleDemoStack/ContractorS3Role/Resource"
-   }
-  },
-  "contractorGroupA37A242E": {
-   "Type": "AWS::IAM::Group",
-   "Properties": {
-    "GroupName": "contractorGroup",
-    "ManagedPolicyArns": [
-     {
-      "Fn::Join": [
-       "",
-       [
-        "arn:",
-        {
-         "Ref": "AWS::Partition"
-        },
-        ":iam::aws:policy/AWSCloudShellFullAccess"
-       ]
-      ]
-     }
-    ]
-   },
-   "Metadata": {
-    "aws:cdk:path": "AssumeRoleDemoStack/contractorGroup/Resource"
-   }
-  },
-  "AssumeS3ContractorRolePolicy1BBB5E70": {
-   "Type": "AWS::IAM::Policy",
-   "Properties": {
-    "Groups": [
-     {
-      "Ref": "contractorGroupA37A242E"
-     }
-    ],
-    "PolicyDocument": {
-     "Statement": [
-      {
-       "Action": "sts:AssumeRole",
-       "Effect": "Allow",
-       "Resource": {
-        "Fn::GetAtt": [
-         "ContractorS3Role9DEC55C1",
-         "Arn"
-        ]
-       }
-      }
-     ],
-     "Version": "2012-10-17"
-    },
-    "PolicyName": "AssumeS3ContractorRolePolicy1BBB5E70"
-   },
-   "Metadata": {
-    "aws:cdk:path": "AssumeRoleDemoStack/AssumeS3ContractorRolePolicy/Resource"
-   }
-  },
-  "contractorCFB2ED58": {
-   "Type": "AWS::IAM::User",
-   "Properties": {
-    "Groups": [
-     {
-      "Ref": "contractorGroupA37A242E"
-     }
-    ],
-    "LoginProfile": {
-     "Password": "Contractor2024!",
-     "PasswordResetRequired": false
-    },
-    "Tags": [
-     {
-      "Key": "DemoName",
-      "Value": "AssumeRole"
-     }
-    ],
-    "UserName": "contractor"
-   },
-   "Metadata": {
-    "aws:cdk:path": "AssumeRoleDemoStack/contractor/Resource"
+    "aws:cdk:path": "AssumeRoleDemoStack/s3_role/Resource"
    }
   },
   "CDKMetadata": {
    "Type": "AWS::CDK::Metadata",
    "Properties": {
-    "Analytics": "v2:deflate64:H4sIAAAAAAAA/02LOQ7CMBAA35LeXmSOgjoFbWREjYxjxBJnN/KhKIryd2RMQTUzxexBnY6gGjNHaftBenzAek3GDsLM8Y5mhFWzd6J90peXwHkqVaVjj3Yp/bNbdKFk4Sa0i5yDrfuft0w9JmTaRLekF9PuAErBuXlHRBkyJRwd6MoPJxb/4KQAAAA="
+    "Analytics": "v2:deflate64:H4sIAAAAAAAA/02LzQrCMBAGn6X3dCUVBM89eLS0eJaYRl3bZkt+KCXk3SWJB08zsx/bAD81wCux2VqOUz3jA8LghJyY2Ow9oFggXAz5lbVPXaSjGeWe+mc3q0zKzJ5mlSIxMqukUc4uQouXMhCG3GkvFiPrlSVvZH66erf6PP9fW9IjOiQdWbe7N+nDETiHc/WxiLXx2uGioC/8AmNGFrfSAAAA"
    },
    "Metadata": {
     "aws:cdk:path": "AssumeRoleDemoStack/CDKMetadata/Default"
    },
    "Condition": "CDKMetadataAvailable"
+  }
+ },
+ "Outputs": {
+  "contractorpwd": {
+   "Value": {
+    "Fn::Join": [
+     "",
+     [
+      "{{resolve:secretsmanager:",
+      {
+       "Ref": "contractorpasswordF0A387B2"
+      },
+      ":SecretString:::}}"
+     ]
+    ]
+   }
   }
  },
  "Conditions": {

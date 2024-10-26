@@ -8,21 +8,173 @@
         "id": "AssumeRoleDemoStack",
         "path": "AssumeRoleDemoStack",
         "children": {
-          "ContractorS3Role": {
-            "id": "ContractorS3Role",
-            "path": "AssumeRoleDemoStack/ContractorS3Role",
+          "contractor_group": {
+            "id": "contractor_group",
+            "path": "AssumeRoleDemoStack/contractor_group",
             "children": {
-              "ImportContractorS3Role": {
-                "id": "ImportContractorS3Role",
-                "path": "AssumeRoleDemoStack/ContractorS3Role/ImportContractorS3Role",
+              "Resource": {
+                "id": "Resource",
+                "path": "AssumeRoleDemoStack/contractor_group/Resource",
+                "attributes": {
+                  "aws:cdk:cloudformation:type": "AWS::IAM::Group",
+                  "aws:cdk:cloudformation:props": {
+                    "groupName": "contractor"
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_iam.CfnGroup",
+                  "version": "2.162.1"
+                }
+              },
+              "DefaultPolicy": {
+                "id": "DefaultPolicy",
+                "path": "AssumeRoleDemoStack/contractor_group/DefaultPolicy",
+                "children": {
+                  "Resource": {
+                    "id": "Resource",
+                    "path": "AssumeRoleDemoStack/contractor_group/DefaultPolicy/Resource",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::IAM::Policy",
+                      "aws:cdk:cloudformation:props": {
+                        "groups": [
+                          {
+                            "Ref": "contractorgroup7EA4A15E"
+                          }
+                        ],
+                        "policyDocument": {
+                          "Statement": [
+                            {
+                              "Action": "cloudshell:*",
+                              "Effect": "Allow",
+                              "Resource": "*"
+                            },
+                            {
+                              "Action": "sts:AssumeRole",
+                              "Effect": "Allow",
+                              "Resource": {
+                                "Fn::Join": [
+                                  "",
+                                  [
+                                    "arn:aws:iam::",
+                                    {
+                                      "Ref": "AWS::AccountId"
+                                    },
+                                    ":role/S3access"
+                                  ]
+                                ]
+                              }
+                            }
+                          ],
+                          "Version": "2012-10-17"
+                        },
+                        "policyName": "contractorgroupDefaultPolicyAEFC0336"
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_iam.CfnPolicy",
+                      "version": "2.162.1"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_iam.Policy",
+                  "version": "2.162.1"
+                }
+              }
+            },
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.aws_iam.Group",
+              "version": "2.162.1"
+            }
+          },
+          "contractor_password": {
+            "id": "contractor_password",
+            "path": "AssumeRoleDemoStack/contractor_password",
+            "children": {
+              "Resource": {
+                "id": "Resource",
+                "path": "AssumeRoleDemoStack/contractor_password/Resource",
+                "attributes": {
+                  "aws:cdk:cloudformation:type": "AWS::SecretsManager::Secret",
+                  "aws:cdk:cloudformation:props": {
+                    "generateSecretString": {
+                      "excludeCharacters": "'\"@/\\",
+                      "includeSpace": false,
+                      "passwordLength": 8,
+                      "requireEachIncludedType": true
+                    },
+                    "name": "contractor_password"
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_secretsmanager.CfnSecret",
+                  "version": "2.162.1"
+                }
+              }
+            },
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.aws_secretsmanager.Secret",
+              "version": "2.162.1"
+            }
+          },
+          "contractor": {
+            "id": "contractor",
+            "path": "AssumeRoleDemoStack/contractor",
+            "children": {
+              "Resource": {
+                "id": "Resource",
+                "path": "AssumeRoleDemoStack/contractor/Resource",
+                "attributes": {
+                  "aws:cdk:cloudformation:type": "AWS::IAM::User",
+                  "aws:cdk:cloudformation:props": {
+                    "groups": [
+                      {
+                        "Ref": "contractorgroup7EA4A15E"
+                      }
+                    ],
+                    "loginProfile": {
+                      "password": {
+                        "Fn::Join": [
+                          "",
+                          [
+                            "{{resolve:secretsmanager:",
+                            {
+                              "Ref": "contractorpasswordF0A387B2"
+                            },
+                            ":SecretString:::}}"
+                          ]
+                        ]
+                      }
+                    },
+                    "userName": "contractor"
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_iam.CfnUser",
+                  "version": "2.162.1"
+                }
+              }
+            },
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.aws_iam.User",
+              "version": "2.162.1"
+            }
+          },
+          "s3_role": {
+            "id": "s3_role",
+            "path": "AssumeRoleDemoStack/s3_role",
+            "children": {
+              "Imports3_role": {
+                "id": "Imports3_role",
+                "path": "AssumeRoleDemoStack/s3_role/Imports3_role",
                 "constructInfo": {
                   "fqn": "aws-cdk-lib.Resource",
-                  "version": "2.154.1"
+                  "version": "2.162.1"
                 }
               },
               "Resource": {
                 "id": "Resource",
-                "path": "AssumeRoleDemoStack/ContractorS3Role/Resource",
+                "path": "AssumeRoleDemoStack/s3_role/Resource",
                 "attributes": {
                   "aws:cdk:cloudformation:type": "AWS::IAM::Role",
                   "aws:cdk:cloudformation:props": {
@@ -53,7 +205,6 @@
                       ],
                       "Version": "2012-10-17"
                     },
-                    "description": "Role with S3 full access",
                     "managedPolicyArns": [
                       {
                         "Fn::Join": [
@@ -68,145 +219,26 @@
                         ]
                       }
                     ],
-                    "roleName": "ContractorS3Role",
-                    "tags": [
-                      {
-                        "key": "DemoName",
-                        "value": "AssumeRole"
-                      }
-                    ]
+                    "roleName": "S3access"
                   }
                 },
                 "constructInfo": {
                   "fqn": "aws-cdk-lib.aws_iam.CfnRole",
-                  "version": "2.154.1"
+                  "version": "2.162.1"
                 }
               }
             },
             "constructInfo": {
               "fqn": "aws-cdk-lib.aws_iam.Role",
-              "version": "2.154.1"
+              "version": "2.162.1"
             }
           },
-          "contractorGroup": {
-            "id": "contractorGroup",
-            "path": "AssumeRoleDemoStack/contractorGroup",
-            "children": {
-              "Resource": {
-                "id": "Resource",
-                "path": "AssumeRoleDemoStack/contractorGroup/Resource",
-                "attributes": {
-                  "aws:cdk:cloudformation:type": "AWS::IAM::Group",
-                  "aws:cdk:cloudformation:props": {
-                    "groupName": "contractorGroup",
-                    "managedPolicyArns": [
-                      {
-                        "Fn::Join": [
-                          "",
-                          [
-                            "arn:",
-                            {
-                              "Ref": "AWS::Partition"
-                            },
-                            ":iam::aws:policy/AWSCloudShellFullAccess"
-                          ]
-                        ]
-                      }
-                    ]
-                  }
-                },
-                "constructInfo": {
-                  "fqn": "aws-cdk-lib.aws_iam.CfnGroup",
-                  "version": "2.154.1"
-                }
-              }
-            },
+          "contractor_pwd": {
+            "id": "contractor_pwd",
+            "path": "AssumeRoleDemoStack/contractor_pwd",
             "constructInfo": {
-              "fqn": "aws-cdk-lib.aws_iam.Group",
-              "version": "2.154.1"
-            }
-          },
-          "AssumeS3ContractorRolePolicy": {
-            "id": "AssumeS3ContractorRolePolicy",
-            "path": "AssumeRoleDemoStack/AssumeS3ContractorRolePolicy",
-            "children": {
-              "Resource": {
-                "id": "Resource",
-                "path": "AssumeRoleDemoStack/AssumeS3ContractorRolePolicy/Resource",
-                "attributes": {
-                  "aws:cdk:cloudformation:type": "AWS::IAM::Policy",
-                  "aws:cdk:cloudformation:props": {
-                    "groups": [
-                      {
-                        "Ref": "contractorGroupA37A242E"
-                      }
-                    ],
-                    "policyDocument": {
-                      "Statement": [
-                        {
-                          "Action": "sts:AssumeRole",
-                          "Effect": "Allow",
-                          "Resource": {
-                            "Fn::GetAtt": [
-                              "ContractorS3Role9DEC55C1",
-                              "Arn"
-                            ]
-                          }
-                        }
-                      ],
-                      "Version": "2012-10-17"
-                    },
-                    "policyName": "AssumeS3ContractorRolePolicy1BBB5E70"
-                  }
-                },
-                "constructInfo": {
-                  "fqn": "aws-cdk-lib.aws_iam.CfnPolicy",
-                  "version": "2.154.1"
-                }
-              }
-            },
-            "constructInfo": {
-              "fqn": "aws-cdk-lib.aws_iam.Policy",
-              "version": "2.154.1"
-            }
-          },
-          "contractor": {
-            "id": "contractor",
-            "path": "AssumeRoleDemoStack/contractor",
-            "children": {
-              "Resource": {
-                "id": "Resource",
-                "path": "AssumeRoleDemoStack/contractor/Resource",
-                "attributes": {
-                  "aws:cdk:cloudformation:type": "AWS::IAM::User",
-                  "aws:cdk:cloudformation:props": {
-                    "groups": [
-                      {
-                        "Ref": "contractorGroupA37A242E"
-                      }
-                    ],
-                    "loginProfile": {
-                      "password": "Contractor2024!",
-                      "passwordResetRequired": false
-                    },
-                    "tags": [
-                      {
-                        "key": "DemoName",
-                        "value": "AssumeRole"
-                      }
-                    ],
-                    "userName": "contractor"
-                  }
-                },
-                "constructInfo": {
-                  "fqn": "aws-cdk-lib.aws_iam.CfnUser",
-                  "version": "2.154.1"
-                }
-              }
-            },
-            "constructInfo": {
-              "fqn": "aws-cdk-lib.aws_iam.User",
-              "version": "2.154.1"
+              "fqn": "aws-cdk-lib.CfnOutput",
+              "version": "2.162.1"
             }
           },
           "CDKMetadata": {
@@ -218,7 +250,7 @@
                 "path": "AssumeRoleDemoStack/CDKMetadata/Default",
                 "constructInfo": {
                   "fqn": "aws-cdk-lib.CfnResource",
-                  "version": "2.154.1"
+                  "version": "2.162.1"
                 }
               },
               "Condition": {
@@ -226,7 +258,7 @@
                 "path": "AssumeRoleDemoStack/CDKMetadata/Condition",
                 "constructInfo": {
                   "fqn": "aws-cdk-lib.CfnCondition",
-                  "version": "2.154.1"
+                  "version": "2.162.1"
                 }
               }
             },
@@ -240,7 +272,7 @@
             "path": "AssumeRoleDemoStack/BootstrapVersion",
             "constructInfo": {
               "fqn": "aws-cdk-lib.CfnParameter",
-              "version": "2.154.1"
+              "version": "2.162.1"
             }
           },
           "CheckBootstrapVersion": {
@@ -248,13 +280,13 @@
             "path": "AssumeRoleDemoStack/CheckBootstrapVersion",
             "constructInfo": {
               "fqn": "aws-cdk-lib.CfnRule",
-              "version": "2.154.1"
+              "version": "2.162.1"
             }
           }
         },
         "constructInfo": {
           "fqn": "aws-cdk-lib.Stack",
-          "version": "2.154.1"
+          "version": "2.162.1"
         }
       },
       "Tree": {
@@ -268,7 +300,7 @@
     },
     "constructInfo": {
       "fqn": "aws-cdk-lib.App",
-      "version": "2.154.1"
+      "version": "2.162.1"
     }
   }
 }

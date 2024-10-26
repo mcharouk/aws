@@ -62,13 +62,12 @@ use cases :
 
 ## Privacy
 
-* careful about using public AI models. You're private data can be used for training and so could be reused in answers
-* For example AI could reuse code to answer developers with some light modifications like changing variable names
-* Legal ambiguities on copyrights :
-  * Generate paintings in the style of someone
-  * Get the voice of some singer and use it in some song.
+* Using a public version of a model
+  *  You're private data can be used for training and so could be reused in answers
+  * For example AI could reuse code to answer developers with some light modifications like changing variable names
 * If LLM is working on private data, it could inadvertendly expose private informations in the prompt. *Based on (private fact), my analysis is (...)*
-* Bedrock is integrated in with cloudwatch, with a feature that can mask 10s of sensitive data types in the logs.
+* pay attention to the logs. Sensitive data could appear here too
+  * Bedrock is integrated in with cloudwatch, with a feature that can mask 10s of sensitive data types in the logs.
 
 
 ## Toxicity
@@ -77,6 +76,7 @@ use cases :
 * it's not easy for an LLM sometimes to differentiate between unappropriate content and opinions.
 * LLM can be manipulated with prompts or have biased that comes from the training data
 
+
 ## Hallucinations
 
 * User input: "When did Leonardo da Vinci paint the Mona Lisa?"
@@ -84,6 +84,13 @@ AI-generated response: "Leonardo da Vinci painted the Mona Lisa in 1815."
 This is a hallucination because the Mona Lisa was actually painted in 1503-1506. The AI model has made a mistake because it is not trained on enough data about the Mona Lisa
 
 * When filing a response, lawyers for the plaintiff (demandeur) cited at least six other cases to show precedent, but the court found that the cases didn’t exist and had “bogus judicial decisions with bogus quotes and bogus internal citations,” leading a federal judge to consider sanctions. A member of the law team then revealed he had used a generative AI model to conduct legal research for the court filing that referenced the cases and that the artificial intelligence tool assured him the cases were real.
+
+## Intellectual property
+
+* Legal ambiguities on copyrights :
+  * Generate paintings in the style of someone
+  * Get the voice of some singer and use it in some song.
+
 
 ## Plagiarism and cheating
 

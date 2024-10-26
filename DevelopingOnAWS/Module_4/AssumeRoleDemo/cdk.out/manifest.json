@@ -1,5 +1,5 @@
 {
-  "version": "36.0.18",
+  "version": "38.0.1",
   "artifacts": {
     "AssumeRoleDemoStack.assets": {
       "type": "cdk:asset-manifest",
@@ -15,13 +15,11 @@
       "properties": {
         "templateFile": "AssumeRoleDemoStack.template.json",
         "terminationProtection": false,
-        "tags": {
-          "DemoName": "AssumeRole"
-        },
         "validateOnSynth": false,
+        "notificationArns": [],
         "assumeRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-deploy-role-${AWS::AccountId}-${AWS::Region}",
         "cloudFormationExecutionRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-cfn-exec-role-${AWS::AccountId}-${AWS::Region}",
-        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}/089e3a7feb647e60545d6fa7826f43a3edb59ddf64888de59fd1b51ae6c87220.json",
+        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}/71635dd9b3559732b165f7e35727503439acaca10d53fae11c0735791332d374.json",
         "requiresBootstrapStackVersion": 6,
         "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version",
         "additionalDependencies": [
@@ -37,39 +35,40 @@
         "AssumeRoleDemoStack.assets"
       ],
       "metadata": {
-        "/AssumeRoleDemoStack": [
-          {
-            "type": "aws:cdk:stack-tags",
-            "data": [
-              {
-                "Key": "DemoName",
-                "Value": "AssumeRole"
-              }
-            ]
-          }
-        ],
-        "/AssumeRoleDemoStack/ContractorS3Role/Resource": [
+        "/AssumeRoleDemoStack/contractor_group/Resource": [
           {
             "type": "aws:cdk:logicalId",
-            "data": "ContractorS3Role9DEC55C1"
+            "data": "contractorgroup7EA4A15E"
           }
         ],
-        "/AssumeRoleDemoStack/contractorGroup/Resource": [
+        "/AssumeRoleDemoStack/contractor_group/DefaultPolicy/Resource": [
           {
             "type": "aws:cdk:logicalId",
-            "data": "contractorGroupA37A242E"
+            "data": "contractorgroupDefaultPolicyAEFC0336"
           }
         ],
-        "/AssumeRoleDemoStack/AssumeS3ContractorRolePolicy/Resource": [
+        "/AssumeRoleDemoStack/contractor_password/Resource": [
           {
             "type": "aws:cdk:logicalId",
-            "data": "AssumeS3ContractorRolePolicy1BBB5E70"
+            "data": "contractorpasswordF0A387B2"
           }
         ],
         "/AssumeRoleDemoStack/contractor/Resource": [
           {
             "type": "aws:cdk:logicalId",
             "data": "contractorCFB2ED58"
+          }
+        ],
+        "/AssumeRoleDemoStack/s3_role/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "s3role2867CC88"
+          }
+        ],
+        "/AssumeRoleDemoStack/contractor_pwd": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "contractorpwd"
           }
         ],
         "/AssumeRoleDemoStack/CDKMetadata/Default": [
