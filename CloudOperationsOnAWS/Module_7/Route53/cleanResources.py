@@ -35,13 +35,12 @@ if hosted_zone_id:
             print(f"Deleting record: {record['Name']}")
             record_to_delete.append({"Action": "DELETE", "ResourceRecordSet": record})
 
-    for record in record_to_delete:
+    if len(record_to_delete) > 0:
         route53.change_resource_record_sets(
             HostedZoneId=hosted_zone_id,
             ChangeBatch={"Changes": record_to_delete},
         )
-
-    if len(record_to_delete) == 0:
+    else:
         print("No records to delete")
 
 

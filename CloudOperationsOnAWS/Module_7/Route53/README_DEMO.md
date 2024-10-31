@@ -2,8 +2,8 @@
 
 ## Steps
 
+* connect to the 2 ALBS with dns names (available in CF outputs)
 * use public hosted zone mcc-aws-demo.fr
-
 * create two alias records on ALB
 * domain name
 
