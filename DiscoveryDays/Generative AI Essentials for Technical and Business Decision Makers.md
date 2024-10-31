@@ -7,13 +7,14 @@
   * Have sufficient quality training data
   * Have sufficient power calculation
 * Examples of Foundation models
-  * Amazon Titan
-  * Jurassic
-  * GPT
-  * Cohere
+  * Amazon Titan (AWS)
+  * Jurassic (AI21 Labs)
+  * GPT (OpenAI)
+  * Cohere Command (Cohere)
   * Claude (Anthropic)
-  * Stable Diffusion (text to image)
-  * BLOOM
+  * Mistral (Mistral AI)
+  * Stable Diffusion (text to image) (Stability.AI)
+  * BLOOM (Hugging Face)
 
 ## Transformers
 

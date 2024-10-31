@@ -6,9 +6,9 @@ import utils
 
 utils.change_current_directory()
 
-unset_aws_profile = True
-load_env_variables = False
-load_credentials_in_code = False
+unset_aws_profile = False
+load_env_variables = True
+load_credentials_in_code = True
 
 
 def print_env_variables(key_name):

@@ -1,4 +1,7 @@
 import boto3
+import utils
+
+utils.change_current_directory()
 
 # get outputs of cloudformation stack named CredentialsPriority
 cloudformation = boto3.client("cloudformation")
@@ -37,3 +40,4 @@ with open("templates/config.json", "r") as file:
     # write results to aws-config-result.txt
     with open("config.json", "w") as result_file:
         result_file.write(content)
+        print("config.json has been generated")
