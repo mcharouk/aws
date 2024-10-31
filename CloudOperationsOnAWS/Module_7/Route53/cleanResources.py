@@ -20,7 +20,7 @@ def get_hosted_zone_id(domain):
         return None
 
 
-hosted_zone_id = get_hosted_zone_id("route53.demo.com")
+hosted_zone_id = get_hosted_zone_id("mcc-aws-demo.fr")
 
 # get all alias records of private hosted zone
 
@@ -29,20 +29,20 @@ if hosted_zone_id:
     response = route53.list_resource_record_sets(
         HostedZoneId=hosted_zone_id, MaxItems="100"
     )
+    record_to_delete = []
     for record in response["ResourceRecordSets"]:
-        if record["Type"] == "A" and record["AliasTarget"]:
+        if record["Type"] == "A" and record["GeoLocation"]:
             print(f"Deleting record: {record['Name']}")
-            route53.change_resource_record_sets(
-                HostedZoneId=hosted_zone_id,
-                ChangeBatch={
-                    "Changes": [{"Action": "DELETE", "ResourceRecordSet": record}]
-                },
-            )
+            record_to_delete.append({"Action": "DELETE", "ResourceRecordSet": record})
 
-# delete private hosted zone
+    for record in record_to_delete:
+        route53.change_resource_record_sets(
+            HostedZoneId=hosted_zone_id,
+            ChangeBatch={"Changes": record_to_delete},
+        )
 
-if hosted_zone_id:
-    route53.delete_hosted_zone(Id=hosted_zone_id)
-    print(f"Deleted hosted zone: {hosted_zone_id}")
+    if len(record_to_delete) == 0:
+        print("No records to delete")
+
 
 route53.close()
