@@ -88,6 +88,10 @@ sam build
 ```
 
 * update script ./invokeAPI.ps1 with api gateway URL (provided as output in CF)
+
+### Canary deployment
+
+* show codedeploy
 * deploy second production version
 
 ```

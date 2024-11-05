@@ -253,6 +253,44 @@ this message will be forwarded to the **joinroom** action
 
 * Step functions
 
+## Bounded Context
+
+### Definition
+
+* It's a logical boundary where a specific domain model applies
+* Each model is valid and consistent within its defined boundaries
+* Terms, definitions, and rules are consistent within the context
+
+### Main characteristics
+
+* Has its own ubiquitous language
+* Maintains its own domain model
+* Operates independently of other contexts
+* Has clear interfaces for communication with other contexts
+
+### Practical examples
+
+in eCommerce
+
+* Order Management Context
+* Inventory Context
+* Customer Context
+
+### How to define them
+
+* Business Capability Analysis
+  * Identify distinct business capabilities
+  * Map organizational structure and responsibilities 
+  * Analyze business processes and workflows
+* Event Storming
+  * Naturally reveals context boundaries through event flows
+* Domain storytelling
+  * Gather domain stories from domain experts
+  * Draw pictographic representations
+  * Identify recurring patterns and terminology
+  * Group related activities and concepts
+* ... many more
+
 ## Devops practices
 
 * Agile project management
