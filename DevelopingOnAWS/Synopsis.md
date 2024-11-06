@@ -401,6 +401,15 @@ What must be collected to
 * what issues could interfer with user's experiences. Track those potential issues with metrics, alarms...
 * improve performance. Performance has a direct impact on revenue. infra revenue + customer satisfaction
 
+## Cloudwatch logs
+
+* EKS
+  * FluentBit (recommended)
+  * FluentD
+  * can use other tools, like logstash
+* EC2 : Cloudwatch Log Agent
+* Lambda, ECS : Seamless
+
 ## XRay
 
 * for lambda

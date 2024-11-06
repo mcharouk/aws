@@ -1,4 +1,4 @@
-$url="https://kubnfb44s0.execute-api.eu-west-3.amazonaws.com/prod"
+$url="https://cqbte8xrre.execute-api.eu-west-3.amazonaws.com/prod"
 $timeout = new-timespan -Minutes 5
 $sw = [diagnostics.stopwatch]::StartNew()
 while ($sw.elapsed -lt $timeout){

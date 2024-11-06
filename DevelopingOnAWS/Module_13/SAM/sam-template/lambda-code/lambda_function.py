@@ -8,7 +8,7 @@ def lambda_handler(event, context):
     """
 
     # get lambda current version
-    current_string = "hello1"
+    current_string = "hello5"
     version = context.function_version
     body = f"lambda version : [{version}], current string : [{current_string}]"
     return {"statusCode": 200, "body": body}

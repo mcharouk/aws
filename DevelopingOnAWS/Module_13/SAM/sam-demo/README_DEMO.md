@@ -46,6 +46,8 @@ sam deploy
 sam deploy --config-env prod
 ```
 
+* These two versions will be deployed initially, just take the URLs for CF outputs
+
 ## new development : SAM sync
 
 ### test sync without watch feature
@@ -55,26 +57,18 @@ sam deploy --config-env prod
 ```
 sam sync --code
 ```
-
-* execute Powershell script in another terminal (for clarity)
-
-```
-Invoke-RestMethod -Uri [URLProvidedAsCFOutput]
-``` 
+* execute Powershell script named invokeDevAPI.ps1 (in root folder)
 
 ### test sync with watch feature
 
-* launch synchronization mode in a dedicated terminal
+* launch synchronization mode in a dedicated terminal (can take on or two minutes)
 
 ```
 sam sync --watch
 ```
 * change lambda code, check time it's taking to redeploy, should be about 7s
 
-* execute Powershell script
-```
-Invoke-RestMethod -Uri [URLProvidedAsCFOutput]
-```
+* execute Powershell script named invokeDevAPI.ps1 (in root folder)
 
 ## Deployments
 
@@ -84,21 +78,22 @@ Invoke-RestMethod -Uri [URLProvidedAsCFOutput]
 
 ```
 sam build
-
 ```
-
-* update script ./invokeAPI.ps1 with api gateway URL (provided as output in CF)
 
 ### Canary deployment
 
-* show codedeploy
+* show sam template code
+  * sections on alarm
+  * section on deployment mode (Canary10Percent5Minutes)
 * deploy second production version
 
 ```
 sam deploy --config-env prod
 ```
 
-* execute script ./invokeAPI.ps1 to see the distribution of calls
+* execute Powershell script named invokeProdAPI.ps1 (in root folder) to see call distribution
+* show weighted alias in lambda
+* show code deploy deployment in console
 * can fail an alarm to demonstrate rollback
 
 ```
