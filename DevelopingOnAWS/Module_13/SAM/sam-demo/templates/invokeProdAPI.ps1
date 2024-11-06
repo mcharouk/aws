@@ -1,4 +1,4 @@
-$url=##INVOKE_URL##
+$url="##INVOKE_URL##"
 $timeout = new-timespan -Minutes 5
 $sw = [diagnostics.stopwatch]::StartNew()
 while ($sw.elapsed -lt $timeout){
