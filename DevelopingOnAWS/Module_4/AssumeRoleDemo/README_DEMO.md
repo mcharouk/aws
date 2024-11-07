@@ -1,4 +1,7 @@
-* connect to [console](https://637423642269.signin.aws.amazon.com/console) using user contractor and password that should appear in IDE terminal
+* connect to [console](https://637423642269.signin.aws.amazon.com/console) 
+  * user : contractor
+  * password : should appear in IDE terminal
+* User has only access to cloudshell
 * go to cloudShell and create a bucket (should fail)
 
 ```

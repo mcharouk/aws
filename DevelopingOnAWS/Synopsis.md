@@ -38,11 +38,9 @@
 
 ## Demo
 
-* Permissions Boundary
-  * but instead of showing denied statement on the console, can use the cli for that
-* Different profile with programatic access
-* Can show assumeRole result with SessionToken
-* Can show policy simulator
+* Permissions Boundary (Archi)
+* Module_4/AssumeRoleDemo
+* Module_4/CredentialsPriority
 
 ## CLI global config
 
@@ -230,7 +228,7 @@ this message will be forwarded to the **joinroom** action
   * one default status code
   * one default response
 
-### Response Mappiong template
+### Response Mapping template
 
 * for each status code returned
   * define body mappings
