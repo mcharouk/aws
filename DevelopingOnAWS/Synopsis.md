@@ -416,3 +416,22 @@ What must be collected to
 * for others
   * install x Ray agent as daemon
   * use X Ray SDK to activate it
+
+
+# Wrap up
+
+* Advanced Developing on AWS
+  * 3 days
+  * migrate a monolith to AWS on an optimized architecture
+    * CI/CD (CodeBuild, CodePipeline, CodeDeploy, etc...)
+    * Queues (Kinesis, SQS)
+    * Review some concepts and services seen in DevelopingOnAWS but more deep dive on particular aspects (patterns and some features like Ddb streams or caching)
+* Developing Serverless
+  * EventBridge, SQS, Kinesis
+  * Focus on Security : WAF, CloudFront
+  * Review same services but focus on scalability, or specific configurations
+* Getting Started with DevOps on AWS
+  * short skillbuilder lesson on devops
+* AWS Cloud Development Kit Primer
+  * i think it has been removed from skill builder... Slide is outdated
+  * AWS Cloud Quest: Serverless Developer -> can be interesting to follow that quest
