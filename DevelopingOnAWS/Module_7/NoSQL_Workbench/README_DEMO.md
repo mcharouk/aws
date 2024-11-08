@@ -3,6 +3,7 @@
 * Add a connection by getting credential from sso console
 * User Operation Builder to query real DynamoDB tables
 
+* use NoSQLWorkbench profile to create and delete the table in DynamoDB
 
 ## Connection
 
@@ -12,14 +13,14 @@
 ```
 python update-connection-credentials.py
 ```
-* Check in console that expiration time is OK 
+* this script updates credentials of NOSQLWorkbench profile
 
 ### Manual procedure
-* go to .aws/cli/cache
-* get last json by modified date. Role credentials are stored here
 
-* Already created a profile named NoSQLWorkbench, update the credentials in .aws/credentials file
-* if profile is not present, create a new connection by providing the role credentials
+* go to AWS SSO Portal
+* get temp credentials of Administrator role
+* copy/paste them in the NoSQLWorkbench profile
+* restart NOSQL Workbench
 
 ## Queries
 
