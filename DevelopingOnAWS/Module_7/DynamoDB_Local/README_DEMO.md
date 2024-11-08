@@ -14,11 +14,14 @@ Maybe it's to execute this demo in Module 8 and explain how command works with a
 java -Djava.library.path=./DynamoDBLocal_lib -jar DynamoDBLocal.jar -sharedDb
 ```
 
+* takes a few seconds
+* do not execute it with powershell editor, only CMD prompt
+* localpath : C:\Users\charouk.m\Documents\Applications\dynamodb_local
+
 ### Notes
 
 * There is a docker image that does not work with Rancher Desktop
 * It can be attached as a Maven Dependency too
-
 
 ## Commands
 
@@ -51,3 +54,7 @@ delete table
 ```
 aws dynamodb delete-table --table Employee --endpoint-url http://localhost:8000 --region eu-west-3
 ```
+
+## Boto3 commands
+
+* check query_local_table.py
