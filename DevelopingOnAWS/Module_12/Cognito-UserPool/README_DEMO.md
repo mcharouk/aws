@@ -2,7 +2,7 @@
 
 * sign-in with email
 * confirmation by mail
-* add some required user attributes
+* add some required user attributes (birth date)
 * change password policy to something very simple
 * enable self registration
 * Attribute verification and user account confirmation : keep everything as default
