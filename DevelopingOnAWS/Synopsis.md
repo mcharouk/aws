@@ -240,6 +240,13 @@ this message will be forwarded to the **joinroom** action
   * header that must be returned
   * model of body
 
+## Lambda Authorizer
+
+* 2 modes : Token and request. 
+* Request is preferred as it passes to lambda not only the token but also headers, query string, etc... It's more flexible to fail or succeed on more complex conditions
+* lambda authorizer returns a policy (Allow or Deny on execute-api action)
+* API Gateway evaluates the policy to authorize or not the request.
+
 # Module 11 : Micro services
 
 **should AVOID to get too deep into architectural patterns and deep dive into step function**
@@ -368,6 +375,10 @@ settings at app client level
     * execute a docker build
   * for non containers
     * install dependencies with a requirements.txt (Python), a package.json (NodeJS), maven (Java), etc...
+
+* **sam local invoke** invokes a lambda
+  * to use in unit tests to invoke lambda locally. By itself, it does not perform a test, it's just a cmd to invoke a lambda function
+  * [sam local start lambda](https://docs.aws.amazon.com/fr_fr/serverless-application-model/latest/developerguide/sam-cli-command-reference-sam-local-start-lambda.html) starts the lambda container to be able to reuse it in multiple tests
 
 ## Lecture
 
