@@ -1,10 +1,12 @@
 ## User pool creation
 
 * sign-in with email
-* confirmation by mail
-* add some required user attributes (birth date)
 * change password policy to something very simple
-* enable self registration
+* No MFA
+* Disable Self service account recovery (enabling it has no effect anyway)
+* Enable self registration
+* Allow confirmation by mail (Recommended options)
+* add some required user attributes (birth date in format YYYY-MM-DD)
 * Attribute verification and user account confirmation : keep everything as default
 * message delivery : select Cognito, and leave default
 * Cognito pool name
@@ -18,16 +20,19 @@ UserPoolDemo
 ```
 mcharouk-user-pool-demo
 ```
-  * callback URL **AND** sign-out URL (in advanced app client settings)
-```
-http://localhost:8501/
-```
+
 * in client app
+  * app type  = other (it has an impact on authentication flows). Other removes all flows but refresh tokens
   * client app name
  ```
  UserPoolDemoApp
  ``` 
   * generate client secret
+   * callback URL **AND** sign-out URL (in advanced app client settings)
+```
+http://localhost:8501/
+```
+  
   * activate scope with **email, openid and profile**. This will allow to get user attributes in id token (among them, groups that are used to authorize page access)
 
 

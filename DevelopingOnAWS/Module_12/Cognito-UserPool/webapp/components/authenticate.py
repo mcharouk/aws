@@ -108,6 +108,9 @@ def get_user_tokens(auth_code):
     try:
         access_token = token_response.json()["access_token"]
         id_token = token_response.json()["id_token"]
+
+        print(f"!! id_token !! is [{id_token}]")
+        print(f"!! access_token !! is [{access_token}]")
     except (KeyError, TypeError):
         access_token = ""
         id_token = ""
@@ -193,8 +196,6 @@ def set_st_state_vars():
     initialise_st_state_vars()
     auth_code = get_auth_code()
     access_token, id_token = get_user_tokens(auth_code)
-    print(f"!! id_token !! is [{id_token}]")
-    print(f"!! access_token !! is [{access_token}]")
 
     user_cognito_groups = get_user_cognito_groups(id_token)
 
