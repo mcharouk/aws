@@ -93,10 +93,6 @@ s3_client = boto3.client(
 )
 
 
-# get object named bruce_wayne/identity.txt from bucket
-# print content
-
-
 def get_object(bucket_name, key):
     print(f"Trying to get {key} content")
     try:

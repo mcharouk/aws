@@ -23,7 +23,7 @@ IdentityPoolTestRole
 ## Identity pool post creation
 
 * to the newly created role
-  * add policy named **IdentityPoolTestPolicy**
+  * add policy named **IdentityPoolTestPolicy** (give access to s3)
   * add to trust policy action **sts:TagSession**. Needed for [attribute for access control](https://docs.aws.amazon.com/cognito/latest/developerguide/using-afac-with-cognito-identity-pools.html)
 
 ```

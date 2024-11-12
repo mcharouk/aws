@@ -28,7 +28,7 @@ http://localhost:8501/
  UserPoolDemoApp
  ``` 
   * generate client secret
-  * activate scope with **email, openid and profile**. This will allow to get user attributes in id token
+  * activate scope with **email, openid and profile**. This will allow to get user attributes in id token (among them, groups that are used to authorize page access)
 
 
 ## Run the application
