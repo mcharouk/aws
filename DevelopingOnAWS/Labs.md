@@ -3,7 +3,7 @@
 ## Description
 
 * configure permissions on Cloud9 that will be used to execute commands (EC2 instance profile)
-* check explorer, by using EC2 instance as profile
+* check explorer in cloud9, by using EC2 instance as profile
 * verify permissions by executing s3 commands
 * add permissions to current user and check the effect on command (delete s3 bucket)
 
