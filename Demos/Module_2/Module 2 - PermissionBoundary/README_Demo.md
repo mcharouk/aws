@@ -9,30 +9,35 @@ Role Name
 LambdaRole
 ```
 
-### Policy
+### Policy Without CloudShell
+
+* Give aws managed policies
+  * AmazonS3FullAccess
+  * AmazonSQSFullAccess
+  
+### Policy With CloudShell
 
 Policy Name
-``` 
+
+```
 S3AndSQSFullAccess
 ```
 
-* Give aws managed policies
-* Alternative
+Policy to use CloudShell
 
 ```
 {
     "Version": "2012-10-17",
     "Statement": [
         {
-            "Sid": "Statement1",
+            "Sid": "VisualEditor0",
             "Effect": "Allow",
             "Action": [
                 "sqs:*",
-                "s3:*"
+                "s3:*",
+                "cloudshell:*"
             ],
-            "Resource": [
-                "*"
-            ]
+            "Resource": "*"
         }
     ]
 }
@@ -56,7 +61,8 @@ Policy Statement
             "Effect": "Allow",
             "Action": [
                 "sns:*",
-                "s3:*"
+                "s3:*",
+                "cloudshell:*"
             ],
             "Resource": "*"
         }
@@ -75,12 +81,14 @@ role_arn = arn:aws:iam::637423642269:role/LambdaRole
 region = eu-west-3
 ```
 
+alternative : assume lambdaRole in console and use CloudShell to execute commands without profile param
+
 ### SQS
 
 create topic sqs (denied because of permission boundary)
 
 ```
-aws sqs create-queue --queue-name sqs-demo-queue --profile lambdarole
+aws sqs create-queue --queue-name sqs-demo-queue
 ```
 
 ### SNS
@@ -88,7 +96,7 @@ aws sqs create-queue --queue-name sqs-demo-queue --profile lambdarole
 create topic sns (denied because no resource based policy)
 
 ```
-aws sns create-topic --name sns-demo-topic --profile lambdarole
+aws sns create-topic --name sns-demo-topic
 ```
 
 ### S3
@@ -96,13 +104,13 @@ aws sns create-topic --name sns-demo-topic --profile lambdarole
 create s3 bucket (allowed)
 
 ```
-aws s3api create-bucket --bucket marccharouk-permissionboundary-demo-657489457 --profile lambdarole
+aws s3api create-bucket --bucket marccharouk-permissionboundary-demo-657489457  --create-bucket-configuration LocationConstraint=eu-west-3
 ```
 
 List buckets
 
 ```
-aws s3api list-buckets --profile lambdarole
+aws s3api list-buckets
 ```
 
 delete s3 bucket
