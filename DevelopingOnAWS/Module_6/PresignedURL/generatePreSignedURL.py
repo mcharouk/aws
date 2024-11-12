@@ -16,39 +16,17 @@ s3 = boto3.client(
 s3_resource = boto3.resource("s3", region_name=region)
 
 
-def delete_bucket_if_exists(bucket_name):
-    # check bucket exists
-    try:
-        s3.head_bucket(Bucket=bucket_name)
-        print("Bucket already exists")
-        # delete all files in bucket
-        s3_resource.Bucket(bucket_name).objects.all().delete()
-        s3.delete_bucket(
-            Bucket=bucket_name,
-        )
-        print("Bucket deleted")
-    except Exception as e:
-        print("Bucket does not exist")
-
-
-def create_bucket(bucket_name):
-    s3.create_bucket(
-        Bucket=bucket_name, CreateBucketConfiguration={"LocationConstraint": region}
-    )
-    waiter = s3.get_waiter("bucket_exists")
-    waiter.wait(Bucket=bucket_name)
-    print("Bucket created")
-
-
-delete_bucket_if_exists(bucket_name)
-create_bucket(bucket_name)
+utils.delete_bucket_if_exists(s3_resource, bucket_name)
+utils.create_bucket(
+    s3_resource=s3_resource, bucket_name=bucket_name, region_name=region
+)
 
 # upload file to bucket
 s3.upload_file(test_file, bucket_name, object_key)
 
 # generate presigned URL
 url = s3.generate_presigned_url(
-    ClientMethod="get_object",
+    ClientMethod="get_object",  # can be any method supported by s3 client
     Params={"Bucket": bucket_name, "Key": object_key},
     ExpiresIn=300,
 )

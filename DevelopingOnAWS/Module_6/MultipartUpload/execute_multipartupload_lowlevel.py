@@ -10,27 +10,10 @@ bucket_name = "demo-marccharouk-multipartupload-58767497"
 object_key = "1GB-lowlevel.bin"
 region = "eu-west-3"
 
+import utils
 
-# check bucket exists
-try:
-    s3.head_bucket(Bucket=bucket_name)
-    print("Bucket already exists")
-    # delete all files in bucket
-    s3_resource.Bucket(bucket_name).objects.all().delete()
-    s3.delete_bucket(
-        Bucket=bucket_name,
-    )
-    print("Bucket deleted")
-except Exception as e:
-    print("Bucket does not exist")
-
-s3.create_bucket(
-    Bucket=bucket_name, CreateBucketConfiguration={"LocationConstraint": region}
-)
-waiter = s3.get_waiter("bucket_exists")
-waiter.wait(Bucket=bucket_name)
-
-print("Bucket created")
+utils.delete_bucket_if_exists(s3, s3_resource, bucket_name)
+utils.create_bucket(s3, bucket_name, region)
 
 # create part
 multipart_upload = s3.create_multipart_upload(
