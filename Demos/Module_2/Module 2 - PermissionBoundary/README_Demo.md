@@ -23,7 +23,7 @@ Policy Name
 S3AndSQSFullAccess
 ```
 
-Policy to use CloudShell
+Policy
 
 ```
 {
@@ -116,5 +116,5 @@ aws s3api list-buckets
 delete s3 bucket
 
 ```
-aws s3api delete-bucket --bucket marccharouk-permissionboundary-demo-657489457 --profile lambdarole
+aws s3api delete-bucket --bucket marccharouk-permissionboundary-demo-657489457
 ```
