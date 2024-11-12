@@ -22,6 +22,12 @@ try:
                 iam.delete_policy_version(
                     PolicyArn=permissionBoundaryARN, VersionId=version["VersionId"]
                 )
+                print(
+                    permissionBoundaryARN
+                    + " version "
+                    + version["VersionId"]
+                    + " deleted successfully"
+                )
         # remove permission boundary policy
         iam.delete_policy(PolicyArn=permissionBoundaryARN)
         print(permissionBoundaryARN + " deleted successfully")
@@ -40,6 +46,12 @@ try:
             if not version["IsDefaultVersion"]:
                 iam.delete_policy_version(
                     PolicyArn=policy_arn, VersionId=version["VersionId"]
+                )
+                print(
+                    policy_arn
+                    + " version "
+                    + version["VersionId"]
+                    + " deleted successfully"
                 )
         iam.delete_policy(PolicyArn=policy_arn)
         print(policy_arn + " deleted successfully")
