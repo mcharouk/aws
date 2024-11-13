@@ -118,6 +118,7 @@ it's possible to get a stream of event, in a sense of input stream / output stre
 * payload size (Not adjustable)
   * synchronous : 6 MB
   * asynchronous : 256 Ko
+* 1000 concurrent executions (soft limit) (number of execution environment)
 
 ## Layers
 
