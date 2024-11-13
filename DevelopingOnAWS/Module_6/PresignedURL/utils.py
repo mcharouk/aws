@@ -15,14 +15,14 @@ def change_current_directory():
         os.chdir(new_wd)
 
 
-def delete_bucket_if_exists(s3_resource, bucket_name):
+def delete_bucket_if_exists(s3_client, s3_resource, bucket_name):
     # check bucket exists
     try:
-        s3_resource.head_bucket(Bucket=bucket_name)
+        s3_client.head_bucket(Bucket=bucket_name)
         print("Bucket already exists")
         # delete all files in bucket
         s3_resource.Bucket(bucket_name).objects.all().delete()
-        s3_resource.delete_bucket(
+        s3_client.delete_bucket(
             Bucket=bucket_name,
         )
         print("Bucket deleted")
@@ -30,10 +30,11 @@ def delete_bucket_if_exists(s3_resource, bucket_name):
         print("Bucket does not exist")
 
 
-def create_bucket(s3_resource, bucket_name, region_name):
+def create_bucket(s3_resource, s3_client, bucket_name, region_name):
     s3_resource.create_bucket(
-        Bucket=bucket_name, CreateBucketConfiguration={"LocationConstraint": region}
+        Bucket=bucket_name,
+        CreateBucketConfiguration={"LocationConstraint": region_name},
     )
-    waiter = s3_resource.get_waiter("bucket_exists")
+    waiter = s3_client.get_waiter("bucket_exists")
     waiter.wait(Bucket=bucket_name)
     print("Bucket created")

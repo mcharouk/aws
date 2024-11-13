@@ -16,9 +16,11 @@ s3 = boto3.client(
 s3_resource = boto3.resource("s3", region_name=region)
 
 
-utils.delete_bucket_if_exists(s3_resource, bucket_name)
+utils.delete_bucket_if_exists(
+    s3_client=s3, s3_resource=s3_resource, bucket_name=bucket_name
+)
 utils.create_bucket(
-    s3_resource=s3_resource, bucket_name=bucket_name, region_name=region
+    s3_resource=s3_resource, bucket_name=bucket_name, region_name=region, s3_client=s3
 )
 
 # upload file to bucket
