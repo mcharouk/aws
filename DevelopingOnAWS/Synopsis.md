@@ -325,7 +325,7 @@ in eCommerce
 ### Result Path
 
 * ne rien mettre (Null) permet de reforwarder tout l'ancien output sans prendre en compte le résultat de la tâche en cours
-* mettre un $ permet d'overrider l'ancien message avec le nouveau message
+* mettre un $ permet d'overrider l'ancien message avec le nouveau message (default behavior)
 * mettre un $.toto permet de rajouter ou remplacer le champ toto dans l'ancien message
 
 # Module 12 : Access

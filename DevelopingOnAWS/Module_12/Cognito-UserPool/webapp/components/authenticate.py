@@ -108,14 +108,25 @@ def get_user_tokens(auth_code):
     try:
         access_token = token_response.json()["access_token"]
         id_token = token_response.json()["id_token"]
+        save_tokens_in_file(id_token, access_token)
 
-        print(f"!! id_token !! is [{id_token}]")
-        print(f"!! access_token !! is [{access_token}]")
     except (KeyError, TypeError):
         access_token = ""
         id_token = ""
 
     return access_token, id_token
+
+
+def save_tokens_in_file(id_token, access_token):
+    token_file_name = "tokens.json"
+
+    # delete file if it exists
+    if os.path.exists(token_file_name):
+        os.remove(token_file_name)
+
+    # write access_token and id_token to a single file in a json structure with indentation
+    with open(token_file_name, "w") as f:
+        json.dump({"access_token": access_token, "id_token": id_token}, f, indent=4)
 
 
 # ---------------------------------------------

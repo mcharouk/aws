@@ -9,18 +9,25 @@ current_working_directory = os.getcwd()
 # print output to the console
 print("current directory : " + current_working_directory)
 
+
 if current_working_directory.endswith("DevelopingOnAWS"):
     new_wd = "Module_12/Cognito-UserPool"
     print("changing working directory to " + current_working_directory + "/" + new_wd)
     os.chdir(new_wd)
 
+
+def remove_file(file_location):
+    if os.path.exists(file_location):
+        os.remove(file_location)
+        print(f"Removed file {file_location}")
+    else:
+        print(f"File {file_location} does not exist")
+
+
 # remove file
-env_file_location = "./webapp/components/.env"
-if os.path.exists(env_file_location):
-    os.remove(env_file_location)
-    print(f"Removed file {env_file_location}")
-else:
-    print(f"File {env_file_location} does not exist")
+
+remove_file("./webapp/components/.env")
+remove_file("./webapp/tokens.json")
 
 # get user pool with name UserPoolDemo
 cognito = boto3.client("cognito-idp")

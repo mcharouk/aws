@@ -6,3 +6,14 @@
 * Explain how asynchronous task work (manual tasks)
 * Execute a workflow (no parameter to supply) and show monitoring
 * Show metrics and logs capabilities
+
+# Step function process description
+
+* CheckStockPrice : return a random int between 0 and 100
+* GenerateBuySellRecommendation
+  * Buy if stock price < 50
+  * Sell if stock price > 50
+* Request Human Approval
+  * Automatic approval
+* Buy Stock and Sell Stock : return a json that describes how much quantity it bought/sold (random number) with a transaction id and timestamp
+* Report result : send directly to SNS (without Lambda)
