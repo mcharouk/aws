@@ -4,6 +4,7 @@ if ( $param1 -eq "deploy" )
 {
     cdk deploy --require-approval never   
     cd ../sam-template
+    sam build
     sam deploy
     sam deploy --config-env prod
     cd ../sam-demo

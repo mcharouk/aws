@@ -9,7 +9,7 @@ from aws_lambda_powertools.utilities.typing import LambdaContext
 
 MODULES = ["requests"]
 tracer = Tracer(patch_modules=MODULES, service="weather-function")
-logger = Logger(service="weather-function")
+logger = Logger(service="weather-function", log_uncaught_exceptions=True)
 
 os.environ["TZ"] = "Europe/Paris"
 time.tzset()

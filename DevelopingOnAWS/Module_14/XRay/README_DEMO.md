@@ -1,6 +1,6 @@
 ## Application Insights
 
-* create a resource group with Tag DemoName=XRay. Provide any name
+* create a resource group with Tag **DemoName=XRay**. Provide any name
 * create a new application in Insights with resource group
 
 * create additional alarms
