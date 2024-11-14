@@ -195,6 +195,27 @@ def get_user_cognito_groups(id_token):
     return user_cognito_groups
 
 
+def get_user_name(id_token):
+    """
+    Decode id token to get user cognito groups.
+
+    Args:
+        id_token: id token of a successfully authenticated user.
+
+    Returns:
+        user_name: user name of the user.
+    """
+    user_name = ""
+    if id_token != "":
+        header, payload, signature = id_token.split(".")
+        printable_payload = base64.urlsafe_b64decode(pad_base64(payload))
+        payload_dict = json.loads(printable_payload)
+        if "email" in dict(payload_dict):
+            user_name = dict(payload_dict)["email"]
+
+    return user_name
+
+
 # -----------------------------
 # Set Streamlit state variables
 # -----------------------------
@@ -209,11 +230,13 @@ def set_st_state_vars():
     access_token, id_token = get_user_tokens(auth_code)
 
     user_cognito_groups = get_user_cognito_groups(id_token)
+    user_name = get_user_name(id_token)
 
     if access_token != "":
         st.session_state["auth_code"] = auth_code
         st.session_state["authenticated"] = True
         st.session_state["user_cognito_groups"] = user_cognito_groups
+        st.session_state["user_name"] = user_name
 
 
 # -----------------------------

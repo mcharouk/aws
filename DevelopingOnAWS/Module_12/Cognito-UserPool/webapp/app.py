@@ -12,7 +12,6 @@ else:
 
 # st.session_state
 
-# with st.echo("below"):
 
 st.write(
     """
@@ -21,3 +20,9 @@ st.write(
          This app is an example of how to get User Authentication and page wise authorization in a Streamlit multi-page app using AWS Cognito 🚀! 
          """
 )
+
+
+if not st.session_state["authenticated"]:
+    st.write("you are connected as a guest user")
+else:
+    st.write("you are connected as " + st.session_state["user_name"])
