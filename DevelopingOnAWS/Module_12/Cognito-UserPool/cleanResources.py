@@ -32,7 +32,7 @@ remove_file("./webapp/tokens.json")
 # get user pool with name UserPoolDemo
 cognito = boto3.client("cognito-idp")
 
-response = cognito.list_user_pools(MaxResults=1)
+response = cognito.list_user_pools(MaxResults=10)
 if len(response["UserPools"]) == 0:
     print("No user pools found")
     exit()

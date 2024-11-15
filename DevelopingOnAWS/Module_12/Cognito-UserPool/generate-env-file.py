@@ -15,8 +15,22 @@ if current_working_directory.endswith("DevelopingOnAWS"):
 # get first cognito user pool
 cognito = boto3.client("cognito-idp")
 
-response = cognito.list_user_pools(MaxResults=1)
-user_pool_id = response["UserPools"][0]["Id"]
+user_pool_name = "UserPoolDemo"
+response = cognito.list_user_pools(MaxResults=10)
+
+# get user pool id that matches the name
+user_pool_id = ""
+
+for user_pool in response["UserPools"]:
+    if user_pool["Name"] == user_pool_name:
+        user_pool_id = user_pool["Id"]
+        break
+
+if user_pool_id == "":
+    print(f"User pool {user_pool_name} not found")
+    exit(1)
+
+print(f"User pool id is {user_pool_id}")
 
 # get cognito domain url
 
