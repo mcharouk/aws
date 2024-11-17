@@ -538,6 +538,8 @@ When we make a change on EBS (like changing disk size or performance), we have t
 
 Demo compliqué sur ce sujet, on peut montrer la console.
 
+
+
 ## Cost Explorer
 
 retention : default to 14 months, can be extended to 38 months at a monthly granularity
@@ -602,3 +604,10 @@ Cost Optimization Hub generates recommendations for the following resources:
     * OpenSearch
     * Redshift
     * Elasticache 
+
+
+## S3 costs
+
+* Object tags cannot be used as cost allocation tags
+
+* [S3 costs at object level](https://aws.amazon.com/blogs/big-data/analyze-amazon-s3-storage-costs-using-aws-cost-and-usage-reports-amazon-s3-inventory-and-amazon-athena/)
