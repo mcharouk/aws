@@ -2,35 +2,21 @@
 
 ### EFS Creation
 
-Create EFS
+Create EFS with customize option
 * all availability zone
 * associate pre created security group
 
 ### EC2 script
 
-```
-sudo -s
-```
-
-Instance 1 : replace EFS Id with newly created one
+* generate scripts to create and read file
+* go in root directory
 
 ```
-EFS_ID='fs-0a7a2c4b799cb4275.efs.eu-west-3.amazonaws.com'
-sudo mount -t efs -o tls $EFS_ID:/ /mnt/efs
-sudo chmod 777 /mnt/efs
-echo "Hello From EFS" > /mnt/efs/HelloFromEFS.txt
+python generate-scripts.py
 ```
 
-Instance 2 : replace EFS Id with newly created one
-
-```
-EFS_ID='fs-0a7a2c4b799cb4275.efs.eu-west-3.amazonaws.com'
-sudo mount -t efs -o tls $EFS_ID:/ /mnt/efs
-ls -l /mnt/efs
-cat /mnt/efs/HelloFromEFS.txt
-```
-
-* Create a file on one instance, check that the other instance can read it
+* in instance 1, copy/paste writeFile content in terminal
+* in instance 2, copy/paste readFile content in terminal
 
 ## S3 mount
 
@@ -39,7 +25,9 @@ sudo -s
 ```
 
 ```
-mount-s3 mountpoint-marccharouk-86758493 /mnt/s3
-cd /mnt/s3
+mount-s3 mountpoint-marccharouk-86758493 /mnt/s3 && \
+cd /mnt/s3 && \
 echo "Hello World" > HelloFromEC2.txt
 ```
+
+* Check in S3 that file exists

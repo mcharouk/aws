@@ -1,8 +1,17 @@
+import os
 import time
 
 import boto3
 
-# select all efs file systems and delete them all
+# get the current working directory
+current_working_directory = os.getcwd()
+# print output to the console
+print("current directory : " + current_working_directory)
+
+if current_working_directory.endswith("CloudOperationsOnAWS"):
+    new_wd = "Module_12/MountPoints"
+    print("changing working directory to " + current_working_directory + "/" + new_wd)
+    os.chdir(new_wd)
 
 efs = boto3.client("efs")
 
@@ -44,3 +53,18 @@ for file_system in response["FileSystems"]:
     file_system_id = file_system["FileSystemId"]
     efs.delete_file_system(FileSystemId=file_system_id)
     print(f"Deleted EFS file system with ID: {file_system_id}")
+
+
+# delete file readFile.sh and writeFile.sh if they exist
+
+
+def remove_file_if_exists(file_name):
+    if os.path.exists(file_name):
+        os.remove(file_name)
+        print(f"Deleted {file_name}")
+    else:
+        print(f"{file_name} does not exist")
+
+
+remove_file_if_exists("readFile.sh")
+remove_file_if_exists("writeFile.sh")
