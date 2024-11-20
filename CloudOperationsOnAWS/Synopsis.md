@@ -25,6 +25,7 @@
   - [AWS Chatbot](#aws-chatbot)
   - [Incident Manager](#incident-manager)
   - [Automation Document](#automation-document)
+    - [Automation Document vs Step functions](#automation-document-vs-step-functions)
   - [Change Manager](#change-manager)
   - [Application Manager](#application-manager)
   - [Patch Manager](#patch-manager)
@@ -323,6 +324,21 @@ more complex one
 ```
 AWS-AttachIAMToInstance
 ```
+
+### Automation Document vs Step functions
+
+* Automation offers more integration with systems manager feature.
+  * executeScript (python script or powershell)
+  * invokeCommand (Run command)
+  * run instance
+  * create ami
+  * ...
+  * can access all current runbooks and modify them to creéte new ones
+* Automation has less features on action flows (no parallel or map for example)
+* Step functions has better integrations with some services like Glue, SNS, etc...
+* Use case 
+  * Automation : operations
+  * Step functions : business workflows
 
 ## Change Manager
 
