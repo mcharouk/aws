@@ -1,3 +1,78 @@
+# Table of Contents
+
+- [Table of Contents](#table-of-contents)
+- [Module 1 : intro to cloud operations](#module-1--intro-to-cloud-operations)
+- [Module 2 : Access management](#module-2--access-management)
+- [Module 3 : System Discovery](#module-3--system-discovery)
+  - [CloudShell](#cloudshell)
+  - [AWS Config](#aws-config)
+- [Module 4 : Deploy And Update Resources](#module-4--deploy-and-update-resources)
+  - [Tagging](#tagging)
+  - [AMI](#ami)
+  - [User data scripts](#user-data-scripts)
+  - [Control Tower](#control-tower)
+    - [Control tower customization architecture](#control-tower-customization-architecture)
+    - [Control tower account factory customization](#control-tower-account-factory-customization)
+    - [Proactive controls](#proactive-controls)
+- [Module 5 : Automate Resource Deployment](#module-5--automate-resource-deployment)
+  - [Cloudformation](#cloudformation)
+  - [Service Catalog](#service-catalog)
+- [Module 6 : Manage Resources](#module-6--manage-resources)
+  - [Fleet Manager](#fleet-manager)
+  - [State Manager / Maintenance Windows](#state-manager--maintenance-windows)
+  - [Explorer](#explorer)
+  - [OpsCenter](#opscenter)
+  - [AWS Chatbot](#aws-chatbot)
+  - [Incident Manager](#incident-manager)
+  - [Automation Document](#automation-document)
+  - [Change Manager](#change-manager)
+  - [Application Manager](#application-manager)
+  - [Patch Manager](#patch-manager)
+    - [AWS-AmazonLinux2023DefaultPatchBaseline](#aws-amazonlinux2023defaultpatchbaseline)
+    - [Custom baselines](#custom-baselines)
+- [Module 7 : Configure Highly Available systems](#module-7--configure-highly-available-systems)
+  - [NLB](#nlb)
+    - [Metrics](#metrics)
+    - [Pricing](#pricing)
+  - [Demo](#demo)
+- [Module 8 : Automate Scaling](#module-8--automate-scaling)
+  - [Autoscaling policies](#autoscaling-policies)
+  - [License manager](#license-manager)
+    - [Tag custom architecture](#tag-custom-architecture)
+    - [Host resource group](#host-resource-group)
+- [Module 9 : Monitor and maintain system health](#module-9--monitor-and-maintain-system-health)
+- [Module 10 : Data Security and System Auditing](#module-10--data-security-and-system-auditing)
+  - [Access Analyzer](#access-analyzer)
+    - [Analyzers](#analyzers)
+  - [GuardDuty](#guardduty)
+    - [Findings examples](#findings-examples)
+    - [Findings](#findings)
+  - [Inspector](#inspector)
+- [Module 11 : Operate Secure and Resilient networks](#module-11--operate-secure-and-resilient-networks)
+  - [Cloudfront](#cloudfront)
+    - [Conditional requests](#conditional-requests)
+  - [ACM](#acm)
+- [Module 12 : Mountable Storage](#module-12--mountable-storage)
+  - [EBS](#ebs)
+    - [Performance](#performance)
+    - [Updating an EBS](#updating-an-ebs)
+    - [Multi Attach](#multi-attach)
+  - [EFS](#efs)
+- [Module 13 : Object Storage](#module-13--object-storage)
+  - [Express One-Zone](#express-one-zone)
+  - [S3 access logs](#s3-access-logs)
+  - [Glacier retrievals](#glacier-retrievals)
+- [Module 14 : Cost Reporting - Alerts Optimization](#module-14--cost-reporting---alerts-optimization)
+  - [Cost Explorer](#cost-explorer)
+  - [Cost and Usage reports](#cost-and-usage-reports)
+  - [Cost Anomaly Detection](#cost-anomaly-detection)
+  - [CloudWatch Billing Alarm](#cloudwatch-billing-alarm)
+  - [AWS Budget](#aws-budget)
+  - [Trusted Advisor](#trusted-advisor)
+  - [Cost Optimization Hub](#cost-optimization-hub)
+  - [S3 costs](#s3-costs)
+
+
 # Module 1 : intro to cloud operations
 
 * Demo on Well-architected tool
@@ -430,6 +505,15 @@ Demo :
 Demo
 * Pourrait reprendre ma démo sur les networks ACL / Sec Group de l'archiOnAWS
 * reprendre la demo sur le WAF
+
+## Cloudfront 
+
+### Conditional requests
+
+* It sends a request to the origin to fetch the latest data. If it receives a 304 response (Not Modified), it will return the object in its cache, instead of getting the page from the origin.
+* Conditional requests are used in two cases
+  * if TTL is set to 0 and origin is custom (EC2 or HTTP endpoint), Cloudfront still caches data at the origin.
+  * From a browser that gets data from Cloudfront. If Cloudfront replies with 304, the browser will keep the data it has previously downloaded
 
 ## ACM
 
