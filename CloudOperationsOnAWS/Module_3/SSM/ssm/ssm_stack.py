@@ -77,7 +77,7 @@ class SsmStack(Stack):
 
         instance_name = "SSM-Demo-Instance"
         amzn_windows = ec2.MachineImage.latest_windows(
-            version=ec2.WindowsVersion.WINDOWS_SERVER_2022_ENGLISH_CORE_BASE
+            version=ec2.WindowsVersion.WINDOWS_SERVER_2022_ENGLISH_FULL_BASE
         )
 
         # create ec2 key pair
