@@ -290,7 +290,7 @@ Account Factory Customization is an account creation blueprint
 
 ## AWS Chatbot
 
-* Chatbot is a service that improves productivity. It allow to perform actions on AWS resources from a chat platform. It supports
+* Chatbot is a service that improves productivity. It allow to [execute cmd](https://docs.aws.amazon.com/fr_fr/chatbot/latest/adminguide/intro-to-the-aws-cli-in-slack.html) on AWS resources from a chat platform. It supports
   * Amazon Chime
   * Slack
   * Teams
