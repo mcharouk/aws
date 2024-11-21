@@ -18,8 +18,6 @@
   - [Cloudformation](#cloudformation)
   - [Service Catalog](#service-catalog)
 - [Module 6 : Manage Resources](#module-6--manage-resources)
-  - [Fleet Manager](#fleet-manager)
-  - [State Manager / Maintenance Windows](#state-manager--maintenance-windows)
   - [Explorer](#explorer)
   - [OpsCenter](#opscenter)
   - [AWS Chatbot](#aws-chatbot)
@@ -28,6 +26,8 @@
     - [Automation Document vs Step functions](#automation-document-vs-step-functions)
   - [Change Manager](#change-manager)
   - [Application Manager](#application-manager)
+  - [Fleet Manager](#fleet-manager)
+  - [State Manager / Maintenance Windows](#state-manager--maintenance-windows)
   - [Patch Manager](#patch-manager)
     - [AWS-AmazonLinux2023DefaultPatchBaseline](#aws-amazonlinux2023defaultpatchbaseline)
     - [Custom baselines](#custom-baselines)
@@ -72,7 +72,6 @@
   - [Trusted Advisor](#trusted-advisor)
   - [Cost Optimization Hub](#cost-optimization-hub)
   - [S3 costs](#s3-costs)
-
 
 # Module 1 : intro to cloud operations
 
@@ -245,17 +244,6 @@ Account Factory Customization is an account creation blueprint
   * AppConfig / Parameter Store
   * Automation Document with State Manager
 
-## Fleet Manager
-
-* Fleet Manager allows to connect to instances, view file structure, log files, change windows registry... without to ssh to the instance. It's a convenient way to manage a fleet of servers.
-
-## State Manager / Maintenance Windows
-* State manager vs Maintenance Windows
-  * They both can run scripts on schedule on a set of instance.
-  * State manager [can run commands as soon as](https://docs.aws.amazon.com/systems-manager/latest/userguide/systems-manager-state-manager-targets-and-rate-controls.html#systems-manager-state-manager-targets-and-rate-controls-about-targets:%7E:text=If%20you%20create%20new,uses%20an%20Automation%20runbook.) a new instance is created for example by an autoscaling group. Maintenance windows works only by schedules.
-  * State manager report instances that do not comply, they can be seen in application manager for example, or Compliance. Maintenance Windows do not report anything
-  * Maintenance Windows can run Automation documents. State manager runs only RunCommands on managed nodes, although it can run automation documents on other resources like S3
-
 ## Explorer
 
 * Explorer shows aggregated data on all resources. Application Manager show aggregated data on a set of resources. Data shown is not exactly the same
@@ -357,6 +345,17 @@ AWS-AttachIAMToInstance
 * See resources associated with application. 
   * Can execute runbooks on each of these resources
   * Can see AWS Config, cloudtrail logs, alarms related to these resources
+
+## Fleet Manager
+
+* Fleet Manager allows to connect to instances, view file structure, log files, change windows registry... without to ssh to the instance. It's a convenient way to manage a fleet of servers.
+
+## State Manager / Maintenance Windows
+* State manager vs Maintenance Windows
+  * They both can run scripts on schedule on a set of instance.
+  * State manager [can run commands as soon as](https://docs.aws.amazon.com/systems-manager/latest/userguide/systems-manager-state-manager-targets-and-rate-controls.html#systems-manager-state-manager-targets-and-rate-controls-about-targets:%7E:text=If%20you%20create%20new,uses%20an%20Automation%20runbook.) a new instance is created for example by an autoscaling group. Maintenance windows works only by schedules.
+  * State manager report instances that do not comply, they can be seen in application manager for example, or Compliance. Maintenance Windows do not report anything
+  * Maintenance Windows can run Automation documents. State manager runs only RunCommands on managed nodes, although it can run automation documents on other resources like S3
 
 ## Patch Manager
 
@@ -526,10 +525,11 @@ Demo
 
 ### Conditional requests
 
-* It sends a request to the origin to fetch the latest data. If it receives a 304 response (Not Modified), it will return the object in its cache, instead of getting the page from the origin.
-* Conditional requests are used in two cases
-  * if TTL is set to 0 and origin is custom (EC2 or HTTP endpoint), Cloudfront still caches data at the origin.
-  * From a browser that gets data from Cloudfront. If Cloudfront replies with 304, the browser will keep the data it has previously downloaded
+* when an object expires, it is not necessarily evicted from the cache. It just means, on next call, Cloudfront will call origin to get a newer version
+* object can be evicted if other objects are more frequently called, cloudfront evict it to save space for those other objects.
+* When cloudfront sends a request to the origin, to fetch the latest data, If it receives a 304 response (Not Modified), it will return the object in its cache, instead of getting the page from the origin.
+* Conditional requests can be used from the browser to cloudfront, or from cloudfront to the origin
+* For Conditional requests on custom origin, the origin must manually manage the headers. On S3 it is managed natively
 
 ## ACM
 
