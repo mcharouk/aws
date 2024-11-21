@@ -1,4 +1,16 @@
+import os
+
 import boto3
+
+# get the current working directory
+current_working_directory = os.getcwd()
+# print output to the console
+print("current directory : " + current_working_directory)
+
+if current_working_directory.endswith("CloudOperationsOnAWS"):
+    new_wd = "Module_9/CloudWatchLogs"
+    print("changing working directory to " + current_working_directory + "/" + new_wd)
+    os.chdir(new_wd)
 
 client = boto3.client("logs")
 
@@ -16,5 +28,10 @@ def delete_metric_filters(client, log_group_name):
 
 
 delete_metric_filters(client, log_group_name)
+
+# delete file apache-logs.log if it exists
+if os.path.exists("apache-logs.log"):
+    os.remove("apache-logs.log")
+    print("Deleted file apache-logs.log")
 
 client.close()

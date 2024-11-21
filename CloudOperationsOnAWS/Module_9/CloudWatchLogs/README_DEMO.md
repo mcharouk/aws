@@ -2,7 +2,7 @@
 
 * logs make take a little time to appear in Insights, around 2-3 mins
 
-* Show in order 
+* Execute these saved queries 
   * pattern_tab : basic query to show pattern tab and to show what logs looks like
   * extract_structured_from_plain_text : it shows how we can parse a structured log expression
   * count_per_log_status_and_hour : it shows we can aggregate data

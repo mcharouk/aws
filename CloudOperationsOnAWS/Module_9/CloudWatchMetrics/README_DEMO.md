@@ -3,6 +3,10 @@
 * Calculate metric by aggregating data from multiple plants
 * N.B. only last 3 hours can be queried (metrics insights limitation)
 
+There are 2 factories
+
+Each factory has 3 machine which have the same name
+
 ```
 SELECT MAX(Temperature) FROM "ExampleCorp-Factory" GROUP BY MachineName
 ```
