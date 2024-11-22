@@ -11,6 +11,7 @@
   - [AMI](#ami)
   - [User data scripts](#user-data-scripts)
   - [Control Tower](#control-tower)
+    - [Default Configuration](#default-configuration)
     - [Control tower customization architecture](#control-tower-customization-architecture)
     - [Control tower account factory customization](#control-tower-account-factory-customization)
     - [Proactive controls](#proactive-controls)
@@ -182,6 +183,28 @@ WHERE
   * it's possible to see the logs from the instance properties (Troubleshoot and monitor menu)
 
 ## Control Tower
+
+### Default Configuration
+
+* Management account
+  * Create permissions sets (roles) in IAM Identity center  
+  * Create SCP (With GuardRails)
+  * Create Cloudformation Stacksets to deploy resources into accounts
+  * Create Service Catalog Product
+* Audit Account  
+  * Cloudwatch logs for audit trail
+  * Create Config Aggregator
+  * Eventbridge rule to notify in case of config compliance changes
+  * An SNS topic as target of eventbridge rule (named SecurityNotifications)
+  * this SNS topic specific to each region, forward the notification to a lambda
+  * lambda forward notification to a SNS Topic that aggregates all changes from all regions (named  AggregateSecurityNotifications)
+  * this sns topic has a mail as subscription (mail that can be configured in control tower settings, default to mail of audit account)
+* Log Archive
+  * Create Organization Trail
+  * S3 Buckets for audit trail
+  * Activate Config
+  
+
 
 ### Control tower customization architecture
 
