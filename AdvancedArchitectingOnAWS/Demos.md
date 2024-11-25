@@ -6,3 +6,7 @@
 * Cross Account permissions
 
 Deep dive in Control Tower
+
+# Module 3 
+
+* Client VPN
