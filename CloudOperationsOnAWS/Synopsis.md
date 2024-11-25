@@ -760,3 +760,13 @@ Cost Optimization Hub generates recommendations for the following resources:
 * Object tags cannot be used as cost allocation tags
 
 * [S3 costs at object level](https://aws.amazon.com/blogs/big-data/analyze-amazon-s3-storage-costs-using-aws-cost-and-usage-reports-amazon-s3-inventory-and-amazon-athena/)
+
+* Storage Lens
+  * can create a Storage Lens Group with object tags
+  * Storage Lens can filter by storage class
+  * not possible to combine those two filters in dashboard
+  * To have more customized results
+    * Get Storage Lens export Data (CSV, Parquet)
+    * Perform a custom analysis with Athena for ex.
+    * Can also join with S3 Inventory export to gain more flexibility
+  * Can have metrics like downloaded bytes, get, post and delete requests, etc... But these metrics are not free, they come at an additional cost
