@@ -17,6 +17,10 @@
     - [Proactive controls](#proactive-controls)
 - [Module 5 : Automate Resource Deployment](#module-5--automate-resource-deployment)
   - [Cloudformation](#cloudformation)
+    - [CreationPolicy vs Wait Condition](#creationpolicy-vs-wait-condition)
+    - [CloudFormation logs](#cloudformation-logs)
+    - [Cloudformation init](#cloudformation-init)
+    - [Stack Policy](#stack-policy)
   - [Service Catalog](#service-catalog)
 - [Module 6 : Manage Resources](#module-6--manage-resources)
   - [Explorer](#explorer)
@@ -249,12 +253,34 @@ Account Factory Customization is an account creation blueprint
 
 ## Cloudformation
 
+### CreationPolicy vs Wait Condition
 * CreationPolicy only blocks current resource, not all the stack, unlike WaitCondition
 * CreationPolicy only available for following resources
   * EC2
   * ASG
   * AppStream
+
+### CloudFormation logs
+
 * cfn-wire contains logs of signal calls from EC2 to Cloudformation. It can be used to debug for example a network issue between cloudformation and EC2
+
+### Cloudformation init
+
+[Documentation](https://docs.aws.amazon.com/fr_fr/AWSCloudFormation/latest/UserGuide/aws-resource-init.html)
+
+features :
+
+* create users / groups
+* install packages
+* download files (inline content or url based)
+* run commands
+* start services or make them start at boot
+* unpack files
+
+### Stack Policy
+
+* used to prevent unintentional delete or update on a stack. For example a database
+* can provide a temporary policy when executing the stack to override the stack policy, to be able to update protected resources
 
 ## Service Catalog
 
