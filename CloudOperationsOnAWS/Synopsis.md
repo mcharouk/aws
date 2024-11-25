@@ -687,8 +687,6 @@ When we make a change on EBS (like changing disk size or performance), we have t
 
 Demo compliqué sur ce sujet, on peut montrer la console.
 
-
-
 ## Cost Explorer
 
 retention : default to 14 months, can be extended to 38 months at a monthly granularity
@@ -732,6 +730,8 @@ Cloudwatch billing alarm was released in 2012 and budget was released in 2015. S
   * ECR without lifecycle policies
   * Amazon Comprehend (NLP service) underutilized endpoints
 
+Trusted Advisor has a free version, but to take the most advantage of it, pricing depends on aws spendings. 
+
 ## Cost Optimization Hub
 
 Cost Optimization Hub generates recommendations for the following resources:
@@ -754,6 +754,11 @@ Cost Optimization Hub generates recommendations for the following resources:
     * Redshift
     * Elasticache 
 
+* Cost Optimization Hub is free of charge
+* Compute Optimizer 
+  * Free of charge by default. It uses CloudWatch metrics
+  * Additional costs For EC2, ASG and RDS. It will generate more metrics and price will be based on the number of resources monitored and on the number of hours they were running in the month
+  
 
 ## S3 costs
 
