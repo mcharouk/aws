@@ -22,4 +22,8 @@
 # Module 4 : Specialized Infrastructure
 
 
+## WaveLength
+
+* [WaveLength locations](https://aws.amazon.com/wavelength/locations/)
+
 # Module 5 : Connecting Networks
