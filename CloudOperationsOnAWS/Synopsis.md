@@ -27,10 +27,13 @@
   - [OpsCenter](#opscenter)
   - [AWS Chatbot](#aws-chatbot)
   - [Incident Manager](#incident-manager)
-  - [Automation Document](#automation-document)
-    - [Automation Document vs Step functions](#automation-document-vs-step-functions)
-  - [Change Manager](#change-manager)
   - [Application Manager](#application-manager)
+  - [Change Manager](#change-manager)
+  - [Documents](#documents)
+    - [Example of Command Document](#example-of-command-document)
+    - [Automation Document : Attach EBS Volume to EC2](#automation-document--attach-ebs-volume-to-ec2)
+    - [Automation Document : Attach IAM Instance to Role](#automation-document--attach-iam-instance-to-role)
+    - [Automation Document vs Step functions](#automation-document-vs-step-functions)
   - [Fleet Manager](#fleet-manager)
   - [State Manager / Maintenance Windows](#state-manager--maintenance-windows)
   - [Patch Manager](#patch-manager)
@@ -342,25 +345,58 @@ features :
 * post analysis will display a page that resumes the incident with a page that displays questions about what happened and what could be done to improve. New Opsitems can be automatically created from post analysis answers.
 * AWS managed post analysis template could be used or any custom defined template
 
-## Automation Document
+## Application Manager
 
-* Example of Command / Session Document
+* View CloudFormation Stacks, Applications (based on tags, resource groups), service catalogs, automation document in a single pane of glass
+* Display opsitems, cost explorer widget, application insights, alarms, cloudwatch logs
+* See resources associated with application. 
+  * Can execute runbooks on each of these resources
+  * Can see AWS Config, cloudtrail logs, alarms related to these resources
+
+## Change Manager
+
+* request change through change templates
+* associate approvers to change templates (through SNS topics)
+* different level of approvers can be defined
+* integrates with change calendar
+* attach automation document to change templates. Can be run on schedule or as soon as change is approved
+* possible to create changes without any approvment process
+* cloudwatch alarm to monitor change, and rollback if alarm is triggered
+
+## Documents
+
+### Example of Command Document
 
 ```
 AWSFleetManager-DeleteUser
 ```
 
-* Example of Automation Document
+* different commands depending on OS
+
+### Automation Document : Attach EBS Volume to EC2
 
 ```
 AWS-AttachEBSVolume
 ```
 
-more complex one
+* Cloudformation stack to create the link
+* DeletionPolicy to Retain
+* when the stack is deleted, the link will remain
+
+### Automation Document : Attach IAM Instance to Role
 
 ```
 AWS-AttachIAMToInstance
 ```
+
+* Get instance profile
+* if an instance profile is already attached, detach it (if forceReplace is True)
+* Check if an instance profile is already created for the role
+  * if it's the case, attach instance profile to instance
+  * if not
+    * create instance profile
+    * attach it to role
+    * attach to instance
 
 ### Automation Document vs Step functions
 
@@ -377,27 +413,15 @@ AWS-AttachIAMToInstance
   * Automation : operations
   * Step functions : business workflows
 
-## Change Manager
-
-* request change through change templates
-* associate approvers to change templates (through SNS topics)
-* different level of approvers can be defined
-* integrates with change calendar
-* attach automation document to change templates. Can be run on schedule or as soon as change is approved
-* possible to create changes without any approvment process
-* cloudwatch alarm to monitor change, and rollback if alarm is triggered
-
-## Application Manager
-
-* View CloudFormation Stacks, Applications (based on tags, resource groups), service catalogs, automation document in a single pane of glass
-* Display opsitems, cost explorer widget, application insights, alarms, cloudwatch logs
-* See resources associated with application. 
-  * Can execute runbooks on each of these resources
-  * Can see AWS Config, cloudtrail logs, alarms related to these resources
 
 ## Fleet Manager
 
-* Fleet Manager allows to connect to instances, view file structure, log files, change windows registry... without to ssh to the instance. It's a convenient way to manage a fleet of servers.
+* Fleet Manager allows 
+  * to connect to instances
+  * view file structure
+  * tail log files
+  * change windows registry...
+  * without to ssh to the instance. It's a convenient way to manage a fleet of servers.
 
 ## State Manager / Maintenance Windows
 * State manager vs Maintenance Windows
