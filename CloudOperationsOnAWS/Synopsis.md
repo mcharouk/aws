@@ -60,6 +60,7 @@
 - [Module 11 : Operate Secure and Resilient networks](#module-11--operate-secure-and-resilient-networks)
   - [Cloudfront](#cloudfront)
     - [Conditional requests](#conditional-requests)
+    - [Caching parameters](#caching-parameters)
   - [ACM](#acm)
 - [Module 12 : Mountable Storage](#module-12--mountable-storage)
   - [EBS](#ebs)
@@ -603,6 +604,14 @@ Demo
 * When cloudfront sends a request to the origin, to fetch the latest data, If it receives a 304 response (Not Modified), it will return the object in its cache, instead of getting the page from the origin.
 * Conditional requests can be used from the browser to cloudfront, or from cloudfront to the origin
 * For Conditional requests on custom origin, the origin must manually manage the headers. On S3 it is managed natively
+
+### Caching parameters
+
+* Can define
+  * Minimum TTL
+  * Maximum TTL
+  * Default TTL
+* Min an Max are used when user specify in the header a value for the caching duration. Default TTL is used when no header has been sent.
 
 ## ACM
 
