@@ -5,6 +5,7 @@
 - [Module 2 : Access management](#module-2--access-management)
 - [Module 3 : System Discovery](#module-3--system-discovery)
   - [CloudShell](#cloudshell)
+  - [Session Manager](#session-manager)
   - [AWS Config](#aws-config)
 - [Module 4 : Deploy And Update Resources](#module-4--deploy-and-update-resources)
   - [Tagging](#tagging)
@@ -118,6 +119,53 @@
 * git is installed so use it to save code
 * not suitable for long running process (close after 20 min of inactivity)
 
+## Session Manager
+
+Sample policy to give a user permissions to connect to instances using Session Manager, based on tags
+
+```
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Action": [
+                "ssm:StartSession"
+            ],
+            "Resource": [
+                "arn:aws:ec2:us-east-2:123456789012:instance/*"
+            ],
+            "Condition": {
+                "StringLike": {
+                    "ssm:resourceTag/Finance": [
+                        "WebServers"
+                    ]
+                }
+            }
+        },
+        {
+            "Effect": "Allow",
+            "Action": [
+                "ssm:TerminateSession",
+                "ssm:ResumeSession"
+            ],
+            "Resource": [
+                "arn:aws:ssm:*:*:session/${aws:userid}-*"
+            ]
+        },
+        {
+            "Effect": "Allow",
+            "Action": [
+                "ssm:StartSession"
+            ],
+            "Resource": [
+                "arn:aws:ssm:us-east-2:123456789012:document/SSM-SessionManagerRunShell"
+            ]
+        }
+    ]
+}
+```
+
 
 ## AWS Config
 
@@ -137,6 +185,10 @@ WHERE
     resourceType IN ('AWS::EC2::Instance', 'AWS::EC2::NetworkInterface') 
     AND relationships.resourceId = 'sg-abcd1234'
 ```
+* AWS Config stocke ses données sur un bucket s3 (obligatoire) et la retention peut aller de 30 jours à 7 ans.
+* AWS Config peut streamer les changements de configuration avec leur status dans un topic SNS (facultatif)
+
+
 * [More information](https://docs.aws.amazon.com/config/latest/developerguide/querying-AWS-resources.html)
 
 # Module 4 : Deploy And Update Resources

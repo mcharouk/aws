@@ -7,7 +7,7 @@ The goal of the lab is to
 * connect to an EC2 instance with Systems Manager (just to see, it's not related to other tasks in the lab)
 * setup AWS config to continuously detect changes
 * setup some rule : all user that have policies attached are marked as non compliant. Because policies should be attached to a group or to a role
-* explore inventory screens
+* explore Systems Manager inventory screens
 
 ## Step Details
 
