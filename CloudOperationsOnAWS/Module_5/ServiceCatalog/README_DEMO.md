@@ -1,10 +1,10 @@
 # Prerequisities
 
-* Policy to create : EC2ProductPolicyForServiceCatalog
-* Role to create : EC2ProductPolicyForServiceCatalogRole
-* Upload cloud formation template in an S3 bucket
+* Created by CF
+  * Role : EC2ProductPolicyForServiceCatalogRole
+  * Cloud Formation in a S3 bucket (link in CF output) 
 
-# Product creation
+# Portfolio creation
 
 * Create a portfolio
 * In portfolio action
@@ -23,9 +23,7 @@ LinuxApacheTestProductInstance
 Get Last parameter store key values for linux AMIs. Run that on a Windows Shell
 
 ```
-aws ssm get-parameters-by-path ^
-    --path /aws/service/ami-amazon-linux-latest ^
-    --query Parameters[].Name
+aws ssm get-parameters-by-path --path /aws/service/ami-amazon-linux-latest --query Parameters[].Name
 ```
 
 AMI Parameter Store Key

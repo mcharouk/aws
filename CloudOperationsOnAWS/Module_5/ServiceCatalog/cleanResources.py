@@ -1,5 +1,7 @@
 # terminate all Provisioned Products of Service Catalog
 
+import time
+
 import boto3
 
 client = boto3.client("servicecatalog")
@@ -14,6 +16,18 @@ for product in response["ProvisionedProducts"]:
     client.terminate_provisioned_product(
         ProvisionedProductName=product["Name"], TerminateToken="string"
     )
+    # wait until it is terminated
+    while True:
+        response = client.describe_provisioned_product(
+            Id=product["Id"], AcceptLanguage="en"
+        )
+        status = response["ProvisionedProductDetail"]["Status"]
+        if status == "TERMINATED":
+            break
+        else:
+            print(f"{product['Name']} still in status {status}")
+            time.sleep(5)
+
     print(f"Terminated {product['Name']}")
 
 
