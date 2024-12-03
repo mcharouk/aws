@@ -189,7 +189,7 @@ WHERE
 * AWS Config peut streamer les changements de configuration avec leur status dans un topic SNS (facultatif)
 
 
-* [More information](https://docs.aws.amazon.com/config/latest/developerguide/querying-AWS-resources.html)
+* [Querying AWS Resources](https://docs.aws.amazon.com/config/latest/developerguide/querying-AWS-resources.html)
 
 # Module 4 : Deploy And Update Resources
 
@@ -230,7 +230,7 @@ WHERE
   * Sysprep removes all system-specific information, such as 
     * computer name
     * user accounts
-    * security identifiers (SIDs)
+    * security identifiers (SIDs). Uniquely identify a principal (user or group)
   * This allows the image to be deployed on different hardware without conflicts.
 
 ## User data scripts
@@ -357,17 +357,17 @@ features :
 
 ## Explorer
 
-* Explorer shows aggregated data on all resources. Application Manager show aggregated data on a set of resources. Data shown is not exactly the same
+* Explorer shows aggregated data on all resources.
   * Widgets
   * Filters
   * Direct link to service screens
   * Group by Account, region, tag
   * Reporting (csv generation on S3 bucket)
-
-* OpsCenter, Explorer and Change Manager integrates with AWS Organizations.
+* integrates with AWS Organizations.
 
 ## OpsCenter
 
+* integrates with AWS Organizations.
 * Standardize format of operational work items (OpsItem) while providing contextual data 
 * Features
   * Automatic and Manual creation
@@ -414,6 +414,7 @@ features :
 
 ## Change Manager
 
+* integrates with AWS Organizations.
 * request change through change templates
 * associate approvers to change templates (through SNS topics)
 * different level of approvers can be defined
@@ -556,7 +557,7 @@ Can indicate a TCP RST attack where an actor tries to interrupt communication be
   * Warm-up is available for simple, step and target tracking policy. 
   * Warm-up good for application that takes time to start. 
   * Cooldown is not available for target tracking.
-  * During a cooldown period, when a scheduled action starts at the scheduled time, it can trigger a scaling activity immediately without waiting for the cooldown period to expire
+  * On step scaling policy, during a cooldown period, when a scheduled action starts at the scheduled time, it can trigger a scaling activity immediately without waiting for the cooldown period to expire
   * It's possible to define a cooldown for scale-in and scale-out activities that will override the default one.
   * The cooldown period helps to prevent the Auto Scaling group from launching or terminating additional instances before the previous scaling activity takes effect. Instance warmup is more made for application that takes time to start.
 

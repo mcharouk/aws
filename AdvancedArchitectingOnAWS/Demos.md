@@ -14,6 +14,7 @@
 
 * Transit Gateway
 * VPC endpoints with private link
+* RAM : share a subnet
 
 # Module 6 : Containers
 
