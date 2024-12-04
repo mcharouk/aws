@@ -6,31 +6,38 @@ import boto3
 
 client = boto3.client("servicecatalog")
 # get all provisioned products and terminate them
-
-
 response = client.scan_provisioned_products(
-    AccessLevelFilter={"Key": "Account", "Value": "self"}, AcceptLanguage="en"
+    AccessLevelFilter={"Key": "Role", "Value": "self"}
 )
 
-for product in response["ProvisionedProducts"]:
-    terminate_response = client.terminate_provisioned_product(
-        ProvisionedProductName=product["Name"], TerminateToken="string"
-    )
-    record_id = terminate_response["RecordDetail"]["RecordId"]
-    # wait until it is terminated
-    while True:
+product_name = "LinuxApacheTestProductInstance"
+if response["ProvisionedProducts"] == []:
+    print("No provisioned products found")
+else:
+    for product in response["ProvisionedProducts"]:
+        current_product_name = product["Name"]
+        if not (current_product_name.startswith(product_name)):
+            print(
+                f"Product {current_product_name} does not start with {product_name}, skipping"
+            )
+            continue
+        print("Terminating product with name" + product["Name"])
+        terminate_response = client.terminate_provisioned_product(
+            ProvisionedProductName=product["Name"], TerminateToken="string"
+        )
+        record_id = terminate_response["RecordDetail"]["RecordId"]
+        # wait until it is terminated
+        while True:
 
-        response = client.describe_record(Id=record_id)
-        print(response)
-        print(f"Terminating {product['Name']}")
-        status = response["RecordDetail"]["Status"]
-        if status == "SUCCEEDED":
-            break
-        else:
-            print(f"{product['Name']} still in status {status}")
-            time.sleep(5)
+            response = client.describe_record(Id=record_id)
+            status = response["RecordDetail"]["Status"]
+            if status == "SUCCEEDED":
+                break
+            else:
+                print(f"{product['Name']} still in status {status}")
+                time.sleep(5)
 
-    print(f"Terminated {product['Name']}")
+        print(f"Terminated {product['Name']}")
 
 
 response = client.list_portfolios(AcceptLanguage="en")
@@ -92,9 +99,3 @@ response = client.list_portfolios(AcceptLanguage="en")
 for portfolio in response["PortfolioDetails"]:
     client.delete_portfolio(Id=portfolio["Id"], AcceptLanguage="en")
     print(f"Portfolio {portfolio['DisplayName']} deleted")
-
-# for product in response["ProductViewSummaries"]:
-#     client.delete_product(Id=product["ProductId"], AcceptLanguage="en")
-#     print(f"Terminated {product['Name']}")
-
-# get all portfolios and remove all access, all constraints, all tagoptions and all products
