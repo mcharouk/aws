@@ -1,11 +1,12 @@
 * any name to lambda function
 
-* Role name to assume
+* To create the lambda, assume the following role
+
 ```
 DevLambdaAdminRole
 ```
 
-* Policy to update
+* switch back to admin role and update policy of DevLambdaAdminRole
 
 ```
 {
