@@ -13,16 +13,18 @@ response = client.scan_provisioned_products(
 )
 
 for product in response["ProvisionedProducts"]:
-    client.terminate_provisioned_product(
+    terminate_response = client.terminate_provisioned_product(
         ProvisionedProductName=product["Name"], TerminateToken="string"
     )
+    record_id = terminate_response["RecordDetail"]["RecordId"]
     # wait until it is terminated
     while True:
-        response = client.describe_provisioned_product(
-            Id=product["Id"], AcceptLanguage="en"
-        )
-        status = response["ProvisionedProductDetail"]["Status"]
-        if status == "TERMINATED":
+
+        response = client.describe_record(Id=record_id)
+        print(response)
+        print(f"Terminating {product['Name']}")
+        status = response["RecordDetail"]["Status"]
+        if status == "SUCCEEDED":
             break
         else:
             print(f"{product['Name']} still in status {status}")
