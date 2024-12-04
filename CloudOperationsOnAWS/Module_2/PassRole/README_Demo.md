@@ -1,10 +1,16 @@
-* any name to lambda function
-
-* To create the lambda, assume the following role
+* Assume the following role
 
 ```
 DevLambdaAdminRole
 ```
+
+* Create lambda with following name 
+
+```
+PassRoleLambdaTest
+```
+
+* provide Role named **Admin-NetworkFirewallPolicyEditorRole** to lambda. IT should work
 
 * switch back to admin role and update policy of DevLambdaAdminRole
 
@@ -44,3 +50,6 @@ DevLambdaAdminRole
     ]
 }
 ```
+
+* provide Role named **Admin-NetworkFirewallPolicyEditorRole** to lambda. It should be denied
+* provide Role named **Dev-UpdateProductRole**. It should work
