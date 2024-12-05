@@ -58,6 +58,7 @@
     - [Findings examples](#findings-examples)
     - [Findings](#findings)
   - [Inspector](#inspector)
+  - [Pricing](#pricing-1)
 - [Module 11 : Operate Secure and Resilient networks](#module-11--operate-secure-and-resilient-networks)
   - [Cloudfront](#cloudfront)
     - [Conditional requests](#conditional-requests)
@@ -647,6 +648,14 @@ Demo :
   * CVE-2024-39807
   * CVE-2024-39830
 *  [list of code findings](https://github.com/aws-samples/amazon-codeguru-detectors). Behind the scene, Inspector uses [CodeGuru Detector Library](https://docs.aws.amazon.com/codeguru/detector-library/)
+
+## Pricing
+
+* For cloud trail logs, based on the number of events processed by month
+* for VPC flow logs and DNS logs, based on the amount of logs processed. Price / Go  decreases with the volume ingested
+* can scan S3 objects for malware, pricing based on number of objects scan
+* can scan EKS logs, EC2 logs, Lambda logs
+* RDS instances : number of RDS instances scanned. number of ACU if Aurora Serverless
 
 # Module 11 : Operate Secure and Resilient networks
 

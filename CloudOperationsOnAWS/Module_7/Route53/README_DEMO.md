@@ -5,10 +5,11 @@
 * in a web explorer, input dns names of the 2 ALBS (available in CF outputs)
 * use public hosted zone mcc-aws-demo.fr
 * create two alias records on ALB
-* domain name
+* domain name hello.mcc-aws-demo.fr
+* insert the subdomain in the form input lable
 
 ```
-hello.mcc-aws-demo.fr
+hello
 ```
 
 * create Geolocation routing policy. 
