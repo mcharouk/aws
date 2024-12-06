@@ -18,6 +18,7 @@ python generate-scripts.py
 * in instance 1, copy/paste writeFile content in terminal
 * in instance 2, copy/paste readFile content in terminal
 
+* !! if mount does not work, just wait and try 1 min later for ex. !!
 ## S3 mount
 
 ```
