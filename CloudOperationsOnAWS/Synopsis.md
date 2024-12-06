@@ -858,8 +858,11 @@ Cost Optimization Hub generates recommendations for the following resources:
 * Cost Optimization Hub is free of charge
 * Compute Optimizer 
   * Free of charge by default. It uses CloudWatch metrics
-  * Additional costs For EC2, ASG and RDS. It will generate more metrics and price will be based on the number of resources monitored and on the number of hours they were running in the month
-  
+  * Additional costs For EC2, ASG and RDS. 
+    * It will generate more metrics (up to three months of history compared to 14 days)
+    * price will be based on 
+      * the number of resources monitored 
+      * the number of hours they were running in the month
 
 ## S3 costs
 
