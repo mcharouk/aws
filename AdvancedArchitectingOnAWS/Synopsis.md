@@ -115,9 +115,46 @@ For connection on a transit VIF
 
 # Module 7 : CI/CD
 
+## CodeGuru
+
+* CodeGuru Reviewer
+  * Code Quality
+  * Detect potential defects
+* CodeGuru security
+  * Security Scans
+* CodeGuru Profiler
+  * helps diagnose performance issues, works within a live environment. 
+  * Need to modify the code to use it, and add dependencies.
+* [Detector Library](https://docs.aws.amazon.com/codeguru/detector-library/). 
+  * Has been renamed in Amazon Q Detector library
+  * contains security and code quality checks
+* Integrates with Github or Gitlab
+* Integrates with Amazon Q
+* Reviews accessible also on CodeGuru Console
+
 ## CodePipeline
 
 * can integrate with other third party tools
   * Jenkins
   * TeamCity
   * XebiaLabs
+
+
+# Module 9 : Securing datastore
+
+
+## SSL Handshake
+
+* Client send to the server a Hello message. It sends to the server
+  * a client random (it's a random string)
+  * TLS version supported
+  * Cipher suites supported
+* Server replies to the client by sending
+  * a server random (random string)
+  * its certificate
+  * Cipher suites chosen to encrypt the data
+* Client checks server certificate is signed by a CA the client trusts
+* Client sends a pre master key encrypted with public key of certificate
+* Server decrypts the pre master key with the private key it owns
+* with pre master key, a session key is generated with client random and server random exchanged.
+* session key is used for encryption operation afterwards
