@@ -158,3 +158,38 @@ For connection on a transit VIF
 * Server decrypts the pre master key with the private key it owns
 * with pre master key, a session key is generated with client random and server random exchanged.
 * session key is used for encryption operation afterwards
+
+# Module 11 : Migrating Workloads
+
+## Business Drivers
+
+* Cloud migration business drivers:
+  * Digital transformation
+  * Going global quickly, migration and acquisition (M&A)
+  * Agility and staff productivity
+  * Internet of Things (IoT) and Artificial Intelligence/Machine Learning (AI/ML)
+  * Improved operational resilience, scalability, and security
+  * Data center consolidation
+  * Cost reduction
+  * Outsourcing changes – end of life with hardware and software (EOL HW/SW)
+
+* Main Common drivers
+  * Cost reduction
+  * Workforce Productivity
+  * Operational Resilience
+
+## Migration Practices
+
+* Communicate strategy broadly. How we want to achieve and why
+* Cloud Governance Model. How managing access, account factory, separation of duties
+* Train Staff
+* Take Time to shape how operations will happened in the clou (tools and processes)
+* Know which assets you will migrate. Identify difficulties to minimize risks during migration.
+
+## MRA (Migration Readiness Assessment)
+
+* Outcomes
+  * An understanding of where an organization is in its cloud journey
+  * Identified areas of strength and weakness from a cloud-readiness perspective
+  * An action plan to resolve the identified gaps, so the organization can migrate at scale without having to pause to solve foundational issues
+
