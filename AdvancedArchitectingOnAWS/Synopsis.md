@@ -193,3 +193,53 @@ For connection on a transit VIF
   * Identified areas of strength and weakness from a cloud-readiness perspective
   * An action plan to resolve the identified gaps, so the organization can migrate at scale without having to pause to solve foundational issues
 
+
+## Migration Evaluator
+
+* automatically collects and inventories **your on-premises resources**, including servers, virtual machines, databases, and more.
+* The tool uses a non-intrusive, agentless collector to gather data (**Application Discovery AgentLess Connector**)
+* Inventory discovery works seamlessly across different environments such as VMware, Hyper-V, Windows, Linux, Active Directory, and SQL Server infrastructures.
+* The collected data is presented in detailed reports, allowing you to analyze the current infrastructure’s usage and performance, which aids in making informed decisions about migration to AWS.
+* Provides a one-page summary for business stakeholders
+* Breaks down costs by infrastructure and software licenses, offering a clear view of potential savings based on current usage patterns.
+
+* you can request a Migration Evaluator Business Case. This advanced feature includes access to a team of AWS solution architects who will work with you to:
+  * Understand your specific migration objectives, such as exiting a data center, transitioning from capital expenditures (cap-ex) to operational expenditures (op-ex), or altering software licensing strategies.
+  * Use gathered data to identify the most appropriate migration patterns suited to your goals.
+
+## MPA (Migration Portfolio Assessment)
+
+* MPA are provided by AWS employees or partners, not available directly from Console
+* Import data from file or **Application Discovery Service**
+
+MPA helps you 
+* consolidate the customer infrastructure data in one place
+* build the business case by providing **TCO comparison between On-Premises and AWS**
+* Estimate the **migration cost**
+* **Plan the migration** through R-type strategies
+* Application prioritization
+* Dependency grouping
+* Wave plans
+* Some estimations are automatic (on AWS core services), some can be manual
+* AWS Core services includes EC2, dedicated hosts, RDS, S3, EBS, network, admin, and aws support costs
+
+## Application Discovery Service
+
+* Agent deployed on premise to collect detailed data about infrastructure
+  * System configuration & performance
+  * Network connections
+  * Running processes
+* Query data with Quicksight or Athena
+* Agentless version that identifies virtual machines (VMs) and hosts associated with vCenter and collect static data
+
+## Application Migration Service
+
+* install an Agent on the Source Server
+* A Replication instance will be created on AWS that will replicate the data on an EBS volume
+* When requesting a test or cutover instance, AWS will spin up an EC2 converter server that will convert EBS to a bootable volume on AWS
+* After that operation (sub min.), an EC2 instance will be spin up that uses the EBS
+  * It's possible to launch a test instance before doing the real cutover
+* When doing a cutover, stop all activity on source server, execute the migration, and redirect traffic to the new machine
+* When a cutover or a test instance has been spin up, Replication is not stopped. It is stopped only when cutover has been finalized
+* Launch template can be provided to instruct how EC2 instances should be created.
+* Ability to group servers by Waves for mass migration, and group servers by a logical application to identify dependencies between servers
