@@ -161,6 +161,7 @@ For connection on a transit VIF
 
 # Module 11 : Migrating Workloads
 
+
 ## Business Drivers
 
 * Cloud migration business drivers:
@@ -183,8 +184,14 @@ For connection on a transit VIF
 * Communicate strategy broadly. How we want to achieve and why
 * Cloud Governance Model. How managing access, account factory, separation of duties
 * Train Staff
-* Take Time to shape how operations will happened in the clou (tools and processes)
-* Know which assets you will migrate. Identify difficulties to minimize risks during migration.
+* Take Time to shape how operations will happened in the cloud (tools and processes)
+* Know which assets you will migrate. Identify difficulties to minimize risks during migration. 
+
+## Cloud Adoption Readiness Tool
+
+* Answer a set of 47 questions
+* Get recommendations on how to improve
+* Get report that shows maturity to communicate it clearly
 
 ## MRA (Migration Readiness Assessment)
 
@@ -192,7 +199,6 @@ For connection on a transit VIF
   * An understanding of where an organization is in its cloud journey
   * Identified areas of strength and weakness from a cloud-readiness perspective
   * An action plan to resolve the identified gaps, so the organization can migrate at scale without having to pause to solve foundational issues
-
 
 ## Migration Evaluator
 
