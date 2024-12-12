@@ -1,7 +1,64 @@
 # Table of contents
 
-
-
+- [Table of contents](#table-of-contents)
+- [Module 2 : Single to Multiple Accounts](#module-2--single-to-multiple-accounts)
+- [Module 3 : Hybrid Connectivity](#module-3--hybrid-connectivity)
+  - [ECMP](#ecmp)
+  - [Direct Connect](#direct-connect)
+    - [Quotas](#quotas)
+    - [Public VIF](#public-vif)
+    - [Site-to-site VPN](#site-to-site-vpn)
+    - [MacSec](#macsec)
+- [Module 4 : Specialized Infrastructure](#module-4--specialized-infrastructure)
+  - [VMWare Cloud on AWS](#vmware-cloud-on-aws)
+  - [Outpost](#outpost)
+  - [WaveLength](#wavelength)
+- [Module 5 : Connecting Networks](#module-5--connecting-networks)
+- [Module 6 : Containers](#module-6--containers)
+  - [Placement Constraints and Strategies](#placement-constraints-and-strategies)
+- [Module 7 : CI/CD](#module-7--cicd)
+  - [CodeGuru](#codeguru)
+  - [CodePipeline](#codepipeline)
+- [Module 8 : High Availability - DDoS](#module-8--high-availability---ddos)
+  - [AWS WAF Security Automations](#aws-waf-security-automations)
+  - [Network Firewall](#network-firewall)
+- [Module 9 : Securing datastore](#module-9--securing-datastore)
+  - [Key Rotation](#key-rotation)
+  - [Cloudtrail example](#cloudtrail-example)
+  - [Asymetric keys](#asymetric-keys)
+  - [CloudHSM](#cloudhsm)
+  - [SSL Handshake](#ssl-handshake)
+  - [Secrets Manager](#secrets-manager)
+- [Module 10 : Large Scale Data Stores](#module-10--large-scale-data-stores)
+  - [Storage Class analysis](#storage-class-analysis)
+  - [Intelligent Tiering](#intelligent-tiering)
+  - [S3 Inventory](#s3-inventory)
+  - [Storage Lens](#storage-lens)
+- [Module 11 : Migrating Workloads](#module-11--migrating-workloads)
+  - [Business Drivers](#business-drivers)
+  - [Migration Practices](#migration-practices)
+  - [Cloud Adoption Readiness Tool](#cloud-adoption-readiness-tool)
+  - [MRA (Migration Readiness Assessment)](#mra-migration-readiness-assessment)
+  - [Migration Evaluator](#migration-evaluator)
+    - [Gathering Data](#gathering-data)
+    - [Insights](#insights)
+    - [Business Case](#business-case)
+  - [MPA (Migration Portfolio Assessment)](#mpa-migration-portfolio-assessment)
+  - [Application Discovery Service](#application-discovery-service)
+  - [Application Migration Service](#application-migration-service)
+  - [Migration Hub Refactor Spaces](#migration-hub-refactor-spaces)
+  - [AWS SCT](#aws-sct)
+    - [Conversion](#conversion)
+    - [SCT Agents](#sct-agents)
+    - [DMS integration](#dms-integration)
+- [Module 13 : Architecting for the edge](#module-13--architecting-for-the-edge)
+  - [Cloudfront signed cookies](#cloudfront-signed-cookies)
+    - [Canned policy vs Custom policy](#canned-policy-vs-custom-policy)
+  - [Cloudfront functions](#cloudfront-functions)
+    - [Limitations](#limitations)
+    - [Benefits](#benefits)
+  - [Lambda@Edge vs Cloudfront functions](#lambdaedge-vs-cloudfront-functions)
+  - [Global Accelerator](#global-accelerator)
 
 # Module 2 : Single to Multiple Accounts
 
@@ -148,6 +205,31 @@ For connection on a transit VIF
 
 ## AWS WAF Security Automations
 
+* Application Log Parser
+  * parse Cloudfront and ALB logs 
+  * identify IP addresses that generated more **errors** than the defined quota
+  * Block IP Addresses with WAF for a customer-defined period of time
+
+* WAF Log Parser
+  * parse Cloudfront and ALB logs 
+  * identify IP addresses that **sent more requests** than the defined quota
+  * Block IP Addresses with WAF for a customer-defined period of time
+* IP List Parser
+  * Hourly Update IP Reputation list from these 3 suites
+    * Spamhaus DROP and EDROP lists
+    * Proofpoint Emerging Threats IP list
+    * Tor exit node list
+* Access Handler
+  * a Lambda can be integrated in CloudFront or ALB (used by the application). This Lambda is meant to be accessed by content scrapper or bots that might be looking for a vuln.
+  * the Lambda extracts the source IP address and add it to the IP blacklist of WAF
+
+## Network Firewall
+
+* Stateless or stateful rules (like NACL and Sec Group)
+* Domain filtering
+  * black list or white list some domain
+  * filter based on content- [Suricata rules](https://docs.suricata.io/en/latest/rules/index.html#)
+  * Some [Suricata examples](https://docs.aws.amazon.com/network-firewall/latest/developerguide/suricata-examples.html)
 
 
 # Module 9 : Securing datastore
