@@ -202,12 +202,24 @@ For connection on a transit VIF
 
 ## Migration Evaluator
 
+### Gathering Data
+
+* Data can be collected by a tool or manually, providing a file
+* The tool uses a non-intrusive, agentless collector to gather data
 * automatically collects and inventories **your on-premises resources**, including servers, virtual machines, databases, and more.
-* The tool uses a non-intrusive, agentless collector to gather data (**Application Discovery AgentLess Connector**)
+* It collects data also on usage, not only static data
+* Can be installed for bare metal or virtual machines discovery
 * Inventory discovery works seamlessly across different environments such as VMware, Hyper-V, Windows, Linux, Active Directory, and SQL Server infrastructures.
+* [Overview](https://d1.awsstatic.com/migration-evaluator-resources/migration_evaluator_overview.pdf)
+
+### Insights
+
 * The collected data is presented in detailed reports, allowing you to analyze the current infrastructure’s usage and performance, which aids in making informed decisions about migration to AWS.
-* Provides a one-page summary for business stakeholders
+* Available in the tool itself, or can be exported on a daily basis on AWS Migration Hub
+* Provides a [one-page summary](https://d1.awsstatic.com/asset-repository/Migration_Evaluator_Quick_Insights_Sample_Report.pdf) for business stakeholders
 * Breaks down costs by infrastructure and software licenses, offering a clear view of potential savings based on current usage patterns.
+
+### Business Case
 
 * you can request a Migration Evaluator Business Case. This advanced feature includes access to a team of AWS solution architects who will work with you to:
   * Understand your specific migration objectives, such as exiting a data center, transitioning from capital expenditures (cap-ex) to operational expenditures (op-ex), or altering software licensing strategies.
@@ -231,21 +243,140 @@ MPA helps you
 
 ## Application Discovery Service
 
-* Agent deployed on premise to collect detailed data about infrastructure
-  * System configuration & performance
+* Agentless is installed centrally (one for many servers)
+* as OVA on VMWare vCenter
+* Covered by Agentless (Configurable)
+  * VM inventory
+  * configuration
+  * Performance history such as CPU, memory, and disk usage
+  * Version, edition and schemas of Databases (Oracle, MySQLServer, Postgresql, MySQL)
   * Network connections
+* Covered by Agent (decentralized installation)
+  * System configuration
+  * System performance
+  * Network Connection
   * Running processes
-* Query data with Quicksight or Athena
-* Agentless version that identifies virtual machines (VMs) and hosts associated with vCenter and collect static data
+  * Collect higher resolution metric data (timeseries)
+* Agent and Agentless can be both used at the same time
+* Data is collected in Migration Hub
+* Can optionnaly send data to S3 buckets and then use Quicksight or Athena for advanced analytics
 
 ## Application Migration Service
 
-* install an Agent on the Source Server
-* A Replication instance will be created on AWS that will replicate the data on an EBS volume
+* install an Agent on the Source Server. Now can work with agentless on VmWare env.
+* Replicate all block level data of all volumes attached to the instance (one can choose which one to copy)
+* Can choose for each volume the appropriate destination volume.
+* A Replication instance will be created on AWS that will replicate the data on one or multiple  EBS volumes
 * When requesting a test or cutover instance, AWS will spin up an EC2 converter server that will convert EBS to a bootable volume on AWS
-* After that operation (sub min.), an EC2 instance will be spin up that uses the EBS
+* After that operation (sub minute), an EC2 instance will be spin up that uses the EBS volumes
   * It's possible to launch a test instance before doing the real cutover
 * When doing a cutover, stop all activity on source server, execute the migration, and redirect traffic to the new machine
 * When a cutover or a test instance has been spin up, Replication is not stopped. It is stopped only when cutover has been finalized
 * Launch template can be provided to instruct how EC2 instances should be created.
 * Ability to group servers by Waves for mass migration, and group servers by a logical application to identify dependencies between servers
+
+
+## Migration Hub Refactor Spaces
+
+Easily build an infrastructure that can support Strangler Pattern.
+
+* Define 3 acounts
+  * One account as the refactor env. It contains an API Gateway that redirects traffic to the right backend (micro service or monolith)
+  * One account as the microservice env
+  * One account as the monolith env (which can be migrated on AWS or exists on Premise)
+* Define routes (creates method integration in API Gateway) that defines where the traffic should be redirected
+
+## AWS SCT
+
+### Conversion
+
+* can convert a schema into another schema of another DB engine
+* conversion can be automatically written or completed manually
+* can add data transformation rules that will be applied by DMS
+* can convert ETL jobs into Glue jobs or Redshift SQL (more details [here](https://docs.aws.amazon.com/SchemaConversionTool/latest/userguide/CHAP-converting-etl.html))
+
+### SCT Agents
+* For datawarehouse migration, with a help of an agent
+  *  can extract data from the database to S3 or Snowball Edge
+  *  Then another agent can copy data from s3 to Redshift
+  *  Can parallelize with multiple agents
+  *  Usually faster than DMS (thanks to parallelization) but no ongoing replication
+
+### DMS integration
+
+*  SCT can work with a local (on-premise) DMS replication instance. DMS replication instance will copy an initial load on S3, or S3 Snowball Edge
+*  DMS replication instance will perform on going replication on S3
+*  When Snowball Edge content is copied on S3, DMS will ingest data in the target database, and all ongoing changes.
+*  
+
+# Module 13 : Architecting for the edge
+
+## Cloudfront signed cookies
+
+### Canned policy vs Custom policy
+
+These policies restricts the usage of a signed URL
+
+custom policy
+* you can reuse it for multiple files
+* you can specify a start time
+* specify the IP range that can access the content
+* results in a longer url (BASE64 encoded)
+
+you can specify an expiration time for both policies
+
+## Cloudfront functions
+
+### Limitations
+
+* can't access the body of a request
+* 10 Kb of code
+* no file system access
+* no external calls
+* Javascript only
+* max 2 Mb memory
+* limited execution time (max is disclosed but you can monitor how close it in % from the maximum)
+
+### Benefits
+
+* consumes less resource
+* Scale immediately to handle millions of requests per second
+* submillisecond startup times
+
+## Lambda@Edge vs Cloudfront functions
+
+* Lambda@Edge runs on Regional Edge cache, whereas cloudfront Functions runs on Edge Location
+
+Use Lambda when 
+
+* long-running functions
+* adjustable memory 
+* Dependency on third libraries
+* External calls
+
+## Global Accelerator
+
+* use edge locations, like cloudfront
+* uses anycast
+  * provides a set of IP adresses (2 ipv4 + 2 ipv6 eventually)
+  * redirects the traffic to the nearest resource associated with that IP Address
+* resources associated with Global Accelerator can be private, enhancing security
+* Global Accelerator routes traffic the the healthy destination in case of regional failure.
+* Global Accelerator 
+  * listens to a port
+  * redirects traffic from a port to a endpoint group
+  * an endpoint group can contain multiple resources associated with a weight
+  * a resource can be
+    * NLB
+    * ALB
+    * EIP
+    * EC2
+* [Custom Routing accelerators](https://aws.amazon.com/blogs/networking-and-content-delivery/introducing-aws-global-accelerator-custom-routing-accelerators/) can be created to customize mapping between caller and the resource called
+  * Global accelerator creates a static map between ip address and port exposed and ip addresses and port of private resources 
+  * Then the client application can retrieve this static mapping and choose with a custom logic which resource it will call
+
+* Pricing
+  * fixed fee / hour
+  * DTO (normal EC2 DTO)
+  * Traffic between regions (price depends on source and target region)
+  * Public IP addresses are charged at standard rate
