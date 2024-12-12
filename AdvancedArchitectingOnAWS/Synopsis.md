@@ -1,3 +1,8 @@
+# Table of contents
+
+
+
+
 # Module 2 : Single to Multiple Accounts
 
 
@@ -139,6 +144,11 @@ For connection on a transit VIF
   * TeamCity
   * XebiaLabs
 
+# Module 8 : High Availability - DDoS
+
+## AWS WAF Security Automations
+
+
 
 # Module 9 : Securing datastore
 
@@ -215,6 +225,10 @@ For connection on a transit VIF
 * Server decrypts the pre master key with the private key it owns
 * with pre master key, a session key is generated with client random and server random exchanged.
 * session key is used for encryption operation afterwards
+
+## Secrets Manager
+
+* [Rotation lambdas samples](https://github.com/aws-samples/aws-secrets-manager-rotation-lambdas)
 
 # Module 10 : Large Scale Data Stores
 
