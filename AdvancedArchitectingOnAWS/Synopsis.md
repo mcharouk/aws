@@ -142,6 +142,63 @@ For connection on a transit VIF
 
 # Module 9 : Securing datastore
 
+## Key Rotation
+
+* can enable automatic rotation or on demand rotation (can use both at the same time)
+* Old material is never deleted, but the key alias is pointed to the new key
+* KMS will by itself select the right key that was used to encrypt the data.
+  *  Basically it stores in metadata of the object, the version used to encrypt it.
+  *  No re-encryption is needed after a key rotation
+*  When using imported keys
+   *  when the key is deleted the id is not. 
+   *  It's possibe to re-import the key to use it again
+   *  These keys can be deleted without a waiting period
+   *  Can specify an expiration time when importing the key
+*  AWS-Managed keys are rotated every year (cannot be changed)
+*  When using imported key or external key store, if old keys are deleted, data will have to be re-encrypted with new key
+
+## Cloudtrail example
+
+* it's a decrypt operation with a symmetric key (encryption context works only for symmetric keys)
+
+* DecryptResult : decrypt a ciphertext string
+* Keyid : KMS key used to encrypt
+  * Not mandatory if key is symmetric because this info can be retrieved in object metadata (added to the ciphertext blob) 
+* Encryption context : additional security. 
+  * It's a plain text string that must be given for decryption (same that was used for encryption). 
+  * Only works with symmetric keys
+
+## Asymetric keys
+
+* private key stored in AWS. Never leaves AWS.
+* public key can be given to anyone. 
+  * Anyone who own this key can encrypt data without having to access KMS API.
+  * only private key can decrypt the data
+* Limitations
+  * Most of AWS Services uses only Symmetric encryption
+  * No automatic rotation
+  * No key import
+  * limitations of object size that can be encrypted
+  * less performant
+
+## CloudHSM
+
+* can create a cluster. Can add or remove nodes up to 28.
+* active/active
+* synchronization between clusters members is automatic
+* AWS manages Load balancing
+* Quorum authentication : some operations needs at least *n* users to execute them (approval workflow)
+  * create or delete users
+  * change user password
+* As a convenience, define CloudHSM as an external key store of KMS, and use KMS APIs to generate data keys.
+  * encryption is done on the HSM cluster
+  * keys are stored in the HSM cluster
+* can use AWS Encryption SDK to generate data keys. 
+  * It supports KMS, CloudHSM and third parties HSM. 
+  * It's an open source project that facilitates envelope encryption process
+* pricing : hourly price per HSM. 
+  * For ex. 2,18 $ per hour per HSM in Paris region. 
+  * Approx. 1500 $ / month / cluster
 
 ## SSL Handshake
 
@@ -158,6 +215,76 @@ For connection on a transit VIF
 * Server decrypts the pre master key with the private key it owns
 * with pre master key, a session key is generated with client random and server random exchanged.
 * session key is used for encryption operation afterwards
+
+# Module 10 : Large Scale Data Stores
+
+## Storage Class analysis
+
+* Can be specified by prefix, by object tags, or for all bucket objects
+* Can generate a csv export daily
+* Provides only recommendations from Standard to IA
+* Observes data access patterns for 30 days or longer before giving a results
+* First results in 24 to 48 hours
+* Analysis basis : storage size and number of bytes transferred out per age group
+* provide visual dashboards
+* classified as Frequently accessed or infrequently accessed
+* CSV provides a RecommendedObjectAgeForSIATransition
+
+## Intelligent Tiering
+
+* Actions that Automatically moves back objects to Standard class
+  * Downloading or copying object
+  * Invoking CopyObject, UploadPartCopy, replicating with Batch Replication
+  * Invoking GetObject, PutObject, RestoreObject, CompleteMultiPartUpload, ListParts
+* Lifecycle default rules 
+  * Objects are moved in IA after 30 days
+  * Moved to Archived Instant Access Tier after 90 days
+  * Archive Access Tier (optional) : Move customizable from 90 to 730 days
+  * Deep Archive Access Tier (Optional): Move customizable from 180 to 730 days
+
+## S3 Inventory
+
+* [Available fields](https://docs.aws.amazon.com/AmazonS3/latest/userguide/storage-inventory.html)
+* daily or weekly basis
+* eventual consistency (some objects might not appear immediately)
+
+## Storage Lens
+
+* can create a Storage Lens Group with object tags
+* Storage Lens can filter by storage class
+* not possible to combine those two filters in dashboard
+* To have more customized results
+  * Get Storage Lens export Data (CSV, Parquet)
+  * Perform a custom analysis with Athena for ex.
+  * Can also join with S3 Inventory export to gain more flexibility
+* Provide recommendations
+  * Cost Optimization
+  * Data protection
+  * Access Management
+  * Performance
+  * Storage Management
+* Metrics in those categories
+  * Summary metrics
+    * total volume
+    * object count
+  * Cost Optimization metrics
+    * incomplete multipart uploads
+    * S3 lifecycle rule count (nb of rules on non current version, nb of rules that expires objects...)
+  * Data protection
+    * % of encrypted data
+    * % of replicated objects
+    * volume of objects that are locked
+    * MFA delete
+  * Access Management metrics
+    * around S3 object ownership
+  * Event metrics
+    * S3 event notifications  
+  * Performance metrics
+    * for Transfer acceleration
+  * ACtivity metrics
+    * nb of put requests, get requests, Bytes uploaded, downloaded, etc..
+  * Detailed Status code metrics
+    * count of status code (5XX, 4XX, 2XX, etc...)
 
 # Module 11 : Migrating Workloads
 
@@ -306,8 +433,7 @@ Easily build an infrastructure that can support Strangler Pattern.
 
 *  SCT can work with a local (on-premise) DMS replication instance. DMS replication instance will copy an initial load on S3, or S3 Snowball Edge
 *  DMS replication instance will perform on going replication on S3
-*  When Snowball Edge content is copied on S3, DMS will ingest data in the target database, and all ongoing changes.
-*  
+*  When Snowball Edge content is copied on S3, DMS will ingest data in the target database, and all ongoing changes.  
 
 # Module 13 : Architecting for the edge
 
