@@ -20,10 +20,19 @@
   - [WaveLength](#wavelength)
 - [Module 5 : Connecting Networks](#module-5--connecting-networks)
 - [Module 6 : Containers](#module-6--containers)
+  - [Launch types](#launch-types)
   - [Placement Constraints and Strategies](#placement-constraints-and-strategies)
+    - [Placement Strategies](#placement-strategies)
+    - [Placement constraints](#placement-constraints)
+    - [Tasks group](#tasks-group)
+  - [Capacity provider](#capacity-provider)
+  - [Networking mode](#networking-mode)
+  - [Task definition](#task-definition)
 - [Module 7 : CI/CD](#module-7--cicd)
   - [CodeGuru](#codeguru)
   - [CodePipeline](#codepipeline)
+    - [Action (not exhaustive)](#action-not-exhaustive)
+    - [Immutable vs Blue Green](#immutable-vs-blue-green)
 - [Module 8 : High Availability - DDoS](#module-8--high-availability---ddos)
   - [Shield Advanced](#shield-advanced)
   - [AWS WAF Security Automations](#aws-waf-security-automations)
@@ -216,21 +225,113 @@
 
 # Module 5 : Connecting Networks
 
+* CloudWAN when network is complex and span multiple regions as there is dynamic propagation of routes between multiple regions
+
 # Module 6 : Containers
+
+* EKS works with docker or containerd
+* ECS works only with Docker
+* ECS Agent is open source. 
+
+## Launch types
+
+ECS can run 
+* on EC2
+* on Fargate
+* on any VMs (ECS anywhere)
+
+* ECS Anywhere is the capacity to launch ECS tasks on instances external to AWS. But the control plan is still managed by AWS.
 
 ## Placement Constraints and Strategies
 
 * Fargate Tasks does not support placement constraints. Fargate tries to spread tasks among multiple AZs to improve availability, but customer has no control on that. 
 * Use EC2 instances to apply custom placement constraints
+* Priorities (in this strict order)
+  * identify instances that have enough CPU, RAM, etc...
+  * identify instances that satisfy placement strategies (defined at Service level , or on running a task)
+  * identify instances that satisfy placement constraints
+* Task placement strategies are a best effort. Amazon ECS still attempts to place tasks even when the most optimal placement option is unavailable. 
+* However, Task placement constraints are binding, and they can prevent task placement.
+* if placement constraints are not met
+  * task remain in PENDING state
+  * an event is sent in EventBridge to notify that task has not been instantiated
+  * still the scheduler will keep the task in the queue, waiting to the constraint to be satisfied
+  * Cloudwatch alarms can be triggered if a task remain in pending state for some period of time.
+
+### Placement Strategies
+
+* Task Placement Strategies
+  * binpack (save maximum resources): can be configured with CPU or Memory
+  * random
+  * spread
+    * by instances id
+    * by AZ (default behavior)
+
+### Placement constraints
+
 * Cluster Queries are expressions to group objects by AZ, instance type, or any custom attribute that can be set at container instances.
 * Task Placement Constraints : define which instances will be used for tasks. At least one instance must match the constraint.
   * distinctInstance : Place each task on a distinct instance
   * memberOf. Place task on container instances that satisfy an expression (can use custom attributes and cluster queries)
-* Task Placement Strategies
-  * binpack (save maximum resources): can be configured with CPU or Memory
-  * random
-  * spread (by instances id, or AZ)
-* When managing EC2 instances, if an EC2 instance is terminated while it was in stopped status, ECS will not deregister it from the cluster automatically, you have to do it explicitly with the CLI.
+  * Examples
+
+selects G2 instances that aren't in the us-east-1d Availability Zone.
+
+```
+attribute:ecs.instance-type =~ g2.* and attribute:ecs.availability-zone != us-east-1d
+```
+
+instances that are hosting tasks in the service:production group.
+
+```
+task:group == service:production
+```
+
+### Tasks group
+
+* Tasks can be placed into a group. 
+  * strategies and placement constraints will be applied to the group.
+  * by default, group name = task definition family name
+
+## Capacity provider
+
+* in a single cluster, can run tasks on Fargate or EC2
+* Only one capacity provider will have a *base* that will define how many tasks should be run at minimum
+* *weight* is the percentage of tasks that run on a capacity provider
+
+## Networking mode
+
+* Only for EC2 launch type
+  * awsvpc
+    * the task has an ENI allocated.
+    * can have its own public ip address, and its own security group
+  * bridge
+    * Uses Docker's built-in virtual network
+    * map container port to an EC2 instance port
+      * static port : cannot run more than a single task instance on an EC2 instance
+      * dynamic port : Docker chooses a random unused port in ephemeral port range
+        * must open broad ranges of port to make sure firewall will not block the traffic
+        * ECS will update Load balancer or Cloud Map dynamically to match assigned ports
+    * Security group is at EC2 level, not at task level, because containers share the same ENI
+  * host
+    * rigid, has the port used on EC2 is the same as the container
+    * not recommended by AWS. 
+      * Subject to port conflict
+      * Cannot run more than a single task instance on an EC2 instance
+
+## Task definition
+
+* Family (just a name)
+* launch types
+* Task Execution Role
+* Network Mode
+* Runtime platform
+  * Linux/Windows
+* Task size (CPU/Mem)
+* Container definitions
+  * A task might contain multiple containers. Define here ECR URI, CPU/Mem, Port mapping, mount points, secrets, logs, linux users, etc...
+* Placement constraints (strategies are defined at ECS service level)
+* Volumes
 
 # Module 7 : CI/CD
 
@@ -253,10 +354,32 @@
 
 ## CodePipeline
 
-* can integrate with other third party tools
-  * Jenkins
-  * TeamCity
-  * XebiaLabs
+### Action (not exhaustive)
+
+* For build step action
+  * ECR
+  * CodeBuild
+  * *Jenkins*
+  * *TeamCity*
+* For deploy steps
+  * *XebiaLabs*
+  * CloudFormation
+  * CodeDeploy
+  * S3
+  * ECS
+  * AppConfig
+
+### Immutable vs Blue Green
+
+* idea of immutable deployments is 
+  * to create a whole environment
+  * switch traffic all at once. 
+  * Then old environment is deleted.
+  * The main point here is that there is no in-place deployment, a new infra is always created from scratch
+* Blue Green looks like immutable but 
+  * it allows a more progressive traffic switch
+  * old environment could be kept for quick rollback long after the release
+* Immutable deployments can be implemented by using a blue/green strategy, but not the opposite.
 
 # Module 8 : High Availability - DDoS
 
@@ -449,7 +572,6 @@
     * count of status code (5XX, 4XX, 2XX, etc...)
 
 # Module 11 : Migrating Workloads
-
 
 ## Business Drivers
 
