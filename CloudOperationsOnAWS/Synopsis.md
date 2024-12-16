@@ -76,7 +76,7 @@
   - [Glacier retrievals](#glacier-retrievals)
 - [Module 14 : Cost Reporting - Alerts Optimization](#module-14--cost-reporting---alerts-optimization)
   - [Cost Explorer](#cost-explorer)
-  - [Cost and Usage reports](#cost-and-usage-reports)
+  - [Data exports (Cost and Usage reports)](#data-exports-cost-and-usage-reports)
   - [Cost Anomaly Detection](#cost-anomaly-detection)
   - [CloudWatch Billing Alarm](#cloudwatch-billing-alarm)
   - [AWS Budget](#aws-budget)
@@ -792,11 +792,15 @@ Demo compliqué sur ce sujet, on peut montrer la console.
 
 retention : default to 14 months, can be extended to 38 months at a monthly granularity
 
-## Cost and Usage reports
+## Data exports (Cost and Usage reports)
 
-* longer retention
+* Longer retention
 * break down by resource Id
-* Export report to Quicksight, Redshift, etc... More control on permissions (line and column level access)    
+* contains info about reservations and saving plans
+* Export report to S3 and after use it in Quicksight, Redshift, Athena
+  * Can do it manually or with Cloudformation templates (Athena and Quicksight)
+  * More control on permissions (line and column level access)
+  * Easy query of data
 
 ## Cost Anomaly Detection
 

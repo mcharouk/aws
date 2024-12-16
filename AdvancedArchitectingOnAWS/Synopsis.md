@@ -2,7 +2,12 @@
 
 - [Table of contents](#table-of-contents)
 - [Module 2 : Single to Multiple Accounts](#module-2--single-to-multiple-accounts)
+  - [Control Tower](#control-tower)
 - [Module 3 : Hybrid Connectivity](#module-3--hybrid-connectivity)
+  - [Client VPN](#client-vpn)
+    - [Protocols](#protocols)
+    - [Connectivity](#connectivity)
+    - [Components](#components)
   - [ECMP](#ecmp)
   - [Direct Connect](#direct-connect)
     - [Quotas](#quotas)
@@ -20,6 +25,7 @@
   - [CodeGuru](#codeguru)
   - [CodePipeline](#codepipeline)
 - [Module 8 : High Availability - DDoS](#module-8--high-availability---ddos)
+  - [Shield Advanced](#shield-advanced)
   - [AWS WAF Security Automations](#aws-waf-security-automations)
   - [Network Firewall](#network-firewall)
 - [Module 9 : Securing datastore](#module-9--securing-datastore)
@@ -59,17 +65,57 @@
     - [Benefits](#benefits)
   - [Lambda@Edge vs Cloudfront functions](#lambdaedge-vs-cloudfront-functions)
   - [Global Accelerator](#global-accelerator)
+    - [Standard Accelerators](#standard-accelerators)
+    - [Custom Routing Accelerators](#custom-routing-accelerators)
+    - [Pricing](#pricing)
 
 # Module 2 : Single to Multiple Accounts
 
+## Control Tower
+
+* possible to add custom shared account
+  * no specific process for that
+  * create an account, setup it manually and enroll it in an appropriate OU
+* To customize account by other means
+  * listen to Control Tower events in Eventbridge (CreateManagedAccount event)
+  *  possible to execute a lambda to setup the account.
+     * Lambda can assume the role AWSControlTowerExecution to perform actions in the target account.
+     * it can do pretty much anything, like executing a step function, executing cloudformation stack sets, etc...
+* Possible to use CfCT to customize landing zone. It's a pre built architecture that automate account setup and does not rely on service catalog (triggered on eventbridge event)
 
 # Module 3 : Hybrid Connectivity
+
+## Client VPN
+
+### Protocols
+
+* OpenVPN protocol (UDP or TCP, default to UDP)
+* Uses TLS for secure communication
+* Authentication 
+  * SAML based
+  * Active directory
+  * Mutual authentication (certificate)
+
+### Connectivity
+
+* [multiple connections](https://aws.amazon.com/blogs/networking-and-content-delivery/using-aws-client-vpn-to-scale-your-work-from-home-capacity/)
+  * connect to a target VPC subnet
+  * can access other VPCs via VPC peering or Transit Gateway
+  * can access on premise resources via private connections
+  * can access aws services privately
+  * can access internet through VPC IGW (can be integrated with Network Firewall or other appliances)
+
+### Components
+
+* Authorization rules can be provided to authorize some users that belong to a specific group to reach only a specific ip range
+* Route table indicates which target of VPN endpoint are valid independently from the users
 
 ## ECMP
 
 * Equal-Cost-Multi-Path
 * The system acts like a load balancer and transmit the packet to multiple gateways behind the router that can reach the same destination.
 * It consists of playing with BGP preferences (Local preference, weight) to give all connections the same weight.
+* only supported with BGP, and with TGW connection
 
 ## Direct Connect
 
@@ -77,24 +123,29 @@
 
 * 50 Public or private VIF per Direct Connect connection (hard limit)
 * 20 VGW per Direct Connect Gateway
+* frame size up to 9 023 bytes (maximum packet size)
   
 ### Public VIF
 
 * connect to AWS Services without traversing the public internet
   * improved performance and security
   * can lower DTO rates. Don't have any additional cost compared to an interface endpoint
+    * from AWS Europe to on prem in Europe
+      * Direct connect $0.0200 per GB
+      * EC2 : $0.09 per GB for first 10 TB / month
+      * EC2 (max mass discount): $0.05 per GB for vol > 150 Tb / month
   * Don't need to explicitly call interface endpoint. Public IPs are redirected to Public VIF
   * Public VIF works for all public services, no need to create a public vif for each service, like interface endpoint
   * Public VIF can be used for all AWS regions, not just the Direct Connect one
 
 ### Site-to-site VPN
 
-For connection on public VIF
+* [VPN Over public VIF](https://docs.aws.amazon.com/whitepapers/latest/aws-vpc-connectivity-options/aws-direct-connect-aws-transit-gateway-vpn.html)
+   * Create a connection between on prem network and site-to-site vpn endpoints
    * the Customer Gateway IP advertised to AWS must be a public IP Address
-   * a new Site-to-site VPN has to be created for each VPC
-For connection on a transit VIF
-  * no public ip adresses are needed
-  * connection is made on TGW so there is only one VPN to create for all VPC behind the TGW
+   * Then create an IP Sec connection to the Transit Gateway directly
+   * When it was the only option available, to use a private IP address, customer had to manage a VPN on EC2 to establish IPSec connectivity through Direct Connect
+   * Private IP VPN solved that burden
 
 ### MacSec
 
@@ -126,10 +177,15 @@ For connection on a transit VIF
       * Software-defined storage solution for hyper-converged infrastructure
       * Pools direct-attached storage devices to create a distributed shared datastore
       * Still can use EBS or EFS as storage but it's not the default solution of VMWare.
-  * Compute Gateway : VMs created on physical hosts. 
+  * Compute Gateway
+    * enables communication between VM and external networks
+    * firewalls to control traffic
+    * Facilitates internet connectivity to workloads
 * when provisioning the SDDC, the user is asked how many physical hosts should be reserved. This can be changed afterwards.
 * Provide a customer account. Gives authorization by executing a cloudformation template to the SDDC to provide access to the SDDC account.
 * VMWare VMs appears as ENI in customer account
+  * Natively, VMs have only access to resources in that particular VPC
+  * [Other options](https://aws.amazon.com/blogs/architecture/augmenting-vmware-cloud-on-aws-workloads-with-native-aws-services/) might be configured to access to resources in multiple VPC in multiple accounts. It uses a VMWare component called VMWare Transit Connect (VTGW)
 * VMs can access all AWS Ressources in VPC (RDS for ex.) and all AWS Services through VPC private endpoints.
 * Hybrid mode can be activated on SDDC to have a single pane of glass of all assets deployed on premises and on AWS.
 * Allows to seamlessly 
@@ -140,7 +196,8 @@ For connection on a transit VIF
 ## Outpost
 
 * two LAG have to be established
-  * LACP is a protocol that group multiple physical connection in a single logical connection. 
+  * LAG purpose is to group multiple physical connections to a single logical connection
+  * Uses LACP protocol for that purpose
   * Main benefit is to improve resilience and bandwidth
 * Each LAG has 2 VLANs
   * Service Link VLAN : connectivity between outpost and AWS
@@ -202,6 +259,15 @@ For connection on a transit VIF
   * XebiaLabs
 
 # Module 8 : High Availability - DDoS
+
+## Shield Advanced
+
+* When protecting an EIP address, Shield Advanced can replicate NACL rules on the public subnet where it resides at the border of AWS. it allows supporting much bigger volume
+* Shield advanced can monitor health checks of associated resources (must be provided explicitly). This helps to detect a DDoS attack and lower the threshold Shield will react.
+* Shield integrates with WAF. It can
+  * add IP addresses to deny
+  * apply rate limiting rules
+  * block an attack that has an identified signature
 
 ## AWS WAF Security Automations
 
@@ -578,6 +644,8 @@ Use Lambda when
 
 ## Global Accelerator
 
+### Standard Accelerators
+
 * use edge locations, like cloudfront
 * uses anycast
   * provides a set of IP adresses (2 ipv4 + 2 ipv6 eventually)
@@ -593,12 +661,21 @@ Use Lambda when
     * ALB
     * EIP
     * EC2
+
+### Custom Routing Accelerators
+
 * [Custom Routing accelerators](https://aws.amazon.com/blogs/networking-and-content-delivery/introducing-aws-global-accelerator-custom-routing-accelerators/) can be created to customize mapping between caller and the resource called
   * Global accelerator creates a static map between ip address and port exposed and ip addresses and port of private resources 
   * Then the client application can retrieve this static mapping and choose with a custom logic which resource it will call
 
-* Pricing
-  * fixed fee / hour
-  * DTO (normal EC2 DTO)
-  * Traffic between regions (price depends on source and target region)
-  * Public IP addresses are charged at standard rate
+* Some limitations
+  * no healthcheck
+  * no load balancing
+  * only redirects to EC2 instances
+
+### Pricing
+
+* fixed fee / hour
+* DTO (normal EC2 DTO)
+* Traffic between regions (price depends on source and target region)
+* Public IP addresses are charged at standard rate
