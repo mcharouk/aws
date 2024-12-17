@@ -14,6 +14,8 @@
     - [Public VIF](#public-vif)
     - [Site-to-site VPN](#site-to-site-vpn)
     - [MacSec](#macsec)
+  - [Route 53](#route-53)
+    - [DNSSEC](#dnssec)
 - [Module 4 : Specialized Infrastructure](#module-4--specialized-infrastructure)
   - [VMWare Cloud on AWS](#vmware-cloud-on-aws)
   - [Outpost](#outpost)
@@ -165,6 +167,17 @@
 * Must check that Dx location supports that.
 * Check that your device on-premise supports MacSec.
 * Create a CKN/CAK pair for the MACsec secret key
+
+## Route 53
+
+### DNSSEC
+
+* exchange private / public keys
+  * private key stays on authoritative servers
+  * public keys given to resolvers
+* When a record is returned, a signature is also sent generated with record, domain name, record type (A, AAAA, etc...), and other metadata such as an expiration date.
+* resolver decrypts signature and check if it matches with authoritative response
+* if it doesn't match, an error is raised to the client
 
 # Module 4 : Specialized Infrastructure
 

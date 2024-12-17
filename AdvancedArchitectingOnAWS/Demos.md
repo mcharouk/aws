@@ -1,6 +1,7 @@
 # Module 2 : Single to Multiple Accounts
 
 * Show Control Tower setup
+* Show SCP
 
 # Module 3 : Hybrid Connectivity
 
