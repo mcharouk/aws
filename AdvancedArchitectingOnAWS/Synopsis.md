@@ -31,7 +31,8 @@
 - [Module 7 : CI/CD](#module-7--cicd)
   - [CodeGuru](#codeguru)
   - [CodePipeline](#codepipeline)
-    - [Action (not exhaustive)](#action-not-exhaustive)
+    - [Out of the box Action (not exhaustive)](#out-of-the-box-action-not-exhaustive)
+    - [Custom Actions](#custom-actions)
     - [Immutable vs Blue Green](#immutable-vs-blue-green)
 - [Module 8 : High Availability - DDoS](#module-8--high-availability---ddos)
   - [Shield Advanced](#shield-advanced)
@@ -354,7 +355,7 @@ task:group == service:production
 
 ## CodePipeline
 
-### Action (not exhaustive)
+### Out of the box Action (not exhaustive)
 
 * For build step action
   * ECR
@@ -368,6 +369,11 @@ task:group == service:production
   * S3
   * ECS
   * AppConfig
+
+### Custom Actions
+
+* Lambda
+* Job Worker that pulls for jobs and send responses by using CodePipeline APIs
 
 ### Immutable vs Blue Green
 
