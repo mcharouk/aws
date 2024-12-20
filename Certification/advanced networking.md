@@ -51,8 +51,7 @@ Dynamic routing
     * public ASN : same prefix and path
 
 * active/passive
-
-    * private ASN : use CIDR specific prefixes
+  * private ASN : use CIDR specific prefixes
 	* public ASN : use Local pref and Shortest AS PATH
 		
 ### Scope BGP Communities
@@ -65,7 +64,6 @@ Dynamic routing
     * 7224:8200 (Continent)
     * 7224:8100 (Local)
     * Must put a filter on customer side based on BGP community
-
 
 ## Private VIF
 

@@ -60,13 +60,14 @@
 
 ## Deployments mode
 
-### Lambda (With SAM Framework)
+### Lambda
+
   * Linear : Add X % every Y min
   * Canary : Test X % then switch to 100 %
   * All At once
 
-
 ### ECS
+
 * (Only Blue/Green). Use Weighted target groups 
 * Linear
 * Canary

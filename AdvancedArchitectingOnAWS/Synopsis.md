@@ -8,19 +8,28 @@
     - [Protocols](#protocols)
     - [Connectivity](#connectivity)
     - [Components](#components)
-  - [ECMP](#ecmp)
+  - [Site-to-site VPN](#site-to-site-vpn)
+    - [Dead peer connection](#dead-peer-connection)
+    - [Nat-T](#nat-t)
+    - [ECMP](#ecmp)
   - [Direct Connect](#direct-connect)
     - [Quotas](#quotas)
     - [Public VIF](#public-vif)
-    - [Site-to-site VPN](#site-to-site-vpn)
+    - [Site-to-site VPN](#site-to-site-vpn-1)
+  - [Resiliency](#resiliency)
+  - [Failover](#failover)
     - [MacSec](#macsec)
   - [Route 53](#route-53)
     - [DNSSEC](#dnssec)
 - [Module 4 : Specialized Infrastructure](#module-4--specialized-infrastructure)
+  - [Storage Gateway](#storage-gateway)
   - [VMWare Cloud on AWS](#vmware-cloud-on-aws)
+  - [Local Zones](#local-zones)
   - [Outpost](#outpost)
   - [WaveLength](#wavelength)
 - [Module 5 : Connecting Networks](#module-5--connecting-networks)
+  - [Transit Gateway Multicast](#transit-gateway-multicast)
+  - [Transit Gateway Network Manager](#transit-gateway-network-manager)
 - [Module 6 : Containers](#module-6--containers)
   - [Launch types](#launch-types)
   - [Placement Constraints and Strategies](#placement-constraints-and-strategies)
@@ -30,6 +39,9 @@
   - [Capacity provider](#capacity-provider)
   - [Networking mode](#networking-mode)
   - [Task definition](#task-definition)
+  - [Container Insights](#container-insights)
+  - [EKS Distro](#eks-distro)
+  - [EKS anywhere](#eks-anywhere)
 - [Module 7 : CI/CD](#module-7--cicd)
   - [CodeGuru](#codeguru)
   - [CodePipeline](#codepipeline)
@@ -122,7 +134,26 @@
 * Authorization rules can be provided to authorize some users that belong to a specific group to reach only a specific ip range
 * Route table indicates which target of VPN endpoint are valid independently from the users
 
-## ECMP
+## Site-to-site VPN
+
+### Dead peer connection
+
+* deadPeerConnection is like a health check mechanisms. After some timeout the peer is considered as not joinable. Possible actions : 
+  * Do Nothing
+  * Close the tunnel
+  * Restart the tunnel
+* on CGW side, it can detect failure and start failover automatically
+
+### Nat-T 
+
+* Nat traversal consists of having a server that performs NAT in front of the router that acts as a customer gateway.
+* Nat traversal is stateful and supports inbound connections as well, so ideal for peer-to-peer connections.
+* Nat traversal keeps the same advantages of NAT
+  * fewer public IP addresses
+  * hide private IP addresses
+* Mandatory for accelerated site-to-site connections.
+
+### ECMP
 
 * Equal-Cost-Multi-Path
 * The system acts like a load balancer and transmit the packet to multiple gateways behind the router that can reach the same destination.
@@ -159,6 +190,34 @@
    * When it was the only option available, to use a private IP address, customer had to manage a VPN on EC2 to establish IPSec connectivity through Direct Connect
    * Private IP VPN solved that burden
 
+## Resiliency
+
+* AWS has [SLA engagement](https://aws.amazon.com/directconnect/sla/?did=sla_card&trk=sla_card) depending on the setup. 
+* If SLA are not met, AWS can redeem credits to customer
+* The conditions depends on the client setup. Maximum resiliency have the best SLA.
+
+## Failover
+
+* How to detect failure in direct connect connection
+  * Cloudwatch metrics : connection state, BGP state
+  * Health Dashboard
+  * BFD (Bidirectional Forwarding Detection) if it has been activated
+* How to detect failure in VPN connection
+  * TunnelState CloudWatch metric
+  * API calls / Cloudwatch synthetics
+  * Dead peer detection
+* Failover parameters are more typically set on customer side
+  * Typically BGP parameters are used to favor traffic on Direct Connect during normal traffic
+    * Local preference to influence traffic to AWS
+    * to influence inbound traffic from AWS
+      * MED values
+      * Shortes AS Path
+  * When a failover occurs
+    * AWS removes routes in routing table that were propagated by DX.
+    * if BGP session is down, all routes learned on premise by DX will be removed automatically. 
+    * Site to site VPN routing will remain, so it will become the preferred path defacto
+    * Just make sure that all BGP parameters are ok, and that nobody has added some static routes that may disturb the failover process
+
 ### MacSec
 
 * Level 2 encryption
@@ -180,6 +239,14 @@
 * if it doesn't match, an error is raised to the client
 
 # Module 4 : Specialized Infrastructure
+
+## Storage Gateway
+
+* One limitation on Storage Gateway
+  * suppose multiple gateways refer to the same S3 bucket for example, for example in different locations
+  * cache in those different gateways won't be synchronize anyway
+  * could potentially do some solution to evict from the cache object based on their update, but this could to a lot refresh, latency, etc...
+  * Storage gateway is not really meant for that setup, so it could require a different solution
 
 ## VMWare Cloud on AWS
 
@@ -216,6 +283,14 @@
   * execute DR on public cloud
   * on-demand capacity for dev and test purposed for example.
 
+## Local Zones
+
+* in the console, go to EC2
+* in the menu go to Settings
+* go to the Zones tab to enable a local zone
+* when creating a subnet, select the local zone that was enabled
+* create resource in the local zone subnet
+
 ## Outpost
 
 * two LAG have to be established
@@ -236,10 +311,37 @@
 
 * [WaveLength locations](https://aws.amazon.com/wavelength/locations/)
 * CSP : communications service providers
-
+* Use cases : Smart factories, Connected Vehicules
+* 
 # Module 5 : Connecting Networks
 
 * CloudWAN when network is complex and span multiple regions as there is dynamic propagation of routes between multiple regions
+
+## Transit Gateway Multicast
+
+* Benefits
+  * Reduces network bandwidth usage
+  * Improves scalability
+  * Lower server load
+  * real time data delivery
+
+* Use cases
+  * Streaming, Video conferencing
+  * Network management (DNS updates, DHCP services)
+  * Financial Services : Stock market data distribution, real time trading information, financial news feeds
+  * Gaming : Multiplayer, gamestate synchronization
+  * Data distribution : software updates, database replication, file distribution, CDN
+  * IoT : Sensor data distribution, industrial control systems
+  * DR : Alert systems, public safety annoucements
+
+## Transit Gateway Network Manager
+
+* Site : registering a physical location (typically branch office, head quarters, etc...)
+* Links : connection between device and site
+* Devices : Some physical or virtual appliance that can be associated with AWS resources, or on premise (through a link)
+* Customer Gateway associations
+  * Customer Gateway will be already created if TGW is associated with an hybrid connection.
+  * associate a CGW to a device and optionally a link. 
 
 # Module 6 : Containers
 
@@ -261,9 +363,9 @@ ECS can run
 * Fargate Tasks does not support placement constraints. Fargate tries to spread tasks among multiple AZs to improve availability, but customer has no control on that. 
 * Use EC2 instances to apply custom placement constraints
 * Priorities (in this strict order)
-  * identify instances that have enough CPU, RAM, etc...
-  * identify instances that satisfy placement strategies (defined at Service level , or on running a task)
+  * identify instances that have enough CPU, RAM, etc...  
   * identify instances that satisfy placement constraints
+  * identify instances that satisfy placement strategies (defined at Service level , or on running a task)
 * Task placement strategies are a best effort. Amazon ECS still attempts to place tasks even when the most optimal placement option is unavailable. 
 * However, Task placement constraints are binding, and they can prevent task placement.
 * if placement constraints are not met
@@ -283,10 +385,11 @@ ECS can run
 
 ### Placement constraints
 
-* Cluster Queries are expressions to group objects by AZ, instance type, or any custom attribute that can be set at container instances.
+
 * Task Placement Constraints : define which instances will be used for tasks. At least one instance must match the constraint.
-  * distinctInstance : Place each task on a distinct instance
+  * distinctInstance : Place each task on a distinct instance 
   * memberOf. Place task on container instances that satisfy an expression (can use custom attributes and cluster queries)
+  * Cluster Queries are expressions to group objects by AZ, instance type, or any custom attribute that can be set at container instances.
   * Examples
 
 selects G2 instances that aren't in the us-east-1d Availability Zone.
@@ -346,6 +449,47 @@ task:group == service:production
   * A task might contain multiple containers. Define here ECR URI, CPU/Mem, Port mapping, mount points, secrets, logs, linux users, etc...
 * Placement constraints (strategies are defined at ECS service level)
 * Volumes
+
+## Container Insights
+
+* Metrics on CPU, memory, disk, network
+* Diagnostics information on restart failures for ex.
+* Collect raw [performance log events](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/Container-Insights-reference-performance-logs-ECS.html)
+  * Metrics aggregated at cluster, node, task, service level.
+  * Can create custom metric from these raw performance log events
+  * [Collected Metrics](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/Container-Insights-metrics-ECS.html)
+  * [Container Insights with Enhanced observability](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/Container-Insights-enhanced-observability-metrics-ECS.html). It offers more metrics
+* Automatic dashboards
+
+## EKS Distro
+
+* CNI plugins
+* CoreDNS
+* etcd
+* CSI sidecars
+* aws-iam-authenticator
+* Kubernetes Metrics Server
+* Kubernetes
+
+## EKS anywhere
+
+* full cluster Kubernetes that run on EKS Distro distribution but it has more tooling around 
+  * installation and update EKS
+  * Diagnostic and logging
+  * Pre-configured K8S add-ons
+    * CNI
+    * CoreDNS
+    * kube-proxy
+    * AWS Distro for OpenTelemetry
+    * EBS CSI Driver
+    * EFS CSI Driver
+    * Cluster Autoscaler
+    * Metrics Server
+  * Support
+  * Can integrate easily with 
+    * IAM for cluster authorizations
+    * Systems Manager
+  * Management Console integration (EKS Connector)
 
 # Module 7 : CI/CD
 

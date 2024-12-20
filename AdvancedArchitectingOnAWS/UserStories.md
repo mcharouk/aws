@@ -10,8 +10,8 @@
 
 ## Issue
 
-* Woowa Brothers needed to overcome the technical challenges of operating autonomous delivery robots in outdoor environments.
-* Factors like weather, road conditions, and unexpected obstacles required real-time responses for safe and efficient operation.
+* Woowa Brothers needed to overcome the technical challenges of operating autonomous delivery robots in **outdoor** environments.
+* Factors like weather, road conditions, and unexpected obstacles required **real-time responses** for **safe and efficient** operation.
 * Existing network infrastructure, like 4G LTE, could not meet the low latency requirements for real-time robot control.
 
 ## Solution
