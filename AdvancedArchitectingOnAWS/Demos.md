@@ -24,14 +24,16 @@
 
 # Module 7 : CI/CD
 
-* CodeDeploy and Fargate
+* CodeDeploy and Fargate or Lambda (needs to create 2 versions)
 
 # Module 8 : HA_DDOS
 
 * WAF with Firewall Manager
+* Network Firewall that filter some domain. Focus on route tables configuration.
 
 # Module 9 : Securing Data
 
+* Activate SSE-KMS for S3. Show how to delete a key, configure rotation, iam on kms key.
 * HSM ?
 
 # Module 10 : Large Scales Data Store

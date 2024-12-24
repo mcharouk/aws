@@ -49,16 +49,21 @@
     - [Custom Actions](#custom-actions)
     - [Immutable vs Blue Green](#immutable-vs-blue-green)
 - [Module 8 : High Availability - DDoS](#module-8--high-availability---ddos)
+  - [Shield Standard](#shield-standard)
   - [Shield Advanced](#shield-advanced)
   - [AWS WAF Security Automations](#aws-waf-security-automations)
   - [Network Firewall](#network-firewall)
 - [Module 9 : Securing datastore](#module-9--securing-datastore)
+  - [FIPS 140-3](#fips-140-3)
   - [Key Rotation](#key-rotation)
   - [Cloudtrail example](#cloudtrail-example)
   - [Asymetric keys](#asymetric-keys)
+  - [S3 Bucket Key](#s3-bucket-key)
   - [CloudHSM](#cloudhsm)
   - [SSL Handshake](#ssl-handshake)
   - [Secrets Manager](#secrets-manager)
+    - [Availability during rotation process](#availability-during-rotation-process)
+    - [Rotation with other services](#rotation-with-other-services)
 - [Module 10 : Large Scale Data Stores](#module-10--large-scale-data-stores)
   - [Storage Class analysis](#storage-class-analysis)
   - [Intelligent Tiering](#intelligent-tiering)
@@ -546,6 +551,12 @@ task:group == service:production
 
 # Module 8 : High Availability - DDoS
 
+## Shield Standard
+
+* Protects all AWS resources
+  * for Route 53, Cloudfront, Global Accelerator covers all known attack types (lvl 3,4)
+  * for other resources covers most frequent attacks
+
 ## Shield Advanced
 
 * When protecting an EIP address, Shield Advanced can replicate NACL rules on the public subnet where it resides at the border of AWS. it allows supporting much bigger volume
@@ -554,6 +565,18 @@ task:group == service:production
   * add IP addresses to deny
   * apply rate limiting rules
   * block an attack that has an identified signature
+* Monitor some metrics on protected resources
+  * For CloudFront: 5xxErrorRate
+  * For ALB: HTTPCode_ELB_5XX_Count, RejectedConnectionCount
+  * For EC2 instances: CPUUtilization
+* Publishes metrics
+  * DDoSDetected: Indicates whether a DDoS event is detected
+  * DDoSAttackBitsPerSecond: Measures the volume of traffic in bits per second
+  * DDoSAttackPacketsPerSecond: Measures the volume of traffic in packets per second
+  * DDoSAttackRequestsPerSecond: Measures the volume of requests per second (for application layer attacks)
+* Provides a quarterly report
+  * metrics, attacks, pattern trends on protected resources
+  * security recommendations
 
 ## AWS WAF Security Automations
 
@@ -582,9 +605,29 @@ task:group == service:production
   * black list or white list some domain
   * filter based on content- [Suricata rules](https://docs.suricata.io/en/latest/rules/index.html#)
   * Some [Suricata examples](https://docs.aws.amazon.com/network-firewall/latest/developerguide/suricata-examples.html)
-
+* Comparing to WAF
+  * firewall that acts East-West
+  * can protect a NLB or an EIP (cannot do that with WAF)
+  * can filter outbound access
+* comparing to sec group and NACL
+  * layer 7
+  * can implement more rules (10 000s). Centralize rules when using Est-West patterns for example
 
 # Module 9 : Securing datastore
+
+* deep dive into [this](https://docs.aws.amazon.com/AmazonS3/latest/userguide/bucket-key.html#bucket-key-overview)
+
+## FIPS 140-3
+
+* Customer master key is not stored encrypted
+* To protect it, it remains on a hardware / software that has to comply on strict requirements
+* Mainly
+  * Cryptographic requirements : only some algorithms are validated
+  * Protection against physical access : intrusion detection, tamper-evident seals (scellés inviolables)
+  * Key management : not possible to import/export the plain text key
+  * Strong authentication mechanisms
+  * hardware and software up to date with latest security patches
+
 
 ## Key Rotation
 
@@ -625,6 +668,14 @@ task:group == service:production
   * limitations of object size that can be encrypted
   * less performant
 
+## S3 Bucket Key
+
+* An encryption key cached in s3, created from KMS master key
+* This bucket key generates data key to encrypt object, reducing the call to KMS Service
+* One bucket key is generated per caller  (user, IAM Role assumed by a user...)
+* Maximizes cost redution of KMS when fewer callers, multiple objects to call for a limited time period
+* Compatible with XKS, CloudHSM
+
 ## CloudHSM
 
 * can create a cluster. Can add or remove nodes up to 28.
@@ -655,12 +706,24 @@ task:group == service:production
   * its certificate
   * Cipher suites chosen to encrypt the data
 * Client checks server certificate is signed by a CA the client trusts
-* Client sends a pre master key encrypted with public key of certificate
-* Server decrypts the pre master key with the private key it owns
-* with pre master key, a session key is generated with client random and server random exchanged.
+* Client sends a **pre master key** encrypted with public key of certificate
+* Server decrypts the **pre master key** with the private key it owns
+* with **pre master key**, a **session key** is generated with **client random** and **server random** exchanged.
 * session key is used for encryption operation afterwards
 
 ## Secrets Manager
+
+### Availability during rotation process
+
+* choose alternate users strategy
+  * 2 users can be used to access database
+  * passwords are alternatively rotated
+  * schedule switching to the new user, or the user to use could also be stored into its own secret.
+* implements a retry strategy
+* execute secret rotation during off-peak hours
+* implement connection pooling. Reusing connection minimizes risk of using out-dated credentials
+
+### Rotation with other services
 
 * [Rotation lambdas samples](https://github.com/aws-samples/aws-secrets-manager-rotation-lambdas)
 
@@ -676,7 +739,15 @@ task:group == service:production
 * Analysis basis : storage size and number of bytes transferred out per age group
 * provide visual dashboards
 * classified as Frequently accessed or infrequently accessed
-* CSV provides a RecommendedObjectAgeForSIATransition
+* CSV provides
+  * for each object
+    * current storage class 
+    * Number of requests
+    * Access ratio : ratio size vs nb of requests
+  * for all objects
+    * Data retrieved, uploaded, size, nb of objects
+    * ObjectAgeForSIATransition : observed age for transition 
+    * a RecommendedObjectAgeForSIATransition : recommended age for transition
 
 ## Intelligent Tiering
 
@@ -782,9 +853,17 @@ task:group == service:production
 * The tool uses a non-intrusive, agentless collector to gather data
 * automatically collects and inventories **your on-premises resources**, including servers, virtual machines, databases, and more.
 * It collects data also on usage, not only static data
-* Can be installed for bare metal or virtual machines discovery
-* Inventory discovery works seamlessly across different environments such as VMware, Hyper-V, Windows, Linux, Active Directory, and SQL Server infrastructures.
-* [Overview](https://d1.awsstatic.com/migration-evaluator-resources/migration_evaluator_overview.pdf)
+* Can be installed for 
+  * bare metal
+  * virtual machines
+* Inventory discovery works seamlessly across different environments such as 
+  * VMware
+  * Hyper-V
+  * Windows
+  * Linux
+  * Active Directory
+  * SQL Server infrastructures.
+* [Overview](https://d1.awsstatic.com/migration-evaluator-resources/migration_evaluator_overview.pdf). Take a look at the architecture on the beginning of the document
 
 ### Insights
 
