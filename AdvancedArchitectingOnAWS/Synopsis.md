@@ -80,21 +80,30 @@
     - [Business Case](#business-case)
   - [MPA (Migration Portfolio Assessment)](#mpa-migration-portfolio-assessment)
   - [Application Discovery Service](#application-discovery-service)
+  - [Migration Evaluator vs Application Discovery Service](#migration-evaluator-vs-application-discovery-service)
   - [Application Migration Service](#application-migration-service)
+    - [Installation](#installation)
+    - [Cutover](#cutover)
   - [Migration Hub Refactor Spaces](#migration-hub-refactor-spaces)
   - [AWS SCT](#aws-sct)
     - [Conversion](#conversion)
     - [SCT Agents](#sct-agents)
     - [DMS integration](#dms-integration)
+- [Module 12 : Optimizing Cost](#module-12--optimizing-cost)
 - [Module 13 : Architecting for the edge](#module-13--architecting-for-the-edge)
+  - [Cloudfront origin failover](#cloudfront-origin-failover)
   - [Cloudfront signed cookies](#cloudfront-signed-cookies)
     - [Canned policy vs Custom policy](#canned-policy-vs-custom-policy)
+  - [CSP and HSTS](#csp-and-hsts)
   - [Cloudfront functions](#cloudfront-functions)
     - [Limitations](#limitations)
     - [Benefits](#benefits)
   - [Lambda@Edge vs Cloudfront functions](#lambdaedge-vs-cloudfront-functions)
+  - [Compression](#compression)
   - [Global Accelerator](#global-accelerator)
     - [Standard Accelerators](#standard-accelerators)
+      - [Basics](#basics)
+      - [Routing](#routing)
     - [Custom Routing Accelerators](#custom-routing-accelerators)
     - [Pricing](#pricing)
 
@@ -694,6 +703,15 @@ task:group == service:production
 * pricing : hourly price per HSM. 
   * For ex. 2,18 $ per hour per HSM in Paris region. 
   * Approx. 1500 $ / month / cluster
+* KMS can handle cloudHSM as custom key store. It can
+  * create symmetric keys
+  * Edit or delete a key
+  * Perform encryption operations
+  * control access with iam policies
+  * integration with Cloudtrail
+  * tag keys
+  * Meanwhile not possible to rotate keys or to manage asymmetric keys
+
 
 ## SSL Handshake
 
@@ -914,12 +932,30 @@ MPA helps you
 * Data is collected in Migration Hub
 * Can optionnaly send data to S3 buckets and then use Quicksight or Athena for advanced analytics
 
+## Migration Evaluator vs Application Discovery Service
+
+* Migration Evaluator focus on building a business case, cost estimation. It collects high level data to be able to estimate costs in the cloud.
+* Application Discovery Service is a discovery tool that is more granular. Its primary goal is to make an inventory of the existing infrastructure 
+   * to not forget anything to deploy (goes to running process level). 
+   * It track dependencies between servers
+   * collect more granular data on databases like nb of schemas, tables, stored procedures, db metrics...
+   * It's integrated with other services that make the migration like Application Migration Service and Migration hub
+* Note that Migration Evaluator can optionaly send data it gathered to Application Discovery Service but it's not as detailed as ADS can collect.
+
 ## Application Migration Service
 
+### Installation
+
+* Support Windows and Linux
+  * [list of operating systems](https://docs.aws.amazon.com/mgn/latest/ug/Supported-Operating-Systems.html).
+* Support for VMware vSphere, Microsoft Hyper-V, bare metal and other cloud provider infra.
 * install an Agent on the Source Server. Now can work with agentless on VmWare env.
 * Replicate all block level data of all volumes attached to the instance (one can choose which one to copy)
 * Can choose for each volume the appropriate destination volume.
 * A Replication instance will be created on AWS that will replicate the data on one or multiple  EBS volumes
+
+### Cutover
+
 * When requesting a test or cutover instance, AWS will spin up an EC2 converter server that will convert EBS to a bootable volume on AWS
 * After that operation (sub minute), an EC2 instance will be spin up that uses the EBS volumes
   * It's possible to launch a test instance before doing the real cutover
@@ -949,6 +985,7 @@ Easily build an infrastructure that can support Strangler Pattern.
 * can convert ETL jobs into Glue jobs or Redshift SQL (more details [here](https://docs.aws.amazon.com/SchemaConversionTool/latest/userguide/CHAP-converting-etl.html))
 
 ### SCT Agents
+
 * For datawarehouse migration, with a help of an agent
   *  can extract data from the database to S3 or Snowball Edge
   *  Then another agent can copy data from s3 to Redshift
@@ -961,9 +998,30 @@ Easily build an infrastructure that can support Strangler Pattern.
 *  DMS replication instance will perform on going replication on S3
 *  When Snowball Edge content is copied on S3, DMS will ingest data in the target database, and all ongoing changes.  
 
+
+# Module 12 : Optimizing Cost
+
+* note the difference in pricing
+  * EC2 / m7g.4xlarge / 100 GB storage GP2 / On demand : 567 USD / month
+  * RDS / db.m7g.4xlarge / 100 GB storage GP2 / On demand : 1 409 USD / month
+  * But RDS will reduce maintenance and dev costs
+* [Interesting paper on TCO](https://d1.awsstatic.com/psc-digital/2023/gc-300/deloitte-tco-mod/determining-the-total-cost-of-ownership.pdf)
+
 # Module 13 : Architecting for the edge
 
+## Cloudfront origin failover
+
+* Define 2 origin groups
+* one is primary, failover on second
+* Usage
+  * if want to failover on an origin that is not the same type than the first one : ALB failover on static assets on S3.
+  * DR, maintenance on primary region
+  * Content versioning (failover on an old version)
+* can use a lambda@edge to customize when to failover, and to rewrite URLs on failover.
+
 ## Cloudfront signed cookies
+
+* signed URLs or cookies are like building a wall on your application. Provide access to your users only if certain conditions are met. For example pay a subcription.
 
 ### Canned policy vs Custom policy
 
@@ -977,10 +1035,22 @@ custom policy
 
 you can specify an expiration time for both policies
 
+## CSP and HSTS
+
+* can use Lambda@Edge to force these headers
+* these are headers to force behaviors on browsers
+* CSP (Content Security Policy)
+  * gives an allow list of domain on which content can be retrieved
+  * can block certain javascript functions like eval() or inline scripts/styles. These scripts are embedded directly in html within the *script* tag. The other options if that script tag refers to an external script
+* HSTS (HTTP Script Transport Security)
+  * forces browser to use https instead of http for that url. Browser can also remember it for further connections
+  * can specify max age, subdomains...
+
 ## Cloudfront functions
 
 ### Limitations
 
+* can only be set between client and cache, not between cache and origin.
 * can't access the body of a request
 * 10 Kb of code
 * no file system access
@@ -1006,14 +1076,23 @@ Use Lambda when
 * Dependency on third libraries
 * External calls
 
+## Compression
+
+* Only compress some [file types](https://docs.aws.amazon.com/fr_fr/AmazonCloudFront/latest/DeveloperGuide/ServingCompressedFiles.html#compressed-content-cloudfront-file-types)
+* If user prefers gzip or brotli, brotli will be prefered choice by Cloudfront
+* origin can specify (through a header) if content returned is already compressed
+
 ## Global Accelerator
 
 ### Standard Accelerators
 
+#### Basics
+
 * use edge locations, like cloudfront
 * uses anycast
   * provides a set of IP adresses (2 ipv4 + 2 ipv6 eventually)
-  * redirects the traffic to the nearest resource associated with that IP Address
+  * by default, redirects the traffic to the nearest resource associated with that IP Address
+  * can associate a weight to redirect traffic based on that two
 * resources associated with Global Accelerator can be private, enhancing security
 * Global Accelerator routes traffic the the healthy destination in case of regional failure.
 * Global Accelerator 
@@ -1025,6 +1104,18 @@ Use Lambda when
     * ALB
     * EIP
     * EC2
+  * can specify some port to do health checks for failover
+
+#### Routing
+
+* uses a consistent-flow hashing algorithm to choose the optimal endpoint for a user's connection
+  * uses these properties : source IP, source port, destination IP, destination port, and protocol. It redirects this 5-tuple to the region that provides the lower latency. Based on port for example, the client might be redirected to another region
+  * There's an option to change this 5-tuple by the 2-tuple source IP / destination IP. This will maintain consistency on the destination ip chosen by global accelerator
+  * Use this option if application requires stateful connections
+  * However, if some latencies appears on the first chosen region, it's not guaranteed that the connection will be maintained
+* It's also possible to setup dials
+  * dials is to limit the portion of traffic a region can accept
+  * global accelerator will still try to redirect to the lowest latency region, but it will take account of the limits defined by dials.
 
 ### Custom Routing Accelerators
 

@@ -51,4 +51,5 @@
 # Module 13 : Architecting For The Edge
 
 * CloudFront + Lambda@Edge
+  * Maybe take multiple images in different resolutions and get a different image depending on the header. Maybe do it with a cloudfront function, or with both
 
