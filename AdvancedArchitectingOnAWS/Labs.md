@@ -41,6 +41,8 @@
 
 # Lab 3 : ECS on Fargate
 
+## Description
+
 * Create an image and push it to ECR
 * Create an ECS Cluster, ECS Service, ECS Task Definition
 * Run the application
@@ -51,4 +53,48 @@
 * make sure placeholders are correctly replaced
 
 to save Nano file : Ctrl + O and press Enter
-to exit Nano : Ctrl + X                                             
+to exit Nano : Ctrl + X
+
+# Lab 4 : Setting up a data lake with Lake Formation
+
+## Description
+
+* Setup lake formation
+  * register data location
+  * Grant a role for data location access
+  * set permissions
+  * Create a database
+* Create a Glue crawler
+* Run an Athena query
+
+## Possible issues
+
+* When register the S3 location, provide the appropriate role
+* you have to click on boxes to provide retro compatibility for glue direct access. In Task 5 of this lab, user will remove those settings to activate lake formation accesses.
+* When setting the crawler
+  * check location
+  * check iam role (AdminGlueServiceRole)
+  * target db
+
+# Lab 5 : Migrating an On-Premises NFS Share Using AWS DataSync and Storage Gateway
+
+## Description
+
+* Task 1 : copy some data on nfs source
+  * First connect to the **client**
+  * mount the server instance folder
+  * copy some files
+  * connect to the **server** instance
+  * make a ls to check all files have been copied on the server
+* Task 2 : Deploy and activate a datasync agent
+* Task 3 : create and run a datasync task to copy data on s3
+  * connect to the **server** instance to give access to data sync agent
+* Task 4 : Create and activate a File Storage Gateway
+* Task 5 : Create a NFS Share on the File Gateway and reconfigure the client to call it
+
+## Possible issues
+
+* when giving access to datasync agent, must connect to the server instance, not the client
+* must use t3.xlarge for file gateway and data sync agent or it will fail create
+* for file gateway, add a volume of 150 Gb. Do not change the root volume.
+* to mount file gateway, copy/paste the linux cmd provided in the storage gateway console and replace [MountPath] by /mnt/nfs
