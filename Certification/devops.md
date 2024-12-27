@@ -82,7 +82,7 @@ Note : CodeDeploy Agent is not required
 * Custom
 
 * Blue/Green
-  *  managed by tags either on EC2 or on ASG (better as it's dynamic)
+  * managed by tags either on EC2 or on ASG (better as it's dynamic)
   * BlueInstanceTerminationOption to notify if blue env should be destroyed after release
   * ActionTerminate : Specify how long blue env must be kept alive
 
