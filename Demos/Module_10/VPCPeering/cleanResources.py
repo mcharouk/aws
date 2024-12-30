@@ -67,7 +67,6 @@ def delete_vpc_peering(vpc_peering_id):
         return response
     except Exception as e:
         raise e
-    return None
 
 
 vpcPeeringConnectionId = list_vpc_peering()
