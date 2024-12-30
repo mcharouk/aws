@@ -30,6 +30,8 @@
 - [Module 5 : Connecting Networks](#module-5--connecting-networks)
   - [Transit Gateway Multicast](#transit-gateway-multicast)
   - [Transit Gateway Network Manager](#transit-gateway-network-manager)
+  - [RAM](#ram)
+    - [Sharing a subnet](#sharing-a-subnet)
 - [Module 6 : Containers](#module-6--containers)
   - [Launch types](#launch-types)
   - [Placement Constraints and Strategies](#placement-constraints-and-strategies)
@@ -356,6 +358,13 @@
 * Customer Gateway associations
   * Customer Gateway will be already created if TGW is associated with an hybrid connection.
   * associate a CGW to a device and optionally a link. 
+
+## RAM
+
+### Sharing a subnet
+  * cannot work with IGW, NatGW, Route tables, NACLS of a shared subnet
+  * cannot attach a TGW
+  * can create EC2 instances with shared security group, or security group owned by target account
 
 # Module 6 : Containers
 

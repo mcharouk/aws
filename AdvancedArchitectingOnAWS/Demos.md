@@ -13,10 +13,9 @@
 
 # Module 5 : Connecting Networks
 
-* Transit Gateway
+* Transit Gateway / Route Analyzer
 * VPC endpoints with private link
 * RAM : share a subnet
-* Reachability Analyzer
 
 # Module 6 : Containers
 

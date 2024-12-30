@@ -1,5 +1,6 @@
 import boto3
 
+cdkMasterAccountBucketNameParis = "cdk-hnb659fds-assets-270188911144-eu-west-3"
 cdkBucketNameParis = "cdk-hnb659fds-assets-637423642269-eu-west-3"
 cdkBucketNameIreland = "cdk-hnb659fds-assets-637423642269-eu-west-1"
 cdkBucketNameUsEast1 = "cdk-hnb659fds-assets-637423642269-us-east-1"
@@ -7,9 +8,7 @@ cdkBucketNameUsEast1 = "cdk-hnb659fds-assets-637423642269-us-east-1"
 samBucketNameParis = "aws-sam-cli-managed-default-samclisourcebucket-jjhmkgboifta"
 
 
-def empty_S3_buckets(region_name, cdk_bucket_name):
-
-    s3 = boto3.client("s3", region_name=region_name)
+def empty_S3_buckets(s3, region_name, cdk_bucket_name):
 
     response = s3.list_object_versions(Bucket=cdk_bucket_name)
 
@@ -39,9 +38,11 @@ def empty_S3_buckets(region_name, cdk_bucket_name):
     else:
         print("No delete markers to delete in region {0}".format(region_name))
 
+    s3.close()
 
-def purge_cloudwatch_log_groups(region_name):
-    logs = boto3.client("logs", region_name=region_name)
+
+def purge_cloudwatch_log_groups(logs, region_name):
+
     # list all cloudwatch log groups
     log_groups = logs.describe_log_groups()
     log_group_to_exclude = [
@@ -61,18 +62,55 @@ def purge_cloudwatch_log_groups(region_name):
     else:
         print("No log groups to delete in region {0}".format(region_name))
 
+    logs.close()
+
 
 paris_region_name = "eu-west-3"
 ireland_region_name = "eu-west-1"
 useast1_region_name = "us-east-1"
 
+s3 = boto3.client("s3", region_name=paris_region_name)
+logs = boto3.client("logs", region_name=paris_region_name)
+empty_S3_buckets(
+    region_name=paris_region_name,
+    cdk_bucket_name=samBucketNameParis,
+    s3=s3,
+)
+empty_S3_buckets(
+    region_name=paris_region_name,
+    cdk_bucket_name=cdkBucketNameParis,
+    s3=s3,
+)
+purge_cloudwatch_log_groups(region_name=paris_region_name, logs=logs)
+s3.close()
+logs.close()
 
-empty_S3_buckets(region_name=paris_region_name, cdk_bucket_name=samBucketNameParis)
-empty_S3_buckets(region_name=paris_region_name, cdk_bucket_name=cdkBucketNameParis)
-purge_cloudwatch_log_groups(region_name=paris_region_name)
+s3 = boto3.client("s3", region_name=ireland_region_name)
+logs = boto3.client("logs", region_name=ireland_region_name)
+empty_S3_buckets(
+    region_name=ireland_region_name, cdk_bucket_name=cdkBucketNameIreland, s3=s3
+)
+purge_cloudwatch_log_groups(region_name=ireland_region_name, logs=logs)
 
-empty_S3_buckets(region_name=ireland_region_name, cdk_bucket_name=cdkBucketNameIreland)
-purge_cloudwatch_log_groups(region_name=ireland_region_name)
+s3 = boto3.client("s3", region_name=useast1_region_name)
+logs = boto3.client("logs", region_name=useast1_region_name)
+empty_S3_buckets(
+    region_name=useast1_region_name, cdk_bucket_name=cdkBucketNameUsEast1, s3=s3
+)
+purge_cloudwatch_log_groups(region_name=useast1_region_name, logs=logs)
+s3.close()
+logs.close()
 
-empty_S3_buckets(region_name=useast1_region_name, cdk_bucket_name=cdkBucketNameUsEast1)
-purge_cloudwatch_log_groups(region_name=useast1_region_name)
+
+session = boto3.session.Session(profile_name="default")
+s3 = session.client("s3", region_name=paris_region_name)
+logs = session.client("logs", region_name=paris_region_name)
+
+empty_S3_buckets(
+    region_name=paris_region_name,
+    cdk_bucket_name=cdkMasterAccountBucketNameParis,
+    s3=s3,
+)
+purge_cloudwatch_log_groups(region_name=paris_region_name, logs=logs)
+s3.close()
+logs.close()
