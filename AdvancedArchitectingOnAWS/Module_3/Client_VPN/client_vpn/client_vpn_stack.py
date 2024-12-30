@@ -16,7 +16,7 @@ class ClientVpnStack(Stack):
         vpc = ec2.Vpc(
             self,
             "VPC",
-            max_azs=2,
+            max_azs=1,
             ip_addresses=ec2.IpAddresses.cidr("10.0.0.0/16"),
             create_internet_gateway=True,
             enable_dns_hostnames=True,
