@@ -3,6 +3,7 @@ $param1=$args[0]
 # unset environment variable AWS_PROFILE
 
 
+
 if ( $param1 -eq "synth" )
 {
     $env:AWS_PROFILE = $null
