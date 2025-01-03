@@ -42,6 +42,7 @@
   - [Networking mode](#networking-mode)
   - [Task definition](#task-definition)
   - [Container Insights](#container-insights)
+  - [ECS Anywhere](#ecs-anywhere)
   - [EKS Distro](#eks-distro)
   - [EKS anywhere](#eks-anywhere)
 - [Module 7 : CI/CD](#module-7--cicd)
@@ -438,6 +439,10 @@ task:group == service:production
 * in a single cluster, can run tasks on Fargate or EC2
 * Only one capacity provider will have a *base* that will define how many tasks should be run at minimum
 * *weight* is the percentage of tasks that run on a capacity provider
+* it's not possible to mix different types of capacity provider for a single service
+  * EC2 and Fargate cannot be used together.
+  * EC2 and ECS anywhere cannot be used together.
+
 
 ## Networking mode
 
@@ -483,6 +488,12 @@ task:group == service:production
   * [Collected Metrics](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/Container-Insights-metrics-ECS.html)
   * [Container Insights with Enhanced observability](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/Container-Insights-enhanced-observability-metrics-ECS.html). It offers more metrics
 * Automatic dashboards
+
+## ECS Anywhere
+
+* not possible to use ALB with ECS Anywhere. Must use a third party ALB like Nginx, HAProxy
+* A custom solution must be written to update ALB targets when they autoscale.
+* It's possible to autoscale tasks in ECS anywhere. It might be necessary to push on prem metrics in AWS to use target tracking policy.
 
 ## EKS Distro
 

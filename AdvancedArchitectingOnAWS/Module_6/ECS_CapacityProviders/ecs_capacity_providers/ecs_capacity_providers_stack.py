@@ -24,7 +24,7 @@ class EcsCapacityProvidersStack(Stack):
             "VPC",
             ip_addresses=ec2.IpAddresses.cidr("10.0.0.0/16"),
             vpc_name="ECS-VPC",
-            max_azs=3,
+            max_azs=2,
             subnet_configuration=[
                 ec2.SubnetConfiguration(
                     subnet_type=ec2.SubnetType.PUBLIC,
@@ -193,6 +193,7 @@ class EcsCapacityProvidersStack(Stack):
             port=5000,
             protocol=elbv2.ApplicationProtocol.HTTP,
             target_type=elbv2.TargetType.IP,
+            target_group_name="ECSServiceTargetGroup",
         )
 
         # add rule to listener for path hello, target lambda function
