@@ -188,4 +188,15 @@ For SAML IdP, here is the process:
 
 ## CloudEndure
 
+* Legacy service (replaced by Elastic Disaster Recovery)
+
 ## Elastic Disaster Recovery
+
+* DR from an AWS region to another
+* DR from On-premise to AWS
+* replicates block storage to EBS
+* Manage failover
+* Failback capability (fallback to primary site when outage is over)
+* Can recover on specific point in time
+* Low RPO and RTO
+* It looks like MGN but it's a different agent
