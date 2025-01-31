@@ -11,11 +11,11 @@
 
 # Route 53
 
-* health check types
-  * HTTP
-  * HTTPS
-  * TCP
+## Health Check Types
 
+* HTTP
+* HTTPS
+* TCP
 
 # Service Catalog
 
@@ -200,3 +200,273 @@ For SAML IdP, here is the process:
 * Can recover on specific point in time
 * Low RPO and RTO
 * It looks like MGN but it's a different agent
+
+# SQS
+
+* visibility timeout can be adjusted [per message](https://docs.aws.amazon.com/AWSSimpleQueueService/latest/APIReference/API_ChangeMessageVisibility.html) with ChangeMessageVisibility action.
+
+# Cloudfront
+
+
+* To change the cache duration for an individual file, you can configure your origin
+  * to add a **Cache-Control** header with the **max-age** or **s-maxage** directive
+  * to add an **Expires** header to the file.
+
+# AWS App Runner
+
+* It's a service that can deploy containerized web applications in the cloud without the need to deal with an infrastructure. 
+
+* Manages
+  * Infrastructure
+  * Load Balancing
+  * AutoScaling
+  * Security
+  * Deployment
+  * Monitoring
+  * Patching
+  * Domain name / certificate
+
+## Main Components
+
+* Source: Git or ECR
+* Service: The running application
+* Runtime: **If using source code**, runtime environment (e.g., Python, Node.js)
+* Configuration: This includes settings for building, deploying, and running your application. You can provide this through the console, API, or an apprunner.yaml file in your repository.
+* Connection: If using a private source code repository, you'll need to establish a connection between App Runner and your repository provider.
+* VPC Connector (optional): For applications that need to access resources in a VPC.
+* Custom Domain (optional): To use your own domain name for the App Runner service.
+* Pay as you go : Billing based on CPU and Memory consumption
+
+# Athena
+
+* Federated Query works with Lambdas to access and query external databases.
+
+# AppFlow
+
+* Integration Service
+  * Fully managed service for securely transferring data between SaaS applications and AWS services
+  * No coding required, point-and-click interface
+  * Supports both batch and event-driven data transfers
+
+* Supported Connections:
+  * Source connectors: Salesforce, ServiceNow, Zendesk, Slack, etc.
+  * Destination connectors: S3, Redshift, Snowflake, etc.
+  * Supports bi-directional data flow for some connectors
+
+* Security Features:
+  * Data encryption in transit and at rest
+  * Private connectivity using AWS PrivateLink
+  * Field-level encryption for sensitive data
+  * Integration with AWS KMS for key management
+
+* Flow Configuration:
+  * Trigger types: Schedule-based, Event-driven, On-demand
+  * Data mapping and transformation capabilities
+  * Filter conditions to control what data is transferred
+  * Error handling and retry mechanisms
+  
+* Integration Patterns:
+  * Data synchronization between applications
+  * Data consolidation in data lakes/warehouses
+  * Real-time data processing
+  * Backup and archival of SaaS data
+
+# Amazon Lightsail
+
+## Key Concepts
+- Lightsail is a simplified compute service that provides virtual private servers (VPS)
+- Designed for simpler workloads, small websites and applications
+- Fixed monthly pricing with bundled resources (compute, storage, bandwidth)
+
+## Important Features
+- Pre-configured application stacks (LAMP, MEAN, Node.js etc)
+- Managed databases (MySQL, PostgreSQL)
+- Load balancers
+- Block storage
+- Static IP addresses
+- DNS management
+- Automatic snapshots
+- VPC peering with other AWS services
+
+## Common Scenarios
+
+- Small website hosting
+- Dev/test environments
+- Simple application hosting
+- WordPress and other CMS deployments
+- Small database hosting
+
+## Limitations
+
+- Limited scaling capabilities compared to EC2
+- Restricted instance sizes
+- Regional availability constraints
+- Limited integration with some AWS services
+
+# Amazon Lex
+
+## Key Concepts
+- Fully managed service for building conversational interfaces (chatbots)
+- Uses automatic speech recognition (ASR) and natural language understanding (NLU)
+- Same technology that powers Alexa
+- Supports both voice and text interactions
+
+## Important Features
+
+1. **Conversation Management**
+   - Intents
+   - Slots
+   - Utterances
+   - Session management
+   - Context management
+   - Prompts and responses
+
+2. **Language Support**
+   - Multiple languages
+   - Custom vocabulary
+   - Slot type variations
+   - Built-in intents
+    
+# Amazon Personalize
+
+## Key Concepts
+- Fully managed machine learning service for personalization
+- Uses same technology as Amazon.com
+- Creates custom ML models for recommendations
+- Real-time personalization capabilities
+
+## Important Features
+
+1. **Solution Types**
+   - User-Personalization
+   - Similar-Items
+   - Personalized-Ranking
+   - HRNN (Hierarchical Recurrent Neural Networks)
+   - SIMS (Similar Items)
+   - Popularity-Count
+
+2. **Data Management**
+   - Dataset Groups
+   - Interaction Datasets
+   - User Datasets
+   - Item Datasets
+   - Real-time event tracking
+   - Batch data import
+
+3. **Model Training**
+   - AutoML
+   - Custom recipes
+   - HPO (Hyperparameter Optimization)
+   - Model evaluation metrics
+
+# Elastic Transcoder
+
+## Key Concepts
+- Fully managed media transcoding service
+- Converts media files between formats
+- Pay-per-use pricing model
+- Supports various input/output formats
+- Integrated with S3 for storage
+
+## Important Features
+1. **Job Management**
+   - Transcoding jobs
+   - Job pipeline management
+   - Job status monitoring
+   - Notifications
+   - Progress tracking
+
+2. **Format Support**
+   - Video formats (MP4, MPEG, etc.)
+   - Audio formats (MP3, AAC, etc.)
+   - Web optimized formats
+   - DRM support
+   - Thumbnails generation
+
+3. **Pipeline Configuration**
+   - Input/output bucket configuration
+   - IAM role settings
+   - Notifications setup
+   - Queue management
+   - Regional settings
+  
+# Device Farm
+
+## Key Concepts
+- Fully managed service for testing apps on real devices
+- Supports mobile and web applications
+- Cross-platform testing capabilities
+- Both automated and manual testing options
+- Pay-per-use pricing model
+
+## Important Features
+1. **Testing Types**
+   - Automated testing
+   - Remote access testing
+   - Network configuration
+   - Device state management
+   - Custom test environments
+
+2. **Device Support**
+   - Physical devices
+   - Multiple device types
+   - Various OS versions
+   - Different form factors
+   - Geographic locations
+
+3. **Test Frameworks**
+   - Appium
+   - XCUITest
+   - Espresso
+   - Calabash
+   - Built-in fuzz testing
+
+
+# AWS Amplify
+
+## Key Concepts
+- Full-stack development platform
+- Frontend and backend development tools
+- CI/CD capabilities
+- Hosting and deployment service
+- Framework agnostic
+
+## Important Features
+1. **Development Tools**
+   - CLI interface
+   - Admin UI
+   - Libraries & SDKs
+   - Visual Studio Code extension
+   - Studio for UI development
+
+2. **Backend Capabilities**
+   - API (REST/GraphQL)
+   - Authentication
+   - Storage
+   - Functions
+   - Database
+   - Push notifications
+
+3. **Frontend Support**
+   - React
+   - Angular
+   - Vue
+   - iOS
+   - Android
+   - Flutter
+
+## Common Use Cases
+1. **Web Applications**
+   - Single page applications
+   - Progressive web apps
+   - Static websites
+   - Full-stack applications
+   - Serverless applications
+
+2. **Mobile Applications**
+   - Native iOS apps
+   - Native Android apps
+   - Cross-platform apps
+   - Offline-enabled apps
+   - Real-time applications
+
