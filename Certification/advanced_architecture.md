@@ -1,3 +1,17 @@
+# Certificates
+
+* a wildcard certificate can only match sub domains but not different domain names
+* To service multiple domain names on the same ALB for example
+  * associate multiple domain to an ALB listener by uploading all SSL certificates to the listener
+  * For Cloudfront
+    * use Cloudfront SNI (works only for browsers that supports it)
+    * use dedicated IP Address for each domain (work for all browsers)
+
+# IAM
+
+* to allow an account of an external organization to access a service in our org, it's a best practice to use an external id.
+* The external account will have to provide the external id to assume the role. It's meant to avoid the Confused Deputy problem. The external id is somehting that must only be known by the two parties and should not be easy to guess by other parties, acts pretty much like a password, or an api key.
+
 # Proton
 
 * Templates to deploy infrastructure for serverless and container-bases applications
@@ -16,6 +30,32 @@
 * HTTP
 * HTTPS
 * TCP
+
+## Resolvers
+
+* By default Route53 can resolve all AWS default domain names and Private hosted zone domain names
+* Outbound resolvers are needed to resolve any other kind of domain
+  * On Premise domain names
+  * Custom domain names inside a VPC (for example on a self hosted DNS, or domain name of a Managed Active Directory Service)
+* For that, create the outbound resolver, and create a forwarding rule.
+* There is also a notion of Conditional Forwarder, which is specific to AD. It's meant to establish a trust relationship with another AD.
+
+## Application Recovery Controller
+
+* it's a service that uses Route53 health checks.
+* it's made for complex failover scenarios, multi AZ or multi Region
+* it monitors the application as a whole not just a components individually
+* it offers a on/off switch to failover which provides more control on failover scenarios
+* Main components
+  * Routing Controls: On/off switches hosted on a cluster that manage traffic to cells. They are integrated with health checks in Route 53 and act as the primary mechanism for controlling traffic flow
+  * Control Panels: Groups of related routing controls that allow for organized management of routing decisions. The default control panel is created automatically when a cluster is created.
+  * Safety Rules: Added to routing controls to prevent unintended consequences during recovery actions. These help ensure that traffic routing changes are made safely
+  * Readiness Checks monitors recovery environment 
+    * Resource quotas
+    * capacity
+    * configuration for multi-Region applications
+    * suggest remediation when needed
+  * Recovery Groups: Collections of resources that are recovered together during a failure event
 
 # Service Catalog
 
@@ -56,7 +96,9 @@
 * uses machine learning, statistical analysis, and graph theory to generate visualizations and insights for more efficient security investigations.
 * does not work cross-region. It aggregates data for a single region only.
 
-# Accounts
+# Organizations
+
+## Accounts
 
 * Process to move an account from an organization to another
   * Remove it from old organization to get rid of old constraints (cannot add to a new org if it still attached to the old one)
@@ -69,6 +111,42 @@
 * Only 2 ways to add accounts to an organization
   * create an account within the org
   * send invitation to existing account to join the org
+
+* There are only 2 options
+  * Consolidated Billing : unlock only consolidated billing
+  * All features : unlock all features that works with Organizations such as SCP
+
+## Services
+
+* you can enable or disable trusted access so that a service can retrieve information about the accounts, root, OUs, and policies for your organization
+* This allows a service to work cross account, integrated to the organization
+* AWS recommends to activate this feature by acting on the specific service API / console, instead of activating it on Organization console
+* For instance for RAM to use Organization, use enable-sharing-with-aws-organization cmd in RAM client API.
+
+## Backups
+
+* Backup policies allow you to centrally manage and apply backup plans to the AWS resources across an organization's accounts.
+* It creates immutable backup plans in the selected OU or accounts
+* It's possible to specify partial backup policies, that will be completed by policies provided in child OUs.
+* Effective way to manage backups centrally
+
+## Tag policies
+
+* Tag policies helps to have compliant tag values
+* still a SCP is necessary to make the tag mandatory
+
+# CodeCommit
+
+* to detect access keys in codeCommit, multiple options
+  * CodeGuru Reviewer
+  * Lambda triggered on each commit that check the code with open source libraries
+  * CodeBuild step instead of lambda
+
+# CloudFormation
+
+* CodePipline can trigger directly CloudFormation from a pipeline, which is enough in non prod env.
+* You can run a CodeBuild step with a tool like TaskCat to test cloudformation changes before deploying them
+* In production env, you may want to use CodeDeploy with Cloudformation to monitor the release, to perform blue/green deployments, etc...
 
 
 # RDS
@@ -110,6 +188,13 @@
 * For private subnets, eventually add route to egress-only IgW
 * Must explicitly add IpV6 addresses to existing instances.
 
+## VPN With Direct Connect
+
+* Only 2 options
+  * Connection with Public VIF
+  * Connection with Transit VIF
+  * Not possible with Private VIF
+
 # Beanstalk
 
 ## Managed Platform updates
@@ -150,9 +235,40 @@ For SAML IdP, here is the process:
 * Configure trust relationship
 * create SAML assertions for authentication response 
 
+# Secret Manager
+
+## Rotation strategy
+
+* Single user
+  * one user, one password. 
+  * There is a short time period where db password changes and secret manager is not updated yet.
+  * Automatic retries will normally be enough to recover
+  * Fit to most common use cases
+* Alternating users
+  * two users are created. One previous, one current
+  * the secrets are updated alternatively.
+  * Less chance to have deny response because of password
+
+# S3
+
+* to activate Object Locking, a new bucket must be created
+
+# Aurora
+
+* Write forwarding
+  * secondary clusters **forward** SQL statements that perform write operations to the **primary cluster**.
+  * primary cluster updates the source and then propagates resulting changes back to all secondary AWS Regions.
+  * This way, the primary cluster is the source of truth and always has an up-to-date copy of all the data
+
+
+
 # Lambda
 
 * memory used and allocated is only available in lambda logs, not in metrics
+* Lambda burst concurrency is about 500-3000 requests per second (depending on the region). Make sure it's enough for your usage. 
+  * If you receive 100 requests/sec, and the average duration of each invocation is 1s, then the nb of total exec env is 100.
+  * If you receive 100 requests/sec, and the average duration of each invocation is 500s, then the nb of total exec env is 50.
+
 
 # KMS 
 
@@ -178,11 +294,29 @@ For SAML IdP, here is the process:
 
 # EC2
 
+## AMI
+
 * how to create an AMI from existing EC2
   * commmand ec2-bundle-vol
   * upload bundle to S3 : ec2-upload-bundle
   * register AMI : register-image
 
+## Placement group
+
+* Not necessary to restart the whole placement group to add a new node to it. 
+* This may be requires if an explicit error is raised, especially for cluster placement groups.
+* Before moving an EC2 to or from a placement group, it must be in stopped state.
+  
+## Virtualization types
+
+There are two virtualization types : HVM and PV. 
+
+PV is more a legacy one that does not support all enhanced feature of EC2 for networking or GPU processing.
+They work only on old generation.
+
+## Hyper Threading
+
+Intel Hyper-Threading Technology makes a single physical processor appear as multiple logical processors. Most HPC applications will benefit from disabling hyperthreading.
 
 # Disaster Recovery
 
@@ -469,4 +603,5 @@ For SAML IdP, here is the process:
    - Cross-platform apps
    - Offline-enabled apps
    - Real-time applications
+
 

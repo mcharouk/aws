@@ -1,0 +1,1 @@
+Invoke-WebRequest -Uri "https://{{cloudfront_url}}/images/orange-cat.jpg" -MaximumRedirection 50 -OutFile "test_files/orange-cat.jpg"
