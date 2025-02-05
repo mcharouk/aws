@@ -6,13 +6,18 @@ utils.change_current_directory()
 
 demo_folder = "demo"
 # remove all files and folders in demo_folder
-print(f"cleaning folder {demo_folder}")
+# ignore file .gitkeep
+
 for file in os.listdir(demo_folder):
-    if os.path.isdir(f"{demo_folder}/{file}"):
-        for sub_file in os.listdir(f"{demo_folder}/{file}"):
-            os.remove(f"{demo_folder}/{file}/{sub_file}")
-        os.rmdir(f"{demo_folder}/{file}")
-        print(f"Removed folder: {demo_folder}/{file}")
+    if file == ".gitkeep":
+        print("Ignoring file: " + file)
+        continue
+    if os.path.isfile(os.path.join(demo_folder, file)):
+        print("Removing file: " + file)
+        os.remove(os.path.join(demo_folder, file))
     else:
-        os.remove(f"{demo_folder}/{file}")
-        print(f"Removed file: {demo_folder}/{file}")
+        for sub_file in os.listdir(os.path.join(demo_folder, file)):
+            print("Removing file: " + sub_file)
+            os.remove(os.path.join(demo_folder, file, sub_file))
+        print("Removing folder: " + file)
+        os.rmdir(os.path.join(demo_folder, file))
