@@ -23,7 +23,7 @@
 
 # Module 7 : CI/CD
 
-* CodeDeploy and Fargate or Lambda (needs to create 2 versions)
+* CodeDeploy and Fargate (needs to create 2 versions)
 
 # Module 8 : HA_DDOS
 
@@ -33,7 +33,6 @@
 # Module 9 : Securing Data
 
 * Activate SSE-KMS for S3. Show how to delete a key, configure rotation, iam on kms key.
-* HSM ?
 
 # Module 10 : Large Scales Data Store
 
