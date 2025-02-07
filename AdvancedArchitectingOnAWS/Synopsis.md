@@ -2,6 +2,8 @@
 
 - [Table of contents](#table-of-contents)
 - [Module 2 : Single to Multiple Accounts](#module-2--single-to-multiple-accounts)
+  - [IAM Identity Center](#iam-identity-center)
+    - [Applications](#applications)
   - [Control Tower](#control-tower)
 - [Module 3 : Hybrid Connectivity](#module-3--hybrid-connectivity)
   - [Client VPN](#client-vpn)
@@ -10,8 +12,9 @@
     - [Components](#components)
   - [Site-to-site VPN](#site-to-site-vpn)
     - [Dead peer connection](#dead-peer-connection)
+    - [Automatic failover](#automatic-failover)
     - [Nat-T](#nat-t)
-    - [ECMP](#ecmp)
+    - [ECMP (Equal-Cost-Multi-Path)](#ecmp-equal-cost-multi-path)
   - [Direct Connect](#direct-connect)
     - [Quotas](#quotas)
     - [Public VIF](#public-vif)
@@ -112,6 +115,15 @@
 
 # Module 2 : Single to Multiple Accounts
 
+## IAM Identity Center
+
+### Applications
+
+* Steps are
+  * configure connection settings between IAM Identity Center and Custom application
+  * add users and groups in IAM Identity Center that can access this application
+  * map assertions, which are some attributes related to the user that can be transferred from the external IdP to the application, like a a username, email, addresses, etc...
+
 ## Control Tower
 
 * possible to add custom shared account
@@ -153,6 +165,8 @@
 
 ## Site-to-site VPN
 
+
+
 ### Dead peer connection
 
 * deadPeerConnection is like a health check mechanisms. After some timeout the peer is considered as not joinable. Possible actions : 
@@ -160,6 +174,15 @@
   * Close the tunnel
   * Restart the tunnel
 * on CGW side, it can detect failure and start failover automatically
+
+### Automatic failover
+
+* BGP in its protocol, has keepalive messages, so it can automatically detect a failover
+* Dead Peer Connection is interesting to use when static routing is configured
+* Use both for critical connections
+* IPSec VPN can detect failure on rekeying phase, but detection is slower than other methods.
+* When using 2 CGWs
+  * It's possible to set AS_PATH or MED to influence traffic and create a active/passive setup
 
 ### Nat-T 
 
@@ -170,12 +193,20 @@
   * hide private IP addresses
 * Mandatory for accelerated site-to-site connections.
 
-### ECMP
+### ECMP (Equal-Cost-Multi-Path)
 
-* Equal-Cost-Multi-Path
-* The system acts like a load balancer and transmit the packet to multiple gateways behind the router that can reach the same destination.
+* By default, if you set a BGP active/active connection, there's no load balancing, an ip address will consistently use the same path to communicate with the other side.
+* It's possible to configure asymmetric routing so the request and response use different path, but it's the best we can have
+* with ECMP, The system acts like a load balancer and transmit the packet to multiple gateways behind the router that can reach the same destination.
+* It uses a 5 tuple hash to determine the path to take  
+  * Source IP Address
+  * Target IP Address
+  * Source Port
+  * Destination Port
+  * Protocol
 * It consists of playing with BGP preferences (Local preference, weight) to give all connections the same weight.
 * only supported with BGP, and with TGW connection
+* it's not a round robin algorithm but a hash based algo, so it's still possible to have unbalanced traffic between multiple paths.
 
 ## Direct Connect
 
