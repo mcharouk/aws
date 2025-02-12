@@ -23,18 +23,22 @@
   - [Failover](#failover)
     - [MacSec](#macsec)
   - [Route 53](#route-53)
+    - [](#)
     - [DNSSEC](#dnssec)
 - [Module 4 : Specialized Infrastructure](#module-4--specialized-infrastructure)
   - [Storage Gateway](#storage-gateway)
   - [VMWare Cloud on AWS](#vmware-cloud-on-aws)
-  - [Local Zones](#local-zones)
   - [Outpost](#outpost)
+    - [VmWareCloud on Outpost](#vmwarecloud-on-outpost)
+  - [Local Zones](#local-zones)
   - [WaveLength](#wavelength)
 - [Module 5 : Connecting Networks](#module-5--connecting-networks)
   - [Transit Gateway Multicast](#transit-gateway-multicast)
   - [Transit Gateway Network Manager](#transit-gateway-network-manager)
   - [RAM](#ram)
     - [Sharing a subnet](#sharing-a-subnet)
+  - [VPC Endpoint](#vpc-endpoint)
+    - [Endpoint Policy](#endpoint-policy)
 - [Module 6 : Containers](#module-6--containers)
   - [Launch types](#launch-types)
   - [Placement Constraints and Strategies](#placement-constraints-and-strategies)
@@ -44,6 +48,8 @@
   - [Capacity provider](#capacity-provider)
   - [Networking mode](#networking-mode)
   - [Task definition](#task-definition)
+  - [ECS scheduler](#ecs-scheduler)
+  - [ECS auto scaling](#ecs-auto-scaling)
   - [Container Insights](#container-insights)
   - [ECS Anywhere](#ecs-anywhere)
   - [EKS Distro](#eks-distro)
@@ -53,6 +59,7 @@
   - [CodePipeline](#codepipeline)
     - [Out of the box Action (not exhaustive)](#out-of-the-box-action-not-exhaustive)
     - [Custom Actions](#custom-actions)
+    - [ECS](#ecs)
     - [Immutable vs Blue Green](#immutable-vs-blue-green)
 - [Module 8 : High Availability - DDoS](#module-8--high-availability---ddos)
   - [Shield Standard](#shield-standard)
@@ -213,7 +220,8 @@
 ### Quotas
 
 * 50 Public or private VIF per Direct Connect connection (hard limit)
-* 20 VGW per Direct Connect Gateway
+* 20 VGW per DXGW
+* 6 TGW per DXGW
 * frame size up to 9 023 bytes (maximum packet size)
   
 ### Public VIF
@@ -274,8 +282,19 @@
 * Must check that Dx location supports that.
 * Check that your device on-premise supports MacSec.
 * Create a CKN/CAK pair for the MACsec secret key
+* Drawback
+  * MacSec only encrypts data from on prem to DX Location. Data between DX Location and AWS regions will not be encrypted.
 
 ## Route 53
+
+### 
+
+* Inbound Resolver
+  * set a conditional forward rule in on premise DNS Server
+* Outbound Resolver
+  * Create a forwarding rule
+  * forwarding rule can be shared via RAM to be associated via multiple VPC in different accounts.
+  * Association between forwarding rule and VPC is done in each spoke account.
 
 ### DNSSEC
 
@@ -324,20 +343,13 @@
 * VMWare VMs appears as ENI in customer account
   * Natively, VMs have only access to resources in that particular VPC
   * [Other options](https://aws.amazon.com/blogs/architecture/augmenting-vmware-cloud-on-aws-workloads-with-native-aws-services/) might be configured to access to resources in multiple VPC in multiple accounts. It uses a VMWare component called VMWare Transit Connect (VTGW)
-* VMs can access all AWS Ressources in VPC (RDS for ex.) and all AWS Services through VPC private endpoints.
+* VMs can access all AWS Resources in VPC (RDS for ex.) and all AWS Services through VPC private endpoints.
 * Hybrid mode can be activated on SDDC to have a single pane of glass of all assets deployed on premises and on AWS.
 * Allows to seamlessly 
   * migrate VMs on public cloud (storage & compute)
   * execute DR on public cloud
   * on-demand capacity for dev and test purposed for example.
 
-## Local Zones
-
-* in the console, go to EC2
-* in the menu go to Settings
-* go to the Zones tab to enable a local zone
-* when creating a subnet, select the local zone that was enabled
-* create resource in the local zone subnet
 
 ## Outpost
 
@@ -355,12 +367,27 @@
   * Through Direct Connect with public VIF
   * Through Direct Connect with private VIF
 
+### VmWareCloud on Outpost
+
+* Benefits
+  * VMware licensing is included in the service, simplifying your software management
+  * AWS manages, maintains, and supports the underlying hardware and infrastructure, reducing your operational burden
+  * Benefit from the same up-to-date hardware used in AWS data centers without the need for capital expenditure or hardware refresh cycles
+
+## Local Zones
+
+* in the console, go to EC2
+* in the menu go to Settings
+* go to the Zones tab to enable a local zone
+* when creating a subnet, select the local zone that was enabled
+* create resource in the local zone subnet
+
 ## WaveLength
 
 * [WaveLength locations](https://aws.amazon.com/wavelength/locations/)
 * CSP : communications service providers
 * Use cases : Smart factories, Connected Vehicules
-* 
+
 # Module 5 : Connecting Networks
 
 * CloudWAN when network is complex and span multiple regions as there is dynamic propagation of routes between multiple regions
@@ -398,6 +425,17 @@
   * cannot attach a TGW
   * can create EC2 instances with shared security group, or security group owned by target account
 
+## VPC Endpoint
+
+### Endpoint Policy
+
+* Examples
+  * Allow access from specific 
+    * VPC Ids, ENIs, IP ranges
+    * AWS accounts
+* Security group control network level access
+* Endpoint policies are IAM level access
+
 # Module 6 : Containers
 
 * EKS works with docker or containerd
@@ -415,7 +453,8 @@ ECS can run
 
 ## Placement Constraints and Strategies
 
-* Fargate Tasks does not support placement constraints. Fargate tries to spread tasks among multiple AZs to improve availability, but customer has no control on that. 
+* Fargate Tasks does not support placement constraints. 
+* Fargate tries to spread tasks among multiple AZs to improve availability, but customer has no control on that. 
 * Use EC2 instances to apply custom placement constraints
 * Priorities (in this strict order)
   * identify instances that have enough CPU, RAM, etc...  
@@ -439,7 +478,6 @@ ECS can run
     * by AZ (default behavior)
 
 ### Placement constraints
-
 
 * Task Placement Constraints : define which instances will be used for tasks. At least one instance must match the constraint.
   * distinctInstance : Place each task on a distinct instance 
@@ -508,6 +546,21 @@ task:group == service:production
   * A task might contain multiple containers. Define here ECR URI, CPU/Mem, Port mapping, mount points, secrets, logs, linux users, etc...
 * Placement constraints (strategies are defined at ECS service level)
 * Volumes
+
+## ECS scheduler
+
+* Some open source alternatives to schedule ECS tasks
+  * Airflow
+  * Jenkins
+  * [Temporal](https://temporal.io/)
+  * [Prefect](https://www.prefect.io/)
+
+## ECS auto scaling
+
+* Use Target Tracking Policy
+* Just provide a target capacity
+* ECS manages creation of cloudwatch metrics, target tracking scaling policy on the ASG
+
 
 ## Container Insights
 
@@ -596,6 +649,15 @@ task:group == service:production
 
 * Lambda
 * Job Worker that pulls for jobs and send responses by using CodePipeline APIs
+
+### ECS
+
+* Containers can be deployed with CodeDeploy or with CodePipeline ECS action.
+* CodePipeline ECS action is quite basic
+  * no automatic rollback
+  * no traffic shifting
+  * Just update an ecs service task definition
+* Use ECS for simple cases. For prod workloads, CodeDeploy is more suitable.
 
 ### Immutable vs Blue Green
 
