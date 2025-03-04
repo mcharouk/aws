@@ -63,8 +63,10 @@
     - [Immutable vs Blue Green](#immutable-vs-blue-green)
 - [Module 8 : High Availability - DDoS](#module-8--high-availability---ddos)
   - [Shield Standard](#shield-standard)
-  - [Shield Advanced](#shield-advanced)
   - [AWS WAF Security Automations](#aws-waf-security-automations)
+  - [GuardDuty](#guardduty)
+  - [Shield Advanced](#shield-advanced)
+  - [Firewall Manager](#firewall-manager)
   - [Network Firewall](#network-firewall)
 - [Module 9 : Securing datastore](#module-9--securing-datastore)
   - [FIPS 140-3](#fips-140-3)
@@ -82,6 +84,7 @@
   - [Intelligent Tiering](#intelligent-tiering)
   - [S3 Inventory](#s3-inventory)
   - [Storage Lens](#storage-lens)
+  - [Lakeformation](#lakeformation)
 - [Module 11 : Migrating Workloads](#module-11--migrating-workloads)
   - [Business Drivers](#business-drivers)
   - [Migration Practices](#migration-practices)
@@ -91,28 +94,33 @@
     - [Gathering Data](#gathering-data)
     - [Insights](#insights)
     - [Business Case](#business-case)
+  - [Prescriptive Guidance](#prescriptive-guidance)
   - [MPA (Migration Portfolio Assessment)](#mpa-migration-portfolio-assessment)
   - [Application Discovery Service](#application-discovery-service)
   - [Migration Evaluator vs Application Discovery Service](#migration-evaluator-vs-application-discovery-service)
   - [Application Migration Service](#application-migration-service)
     - [Installation](#installation)
+    - [Security](#security)
     - [Cutover](#cutover)
   - [Migration Hub Refactor Spaces](#migration-hub-refactor-spaces)
   - [AWS SCT](#aws-sct)
     - [Conversion](#conversion)
-    - [SCT Agents](#sct-agents)
+    - [SCT data extraction Agents](#sct-data-extraction-agents)
     - [DMS integration](#dms-integration)
+    - [Assessment report](#assessment-report)
+  - [DMS](#dms)
 - [Module 12 : Optimizing Cost](#module-12--optimizing-cost)
 - [Module 13 : Architecting for the edge](#module-13--architecting-for-the-edge)
   - [Cloudfront origin failover](#cloudfront-origin-failover)
   - [Cloudfront signed cookies](#cloudfront-signed-cookies)
     - [Canned policy vs Custom policy](#canned-policy-vs-custom-policy)
+  - [Custom domains](#custom-domains)
+  - [Compression](#compression)
   - [CSP and HSTS](#csp-and-hsts)
   - [Cloudfront functions](#cloudfront-functions)
     - [Limitations](#limitations)
     - [Benefits](#benefits)
   - [Lambda@Edge vs Cloudfront functions](#lambdaedge-vs-cloudfront-functions)
-  - [Compression](#compression)
   - [Global Accelerator](#global-accelerator)
     - [Standard Accelerators](#standard-accelerators)
       - [Basics](#basics)
@@ -679,6 +687,33 @@ task:group == service:production
   * for Route 53, Cloudfront, Global Accelerator covers all known attack types (lvl 3,4)
   * for other resources covers most frequent attacks
 
+
+## AWS WAF Security Automations
+
+* Application Log Parser
+  * parse Cloudfront and ALB logs 
+  * identify IP addresses that generated more **errors** than the defined quota
+  * Block IP Addresses with WAF for a customer-defined period of time
+* WAF Log Parser
+  * parse WAF Logs 
+  * identify IP addresses that **sent more requests** than the defined quota
+  * Block IP Addresses with WAF for a customer-defined period of time
+* IP List Parser
+  * Hourly Update IP Reputation list from these 3 suites
+    * Spamhaus DROP and EDROP lists
+    * Proofpoint Emerging Threats IP list
+    * Tor exit node list
+* Access Handler
+  * a Lambda can be integrated in CloudFront or ALB (used by the application). This Lambda is meant to be accessed by content scrapper or bots that might be looking for a vuln.
+  * the Lambda extracts the source IP address and add it to the IP blacklist of WAF
+
+
+## GuardDuty
+
+* can block ip addresses
+  * brute force attacks / port scanning
+  * trojan (block the ip of the master)
+
 ## Shield Advanced
 
 * When protecting an EIP address, Shield Advanced can replicate NACL rules on the public subnet where it resides at the border of AWS. it allows supporting much bigger volume
@@ -700,25 +735,31 @@ task:group == service:production
   * metrics, attacks, pattern trends on protected resources
   * security recommendations
 
-## AWS WAF Security Automations
+* Best practices
+  * Give access to health checks
+  * Explicitly protect the resources
+  * review security recommendations of quarterly report
+  * Give permission to update WAF
+  * Use WAF rate limiting rules
+  * Enable proactive engagement (use Lambda)
+  * Regularly test your incident response plans
 
-* Application Log Parser
-  * parse Cloudfront and ALB logs 
-  * identify IP addresses that generated more **errors** than the defined quota
-  * Block IP Addresses with WAF for a customer-defined period of time
+* Financial Insurance
+  * you have to raise a ticket to claim
+  * AWS will give you credits, that will be used to pay AWS Shield Advanced. Not possible to use them on any other service.
+  * Credit are applied on future bills
 
-* WAF Log Parser
-  * parse Cloudfront and ALB logs 
-  * identify IP addresses that **sent more requests** than the defined quota
-  * Block IP Addresses with WAF for a customer-defined period of time
-* IP List Parser
-  * Hourly Update IP Reputation list from these 3 suites
-    * Spamhaus DROP and EDROP lists
-    * Proofpoint Emerging Threats IP list
-    * Tor exit node list
-* Access Handler
-  * a Lambda can be integrated in CloudFront or ALB (used by the application). This Lambda is meant to be accessed by content scrapper or bots that might be looking for a vuln.
-  * the Lambda extracts the source IP address and add it to the IP blacklist of WAF
+## Firewall Manager
+
+* Rules can be applied at specific accounts or OUs
+  * rules protects resources of specific types (Cloudfront, ALB, etc..) or that have specific tags
+* Automatically subscribes all org accounts to shield advanced
+* Automatically detect non compliant resources and add remediate by adding the rules
+* Detects if the firewall manager policies becomes non compliant (it uses config in the background for that)
+* Provides a dashboard in which you can see all unprotected resources (and protected as well)
+* Provides a report of non compliance policies (gets data from Config and provides its own view)
+* Integrated with Security Hub 
+* Don't need each account owner to be a security expert. Sec is maintained by a dedicated team that uses firewall manager to deploy rules
 
 ## Network Firewall
 
@@ -734,6 +775,8 @@ task:group == service:production
 * comparing to sec group and NACL
   * layer 7
   * can implement more rules (10 000s). Centralize rules when using Est-West patterns for example
+* [East-West Traffic Inspection Model](https://aws.amazon.com/blogs/networking-and-content-delivery/deployment-models-for-aws-network-firewall/)
+* North-South just below East-west
 
 # Module 9 : Securing datastore
 
@@ -936,6 +979,15 @@ task:group == service:production
   * Detailed Status code metrics
     * count of status code (5XX, 4XX, 2XX, etc...)
 
+## Lakeformation
+
+* Blueprints
+  * uses Glue as the compute layer
+  * 3 types of blueprints
+    * DB snapshot
+    * DB incremental
+    * Cloudtrail & ELB logs
+
 # Module 11 : Migrating Workloads
 
 ## Business Drivers
@@ -1009,6 +1061,11 @@ task:group == service:production
   * Understand your specific migration objectives, such as exiting a data center, transitioning from capital expenditures (cap-ex) to operational expenditures (op-ex), or altering software licensing strategies.
   * Use gathered data to identify the most appropriate migration patterns suited to your goals.
 
+## Prescriptive Guidance
+
+* [Prescriptive guidance](https://docs.aws.amazon.com/prescriptive-guidance/latest/patterns/migration-pattern-list.html)
+* it consists on some guidance on a bunch of common migration use cases. For each use case, it's a guide to execute the migration with high level steps.
+
 ## MPA (Migration Portfolio Assessment)
 
 * MPA are provided by AWS employees or partners, not available directly from Console
@@ -1066,6 +1123,14 @@ MPA helps you
 * Replicate all block level data of all volumes attached to the instance (one can choose which one to copy)
 * Can choose for each volume the appropriate destination volume.
 * A Replication instance will be created on AWS that will replicate the data on one or multiple  EBS volumes
+* [Architecture](https://docs.aws.amazon.com/mgn/latest/ug/adding-servers-gs.html)
+
+### Security
+
+* TLS communication
+* Authentication based on roles (temp auth)
+* Support EBS encryption
+* Secure replication servers with sec group, at least site to site VPN to communicate privately
 
 ### Cutover
 
@@ -1097,7 +1162,7 @@ Easily build an infrastructure that can support Strangler Pattern.
 * can add data transformation rules that will be applied by DMS
 * can convert ETL jobs into Glue jobs or Redshift SQL (more details [here](https://docs.aws.amazon.com/SchemaConversionTool/latest/userguide/CHAP-converting-etl.html))
 
-### SCT Agents
+### SCT data extraction Agents
 
 * For datawarehouse migration, with a help of an agent
   *  can extract data from the database to S3 or Snowball Edge
@@ -1108,9 +1173,30 @@ Easily build an infrastructure that can support Strangler Pattern.
 ### DMS integration
 
 *  SCT can work with a local (on-premise) DMS replication instance. DMS replication instance will copy an initial load on S3, or S3 Snowball Edge
+*  SCT uses **AWS SCT Replication Agent**
 *  DMS replication instance will perform on going replication on S3
 *  When Snowball Edge content is copied on S3, DMS will ingest data in the target database, and all ongoing changes.  
 
+### Assessment report
+
+* The migration assessment report includes the following:
+   * Executive summary
+   * License evaluation
+   * Cloud support, indicating any features in the source database not available on the target
+   * Current source hardware configuration
+   * Recommendations, including conversion of server objects, backup suggestions, and linked server changes
+   * Estimates amount of effort it will take to write the equivalent code for your target DB instance
+
+* specifically if target is RDS
+  * Used storage size and maximum storage size for the DB instance
+  * current and maximum number of databases allowed on the DB instance
+  * A list of database services and server objects that are not available on the DB instance
+  * A list of databases that are currently participating in replication (Amazon RDS doesn't support replication)
+
+## DMS
+
+* possible to have multiple targets to a single source.
+* Useful to feed operational and analytics system at one time.
 
 # Module 12 : Optimizing Cost
 
@@ -1134,7 +1220,17 @@ Easily build an infrastructure that can support Strangler Pattern.
 
 ## Cloudfront signed cookies
 
-* signed URLs or cookies are like building a wall on your application. Provide access to your users only if certain conditions are met. For example pay a subcription.
+* signed URLs or cookies are like building a wall on your application. 
+* Provide access to your users only if certain conditions are met, for example pay a subcription.
+* consists of sharing a public/private key. 
+  * Private key is kept by the application
+  * Public key by Cloudfront
+* Application must defined a policy and encrypt it with the key to generate a signature
+* Application sends 
+  * policy in base64
+  * signature
+  * key pair id that was used to encrypt
+* cloudfront checks the policy that was sent matches with the signature by decrypting it with the correct public key
 
 ### Canned policy vs Custom policy
 
@@ -1147,6 +1243,25 @@ custom policy
 * results in a longer url (BASE64 encoded)
 
 you can specify an expiration time for both policies
+
+
+## Custom domains
+
+* you can assign multiple custom domains to a cloudfront distribution
+* each domain must be associated with a certificate
+* When SSL handshake happens, at some point the server has to sent to the client its certificate.
+* Then the client validates the certificate is trusted
+* If the server manages multiple domains (i.e. mulitple certificates), like cloudfront, it has to know which certificate it should return to the client.
+  * modern browser can use SNI so that cloudfront knows which certificate to return (based on hostname provided by a dedicated http header)
+  * old browser doesn't support SNI. Cloudfront can map a certificate with a dedicated ip address that will be returned by some DNS to the client. Dedicated IP addresses incur additional charges, to it's better to use SNI if possible.
+
+
+## Compression
+
+* Only compress some [file types](https://docs.aws.amazon.com/fr_fr/AmazonCloudFront/latest/DeveloperGuide/ServingCompressedFiles.html#compressed-content-cloudfront-file-types)
+* If user prefers gzip or brotli, brotli will be prefered choice by Cloudfront
+* origin can specify (through a header) if content returned is already compressed
+
 
 ## CSP and HSTS
 
@@ -1189,11 +1304,6 @@ Use Lambda when
 * Dependency on third libraries
 * External calls
 
-## Compression
-
-* Only compress some [file types](https://docs.aws.amazon.com/fr_fr/AmazonCloudFront/latest/DeveloperGuide/ServingCompressedFiles.html#compressed-content-cloudfront-file-types)
-* If user prefers gzip or brotli, brotli will be prefered choice by Cloudfront
-* origin can specify (through a header) if content returned is already compressed
 
 ## Global Accelerator
 

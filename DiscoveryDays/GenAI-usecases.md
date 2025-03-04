@@ -235,3 +235,44 @@ Amazon Bedrock
 * Increased mapping accuracy: AI-powered analysis improves the precision of pipeline location data.
 * Reduction in the number of daily vessels required for field certification: Expected reduction of up to 40%, resulting in significant cost savings.
 * Cost savings: Projected to save millions of dollars by minimizing the use of expensive certification vessels (daily rate of $250,000).
+
+# Smokeball AI Case Study Summary for Students
+
+[Smokeball](https://aws.amazon.com/solutions/case-studies/smokeball/?did=cr_card&trk=cr_card)
+
+## Context
+
+* Smokeball provides practice management software for over 6,000 law firms globally (Australia, UK, US).
+* Law firms struggle with time-consuming administrative tasks, reducing billable hours and impacting client service.
+* Smokeball aimed to leverage AI to improve efficiency and client service for its users.
+
+## Issue
+
+* Manual administrative tasks (document processing, client intake, time tracking) consume significant time and resources.
+* Initial exploration of third-party AI solutions faced limitations with APIs and support.
+* Need for a scalable, secure cloud infrastructure with advanced AI/ML capabilities to handle sensitive legal data.
+
+## Solution
+
+### Solution Description
+
+* Smokeball developed Smokeball AI, a suite of generative AI tools built on AWS to automate key legal tasks.
+* Three main tools:
+    * **Archie:** AI assistant for document processing (summarization, analysis, Q&A, drafting).
+    * **Intake:** Automates client intake and onboarding by processing and generating customized forms.
+    * **AutoTime:** Automates time tracking and billing.
+
+### Technology Used
+
+* **Amazon Bedrock (Claude V3):** Powers Archie's natural language processing capabilities.
+* **Amazon SageMaker:** Used for developing and training the machine learning models behind Intake and AutoTime.
+* **AWS Lambda:** Serverless compute for handling AI-powered responses.
+* **Amazon SQS:** Manages data flow and task management across the platform.
+* **Amazon EKS:** Enables scalable deployment and orchestration of the application infrastructure.
+
+### Key Performance Indicators (KPIs)
+
+* **Archie:** Saves up to 3 hours per day on administrative tasks.
+* **Intake:** Reduces form creation and population time from 1 hour to 5 minutes.
+* **AutoTime:** Reduces timesheet creation time from hours to minutes and increases billable hours capture by up to 30%.
+* **Overall:** Smokeball launched the public beta of its AI tools within six months using AWS.

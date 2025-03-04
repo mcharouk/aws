@@ -250,11 +250,11 @@ A Robust Cloud Operating Model supports :
     * Encryption at rest and in transit. Data and model
     * Data access (IAM), LakeFormation. Minimize access
       * blur/anonymize data used for training
-    * Data lifecycle rules      
+    * Data lifecycle rules
     * Audit/log the data that comes in and out
 * Continuously evaluate and improve
   * data refresh
-  * upgrades
+  * process to integrate new model upgrades
   * testing, validation
 
 ### Governance
