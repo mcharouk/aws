@@ -3,6 +3,7 @@
 - [Table of contents](#table-of-contents)
 - [Module 2 : Single to Multiple Accounts](#module-2--single-to-multiple-accounts)
   - [IAM Identity Center](#iam-identity-center)
+    - [Connection to IDP](#connection-to-idp)
     - [Applications](#applications)
   - [Control Tower](#control-tower)
 - [Module 3 : Hybrid Connectivity](#module-3--hybrid-connectivity)
@@ -18,6 +19,7 @@
   - [Direct Connect](#direct-connect)
     - [Quotas](#quotas)
     - [Public VIF](#public-vif)
+    - [BFD](#bfd)
     - [Site-to-site VPN](#site-to-site-vpn-1)
   - [Resiliency](#resiliency)
   - [Failover](#failover)
@@ -109,6 +111,7 @@
     - [DMS integration](#dms-integration)
     - [Assessment report](#assessment-report)
   - [DMS](#dms)
+  - [GoldenGate](#goldengate)
 - [Module 12 : Optimizing Cost](#module-12--optimizing-cost)
 - [Module 13 : Architecting for the edge](#module-13--architecting-for-the-edge)
   - [Cloudfront origin failover](#cloudfront-origin-failover)
@@ -132,12 +135,26 @@
 
 ## IAM Identity Center
 
+### Connection to IDP
+
+* for authentication, uses SAML 2.0. IdP will authenticate users and forward user info to AWS using SAML assertions
+* By default, the users and group does not exist in IAM identity center, need a way to synchronize user and groups in IdP and IAM Identity center, so that permissions can be assigned to user and groups.
+  * This synchronization can be done manually (not recommended)
+  * can use SCIM (System for Cross-domain Identity Management (SCIM) v2.0 standard)
+  * can use a custom solution if SCIM is not supported by IdP
+  * For Active Directory there is a specific solution (IAM Identity Center configurable AD Sync)
+
 ### Applications
 
 * Steps are
   * configure connection settings between IAM Identity Center and Custom application
   * add users and groups in IAM Identity Center that can access this application
   * map assertions, which are some attributes related to the user that can be transferred from the external IdP to the application, like a a username, email, addresses, etc...
+
+* This feature brings
+  * ability to centralize access to multiple applications
+  * only configure once trust relationship with IDP
+  * centralize access audit logs
 
 ## Control Tower
 
@@ -180,8 +197,6 @@
 
 ## Site-to-site VPN
 
-
-
 ### Dead peer connection
 
 * deadPeerConnection is like a health check mechanisms. After some timeout the peer is considered as not joinable. Possible actions : 
@@ -222,6 +237,7 @@
 * It consists of playing with BGP preferences (Local preference, weight) to give all connections the same weight.
 * only supported with BGP, and with TGW connection
 * it's not a round robin algorithm but a hash based algo, so it's still possible to have unbalanced traffic between multiple paths.
+* Maximum bandwidth by using ECMP is 50 Gb/s
 
 ## Direct Connect
 
@@ -236,14 +252,24 @@
 
 * connect to AWS Services without traversing the public internet
   * improved performance and security
-  * can lower DTO rates. Don't have any additional cost compared to an interface endpoint
+  * can lower DTO rates. 
     * from AWS Europe to on prem in Europe
       * Direct connect $0.0200 per GB
       * EC2 : $0.09 per GB for first 10 TB / month
       * EC2 (max mass discount): $0.05 per GB for vol > 150 Tb / month
+  * Compare to an interface endpoint
+    * Don't have any additional cost  (interface endpoint you pay per GB-hour of usage)
   * Don't need to explicitly call interface endpoint. Public IPs are redirected to Public VIF
   * Public VIF works for all public services, no need to create a public vif for each service, like interface endpoint
   * Public VIF can be used for all AWS regions, not just the Direct Connect one
+
+### BFD
+
+* Exchange Echo network messages to check the status of connection
+* Can configure 
+  * frequency of messages
+  * number of messages that fail to consider there is a network failure
+* activated by default on virtual interfaces. Must configure it on customer side to make it effective.
 
 ### Site-to-site VPN
 
@@ -987,6 +1013,7 @@ task:group == service:production
     * DB snapshot
     * DB incremental
     * Cloudtrail & ELB logs
+  * Target format as CSV or Parquet
 
 # Module 11 : Migrating Workloads
 
@@ -1198,6 +1225,14 @@ Easily build an infrastructure that can support Strangler Pattern.
 * possible to have multiple targets to a single source.
 * Useful to feed operational and analytics system at one time.
 
+## GoldenGate
+
+* few reasons why to choose GoldenGate to migrate an Oracle database instead of DMS
+  * more transformation capabilities
+  * bi directional replication
+  * familiarity with the tool
+  * might perform better for high volume transactional databases
+
 # Module 12 : Optimizing Cost
 
 * note the difference in pricing
@@ -1226,10 +1261,13 @@ Easily build an infrastructure that can support Strangler Pattern.
   * Private key is kept by the application
   * Public key by Cloudfront
 * Application must defined a policy and encrypt it with the key to generate a signature
-* Application sends 
-  * policy in base64
-  * signature
-  * key pair id that was used to encrypt
+* Application sends in query string parameter
+  * For canned policy
+    * **Expires** : expiration date and time 
+  * For custom policy
+    * **Policy** : in base64 
+  * **Signature** : hash and signed version of policy
+  * **Key-Pair-Id** : key pair id that was used to encrypt
 * cloudfront checks the policy that was sent matches with the signature by decrypting it with the correct public key
 
 ### Canned policy vs Custom policy
@@ -1335,7 +1373,7 @@ Use Lambda when
   * uses these properties : source IP, source port, destination IP, destination port, and protocol. It redirects this 5-tuple to the region that provides the lower latency. Based on port for example, the client might be redirected to another region
   * There's an option to change this 5-tuple by the 2-tuple source IP / destination IP. This will maintain consistency on the destination ip chosen by global accelerator
   * Use this option if application requires stateful connections
-  * However, if some latencies appears on the first chosen region, it's not guaranteed that the connection will be maintained
+  * However, if some latencies appears on the first chosen region, it's not guaranteed that the connection will be maintained.
 * It's also possible to setup dials
   * dials is to limit the portion of traffic a region can accept
   * global accelerator will still try to redirect to the lowest latency region, but it will take account of the limits defined by dials.

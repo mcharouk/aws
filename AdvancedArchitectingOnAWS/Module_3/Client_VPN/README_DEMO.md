@@ -15,7 +15,7 @@ ClientVPNDemo
 * select server certificate with domain as server1.example.com
 * check box Use Mutual authentication
 * select client certificate with domain as server1.example.com (same than server)
-* DNS parameters, for both servers
+* DNS parameters, for both servers, use default AWS DNS
 
 ```
 10.0.0.2

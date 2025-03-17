@@ -52,5 +52,7 @@ with open(opvn_config_file_path, "wb") as f:
     client_configuration_string = response["ClientConfiguration"]
     f.write(client_configuration_string.encode())
 
+    print(f"appending private key to {opvn_config_file_path}")
     append_to_file(f, private_key, "key")
+    print(f"appending certificate to {opvn_config_file_path}")
     append_to_file(f, private_cert, "cert")
