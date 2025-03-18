@@ -2,6 +2,10 @@
 
 ## Create Resource Share
 
+* In this demo, we will share 
+  * a subnet
+  * a security group
+
 * in RAM menu, in settings, note that Enable sharing with AWS Orga must be checked (by default it is not)
 * create a resource share
 

@@ -7,7 +7,7 @@ ec2_client = boto3.client("ec2")
 response = ec2_client.describe_instances(
     Filters=[
         {"Name": "tag:Name", "Values": [ec2_instance_name]},
-        {"Name": "instance-state-name", "Values": ["running"]},
+        {"Name": "instance-state-name", "Values": ["running", "pending"]},
     ]
 )
 
