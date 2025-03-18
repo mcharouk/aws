@@ -25,10 +25,11 @@ private-link-demo-service
   * go to service endpoint details
   * copy paste service name field
 
+* Select subnets linked to availability zones
 * select Security group named
 
 ```
-PrivateLinkClientInstanceSG
+PrivateLinkEndpointSG
 ```
 
 ## Producer Side : Accept Endpoint connection
@@ -41,6 +42,7 @@ PrivateLinkClientInstanceSG
 * connect to EC2 instance
 * check that endpoint is in available status
 * get DNS name of interface endpoint (do not take service name)
+  * for that select ENI associated with security group **PrivateLinkEndpointSG**
 
 * should return an ok status (its the health check endpoint)
 ```
