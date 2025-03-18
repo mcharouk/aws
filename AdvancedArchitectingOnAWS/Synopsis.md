@@ -25,7 +25,7 @@
   - [Failover](#failover)
     - [MacSec](#macsec)
   - [Route 53](#route-53)
-    - [](#)
+    - [Resolvers](#resolvers)
     - [DNSSEC](#dnssec)
 - [Module 4 : Specialized Infrastructure](#module-4--specialized-infrastructure)
   - [Storage Gateway](#storage-gateway)
@@ -321,7 +321,7 @@
 
 ## Route 53
 
-### 
+### Resolvers 
 
 * Inbound Resolver
   * set a conditional forward rule in on premise DNS Server
@@ -358,14 +358,14 @@
       * Provides a web-based interface for managing virtual infrastructure
     * ESXi
       * Bare-metal hypervisor that installs directly on physical servers
-      * Enables creation and management of virtual machines
+      * Enables **creation and management of virtual machines**
     * NSX
-      * Software-defined networking and security solution
+      * Software-defined **networking and security solution**
       * Provides network virtualization and micro-segmentation
       * Enables creation of virtual networks and security policies
       * Offers distributed firewalling and load balancing
     * vSAN
-      * Software-defined storage solution for hyper-converged infrastructure
+      * Software-defined **storage** solution for hyper-converged infrastructure
       * Pools direct-attached storage devices to create a distributed shared datastore
       * Still can use EBS or EFS as storage but it's not the default solution of VMWare.
   * Compute Gateway

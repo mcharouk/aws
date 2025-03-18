@@ -7,11 +7,17 @@ FileGatewayDemo
 ```
 * Host platform : EC2
 * Select customize your settings (EC2 is already created by CF)
+* select *I completed all the steps above and launched the EC2 instance.* (done by CF template)
 * IP Address : take public IP Address of file gateway appliance (CF outputs)
 * Endpoint options : Publicly accessible
 * Check the EC2 instance is not initializing
 * Activate Gateway
 * Wait until local disks finished preparing. Should not be too long
+* Configure Gateway
+  * select /dev/sda1 as Cache
+  * Remove cloudwatch logging
+  * Remove cloudwatch alarms
+  
 
 # create file share
 
@@ -29,6 +35,8 @@ FileGatewayDemo
 * If it's not available re-create it, but don't use customize configuration. Probably the policies for IAM Role have changed, must update the demo to make it work
 
 # EC2 mount
+
+* Connect to **EC2 client**, not on EC2 Virtual appliance
 
 ```
 sudo -s
