@@ -58,11 +58,14 @@
   - [EKS anywhere](#eks-anywhere)
 - [Module 7 : CI/CD](#module-7--cicd)
   - [CodeGuru](#codeguru)
+  - [CodeBuild](#codebuild)
   - [CodePipeline](#codepipeline)
     - [Out of the box Action (not exhaustive)](#out-of-the-box-action-not-exhaustive)
     - [Custom Actions](#custom-actions)
     - [ECS](#ecs)
     - [Immutable vs Blue Green](#immutable-vs-blue-green)
+  - [CloudFormation](#cloudformation)
+    - [Stackset](#stackset)
 - [Module 8 : High Availability - DDoS](#module-8--high-availability---ddos)
   - [Shield Standard](#shield-standard)
   - [AWS WAF Security Automations](#aws-waf-security-automations)
@@ -662,6 +665,10 @@ task:group == service:production
 * Integrates with Amazon Q
 * Reviews accessible also on CodeGuru Console
 
+## CodeBuild
+
+* can run codeBuild from Github actions or Gitlab actions by using [Runners](https://docs.aws.amazon.com/codebuild/latest/userguide/runners.html)
+
 ## CodePipeline
 
 ### Out of the box Action (not exhaustive)
@@ -704,6 +711,14 @@ task:group == service:production
   * it allows a more progressive traffic switch
   * old environment could be kept for quick rollback long after the release
 * Immutable deployments can be implemented by using a blue/green strategy, but not the opposite.
+
+## CloudFormation
+
+### Stackset
+
+* self managed permissions 
+  * create an execution role in member account that has full permissions on CF and required permissions to create services declared in the stack
+  * trust policy to allow admin role to assume the execution role
 
 # Module 8 : High Availability - DDoS
 

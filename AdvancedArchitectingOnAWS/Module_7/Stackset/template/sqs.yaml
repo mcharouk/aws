@@ -1,0 +1,17 @@
+# a cloudformation stack that creates an sqs queue named stackset-queue
+AWSTemplateFormatVersion: 2010-09-09
+Description: SQS Queue
+
+
+Resources:
+  MyQueue:
+    Type: AWS::SQS::Queue
+    Properties:
+      QueueName: "stackset-queue"
+      VisibilityTimeout: 30
+
+Outputs:
+  QueueUrl:
+    Value: !Ref MyQueue
+  QueueArn:
+    Value: !GetAtt MyQueue.Arn
