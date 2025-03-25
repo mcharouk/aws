@@ -67,10 +67,15 @@
   - [CloudFormation](#cloudformation)
     - [Stackset](#stackset)
 - [Module 8 : High Availability - DDoS](#module-8--high-availability---ddos)
+  - [AWS Verified Access](#aws-verified-access)
   - [Shield Standard](#shield-standard)
   - [AWS WAF Security Automations](#aws-waf-security-automations)
   - [GuardDuty](#guardduty)
   - [Shield Advanced](#shield-advanced)
+    - [Protection](#protection)
+    - [AWS Support](#aws-support)
+    - [Monitoring and Reporting](#monitoring-and-reporting)
+    - [Best practices](#best-practices)
   - [Firewall Manager](#firewall-manager)
   - [Network Firewall](#network-firewall)
 - [Module 9 : Securing datastore](#module-9--securing-datastore)
@@ -722,6 +727,14 @@ task:group == service:production
 
 # Module 8 : High Availability - DDoS
 
+## AWS Verified Access
+
+* it's a component publicly accessible that acts like a proxy to application privately exposed.
+* This component manages authorization of accessing applications based on user identity. Administrators can create unique access policies for each application or group of applications
+* User identity can be managed by AWS or any third party provider
+* Support authorization based on only trusted devices as well
+* It can remove the need to setup a VPN to access private applications
+
 ## Shield Standard
 
 * Protects all AWS resources
@@ -748,7 +761,6 @@ task:group == service:production
   * a Lambda can be integrated in CloudFront or ALB (used by the application). This Lambda is meant to be accessed by content scrapper or bots that might be looking for a vuln.
   * the Lambda extracts the source IP address and add it to the IP blacklist of WAF
 
-
 ## GuardDuty
 
 * can block ip addresses
@@ -756,6 +768,8 @@ task:group == service:production
   * trojan (block the ip of the master)
 
 ## Shield Advanced
+
+### Protection
 
 * When protecting an EIP address, Shield Advanced can replicate NACL rules on the public subnet where it resides at the border of AWS. it allows supporting much bigger volume
 * Shield advanced can monitor health checks of associated resources (must be provided explicitly). This helps to detect a DDoS attack and lower the threshold Shield will react.
@@ -767,6 +781,16 @@ task:group == service:production
   * For CloudFront: 5xxErrorRate
   * For ALB: HTTPCode_ELB_5XX_Count, RejectedConnectionCount
   * For EC2 instances: CPUUtilization
+
+### AWS Support
+
+SRT support activities
+* AWS WAF log analysis
+* Architectural recommendations
+* Build custom network mitigations : for example, you can give information to SRT to identify packets send to your application that are legitimate. They can take that into account when defining the threshold that triggers an attack detection.
+
+### Monitoring and Reporting
+
 * Publishes metrics
   * DDoSDetected: Indicates whether a DDoS event is detected
   * DDoSAttackBitsPerSecond: Measures the volume of traffic in bits per second
@@ -775,16 +799,18 @@ task:group == service:production
 * Provides a quarterly report
   * metrics, attacks, pattern trends on protected resources
   * security recommendations
+* Global threat dashboard
+  * can use it to understand trends on the attack types, and take some preventive actions, for example focusing on some attack types or adjusting some metrics or alarms thresholds.
 
-* Best practices
-  * Give access to health checks
-  * Explicitly protect the resources
-  * review security recommendations of quarterly report
-  * Give permission to update WAF
-  * Use WAF rate limiting rules
-  * Enable proactive engagement (use Lambda)
-  * Regularly test your incident response plans
+### Best practices
 
+* Give access to health checks
+* Explicitly protect the resources
+* review security recommendations of quarterly report
+* Give permission to update WAF
+* Use WAF rate limiting rules
+* Enable proactive engagement (use Lambda)
+* Regularly test your incident response plans
 * Financial Insurance
   * you have to raise a ticket to claim
   * AWS will give you credits, that will be used to pay AWS Shield Advanced. Not possible to use them on any other service.
