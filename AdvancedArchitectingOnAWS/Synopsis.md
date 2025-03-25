@@ -77,6 +77,9 @@
     - [Monitoring and Reporting](#monitoring-and-reporting)
     - [Best practices](#best-practices)
   - [Firewall Manager](#firewall-manager)
+    - [Rules Mgt](#rules-mgt)
+    - [Rules Compliance](#rules-compliance)
+    - [Services Integration](#services-integration)
   - [Network Firewall](#network-firewall)
 - [Module 9 : Securing datastore](#module-9--securing-datastore)
   - [FIPS 140-3](#fips-140-3)
@@ -818,15 +821,24 @@ SRT support activities
 
 ## Firewall Manager
 
+* Don't need each account owner to be a security expert. Sec is maintained by a dedicated team that uses firewall manager to deploy rules
+
+### Rules Mgt
+
 * Rules can be applied at specific accounts or OUs
   * rules protects resources of specific types (Cloudfront, ALB, etc..) or that have specific tags
-* Automatically subscribes all org accounts to shield advanced
 * Automatically detect non compliant resources and add remediate by adding the rules
-* Detects if the firewall manager policies becomes non compliant (it uses config in the background for that)
 * Provides a dashboard in which you can see all unprotected resources (and protected as well)
+
+### Rules Compliance
+
+* Detects if the firewall manager policies becomes non compliant (it uses config in the background for that)
 * Provides a report of non compliance policies (gets data from Config and provides its own view)
-* Integrated with Security Hub 
-* Don't need each account owner to be a security expert. Sec is maintained by a dedicated team that uses firewall manager to deploy rules
+ 
+### Services Integration
+
+* Automatically subscribes all org accounts to shield advanced
+* Integrated with Security Hub
 
 ## Network Firewall
 
