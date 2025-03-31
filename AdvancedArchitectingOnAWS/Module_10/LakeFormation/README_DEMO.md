@@ -12,26 +12,34 @@ businessAnalystRole
 datalake-admins-workgroup
 ```
 
-* Show that tables are not displayed
-* Try to execute some query (should fail)
+* Business Analyst role has a grant on the table, so it can see it, but it has no grant on any column so query will fail 
+* Try to execute some query
 
 ```
 select * from "training-data".cities LIMIT 5;
 ```
 
+* Should fail : (COLUMN_NOT_FOUND: line 1:8: Relation contains no accessible columns)
+
 # Grant Business Analyst for access 
 
-* with admin, add a grant to allow business analyst to query the table.
+* with admin, go to Data Permissions 
+  * add a grant to allow business analyst to query the table.
   * Choose businessAnalystRole as Role to grant
   * Choose Named Data Catalog Resources (note the LF-TAG is a best practice at scale)
   * Select the database
   * Select cities table
   * Data Filter
-    * Name : JapaneseCities
+    * Name
+     ```
+     JapaneseCities
+     ```
     * Column Based Access
       * Exclude Columns : population
     * Row Based Access
-      * iso3 = 'JPN'
+     ```
+     iso3 = 'JPN'
+     ```
   * Select Table Permissions : SELECT
     * Note that if DESCRIBE is selected, it's not possible to specify column or row level access
   * Grantable Table Permissions to be left empty

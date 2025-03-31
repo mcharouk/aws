@@ -20,7 +20,10 @@ DemoS3Key
 AWSAdministratorAccess
 ```
 
-* In Key Policy section, note that section that **allows IAM to give identity-based permissions**
+* In Key usage permissions
+  * * Keep it as is (will fix it later)
+* In Key Policy section  
+  * note that section that **allows IAM to give identity-based permissions**
 * In Key properties, show **Key Rotation Section**
 * Try to schedule for deletion
   * show the duration you can set
@@ -33,10 +36,9 @@ AWSAdministratorAccess
 ```
 aws-training-marccharouk-ssekms
 ```
-
-
+* Note that S3Administrator role has S3FullAccess policy
 * Assume the role S3Administrator and try to upload an object to the bucket (there is sampleFile.txt in this folder for example). 
-* Upload should fail because Lack of permissions.
+* Upload should fail because Lack of permissions
 * go to KMS Key Property, Key Policy section
 * Add S3Administrator Role as key User
 * Show KMS Resource policy after the change
