@@ -11,6 +11,8 @@ curl -L www.youtube.com
 
 # Routing tables
 
+* Make all the modifications described below before retesting again with EC2
+
 ## Public subnet route table
 
 * Change route which has destination 0.0.0.0/0

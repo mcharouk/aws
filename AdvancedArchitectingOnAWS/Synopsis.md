@@ -89,6 +89,7 @@
   - [S3 Bucket Key](#s3-bucket-key)
   - [CloudHSM](#cloudhsm)
   - [SSL Handshake](#ssl-handshake)
+  - [Oracle TDE](#oracle-tde)
   - [Secrets Manager](#secrets-manager)
     - [Availability during rotation process](#availability-during-rotation-process)
     - [Rotation with other services](#rotation-with-other-services)
@@ -964,6 +965,11 @@ SRT support activities
 * with **pre master key**, a **session key** is generated with **client random** and **server random** exchanged.
 * session key is used for encryption operation afterwards
 
+## Oracle TDE
+
+* CloudHSM works with Oracle installed on an EC2 instance
+* RDS supports Oracle TDE but does not support integration with CloudHSM
+
 ## Secrets Manager
 
 ### Availability during rotation process
@@ -1098,6 +1104,12 @@ SRT support activities
 ## Cloud Adoption Readiness Tool
 
 * Answer a set of 47 questions
+  * Business
+  * People
+  * Governance
+  * Platform
+  * Security
+  * Operations
 * Get recommendations on how to improve
 * Get report that shows maturity to communicate it clearly
 
@@ -1107,6 +1119,19 @@ SRT support activities
   * An understanding of where an organization is in its cloud journey
   * Identified areas of strength and weakness from a cloud-readiness perspective
   * An action plan to resolve the identified gaps, so the organization can migrate at scale without having to pause to solve foundational issues
+* Expected People
+  * CEO
+  * CTO / chief architect
+  * CIO
+  * Managing director
+  * Business unit owners
+  * IT finance
+  * Security leader
+  * Network leader
+  * Application development leader
+  * Infrastructure leader
+  * Operations leader
+  * Application owners (first few)
 
 ## Migration Evaluator
 
@@ -1293,7 +1318,7 @@ Easily build an infrastructure that can support Strangler Pattern.
   * RDS / db.m7g.4xlarge / 100 GB storage GP2 / On demand : 1 409 USD / month
   * But RDS will reduce maintenance and dev costs
 * [Interesting paper on TCO](https://d1.awsstatic.com/psc-digital/2023/gc-300/deloitte-tco-mod/determining-the-total-cost-of-ownership.pdf)
-
+* [Infracost](https://github.com/infracost/infracost) : Tool that integrate cost awareness in CI/CD pipeline
 # Module 13 : Architecting for the edge
 
 ## Cloudfront origin failover

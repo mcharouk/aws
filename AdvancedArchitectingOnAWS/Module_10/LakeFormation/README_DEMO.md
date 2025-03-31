@@ -1,3 +1,5 @@
+# Check Business Analyst has no access
+
 * in a InPrivate window, connect with admin user and assume the role 
 
 ```
@@ -11,11 +13,13 @@ datalake-admins-workgroup
 ```
 
 * Show that tables are not displayed
-* Try to execute some query
+* Try to execute some query (should fail)
 
 ```
 select * from "training-data".cities LIMIT 5;
 ```
+
+# Grant Business Analyst for access 
 
 * with admin, add a grant to allow business analyst to query the table.
   * Choose businessAnalystRole as Role to grant
@@ -31,6 +35,9 @@ select * from "training-data".cities LIMIT 5;
   * Select Table Permissions : SELECT
     * Note that if DESCRIBE is selected, it's not possible to specify column or row level access
   * Grantable Table Permissions to be left empty
-  * Execute Query again with BA Role. 
-    * Note that population column is not displayed.
-    * Note that only Japan lines are returned
+
+# Check table has been granted
+
+* Execute Query again with BA Role. 
+  * Note that population column is not displayed.
+  * Note that only Japan lines are returned

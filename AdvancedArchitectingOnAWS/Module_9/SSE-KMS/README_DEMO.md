@@ -1,3 +1,9 @@
+# Demo goal
+
+* create a KMS key and a S3 bucket in SSE-KMS mode
+* show options of KMS
+* try to upload a file in S3 bucket to show that KMS permissions are needed to perform the action
+
 # KMS Key
 
 * Symmetric
@@ -14,9 +20,11 @@ DemoS3Key
 AWSAdministratorAccess
 ```
 
-* In Key Policy section, note that section that allows IAM to give identity-based permissions
-* In Key properties, show Key Rotation Section
-* Try to schedule for deletion, show the duration you can set, and confirmation required
+* In Key Policy section, note that section that **allows IAM to give identity-based permissions**
+* In Key properties, show **Key Rotation Section**
+* Try to schedule for deletion
+  * show the duration you can set
+  * confirmation required
 
 # S3 Bucket
 
