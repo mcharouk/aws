@@ -3,5 +3,13 @@
     "eu-west-3a",
     "eu-west-3b",
     "eu-west-3c"
+  ],
+  "acknowledged-issue-numbers": [
+    32775
+  ],
+  "availability-zones:account=637423642269:region=eu-west-1": [
+    "eu-west-1a",
+    "eu-west-1b",
+    "eu-west-1c"
   ]
 }

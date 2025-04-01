@@ -1,4 +1,4 @@
-from aws_cdk import Stack
+from aws_cdk import CfnOutput, Stack
 from aws_cdk import aws_ec2 as ec2
 from aws_cdk import aws_elasticloadbalancingv2 as elbv2
 from aws_cdk import aws_elasticloadbalancingv2_targets as elbv2_targets
@@ -31,7 +31,30 @@ class PrivateLinkStack(Stack):
 
         self.create_nlb(vpc_config=vpc_config, alb=alb)
 
-        self.create_client_instance(vpc=vpc_config.client_vpc)
+        private_link_endpoint_sg = self.create_client_instance(
+            vpc=vpc_config.client_vpc
+        )
+
+        CfnOutput(
+            self,
+            "ClientVPCId",
+            value=vpc_config.client_vpc.vpc_id,
+        )
+
+        CfnOutput(
+            self,
+            "PrivateLinkEndpointSgId",
+            value=private_link_endpoint_sg.security_group_id,
+        )
+
+        # write the region name to a local json file
+        # overwrite the file if it exists
+        # the file name is region.json
+        # the file content is {"region": "region_name"}
+        import json
+
+        with open("region.json", "w") as f:
+            f.write(json.dumps({"region": Stack.of(self).region}))
 
     def create_target_vpc_config(self):
         target_vpc = ec2.Vpc(
@@ -251,6 +274,8 @@ class PrivateLinkStack(Stack):
             role=privatelink_ec2_target_vpc_role,
             security_group=ec2_security_group,
         )
+
+        return private_link_endpoint_sg
 
     def create_nlb(self, vpc_config: VpcConfig, alb: elbv2.ApplicationLoadBalancer):
 

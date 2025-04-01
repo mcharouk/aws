@@ -179,6 +179,7 @@
      * Lambda can assume the role AWSControlTowerExecution to perform actions in the target account.
      * it can do pretty much anything, like executing a step function, executing cloudformation stack sets, etc...
 * Possible to use CfCT to customize landing zone. It's a pre built architecture that automate account setup and does not rely on service catalog (triggered on eventbridge event)
+* [enrolling existing account](https://aws.amazon.com/blogs/architecture/field-notes-enroll-existing-aws-accounts-into-aws-control-tower/)
 
 # Module 3 : Hybrid Connectivity
 
@@ -206,6 +207,14 @@
 
 * Authorization rules can be provided to authorize some users that belong to a specific group to reach only a specific ip range
 * Route table indicates which target of VPN endpoint are valid independently from the users
+
+| Destination              | Target                                                      | Comments                |
+| ------------------------ | ----------------------------------------------------------- | ----------------------- |
+| CIDR Range of Peered VPC | Target Subnet associated to VPC endpoint                    | For VPC Peering         |
+| 0.0.0.0/0                | Target Subnet associated to VPC endpoint (should be public) | For Internet Access     |
+| On Premise CIDR Range    | Target Subnet associated to VPC endpoint                    | For On Premise Access   |
+| VPN Client Cidr Range    | local                                                       | Client to Client Access |
+
 
 ## Site-to-site VPN
 

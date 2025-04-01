@@ -1,6 +1,18 @@
 import boto3
+import utils
 
 client = boto3.client("ec2")
+
+
+utils.change_current_directory()
+
+# delete file region.json
+import os
+
+if os.path.exists("region.json"):
+    os.remove("region.json")
+    print("File region.json removed")
+
 
 endpoint_name = "private-link-demo-service"
 

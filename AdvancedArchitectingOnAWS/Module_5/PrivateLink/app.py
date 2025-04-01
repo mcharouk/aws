@@ -17,7 +17,7 @@ stack = PrivateLinkStack(
     # env=cdk.Environment(account=os.getenv('CDK_DEFAULT_ACCOUNT'), region=os.getenv('CDK_DEFAULT_REGION')),
     # Uncomment the next line if you know exactly what Account and Region you
     # want to deploy the stack to. */
-    env=cdk.Environment(account="637423642269", region="eu-west-3"),
+    env=cdk.Environment(account="637423642269", region=os.getenv("AWS_DEFAULT_REGION")),
     # For more information, see https://docs.aws.amazon.com/cdk/latest/guide/environments.html
 )
 Tags.of(stack).add("DemoName", "PrivateLink")

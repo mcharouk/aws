@@ -14,6 +14,14 @@ private-link-demo-service-endpoint
 
 ## Consumer Side : Create interface endpoint
 
+Note : 
+  * Try to create endpoint on the console
+  * Sometimes it's not possible to select subnets in console, i think it's a bug
+  * in this case, create the endpoint with the programmatic way
+
+  
+### Console 
+
 * Create an endpoint
 * Name
 
@@ -25,12 +33,18 @@ private-link-demo-service
   * go to service endpoint details
   * copy paste service name field
 
-* Select subnets linked to availability zones
+* Select subnets linked to availability zones  
+
 * select Security group named
 
 ```
 PrivateLinkEndpointSG
 ```
+
+### Programmatic
+
+* execute createEndpointCmd.py to get aws cli v2 cmd to create the endpoint
+* execute cmd in CloudShell
 
 ## Producer Side : Accept Endpoint connection
 

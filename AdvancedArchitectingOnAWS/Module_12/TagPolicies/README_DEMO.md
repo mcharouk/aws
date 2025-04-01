@@ -1,3 +1,18 @@
+# Demo objective
+
+* Create a SCP that requires tag examplecorp:team-name to be specified when creating an SNS topic
+* Add a tag policy 
+  * that enforce values for S3 bucket
+  * that does not enforce values for sns topic
+* As a result
+  * For S3 
+    * It's possible to create an S3 bucket without the tag key because no SCP prevent it
+    * When specifying tag value, it must strictly complies with the tag policy
+  * For SNS
+    * Not possible to create a sns topic without the tag key
+    * But possible to give anything as a value, because tag policy has not been enforced
+    * Note that non compliant objects can be retrieved
+
 # Create a SCP
 
 * make tag mandatory for sns topics
@@ -32,7 +47,7 @@ EnforceTagOnSNS
             "Sid": "PreventTagRemoval",
             "Effect": "Deny",
             "Action": [
-                "sns:UntagResource",                
+                "sns:UntagResource"
             ],
             "Resource": [
                 "arn:aws:sns:*:*:*"

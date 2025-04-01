@@ -1,10 +1,17 @@
 # Demo 
 
+* Cloudfront makes time to deploy when a change is requested, this is why distribution is pre configured in the demo
+
 ## Show console 
 
 * show cloudfront function
 * in **Policies**, show **origin request policy** named **S3-UserDeviceType**
+* Origin Request Policy is used to
+  * forward fields to origin
+  * forward fields to edge computing functions (CloudFront functions / Lambda@edge)
 * all is configured at behavior level (origin request policy and cloudfront function)
+* Note that cloudfront function logs destination can be configured in Distribution settings (Logging section)
+  * In this demo, no destination has been provided so it's not possible to see the logs
 
 ## Execute demo scripts
 
