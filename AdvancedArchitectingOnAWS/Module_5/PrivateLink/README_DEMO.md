@@ -1,5 +1,11 @@
 # Private Link
 
+* to launch demo in another region
+
+```
+.\demo.ps1 deploy eu-west-1
+```
+
 ## Producer Side : create endpoint service
 
 * go on VPC, Endpoint services, and create one
