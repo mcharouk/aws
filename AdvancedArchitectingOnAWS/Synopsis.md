@@ -798,7 +798,14 @@ task:group == service:production
 ### AWS Support
 
 SRT support activities
-* AWS WAF log analysis
+* During DDoS events, SRT can 
+  * monitor AWS WAF requests to identify anomalous traffic 
+  * help craft custom AWS WAF rules to mitigate offending traffic sources
+* Additionally, you can grant the SRT access to other data that you have stored in Amazon S3 buckets, such as 
+  * packet captures 
+  * logs from an Application Load Balancer
+  * Amazon CloudFront
+  * third party sources
 * Architectural recommendations
 * Build custom network mitigations : for example, you can give information to SRT to identify packets send to your application that are legitimate. They can take that into account when defining the threshold that triggers an attack detection.
 
