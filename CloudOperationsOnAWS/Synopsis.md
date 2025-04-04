@@ -82,6 +82,7 @@
   - [AWS Budget](#aws-budget)
   - [Trusted Advisor](#trusted-advisor)
   - [Cost Optimization Hub](#cost-optimization-hub)
+  - [Compute Optimizer](#compute-optimizer)
   - [S3 costs](#s3-costs)
 
 # Module 1 : intro to cloud operations
@@ -860,7 +861,8 @@ Cost Optimization Hub generates recommendations for the following resources:
     * Elasticache 
 
 * Cost Optimization Hub is free of charge
-* Compute Optimizer 
+
+## Compute Optimizer 
   * Free of charge by default. It uses CloudWatch metrics
   * Additional costs For EC2, ASG and RDS. 
     * It will generate more metrics (up to three months of history compared to 14 days)

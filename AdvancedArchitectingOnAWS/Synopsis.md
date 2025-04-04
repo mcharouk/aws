@@ -88,15 +88,20 @@
   - [Asymetric keys](#asymetric-keys)
   - [S3 Bucket Key](#s3-bucket-key)
   - [CloudHSM](#cloudhsm)
+  - [Cloud HMS as KMS custom Key Store](#cloud-hms-as-kms-custom-key-store)
+  - [Backup](#backup)
   - [SSL Handshake](#ssl-handshake)
   - [Oracle TDE](#oracle-tde)
+  - [Best practices](#best-practices-1)
   - [Secrets Manager](#secrets-manager)
+    - [Rotation by lambda](#rotation-by-lambda)
     - [Availability during rotation process](#availability-during-rotation-process)
     - [Rotation with other services](#rotation-with-other-services)
 - [Module 10 : Large Scale Data Stores](#module-10--large-scale-data-stores)
   - [Storage Class analysis](#storage-class-analysis)
   - [Intelligent Tiering](#intelligent-tiering)
   - [S3 Inventory](#s3-inventory)
+  - [S3 Metadata](#s3-metadata)
   - [Storage Lens](#storage-lens)
   - [Lakeformation](#lakeformation)
 - [Module 11 : Migrating Workloads](#module-11--migrating-workloads)
@@ -125,6 +130,7 @@
   - [DMS](#dms)
   - [GoldenGate](#goldengate)
 - [Module 12 : Optimizing Cost](#module-12--optimizing-cost)
+  - [Finops Cloud readiness](#finops-cloud-readiness)
 - [Module 13 : Architecting for the edge](#module-13--architecting-for-the-edge)
   - [Cloudfront origin failover](#cloudfront-origin-failover)
   - [Cloudfront signed cookies](#cloudfront-signed-cookies)
@@ -142,6 +148,7 @@
       - [Routing](#routing)
     - [Custom Routing Accelerators](#custom-routing-accelerators)
     - [Pricing](#pricing)
+- [Online Course Supplement](#online-course-supplement)
 
 # Module 2 : Single to Multiple Accounts
 
@@ -955,7 +962,10 @@ SRT support activities
 * pricing : hourly price per HSM. 
   * For ex. 2,18 $ per hour per HSM in Paris region. 
   * Approx. 1500 $ / month / cluster
-* KMS can handle cloudHSM as custom key store. It can
+
+## Cloud HMS as KMS custom Key Store
+
+* Actions that can be performed
   * create symmetric keys
   * Edit or delete a key
   * Perform encryption operations
@@ -964,6 +974,13 @@ SRT support activities
   * tag keys
   * Meanwhile not possible to rotate keys or to manage asymmetric keys
 
+## Backup
+
+You can't instruct the service to make backups, but you can take certain actions that force the service to create a backup.
+
+* Activate a cluster
+* Add an HSM to an active cluster
+* Remove an HSM from an active cluster
 
 ## SSL Handshake
 
@@ -986,7 +1003,22 @@ SRT support activities
 * CloudHSM works with Oracle installed on an EC2 instance
 * RDS supports Oracle TDE but does not support integration with CloudHSM
 
+## Best practices
+
+* [Trusted Keys](https://docs.aws.amazon.com/cloudhsm/latest/userguide/manage-keys-using-trusted-keys.html)
+  * limits on the maximum number of token and session keys that can be stored on an HSM (3000 to 16000 depending on cluster size)
+  * It's possible to use a wrapping key stored in HSM that will encrypt keys to be stored in an external data store.
+  * When key is required, the key is taken from the external data store, decrypt it, and released when not in use anymore
+
 ## Secrets Manager
+
+### Rotation by lambda
+
+* overall process
+  * creates a new secret in SM tagged as AWS PENDING
+  * updates the db system with the new user
+  * test the new credentials
+  * change the label of the password to AWSCURRENT
 
 ### Availability during rotation process
 
@@ -1000,7 +1032,7 @@ SRT support activities
 
 ### Rotation with other services
 
-* [Rotation lambdas samples](https://github.com/aws-samples/aws-secrets-manager-rotation-lambdas)
+* [Rotation lambdas samples](https://docs.aws.amazon.com/secretsmanager/latest/userguide/reference_available-rotation-templates.html)
 
 # Module 10 : Large Scale Data Stores
 
@@ -1018,7 +1050,7 @@ SRT support activities
   * for each object
     * current storage class 
     * Number of requests
-    * Access ratio : ratio size vs nb of requests
+    * Access ratio : size vs nb of requests
   * for all objects
     * Data retrieved, uploaded, size, nb of objects
     * ObjectAgeForSIATransition : observed age for transition 
@@ -1041,6 +1073,12 @@ SRT support activities
 * [Available fields](https://docs.aws.amazon.com/AmazonS3/latest/userguide/storage-inventory.html)
 * daily or weekly basis
 * eventual consistency (some objects might not appear immediately)
+
+## S3 Metadata
+
+* new feature (Jan-2025)
+* real time access to metadata
+* use S3 Tables (managed tables in Iceberg format)
 
 ## Storage Lens
 
@@ -1155,7 +1193,10 @@ SRT support activities
 
 * Data can be collected by a tool or manually, providing a file
 * The tool uses a non-intrusive, agentless collector to gather data
-* automatically collects and inventories **your on-premises resources**, including servers, virtual machines, databases, and more.
+* automatically collects and inventories **your on-premises resources**, including 
+  * servers
+  * virtual machines
+  * databases, and more.
 * It collects data also on usage, not only static data
 * Can be installed for 
   * bare metal
@@ -1335,6 +1376,20 @@ Easily build an infrastructure that can support Strangler Pattern.
   * But RDS will reduce maintenance and dev costs
 * [Interesting paper on TCO](https://d1.awsstatic.com/psc-digital/2023/gc-300/deloitte-tco-mod/determining-the-total-cost-of-ownership.pdf)
 * [Infracost](https://github.com/infracost/infracost) : Tool that integrate cost awareness in CI/CD pipeline
+
+
+## Finops Cloud readiness 
+
+* Forecasting
+  * Gain visibility on the future
+    * identify seasonality
+    * adjusting budgets
+    * take some optimization initiatives before spending too much
+    * be more precise about how an architectural change is impacting cost (keep control of architectural changes)
+  * anomaly detection to quickly be alerted of unusual spendings
+
+
+
 # Module 13 : Architecting for the edge
 
 ## Cloudfront origin failover
@@ -1469,8 +1524,7 @@ Use Lambda when
   * Use this option if application requires stateful connections
   * However, if some latencies appears on the first chosen region, it's not guaranteed that the connection will be maintained.
 * It's also possible to setup dials
-  * dials is to limit the portion of traffic a region can accept
-  * global accelerator will still try to redirect to the lowest latency region, but it will take account of the limits defined by dials.
+  * dials is to limit the portion of traffic a region can accept. So when it's set to 100%, that means that it can **potentially** handle 100% of traffic. That means the only criteria that will be taken to redirect traffic is latency
 
 ### Custom Routing Accelerators
 
@@ -1489,3 +1543,7 @@ Use Lambda when
 * DTO (normal EC2 DTO)
 * Traffic between regions (price depends on source and target region)
 * Public IP addresses are charged at standard rate
+
+# Online Course Supplement
+
+[Link to OCS](https://explore.skillbuilder.aws/learn/course/external/view/elearning/1283/advanced-architecting-on-aws-online-course-supplement)

@@ -14,11 +14,11 @@
 
 # Proton
 
-* Templates to deploy infrastructure for serverless and container-bases applications
+* Templates to deploy infrastructure for serverless and container-based applications
 * looks like Service catalog, as we can see who uses an outdated template and update it on one-click. 
   * But in Service Catalog, only consumers can update their product
   * In Proton, Administrator can update the product used by consumers
-* Administators provide an environment template to create an environment
+* Administrators provide an environment template to create an environment
 * Developers provide a service template to create a service deployed on an environment
 * Proton is meant to deploy a full application (infra + service), Service Catalog focuses more on infra
 * Note that Proton templates could use a service catalog product
@@ -63,13 +63,13 @@
   * constraints on the iam role that can execute the template
 * template constraints
   * restricts parameters that can be provided to a template
-* stack set constraints
+* stack set constraints : select the account and regions where the stack could be deployed
 * Tag options
 
 # IoT
 
 * TwinMaker
-  *  create virtual twins of a physical device to update or get information, event when physical device is disconnected
+  *  create virtual twins of a physical device to update or get information, even when physical device is disconnected
   *  create digital twins applications, for instance dashboards embedding 3D scenes with Grafana.
 * Device Management
   * Device Registry (Things)
@@ -88,7 +88,7 @@
 
 # Amazon Detective
 
-* security investigation service that helps analyze, investigate, and identify the root cause of security findings or suspicious activities in AWS environments
+* Security investigation service that helps analyze, investigate, and identify the root cause of security findings or suspicious activities in AWS environments
 * Collects data from (not exhaustive)
   *  CloudTrail logs
   *  VPC Flow Logs
@@ -144,7 +144,7 @@
 
 # CloudFormation
 
-* CodePipline can trigger directly CloudFormation from a pipeline, which is enough in non prod env.
+* CodePipeline can trigger directly CloudFormation from a pipeline, which is enough in non prod env.
 * You can run a CodeBuild step with a tool like TaskCat to test cloudformation changes before deploying them
 * In production env, you may want to use CodeDeploy with Cloudformation to monitor the release, to perform blue/green deployments, etc...
 
@@ -215,7 +215,7 @@
 # Migration
 
 * Application Discovery **Agent** can only send data to Application Discovery **Service**, not to S3 directly
-* Agentless needs
+* Agentless requirements
   * IAM User that can export data to AWS Service
   * On-premise firewall to open outbound traffic to AWS
 
@@ -267,7 +267,7 @@ For SAML IdP, here is the process:
 * memory used and allocated is only available in lambda logs, not in metrics
 * Lambda burst concurrency is about 500-3000 requests per second (depending on the region). Make sure it's enough for your usage. 
   * If you receive 100 requests/sec, and the average duration of each invocation is 1s, then the nb of total exec env is 100.
-  * If you receive 100 requests/sec, and the average duration of each invocation is 500s, then the nb of total exec env is 50.
+  * If you receive 100 requests/sec, and the average duration of each invocation is 500ms, then the nb of total exec env is 50.
 
 
 # KMS 
@@ -297,7 +297,7 @@ For SAML IdP, here is the process:
 ## AMI
 
 * how to create an AMI from existing EC2
-  * commmand ec2-bundle-vol
+  * command ec2-bundle-vol
   * upload bundle to S3 : ec2-upload-bundle
   * register AMI : register-image
 
@@ -341,14 +341,13 @@ Intel Hyper-Threading Technology makes a single physical processor appear as mul
 
 # Cloudfront
 
-
 * To change the cache duration for an individual file, you can configure your origin
   * to add a **Cache-Control** header with the **max-age** or **s-maxage** directive
   * to add an **Expires** header to the file.
 
 # AWS App Runner
 
-* It's a service that can deploy containerized web applications in the cloud without the need to deal with an infrastructure. 
+* It's a service that can deploy **containerized web applications** in the cloud without the need to deal with an infrastructure. 
 
 * Manages
   * Infrastructure
@@ -408,6 +407,7 @@ Intel Hyper-Threading Technology makes a single physical processor appear as mul
 # Amazon Lightsail
 
 ## Key Concepts
+
 - Lightsail is a simplified compute service that provides virtual private servers (VPS)
 - Designed for simpler workloads, small websites and applications
 - Fixed monthly pricing with bundled resources (compute, storage, bandwidth)
@@ -559,6 +559,7 @@ Intel Hyper-Threading Technology makes a single physical processor appear as mul
 # AWS Amplify
 
 ## Key Concepts
+
 - Full-stack development platform
 - Frontend and backend development tools
 - CI/CD capabilities
