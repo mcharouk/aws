@@ -15,6 +15,16 @@
   * Mistral (Mistral AI)
   * Stable Diffusion (text to image) (Stability.AI)
   * BLOOM (Hugging Face)
+* Model types
+  * Large Language Models (LLMs) : Text to text
+  * Multimodal Models
+    * unstructured data to text, text to unstructured data
+    * unstructured data : (text, images, audio, video)
+  * Speech and Audio Models
+    * Applications: Speech recognition, text-to-speech, music generation
+* Code models
+* Domain specific models
+* Embedding models
 
 ## Transformers
 
@@ -58,6 +68,9 @@ use cases :
 * if training data contains biases : nurses are women and doctors are men.
 * For example, if you ask to generate a script for advertising, AI will reproduce these stereotypes
 * AI will be perceived as unfair
+
+### Mitigations
+
 * We can influence results with prompts, but that means it's a proactive strategy.
 * We can change the training data by tuning the model and feed him with data that balance these stereotypes
 
@@ -70,6 +83,12 @@ use cases :
 * pay attention to the logs. Sensitive data could appear here too
   * Bedrock is integrated in with cloudwatch, with a feature that can mask 10s of sensitive data types in the logs.
 
+### Mitigations
+
+* use private models
+* Bedrock Guardrails to filter sensitive data
+* Cloudwatch [Data Protection Policy](https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/cloudwatch-logs-data-protection-policies.html) 
+
 
 ## Toxicity
 
@@ -77,6 +96,10 @@ use cases :
 * it's not easy for an LLM sometimes to differentiate between unappropriate content and opinions.
 * LLM can be manipulated with prompts or have biased that comes from the training data
 
+### Mitigation
+
+* Guardrails
+* Prompt Engineering
 
 ## Hallucinations
 
@@ -86,12 +109,22 @@ This is a hallucination because the Mona Lisa was actually painted in 1503-1506.
 
 * When filing a response, lawyers for the plaintiff (demandeur) cited at least six other cases to show precedent, but the court found that the cases didn’t exist and had “bogus judicial decisions with bogus quotes and bogus internal citations,” leading a federal judge to consider sanctions. A member of the law team then revealed he had used a generative AI model to conduct legal research for the court filing that referenced the cases and that the artificial intelligence tool assured him the cases were real.
 
+### Mitigations
+
+* Data Quality
+* RAG
+* Quote the sources
+* Make explicit the limitation of AI
+
 ## Intellectual property
 
 * Legal ambiguities on copyrights :
   * Generate paintings in the style of someone
   * Get the voice of some singer and use it in some song.
 
+### Mitigation
+
+* Prompt engineering : limit the scope of what AI can do
 
 ## Plagiarism and cheating
 
@@ -265,14 +298,14 @@ A Robust Cloud Operating Model supports :
     * Basic concepts to help customers better understand the service or service features
     * Intended use cases and limitations
     * Responsible AI design considerations
-    * Guidance on deployment and performance optimization
-  * Transparency is also in audit trails
-    * AWS AI services are all integrated with CloudTrail (Bedrock, Q for Developer, ...). 
-    * Logs all intermediate steps when using Bedrock agents.
+    * Guidance on deployment and performance optimization  
   * Ask for GenAI to display its sources
   * Use explainable algorithms
   * Use SageMaker Clarify to explain the model. 
   * Have a mechanism for humans to challenge decision made by AI
+  * Transparency is also in audit trails
+    * AWS AI services are all integrated with CloudTrail (Bedrock, Q for Developer, ...). 
+    * Logs all intermediate steps when using Bedrock agents.
 * Ethical principles
   * look for bias in model
 

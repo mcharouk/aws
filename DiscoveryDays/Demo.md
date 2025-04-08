@@ -1,5 +1,14 @@
+# Bedrock Demo
+
+* Better to make the demo in us-east-1 because image generation is currently not available in eu-west-3 region
+  
+## Text 
+
 * [Original blog post](https://www.aboutamazon.com/news/aws/generative-ai-is-the-future)
-* Use Amazon Titan to summarize this text
+* Go on Bedrock -> Chat/Text
+* Select Mode : Single Prompt
+* Select Nova Lite model
+* copy this text
 
 ```
 Summarize this text for me in a few bullet points. 
@@ -39,4 +48,14 @@ Like the internet in 1995
 These are still very early days for generative AI. There is so much more to be invented and iterated upon. It reminds me of the internet circa 1995, when the web was just beginning to happen, and we heard about this thing called a web browser.
 
 When you step back and look at where we are today, and what is yet to come, generative AI has the potential to revolutionize our lives, whether at home, school, or work. With these tools Amazon and our customers are building, we’ll all be able to spend more time on what we are best at, and less time on the routine work. That is quite powerful, and that's what is going to make this such an incredible time.
+```
+
+## Image
+
+* For image, go to **us-east-1** region
+* Go to Bedrock -> Image/Video
+* select **Nova Canvas**
+
+```
+a cat enjoying a mojito in front of an Italian-style villa on the edge of a lake
 ```
