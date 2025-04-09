@@ -30,8 +30,10 @@
 - [Module 4 : Specialized Infrastructure](#module-4--specialized-infrastructure)
   - [Storage Gateway](#storage-gateway)
   - [VMWare Cloud on AWS](#vmware-cloud-on-aws)
+    - [Elastic VMWare](#elastic-vmware)
   - [Outpost](#outpost)
-    - [VmWareCloud on Outpost](#vmwarecloud-on-outpost)
+    - [Maintenance](#maintenance)
+    - [VmWare Cloud on Outpost](#vmware-cloud-on-outpost)
   - [Local Zones](#local-zones)
   - [WaveLength](#wavelength)
 - [Module 5 : Connecting Networks](#module-5--connecting-networks)
@@ -413,6 +415,19 @@
   * on-demand capacity for dev and test purposed for example.
 
 
+### Elastic VMWare
+
+* At some point, this service will probably be replaced by EVS (ElasticVMWare) which consists as installing VMWare Cloud Foundation on a VPC.
+* Cloud Foundation is a VMWare solution that allows to use VMWare tooling on the cloud (VM, Storage, Networking)
+  * Tooling will be installed on EC2 bare metal instances, as dedicated hosts
+  * full control on EC2 (root access)
+  * Dedicated hosts are part of a VPC
+    * integration with AWS services : tagging, cloudtrail, etc...
+    * seamless integration with network components like TGW
+  * Multiple pricing options : OD, 1Yr, 3Yr
+  * Bring your own licence or licence included
+  * Same XP than using any other services (APIs, console) 
+
 ## Outpost
 
 * two LAG have to be established
@@ -429,7 +444,15 @@
   * Through Direct Connect with public VIF
   * Through Direct Connect with private VIF
 
-### VmWareCloud on Outpost
+### Maintenance
+
+* Keep in mind that customer must backup its data
+* If customer receives a retirement notice, they should transfer any critical data from the affected instances to persistent storage before the retirement date
+* data can be transferred to an on-premise backup solution
+* Leverage AWS Elastic Disaster Recovery to backup the data on a cloud region or another outpost
+
+
+### VmWare Cloud on Outpost
 
 * Benefits
   * VMware licensing is included in the service, simplifying your software management
