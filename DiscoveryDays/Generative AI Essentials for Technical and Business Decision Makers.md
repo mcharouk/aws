@@ -169,20 +169,27 @@ While the judge accepted Ke's apology and did not find intent to deceive, the La
 
 ## Start with leaders
 
-* drive first alignment among leaders
-  * shared vision of GenAI
-  * how to deal with organizational changes
-
 * As a leader, get insights to know where the organization needs to support generative AI initiatives. 
-  * *Drive* : Discuss use cases with business leaders. Explain expected benefits
+
+### Drive
+
+* shared vision of GenAI
+* how to deal with organizational changes
+* Discuss use cases with business leaders. 
+* Explain expected benefits
+
+### Discover  
+
 * Evaluate how initiatives perform across multiple key business areas
   * *Discover* : through informal discussions, surveys, understand if the support you provide is relevant or not
 * it can facilitate decision-making regarding 
   * talent acquisition, 
   * the required level of training for current employees, 
   * acceleration of recruiting and skill-building needed.
-* *Understand* : consider the impact genAI will have on employees. This will determine the level and effort needed
+  
+### Understand
 
+* consider the impact genAI will have on employees. This will determine the level and effort needed
 
 ## Prepare your employees
 
