@@ -147,7 +147,7 @@ While the judge accepted Ke's apology and did not find intent to deceive, the La
 
 * IA could change the way we work. Could make disappear some jobs and create some other jobs.
 
-## Mitigations
+## Guardrails details
 
 * Bedrock guardrails can filter content provided by user or by LLM
   * can filter harmful content (hate, insults, sexual, violence, misconduct, prompt attack)
@@ -155,10 +155,6 @@ While the judge accepted Ke's apology and did not find intent to deceive, the La
   * Sensitive information filtering (PII) (  [list of blocked or masked attributes](https://docs.aws.amazon.com/bedrock/latest/userguide/guardrails-sensitive-filters.html)  )
   * Word filters : provide a list of words or sentences that are denied
   * Grounding : Check response accuracy based on your entreprise data (RAG)
-
-* Try to test multiple model to consider the best one
-* Keep a human in the loop / Generative AI-assisted reviews
-* Prompting / RAG (RAG against hallucinations) / Model parameters
 
 # GenAI Organization Overview
 
