@@ -1,48 +1,10 @@
 # Table of Contents
 
-- [SBI Life Insurance - Insurance](#sbi-life-insurance)  
 - [Pfizer - Health care](#pfizer)
 - [ABP Network - Media](#abp-network)  
-- [Tymex - Code Generation](#tymex)
-- [Amazon Pharmacy](#amazon-pharmacy)
-- [Amazon Ads](#amazon-ads)
+- [Crypto.com - Finance](#cryptocom)
 - [Amazon's New AI-Powered Children's Story Feature](#amazons-new-ai-powered-childrens-story-feature)
-- [Bravante - Oil Industry](#bravante)
 
-# SBI Life Insurance
-
-[Use case](https://aws.amazon.com/solutions/case-studies/sbi-life-case-study/?did=cr_card&trk=cr_card)
-
-* Used RAG
-
-## Context
-
-* SBI Life Insurance, a company of SBI Insurance Group, provides various life insurance products and policies.
-The Information Systems Department of SBI Life Insurance is responsible for development, maintenance, operation, and security response.
-* The team continually builds systems in-house and decided to migrate their applications to a new technology platform using AWS.
-
-## Issue
-
-* SBI Life Insurance aimed to enhance customer service at its call centers and shorten the training period for operators.
-* Operators faced difficulties in quickly answering inquiries about discontinued life insurance products due to the enormous variety and volume of related documents.
-
-
-## Solution Description
-
-* SBI Life Insurance built a document search solution using Amazon Kendra, an intelligent enterprise search service, to let call center workers easily search for documentation on insurance products and policies.
-* The solution includes a selfbot function that summarizes and displays Amazon Kendra search results using generative AI.
-
-## Technology Used
-
-* Amazon Kendra
-* Amazon Bedrock
-
-## Key Performance Indicators:
-
-* Shortened development period: Released to a production environment in July 2023, **three months** after development started in April 2023.
-* Improved call center operations: Significantly improved call center operations and reduced stress on operators.
-* Shorter training periods: Reduced training periods by about **30 %**
-* Increased applicant interest: Attracted applicants who want to be involved in the intelligent operations projects.
 
 # Pfizer
 
@@ -93,63 +55,44 @@ Amazon Bedrock
 * 50% reduction in image acquisition cost (eliminating the need to purchase costly stock images)
 * 10% boost in audience engagement and click-through rates
 
+# Crypto.com
 
-# Tymex
-
-
-[Tymex Use Case](https://aws.amazon.com/solutions/case-studies/tymex/)
+[Crypto.com](https://aws.amazon.com/solutions/case-studies/case-study-crypto/)
 
 ## Context
 
-* TymeX is a digital banking platform focused on providing services to underserved and underbanked populations.
-* They prioritize an agile development culture and employee satisfaction to drive innovation and deliver high-quality products.
-* Recognizing the potential of AI, TymeX embarked on a journey to integrate generative AI into their operations, focusing on security and compliance within the banking industry.
+*   Crypto.com is a large cryptocurrency exchange and trading platform serving 100 million users across 90 countries.
+*   The company is focused on driving user adoption of cryptocurrency through partnerships and a comprehensive service offering.
+*   They leverage AI to improve customer experience, including sentiment analysis for market insights.
 
 ## Issue
 
-* TymeX developers faced challenges with time-consuming tasks in the software development lifecycle, hindering their ability to focus on innovation and feature development.
-* There was a need to improve efficiency in understanding complex documentation and streamline internal processes.
-* Maintaining a high level of security and compliance in AI implementation was crucial for the banking sector.
+*   Crypto.com needed to provide timely and accurate market intelligence to its users, particularly sentiment analysis of crypto news.
+*   Existing open-source machine learning (ML) models had limitations in accuracy, especially with multilingual data.
+*   Self-hosting large language models (LLMs) was proving to be expensive and computationally intensive.
+*   They needed a solution to effectively integrate and synthesize outputs from multiple ML models (both pre-trained and custom) for reliable market insights.
 
 ## Solution
 
 ### Solution Description
 
-* TymeX partnered with AWS to implement and develop generative AI solutions to address their challenges.
-* They adopted a two-phased approach: initially leveraging existing AWS AI services and subsequently building custom AI applications.
-* The solution focused on automating recurring development tasks, enhancing code quality, and providing AI-powered assistance to developers.
-* An internal AI chatbot was developed to streamline internal communication
-  * AI to select good CV of engineering and development roles
-  * AI to summarize complex documents about compliant software design and compliance documentation
+Crypto.com implemented a multi-agent consensus-seeking solution for sentiment analysis on AWS, leveraging both pre-trained and fine-tuned models. This allowed them to efficiently deliver accurate, comprehensive, and localized crypto market insights to their global user base.
 
 ### Technology Used
 
-* Amazon Q Developer
-* Amazon Bedrock
+*   Anthropic Claude 3 LLMs on Amazon Bedrock for sentiment analysis and application development.
+*   Amazon SageMaker for fine-tuning custom models.
+*   Amazon EC2 for fine-tuning open-source models like Mistral AI and Meta Llama.
 
-### Key Performance Indicators (KPIs)
-
-* Developer Productivity: Developers experienced a **40%** increase in productivity due to automation and AI assistance.
-* Code Coverage: Unit testing efficiency increased significantly, achieving **89%** code coverage in **30 minutes** compared to the previous **5 hours** (a **90%** improvement).
-* Time to Market: Development cycles were accelerated, with the second digital bank built in 18 months compared to the first in 3 years, and the third expected in just 9 months.
-* Employee Satisfaction: Developers gained more time for innovation, skill development, and learning new technologies.
-* Chatbot Adoption: The internal AI chatbot "Tymee" received a 77% positive feedback score from internal users.
-* Document Processing: AI-powered chat-to-document feature summarizes 100-page documents in under 10 seconds, improving efficiency in understanding complex information. Documents about compliant software design and compliance documentation to launch financial institutions internationnally.
-
-# Amazon Pharmacy
-
-* Used RAG with SageMaker (no Bedrock)
-
-* [Amazon Pharmacy](https://aws.amazon.com/blogs/machine-learning/learn-how-amazon-pharmacy-created-their-llm-based-chat-bot-using-amazon-sagemaker/)
-
-# Amazon Ads
+### Key Performance Indicators
+*   **Speed:** Sentiment analysis results delivered in less than 1 second.
+*   **Accuracy:** Improved accuracy in sentiment analysis, especially for multilingual news and new coins.
+*   **Scalability:** Highly scalable models on Amazon Bedrock, capable of processing vast amounts of data in real-time.
+*   **Cost Reduction:** Eliminated the manual effort, extra cost, and computational constraints of self-hosting LLMs.
+*   **Customer Satisfaction:** Positive feedback from users regarding the improved market insights.
 
 
-* Used SageMaker Jumpstart
-* Tried multiple text-to-image foundational model, and refined them with custom data. Reviewed the image with a human-in-the-loop process using Amazon Groundtruth
-* Finally selected the best model
 
-* [Amazon Ads](https://aws.amazon.com/blogs/machine-learning/learn-how-amazon-ads-created-a-generative-ai-powered-image-generation-capability-using-amazon-sagemaker/)
 
 
 # Amazon's New AI-Powered Children's Story Feature
@@ -197,82 +140,4 @@ Amazon Bedrock
 * Automated filtering of inappropriate outputs
 * Requires parental consent through the Alexa app
 
-# Bravante
 
-[Bravante Use Case](https://aws.amazon.com/solutions/case-studies/bravante-generative-ai/?nc1=h_ls&did=cr_card&trk=cr_card)
-
-## Context
-* RRC Tecnologia, the robotics and technology arm of Grupo Bravante, specializes in marine engineering, particularly in the decommissioning of oil equipment and pipeline removal.
-* Brazilian law mandates the restoration of the seabed after oil exploration, requiring accurate location and removal of submerged equipment.
-* Traditional methods rely on analyzing scattered and diverse documents, leading to inaccuracies and high costs due to the expensive daily rates of certification vessels.
-
-## Issue
-
-* Locating and removing submerged oil pipelines is a complex and costly process due to reliance on outdated and fragmented documentation.
-* Inaccurate location data leads to wasted time and resources, with certification vessels costing $250,000 per day.
-* Manual analysis of thousands of documents is time-consuming and prone to errors, hindering efficient decommissioning efforts.
-* Considering the more than **800 km** of pipelines to be decommissioned, the data repository has over **10 thousand documents**
-
-## Solution
-
-### Solution Description
-
-* RRC Tecnologia partnered with AWS and Flexa Cloud to develop a Generative AI-powered solution to automate document analysis and improve the accuracy of pipeline location data.
-* The solution creates a centralized, reliable data source for pipeline information, streamlining the decommissioning process.
-* It leverages advanced AI models to interpret and classify data from various document formats, providing valuable insights for naval engineers.
-
-### Technology Used
-
-* Amazon S3: Stores the vast repository of pipeline documents, providing secure and scalable storage.
-* Amazon Textract: Extracts text and data from various document formats (images, spreadsheets, PDFs) using OCR.
-* Amazon Bedrock: Offers access to pre-trained foundational models like Anthropic's Claude-2 via APIs, facilitating development and experimentation.
-* Amazon Aurora: Stores the processed data in a structured database, enabling efficient querying and analysis.
-
-### Key Performance Indicators (KPIs)
-
-* Reduction in operational load on surveying engineers: Automating document analysis frees up engineers for other tasks.
-* Man-hours savings: Automation significantly reduces the time spent on manual document review.
-* Increased mapping accuracy: AI-powered analysis improves the precision of pipeline location data.
-* Reduction in the number of daily vessels required for field certification: Expected reduction of up to 40%, resulting in significant cost savings.
-* Cost savings: Projected to save millions of dollars by minimizing the use of expensive certification vessels (daily rate of $250,000).
-
-# Smokeball AI Case Study Summary for Students
-
-[Smokeball](https://aws.amazon.com/solutions/case-studies/smokeball/?did=cr_card&trk=cr_card)
-
-## Context
-
-* Smokeball provides practice management software for over 6,000 law firms globally (Australia, UK, US).
-* Law firms struggle with time-consuming administrative tasks, reducing billable hours and impacting client service.
-* Smokeball aimed to leverage AI to improve efficiency and client service for its users.
-
-## Issue
-
-* Manual administrative tasks (document processing, client intake, time tracking) consume significant time and resources.
-* Initial exploration of third-party AI solutions faced limitations with APIs and support.
-* Need for a scalable, secure cloud infrastructure with advanced AI/ML capabilities to handle sensitive legal data.
-
-## Solution
-
-### Solution Description
-
-* Smokeball developed Smokeball AI, a suite of generative AI tools built on AWS to automate key legal tasks.
-* Three main tools:
-    * **Archie:** AI assistant for document processing (summarization, analysis, Q&A, drafting).
-    * **Intake:** Automates client intake and onboarding by processing and generating customized forms.
-    * **AutoTime:** Automates time tracking and billing.
-
-### Technology Used
-
-* **Amazon Bedrock (Claude V3):** Powers Archie's natural language processing capabilities.
-* **Amazon SageMaker:** Used for developing and training the machine learning models behind Intake and AutoTime.
-* **AWS Lambda:** Serverless compute for handling AI-powered responses.
-* **Amazon SQS:** Manages data flow and task management across the platform.
-* **Amazon EKS:** Enables scalable deployment and orchestration of the application infrastructure.
-
-### Key Performance Indicators (KPIs)
-
-* **Archie:** Saves up to 3 hours per day on administrative tasks.
-* **Intake:** Reduces form creation and population time from 1 hour to 5 minutes.
-* **AutoTime:** Reduces timesheet creation time from hours to minutes and increases billable hours capture by up to 30%.
-* **Overall:** Smokeball launched the public beta of its AI tools within six months using AWS.
