@@ -103,11 +103,23 @@ use cases :
 
 ## Hallucinations
 
-* User input: "When did Leonardo da Vinci paint the Mona Lisa?"
-AI-generated response: "Leonardo da Vinci painted the Mona Lisa in 1815."
-This is a hallucination because the Mona Lisa was actually painted in 1503-1506. The AI model has made a mistake because it is not trained on enough data about the Mona Lisa
+### Real case study
 
-* When filing a response, lawyers for the plaintiff (demandeur) cited at least six other cases to show precedent, but the court found that the cases didn’t exist and had “bogus judicial decisions with bogus quotes and bogus internal citations,” leading a federal judge to consider sanctions. A member of the law team then revealed he had used a generative AI model to conduct legal research for the court filing that referenced the cases and that the artificial intelligence tool assured him the cases were real.
+[Canada Lawyer fake cases](https://www.theguardian.com/world/2024/feb/29/canada-lawyer-chatgpt-fake-cases-ai)
+
+#### Description
+
+* A Canadian lawyer, Chong Ke, is under investigation after using ChatGPT for legal research in a child custody case (garde d'enfants), highlighting significant risks of using generative AI in legal settings.
+
+* Key Issues with AI Use:
+  * ChatGPT generated completely fictitious legal cases that Ke submitted to the British Columbia supreme court
+  * The opposing counsel could not locate these non-existent cases despite multiple attempts
+  * This incident demonstrates the danger of AI "hallucinations" - fabricated information presented as factual
+  * The court described citing fake cases as "an abuse of process" that could potentially "lead to a miscarriage of justice"
+
+#### Conclusion
+
+While the judge accepted Ke's apology and did not find intent to deceive, the Law Society of British Columbia **has launched an investigation** into her conduct. This case serves as a stark warning about the risks of relying on untested AI technologies in professional legal work without proper verification.
 
 ### Mitigations
 
@@ -229,6 +241,9 @@ A Robust Cloud Operating Model supports :
 * It's about having a vision of how GenAI will impact the business 
   * who are the stakeholders involved ? 
   * What are desired outcomes ?
+  * What are the use cases ?
+    * customer success stories, news
+    * search for pain points for your employees and search when GenAI can help (Working Backwards)
   * what KPIs
     * Cost Reduction
     * utilization de l'IA / Satisfaction
@@ -236,15 +251,6 @@ A Robust Cloud Operating Model supports :
   * create a clear vision and roadmap for leveraging Gen AI to achieve their business objectives ?
   * Discover the challenges, security concerns, ethical issues.
 
-* how to find use cases
-  * customer success stories, news
-  * search for pain points for your employees and search when GenAI can help (Working Backwards)
-
-* To know if GenAI is the good techno for a use case
-  * can i add sufficient guardrails ?
-  * can i break the problem in the sub tasks ?
-  * Can i reuse or extend existing capabilities ?
-  * What skill sets does my team have ?
 
 ### Discover
 
@@ -259,7 +265,7 @@ A Robust Cloud Operating Model supports :
 
 ### Deliver
 
-* Develop a road-map for implementation steps of the new model.
+* Develop a road-map for implementation steps of a specific use case
 * Measure your improvements against original desired outcomes. 
 * Test and refine the model as your organization continues developing your generative AI capabilities.
   * regularly check model performance
@@ -276,15 +282,10 @@ A Robust Cloud Operating Model supports :
   * Use cases oriented
     * Define Specific application use Cases (easier to control)
     * Guardrails on PII
-    * Human in the loop process to check outputs (once every week for ex.)
-    * Tag/Identify confidential data
+    * Human in the loop process to check outputs (once every week for ex.)    
     * Scan the code (prompt attacks)
-  * Infra oriented
-    * Encryption at rest and in transit. Data and model
-    * Data access (IAM), LakeFormation. Minimize access
-      * blur/anonymize data used for training
-    * Data lifecycle rules
-    * Audit/log the data that comes in and out
+      * [Prompt attack challenge](https://prompting.ai.immersivelabs.com/)
+      * [Solution](https://denizsivas.medium.com/prompt-injection-challenge-how-far-can-you-go-9d78c18df51d)  
 * Continuously evaluate and improve
   * data refresh
   * process to integrate new model upgrades
@@ -293,21 +294,28 @@ A Robust Cloud Operating Model supports :
 ### Governance
 
 * Transparency
-  * Tell when AI is being used, how it works, risks associated (Service Cards)
-  * [Service Card Structure](https://aws.amazon.com/blogs/machine-learning/introducing-aws-ai-service-cards-a-new-resource-to-enhance-transparency-and-advance-responsible-ai/)
-    * Basic concepts to help customers better understand the service or service features
-    * Intended use cases and limitations
-    * Responsible AI design considerations
-    * Guidance on deployment and performance optimization  
-  * Ask for GenAI to display its sources
-  * Use explainable algorithms
-  * Use SageMaker Clarify to explain the model. 
-  * Have a mechanism for humans to challenge decision made by AI
-  * Transparency is also in audit trails
+  * Regarding users
+    * Tell when AI is being used, how it works, risks associated (Service Cards)
+    * [Service Card Structure](https://aws.amazon.com/blogs/machine-learning/introducing-aws-ai-service-cards-a-new-resource-to-enhance-transparency-and-advance-responsible-ai/)
+      * Basic concepts to help customers better understand the service or service features
+      * Intended use cases and limitations
+      * Responsible AI design considerations
+      * Guidance on deployment and performance optimization  
+    * Ask for GenAI to display its sources  
+  * Regarding compliance
     * AWS AI services are all integrated with CloudTrail (Bedrock, Q for Developer, ...). 
     * Logs all intermediate steps when using Bedrock agents.
 * Ethical principles
-  * look for bias in model
+  * identify issues at high risk and find mitigations  
+
+### Data privacy and security
+
+* Tag/Identify confidential data
+* Encryption at rest and in transit. Data and model
+* Data access (IAM), LakeFormation. Minimize access
+  * blur/anonymize data used for training
+  * Data lifecycle rules (removing personal data, refreshing model with new data)
+* Audit/log the data that comes in and out
 
 # GenAI Services
 

@@ -76,7 +76,8 @@ Amazon Bedrock
 
 ### Solution Description
 
-Crypto.com implemented a multi-agent consensus-seeking solution for sentiment analysis on AWS, leveraging both pre-trained and fine-tuned models. This allowed them to efficiently deliver accurate, comprehensive, and localized crypto market insights to their global user base.
+* Crypto.com implemented a multi-agent consensus-seeking solution for sentiment analysis on AWS, leveraging both pre-trained and fine-tuned models. This allowed them to efficiently deliver accurate, comprehensive, and localized crypto market insights to their global user base.
+* Crypto.com fine tuned model Llam and Meta with its own data, especially useful to improve accuracy on new coins
 
 ### Technology Used
 
