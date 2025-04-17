@@ -64,12 +64,13 @@ Amazon Bedrock
 *   Crypto.com is a large cryptocurrency exchange and trading platform serving 100 million users across 90 countries.
 *   The company is focused on driving user adoption of cryptocurrency through partnerships and a comprehensive service offering.
 *   They leverage AI to improve customer experience, including sentiment analysis for market insights.
+* Users can access the **latest news and information from both crypto and traditional news sources**. Each subscription is tailored to the user’s trading level and the coins in their wallet
 
 ## Issue
 
-*   Crypto.com needed to provide timely and accurate market intelligence to its users, particularly sentiment analysis of crypto news.
-*   Existing open-source machine learning (ML) models had limitations in accuracy, especially with multilingual data.
-*   Self-hosting large language models (LLMs) was proving to be expensive and computationally intensive.
+*   Crypto.com needed to provide timely and accurate market intelligence to its users, particularly **sentiment analysis** of crypto news.
+*   Existing open-source machine learning (ML) models had limitations in accuracy, **especially with multilingual data**.
+*   **Self-hosting large language models (LLMs)** was proving to be expensive and computationally intensive.
 *   They needed a solution to effectively integrate and synthesize outputs from multiple ML models (both pre-trained and custom) for reliable market insights.
 
 ## Solution
@@ -91,9 +92,6 @@ Amazon Bedrock
 *   **Scalability:** Highly scalable models on Amazon Bedrock, capable of processing vast amounts of data in real-time.
 *   **Cost Reduction:** Eliminated the manual effort, extra cost, and computational constraints of self-hosting LLMs.
 *   **Customer Satisfaction:** Positive feedback from users regarding the improved market insights.
-
-
-
 
 
 # Amazon's New AI-Powered Children's Story Feature

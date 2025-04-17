@@ -22,9 +22,9 @@
     * unstructured data : (text, images, audio, video)
   * Speech and Audio Models
     * Applications: Speech recognition, text-to-speech, music generation
-* Code models
-* Domain specific models
-* Embedding models
+  * Code models
+  * Domain specific models
+  * Embedding models
 
 ## Transformers
 
@@ -294,6 +294,13 @@ A Robust Cloud Operating Model supports :
   * process to integrate new model upgrades
   * testing, validation
 
+#### Prompt attacks types
+
+* 3 most common attacks
+  * Prompt injection : Inserting instructions that override the AI's original guidelines
+  * JailBreaking : Using creative workarounds or roleplaying scenarios to trick the AI into responding to prohibited content
+  * Prompt leaking : Attempting to extract the AI's underlying instructions or system prompts
+
 ### Governance
 
 * Transparency
@@ -350,3 +357,14 @@ A Robust Cloud Operating Model supports :
 * Redshift (generate SQL Queries)
 * ChatBot (integrated with chat groups). Chatbot can integrate with Teams, Slack and Chime
 
+# Governance Framework
+
+[GenAI Security Scoping Matrix](https://aws.amazon.com/blogs/security/securing-generative-ai-an-introduction-to-the-generative-ai-security-scoping-matrix/)
+
+
+* Dimensions
+  * Governance and compliance : The policies, procedures, and reporting needed to empower the business while minimizing risk.
+  * Legal and privacy : The specific regulatory, legal, and privacy requirements for using or creating generative AI solutions.
+  * Risk management : Identification of potential threats to generative AI solutions and recommended mitigations.
+  * Controls : The implementation of security controls that are used to mitigate risk.
+  * Resilience : How to architect generative AI solutions to maintain availability and meet business SLAs.
