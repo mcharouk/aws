@@ -38,7 +38,7 @@
   * On Premise domain names
   * Custom domain names inside a VPC (for example on a self hosted DNS, or domain name of a Managed Active Directory Service)
 * For that, create the outbound resolver, and create a forwarding rule.
-* There is also a notion of Conditional Forwarder, which is specific to AD. It's meant to establish a trust relationship with another AD.
+* There is also a notion of Conditional Forwarder. It consists of forwarding DNS queries to other DNS servers, based on the domain name in the query. Typically, DNS on premise will forward the query on a Route 53 inbound resolver.
 
 ## Application Recovery Controller
 
@@ -47,15 +47,16 @@
 * it monitors the application as a whole not just a components individually
 * it offers a on/off switch to failover which provides more control on failover scenarios
 * Main components
+  * Recovery Groups: Collections of resources that are recovered together during a failure event
+  * Control Panels: Groups of related routing controls that allow for organized management of routing decisions. The default control panel is created automatically when a cluster is created
   * Routing Controls: On/off switches hosted on a cluster that manage traffic to cells. They are integrated with health checks in Route 53 and act as the primary mechanism for controlling traffic flow
-  * Control Panels: Groups of related routing controls that allow for organized management of routing decisions. The default control panel is created automatically when a cluster is created.
   * Safety Rules: Added to routing controls to prevent unintended consequences during recovery actions. These help ensure that traffic routing changes are made safely
   * Readiness Checks monitors recovery environment 
     * Resource quotas
     * capacity
     * configuration for multi-Region applications
     * suggest remediation when needed
-  * Recovery Groups: Collections of resources that are recovered together during a failure event
+  
 
 # Service Catalog
 
@@ -338,6 +339,8 @@ Intel Hyper-Threading Technology makes a single physical processor appear as mul
 # SQS
 
 * visibility timeout can be adjusted [per message](https://docs.aws.amazon.com/AWSSimpleQueueService/latest/APIReference/API_ChangeMessageVisibility.html) with ChangeMessageVisibility action.
+* a redrive policy defines the conditions to move a failed message in a DLQ. 
+  * maxReceiveCount defines how many times a message fails (becomes visible again after visibility timeout expiration) before moving it to the DLQ
 
 # Cloudfront
 
@@ -373,6 +376,10 @@ Intel Hyper-Threading Technology makes a single physical processor appear as mul
 # Athena
 
 * Federated Query works with Lambdas to access and query external databases.
+
+# Service Quota
+
+* AWS offers metrics on service quota usage through CloudWatch in the AWS/Usage namespace
 
 # AppFlow
 

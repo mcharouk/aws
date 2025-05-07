@@ -1,3 +1,9 @@
+# Business insights
+
+* [McKinsey Report - business value](https://www.mckinsey.com/capabilities/mckinsey-digital/our-insights/the-economic-potential-of-generative-ai-the-next-productivity-frontier#business-value)
+
+
+* [McKinsey Report - industry impacts](https://www.mckinsey.com/capabilities/mckinsey-digital/our-insights/the-economic-potential-of-generative-ai-the-next-productivity-frontier#industry-impacts)
 # Technical Foundations
 
 ## Model
@@ -219,7 +225,7 @@ Cloud Operating Model categories
 * Cost and governance
 
 
-Impacts on [Cloud Operating Model](https://docs.aws.amazon.com/prescriptive-guidance/latest/strategy-cloud-operating-model/introduction.html#key-concepts): 
+Impacts on [Cloud Operating Model](https://docs.aws.amazon.com/whitepapers/latest/overview-aws-cloud-adoption-framework/foundational-capabilities.html): 
 
 * Enhanced Automation: Automate routine tasks, allowing your team to focus on strategic initiatives.
 * Innovation Acceleration: Develop and deploy new AI-driven services quickly.
@@ -278,7 +284,7 @@ A Robust Cloud Operating Model supports :
 
 ### People enablement
 
-* Experts : [Generative AI Innovation Center](https://aws.amazon.com/ai/generative-ai/innovation-center/)à
+* Experts : [Generative AI Innovation Center](https://aws.amazon.com/ai/generative-ai/innovation-center/)
 * Data strategy
 * Cloud infrastructure
 * Security
@@ -316,7 +322,7 @@ A Robust Cloud Operating Model supports :
     * AWS AI services are all integrated with CloudTrail (Bedrock, Q for Developer, ...). 
     * Logs all intermediate steps when using Bedrock agents.
 * Ethical principles
-  * identify issues at high risk and find mitigations  
+  * identify issues at high risk and find mitigations
 
 ### Data privacy and security
 
