@@ -229,12 +229,22 @@
 
 # Authentication
 
-For SAML IdP, here is the process:
+## Configuration
+
+To configure SAML IdP, here is the process:
 
 * get SAML metadata document from IdP
 * create SAML IAM Identity Provider in AWS console
 * Configure trust relationship
 * create SAML assertions for authentication response 
+
+## Call process
+
+* the client authenticates to IDP
+* IDP returns a SAML assertion to the client
+* the client uses these infos to get token from STS (AssumeRoleWithSAML)
+* the client uses tokens to perform actions on AWS
+
 
 # Secret Manager
 
@@ -347,6 +357,26 @@ Intel Hyper-Threading Technology makes a single physical processor appear as mul
 * To change the cache duration for an individual file, you can configure your origin
   * to add a **Cache-Control** header with the **max-age** or **s-maxage** directive
   * to add an **Expires** header to the file.
+
+# CloudWatch
+
+## Synthetics
+
+* heartbeat monitor: try to reach the target endpoint
+* API Canary : basic REST features
+* Broken Link Checker : checks all links available on a web page
+* Canary Recorder : record some actions and types executed on a website in a Node.js script, and execute the same actions again
+* GUI Workflow Builder : test a GUI
+
+# Security Hub
+
+* it's possible to add accounts to Security hub that are not part of the same AWS Organization. For that, the Security hub administrator must sent an invitation to the accounts it should integrate.
+
+
+# Wavelength
+
+* EC2 instances located in the same VPC but in different wavelength zones cannot communicate with each other
+* The fix is to put EC2 instances in different VPCs and create a TGW that allow communication.
 
 # AWS App Runner
 
