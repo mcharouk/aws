@@ -382,11 +382,14 @@ Experts : [Generative AI Innovation Center](https://aws.amazon.com/ai/generative
 * data refresh
 * process to integrate new model upgrades
 * testing, validation
-
+  * no equivalent of Sagemaker model monitor in Bedrock, but there is a feature to collect responses on cloudwatch or S3
+  * should implement some mechanism to have a feedback from users
+  * Human in the loop review
 
 ### Governance
 
 #### Transparency
+
 * Regarding users
   * Tell when AI is being used, how it works, risks associated (Service Cards)
   * [Service Card Structure](https://aws.amazon.com/blogs/machine-learning/introducing-aws-ai-service-cards-a-new-resource-to-enhance-transparency-and-advance-responsible-ai/)
@@ -400,15 +403,24 @@ Experts : [Generative AI Innovation Center](https://aws.amazon.com/ai/generative
   * Logs all intermediate steps when using Bedrock agents.
 
 #### Ethical principles
+  
   * identify issues at high risk and find mitigations
 
 ### Data privacy and security
 
-* Tag/Identify confidential data
-* Encryption at rest and in transit. Data and model
-* Data access (IAM), LakeFormation. Minimize access
+* User data access
+  * what cannot be done
+    * model filter data based on a user profile
+  * what can be done (managed at an application level)
+    * Authenticate users and eventually filter access to data when using RAG
+    * Apply different guardrails based on the user profile
+    * Request different models based on the user profile
+* Data security for training
+  * Tag/Identify confidential data
+  * Data access (IAM), LakeFormation. Minimize access
   * blur/anonymize data used for training
   * Data lifecycle rules (removing personal data, refreshing model with new data)
+* Encryption at rest and in transit. Data and model
 * Audit/log the data that comes in and out
 
 # GenAI Services
