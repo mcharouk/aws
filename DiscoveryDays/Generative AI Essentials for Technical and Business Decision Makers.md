@@ -39,8 +39,14 @@
     - [Deliver](#deliver)
   - [Team Success](#team-success)
     - [People enablement](#people-enablement)
-      - [Prompt attacks types](#prompt-attacks-types)
+      - [Expertise](#expertise)
+      - [Data strategy](#data-strategy)
+      - [Cloud infrastructure](#cloud-infrastructure)
+      - [Security](#security)
+      - [Continuously Evaluate and improve](#continuously-evaluate-and-improve)
     - [Governance](#governance)
+      - [Transparency](#transparency)
+      - [Ethical principles](#ethical-principles)
     - [Data privacy and security](#data-privacy-and-security)
 - [GenAI Services](#genai-services)
   - [Q for Business](#q-for-business)
@@ -335,52 +341,65 @@ A Robust Cloud Operating Model supports :
 
 ### People enablement
 
-* Experts : [Generative AI Innovation Center](https://aws.amazon.com/ai/generative-ai/innovation-center/)
-* Data strategy : note that a focus should be done a quality, availability and governance of all **unstructured data**
+#### Expertise
+Experts : [Generative AI Innovation Center](https://aws.amazon.com/ai/generative-ai/innovation-center/)
+
+#### Data strategy
+
+* note that a focus should be done a quality, availability and governance of all **unstructured data**
+
+
+#### Cloud infrastructure
+
 * Cloud infrastructure
+
   *  Availability of performant infrastructure
   *  With Serverless pattern, earlier positive ROI
-* Security
-  * Use cases oriented
-    * Define Specific application use Cases (easier to control)
-    * Guardrails on PII
-    * Human in the loop process to check outputs (once every week for ex.)    
-      * Scan the code (prompt attacks)
-      * Prompt attacks challenge
-        * [Prompt attack challenge](https://prompting.ai.immersivelabs.com/)
-        * [Solution](https://denizsivas.medium.com/prompt-injection-challenge-how-far-can-you-go-9d78c18df51d)  
-      * Popular SAST
-        * Snyk Code
-        * Checkmarx
-        * SonarQube
-        * Note that CodeGuru Reviewer currently does not have these kind of checks.
-* Continuously evaluate and improve
-  * data refresh
-  * process to integrate new model upgrades
-  * testing, validation
 
-#### Prompt attacks types
+#### Security
 
-* 3 most common attacks
+* Use cases oriented
+  * Define Specific application use Cases (easier to control)
+  * Guardrails on PII
+  * Human in the loop process to check outputs (once every week for ex.)    
+    * Scan the code (prompt attacks)
+    * Prompt attacks challenge
+      * [Prompt attack challenge](https://prompting.ai.immersivelabs.com/)
+      * [Solution](https://denizsivas.medium.com/prompt-injection-challenge-how-far-can-you-go-9d78c18df51d)  
+    * Popular SAST
+      * Snyk Code
+      * Checkmarx
+      * SonarQube
+      * Note that CodeGuru Reviewer currently does not have these kind of checks.
+
+* Prompt attacks types
   * **Prompt injection** : Inserting instructions that override the AI's original guidelines
   * **JailBreaking** : Using creative workarounds or roleplaying scenarios to trick the AI into responding to prohibited content
   * **Prompt leaking** : Attempting to extract the AI's underlying instructions or system prompts
 
+#### Continuously Evaluate and improve
+
+* data refresh
+* process to integrate new model upgrades
+* testing, validation
+
+
 ### Governance
 
-* Transparency
-  * Regarding users
-    * Tell when AI is being used, how it works, risks associated (Service Cards)
-    * [Service Card Structure](https://aws.amazon.com/blogs/machine-learning/introducing-aws-ai-service-cards-a-new-resource-to-enhance-transparency-and-advance-responsible-ai/)
-      * Basic concepts to help customers better understand the service or service features
-      * Intended use cases and limitations
-      * Responsible AI design considerations
-      * Guidance on deployment and performance optimization  
-    * Ask for GenAI to display its sources  
-  * Regarding compliance
-    * AWS AI services are all integrated with CloudTrail (Bedrock, Q for Developer, ...). 
-    * Logs all intermediate steps when using Bedrock agents.
-* Ethical principles
+#### Transparency
+* Regarding users
+  * Tell when AI is being used, how it works, risks associated (Service Cards)
+  * [Service Card Structure](https://aws.amazon.com/blogs/machine-learning/introducing-aws-ai-service-cards-a-new-resource-to-enhance-transparency-and-advance-responsible-ai/)
+    * Basic concepts to help customers better understand the service or service features
+    * Intended use cases and limitations
+    * Responsible AI design considerations
+    * Guidance on deployment and performance optimization  
+  * Ask for GenAI to display its sources  
+* Regarding compliance
+  * AWS AI services are all integrated with CloudTrail (Bedrock, Q for Developer, ...). 
+  * Logs all intermediate steps when using Bedrock agents.
+
+#### Ethical principles
   * identify issues at high risk and find mitigations
 
 ### Data privacy and security
