@@ -71,16 +71,16 @@
 - [Amazon Personalize](#amazon-personalize)
   - [Key Concepts](#key-concepts-2)
   - [Important Features](#important-features-2)
-- [Elastic Transcoder](#elastic-transcoder)
+- [AWS Elemental MediaConvert](#aws-elemental-mediaconvert)
   - [Key Concepts](#key-concepts-3)
-  - [Important Features](#important-features-3)
+  - [Common Use Cases](#common-use-cases)
 - [Device Farm](#device-farm)
   - [Key Concepts](#key-concepts-4)
-  - [Important Features](#important-features-4)
+  - [Important Features](#important-features-3)
 - [AWS Amplify](#aws-amplify)
   - [Key Concepts](#key-concepts-5)
-  - [Important Features](#important-features-5)
-  - [Common Use Cases](#common-use-cases)
+  - [Important Features](#important-features-4)
+  - [Common Use Cases](#common-use-cases-1)
 
 
 # Certificates
@@ -617,36 +617,21 @@ Intel Hyper-Threading Technology makes a single physical processor appear as mul
    - HPO (Hyperparameter Optimization)
    - Model evaluation metrics
 
-# Elastic Transcoder
+# AWS Elemental MediaConvert
 
 ## Key Concepts
-- Fully managed media transcoding service
-- Converts media files between formats
-- Pay-per-use pricing model
-- Supports various input/output formats
-- Integrated with S3 for storage
 
-## Important Features
-1. **Job Management**
-   - Transcoding jobs
-   - Job pipeline management
-   - Job status monitoring
-   - Notifications
-   - Progress tracking
+- File-based video transcoding service that allows you to convert media files and prepare VOD (Video on Demand) content
+- Supports broadcast-grade features for professional media workflows
+- Pay-per-use model based on minutes of video output
 
-2. **Format Support**
-   - Video formats (MP4, MPEG, etc.)
-   - Audio formats (MP3, AAC, etc.)
-   - Web optimized formats
-   - DRM support
-   - Thumbnails generation
+## Common Use Cases
 
-3. **Pipeline Configuration**
-   - Input/output bucket configuration
-   - IAM role settings
-   - Notifications setup
-   - Queue management
-   - Regional settings
+1. Video on Demand (VOD) preparation
+2. Broadcast content preparation
+3. Archive content digitization
+4. Multi-platform content delivery
+5. OTT content preparation
   
 # Device Farm
 
@@ -678,7 +663,6 @@ Intel Hyper-Threading Technology makes a single physical processor appear as mul
    - Espresso
    - Calabash
    - Built-in fuzz testing
-
 
 # AWS Amplify
 
@@ -728,5 +712,3 @@ Intel Hyper-Threading Technology makes a single physical processor appear as mul
    - Cross-platform apps
    - Offline-enabled apps
    - Real-time applications
-
-
