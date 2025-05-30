@@ -239,6 +239,7 @@
 
 ## Multi AZ with Read Replicas
 
+* Also know as **Multi AZ DB Cluster** instead of **Multi AZ DB Instance** (historical mode)
 * [Article](https://aws.amazon.com/blogs/aws/amazon-rds-multi-az-db-cluster/)
 * Use 2 read Replicas instead of a Multi AZ instance. 
   * At least one read replica will be replicated synchronously (a tx is committed if at most one replica has replicated the data)
