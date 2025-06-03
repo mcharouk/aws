@@ -362,7 +362,7 @@ Experts : [Generative AI Innovation Center](https://aws.amazon.com/ai/generative
   * Define Specific application use Cases (easier to control)
   * Guardrails on PII
   * Human in the loop process to check outputs (once every week for ex.)    
-    * Scan the code (prompt attacks)
+  * Scan the code (prompt attacks)
     * Prompt attacks challenge
       * [Prompt attack challenge](https://prompting.ai.immersivelabs.com/)
       * [Solution](https://denizsivas.medium.com/prompt-injection-challenge-how-far-can-you-go-9d78c18df51d)  
@@ -370,12 +370,11 @@ Experts : [Generative AI Innovation Center](https://aws.amazon.com/ai/generative
       * Snyk Code
       * Checkmarx
       * SonarQube
-      * Note that CodeGuru Reviewer currently does not have these kind of checks.
-
-* Prompt attacks types
-  * **Prompt injection** : Inserting instructions that override the AI's original guidelines
-  * **JailBreaking** : Using creative workarounds or roleplaying scenarios to trick the AI into responding to prohibited content
-  * **Prompt leaking** : Attempting to extract the AI's underlying instructions or system prompts
+      * Note that CodeGuru Reviewer currently does not have these kind of checks
+    * Prompt attacks types
+      * **Prompt injection** : Inserting instructions that override the AI's original guidelines
+      * **JailBreaking** : Using creative workarounds or roleplaying scenarios to trick the AI into responding to prohibited content
+      * **Prompt leaking** : Attempting to extract the AI's underlying instructions or system prompts
 
 #### Continuously Evaluate and improve
 
