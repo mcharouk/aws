@@ -303,7 +303,7 @@
 
 * Application Discovery **Agent** can only send data to Application Discovery **Service**, not to S3 directly
 * Agentless requirements
-  * IAM User that can export data to AWS Service
+  * **IAM User** (not Role) that can export data to AWS Service
   * On-premise firewall to open outbound traffic to AWS
 
 # DMS
