@@ -103,6 +103,9 @@
 
 * bank : homonyme anglais de **banque** et **rive**
 
+* Interesting deep dive on [transformers](https://www.youtube.com/watch?v=e9-0BxyKG10)
+
+
 ## Context
 
 * Context Window is the number of tokens the model can take as input when generating responses. Typically a few thousands words, depends on the model
