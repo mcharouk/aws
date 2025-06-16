@@ -1357,10 +1357,10 @@ Easily build an infrastructure that can support Strangler Pattern.
 
 ### DMS integration
 
-*  SCT can work with a local (on-premise) DMS replication instance. DMS replication instance will copy an initial load on S3, or S3 Snowball Edge
-*  SCT uses **AWS SCT Replication Agent**
-*  DMS replication instance will perform on going replication on S3
-*  When Snowball Edge content is copied on S3, DMS will ingest data in the target database, and all ongoing changes.  
+*  SCT can work with a DMS replication instance installed in Snowball edge (called ***DMS local tasks***)
+   * DMS replication instance will copy an initial load on S3 Snowball Edge
+   * SCT uses **AWS SCT Replication Agent** to create on going changes locally. It uploads those files on S3 when S3 Snowball Edge content has been uploaded on S3.
+   * DMS is used after to get data from S3 and feed the target database.
 
 ### Assessment report
 
