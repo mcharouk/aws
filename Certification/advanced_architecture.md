@@ -55,6 +55,12 @@
   - [Synthetics](#synthetics)
 - [Security Hub](#security-hub)
 - [Wavelength](#wavelength)
+- [Audit Manager](#audit-manager)
+  - [Core Functionality](#core-functionality)
+  - [Evidence Collection](#evidence-collection)
+    - [Automated Evidence Sources](#automated-evidence-sources)
+    - [Manual Evidence](#manual-evidence)
+    - [Evidence Types](#evidence-types)
 - [AWS App Runner](#aws-app-runner)
   - [Main Components](#main-components)
 - [Athena](#athena)
@@ -465,6 +471,38 @@ Intel Hyper-Threading Technology makes a single physical processor appear as mul
 * EC2 instances located in the same VPC but in different wavelength zones cannot communicate with each other
 * The fix is to put EC2 instances in different VPCs and create a TGW that allow communication.
 
+# Audit Manager
+
+## Core Functionality
+
+* Automated Evidence Collection: Continuously collects evidence from AWS services
+* Pre-built Frameworks: Provides templates for common compliance standards
+* Custom Frameworks: Allows creation of custom audit frameworks
+* Assessment Management: Manages end-to-end audit assessments
+* Evidence Organization: Automatically organizes evidence by control
+
+## Evidence Collection
+
+### Automated Evidence Sources
+
+* AWS Config: Configuration compliance
+* AWS CloudTrail: API activity logs
+* AWS Security Hub: Security findings
+* AWS API calls: Service-specific evidence
+* AWS CloudFormation: Infrastructure as code compliance
+
+### Manual Evidence
+
+* File uploads: Documents, screenshots, reports
+* Manual attestations: Human verification of controls
+* Third-party evidence: External audit reports
+
+### Evidence Types
+
+* Compliance Check Evidence: Automated rule evaluations
+* User Activity Evidence: Actions performed by users
+* Configuration Evidence: Resource configuration data
+
 # AWS App Runner
 
 * It's a service that can deploy **containerized web applications** in the cloud without the need to deal with an infrastructure. 
@@ -712,3 +750,4 @@ Intel Hyper-Threading Technology makes a single physical processor appear as mul
    - Cross-platform apps
    - Offline-enabled apps
    - Real-time applications
+

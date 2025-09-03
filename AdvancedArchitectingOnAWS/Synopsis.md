@@ -379,6 +379,11 @@
   * could potentially do some solution to evict from the cache object based on their update, but this could to a lot refresh, latency, etc...
   * Storage gateway is not really meant for that setup, so it could require a different solution
 
+* EC2 Appliance scenarios
+  * if primary reason to use Storage Gateway is related to protocol, not latency
+  * case where data should reside in a region far from on premise location, act as a buffer that reduces latency, without having to manage infrastructure.
+
+
 ## VMWare Cloud on AWS
 
 * SDDC is an account managed by VMWare. It's splitted in two parts
