@@ -1,9 +1,11 @@
 # Encoding techniques
 
-* Label encoding
+* Label encoding : replace a label by a number
 * One hot encoding
+  * replace a multi class label by a table of boolean. 
+  * Does not scale when there is a lot of class.
 * Target encoding : replaces a feature's categories with some number derived from the target. 
-  * For exemple , for a group of item replace a number by the mean of the group.
+  * For exemple, for a group of item replace a number by the mean of the group.
 
 # Feature engineering
 
@@ -19,7 +21,7 @@
 * Feature selection
   * split features
   * combine features
-  * PCA : used for dimensionality reduction. It retain most of the original variations but reduce the number of features. PCA can be applied to a set of feature.
+  * PCA : used for dimensionality reduction. It retain most of the original variations but reduce the number of features. PCA can be applied to a subset of feature.
 
 # Data labeling
 
@@ -45,6 +47,10 @@ To remediate unbalanced dataset :
     * Image data
       * Data augmentation : create synthetic data from real data with ML algo like GAN (Generative Adversarial Network)
 
+# Dataset bias
+
+* DPL is a metric that you can use to detect pre-training bias : Measure the imbalance of positive outcomes between different facet values.
+
 # Dataset splitting
 
 * Simple hold-out : selecting 80% for training, 10/% for tests, 10%  for validation
@@ -57,6 +63,8 @@ To remediate unbalanced dataset :
   * You then train a single, final model on the entire dataset using the chosen approach. This is the model you deploy.
 
 * A good practice is to shuffle the data before selecting it to ensure randomness on data selection.
+
+
 
 # Model tuning
 
@@ -223,3 +231,166 @@ To remediate unbalanced dataset :
       * SHAP calculates the contribution of each feature to the model's prediction, providing a local explanation for individual predictions
     * metrics on dataset bias (data quality)
     * metrics on model bias on some specific groups (race, gender, etc...)
+
+
+## SageMaker TensorBoard
+
+* TensorBoard is a visualization toolkit for machine learning experimentation. It's part of the TensorFlow ecosystem but can be used with other frameworks like PyTorch. It helps you track and visualize metrics like loss and accuracy, visualize model graphs, examine weight distributions, and much more. It's crucial for understanding and debugging your training process
+* This service bridges the gap between SageMaker and TensorBoard. Instead of having to manually set up and manage TensorBoard instances, SageMaker TensorBoard provides a managed environment
+
+# Explainability
+
+* Shapley values focus on feature attribution
+* PDPs (Partial Dependency Plots) illustrate how the predicted target response changes as a function of one particular input feature of interest 
+
+# SageMaker Deployment options
+
+## Deployment modes
+
+* Multi model deployment
+    * A/B testing
+    * intelligently route requests to a specific model
+    * Dynamic model loading to save costs
+    * Multi tenant applications when each customer needs their own unique model
+* Multi container deployment
+  * there is a pipeline that includes pre processing and post processing between inference step.
+  * complex workflows : container can be used to split the workflow in small parts.
+
+## Infrastructure
+
+### Containers 
+
+* can use a Sagemaker managed container
+  * no code to handle inbound and outbound requests
+* can use own inference code
+  * can extend Sagemaker managed container to inherit all the libraries and dependencies
+  * can BYOC
+
+### Instance types
+
+* Training
+  * CPU -> small to medium sized models
+  * GPU -> good choice for **training** bigger models
+  * Trainium
+    * More cost effective than GPU
+    * More limited availability
+* Inferentia
+  * Can be more cost-effective than GPU instances
+  * not all models can work on them, limited framework support
+  * for deep learning applications
+
+
+# Catastrophic forgetting
+
+* it can happen on incremental training.
+* incremental training is the ability to fine tune an existing model to adapt it to new tasks
+  * for example a model knows how to recognize cats
+  * we want to train the model so that it can recognize cats and dogs without having to retrain the cat recognition capability.
+  * the main risk is that the model changes its weights and forgets how to recognize cats
+* Different techniques to avoid it
+  * Regularization
+    * **Elastic Weight Consolidation (EWC)**: assign different importance to the model parameters based on their relevance to the previous tasks, preventing the model from forgetting the important parameters
+    * **Synaptic Intelligence** : tracks the importance of each parameter during training and uses this information to selectively update the parameters, reducing catastrophic forgetting 
+  * Replay-based methods
+    * **Experience Replay** : stores a small subset of the data from previous tasks and replays it during the training of the current task. This replaying helps the model maintain the knowledge acquired from the previous tasks.
+    * **Generative Replay** : No actual data is stored. In this method, a generative model synthesizes data from the previous tasks and uses it for training the current task.
+  * Architectural methods
+    * **Progressive Neural Networks** : involves growing the model's capacity as new tasks are learned, supporting the model to retain the knowledge from previous tasks without overwriting it.
+    * **Modular Networks** : the model is divided into different modules, where each module is responsible for a specific task. This way, the model can retain the knowledge from previous tasks by preserving the corresponding modules.
+  * Rehearsal based methods
+    * **Gradient Episodic Memory** : stores a small subset of the data from previous tasks and interleaves it with the data for the current task during training. This helps the model maintain the knowledge from the previous tasks.
+    * **Exemplar Replay** stores a small set of representative examples from the previous tasks and uses them during the training of the current task.
+
+# Drift types
+
+* Data quality drift : Production data differs than training data
+* Model quality drift : predicted labels differ from actual ground truth
+* Bias drift
+  * Training data too small or not representative
+  * Training data has societal assumptions
+  * Some important feature have been neglected in training
+  * Real world data has changed since last training
+* Feature attribution drift : contribution of individual features on prediction differs from the baseline
+
+# SageMaker Model Monitor
+
+* Monitor continuously or at some frequency
+* Monitors the model and the data
+* Integrates with 
+  * Cloudwatch (metrics & logs)
+  * Eventbridge
+  * Cloudtrail  
+  * Sagemaker Clarify
+
+
+* Monitor data drift
+  * gets a baseline of data used to train the model
+  * Calculates stats on the dataset, and monitor a drift with incoming new data
+  * generates a report (on S3) 
+
+* The steps to use it
+  * generate a data capture on endpoint, to capture predicted data in production
+  * generate a baseline. It's a batch that runs on the training dataset. Two files will be provided as output
+    * constraints.json
+    * statistics.json
+  * constraints can be adjusted depending on the use case
+  * schedule data quality monitoring jobs
+  * Configure integration with cloudwatch. Define the alarm thresholds to raise an alert on SNS.
+  * Interpret results. A file named constraint_violations.json will be generated by the job
+
+* Monitor model drifts
+  * looks like data drift
+  * Baseline job still here calculated from the prediction of a validation dataset. Baseline metrics differs with model type (binary, multiclass, regression)
+  * One key difference is the integration of human in the loop process, to provide ground truth labels. Labels must be provided in SageMaker Ground Truth labels format. So it's possible to use another service than Groundtruth to provide the labels, if we transform the labels in this format.
+  * Merge groundtruth labels with prediced labels. A merged file is produced
+  * Violation are sent to S3 and can integrate with Cloudwatch metrics. 
+
+* Feature attribution drift
+  * looks like data drift
+  * create a SHAP in the baseline job
+  * Clarify is used to compute SHAP and compare with the baseline to detect a drift
+
+* SageMaker Clarify can help to understand why a model has drifted by providing insights about the distribution of data, or features attribution of the model.
+* on post training data, you can declare a facet, and compare drift on each facet.
+* on pre training data, you can identify source of bias 
+
+
+# SageMaker Model Dashboard
+
+  * single pane of glass to monitor the model
+    * Alerts
+    * model card's risk rating (measures business impact of the model's predictions)
+    * Endpoint performance (infrastructure)
+    * most recent batch transform job
+    * Model lineage graph (pipeline from data preparation to inference)
+    * links to model details
+
+# SageMaker Lineage Tracking
+
+  * helps to track on which data has the model being trained, and on which endpoint it has been deployed.
+  * can be used to quickly identify the bad dataset and the impacted endpoints.
+
+
+# SageMaker Inference Recommender
+
+* Inference recommendations
+  * It can launch a load test based on your data to recommend a type of infra (45 min. duration)
+  * Inferentia, GPU/CPU, etc...
+* Endpoint recommendations
+  * Based on a custom load test. Specify custom traffic pattern, requirements for latency and throughput (2 hrs. duration)
+  * Return the same result format that inference recommendation, but more customized on the business needs.
+* Provide a list of recommended instances
+* Can also use Compute Optimizer
+
+# Capacity Blocks for ML
+
+* Reserve highly sought-after GPU instances on a future date
+* Instances are placed close together inside EC2 UltraClusters, for low-latency, petabit-scale, nonblocking networking
+* pay only for the amount of time needed
+* good for training jobs of experimentation
+
+
+# ML Savings plan
+
+* SageMaker Saving plans : SageMaker training jobs, hosted models, and batch transform jobs.
+* Machine Learning Services Savings Plan : covers managed ML services (rekognition, transcribe, translate, etc..)
