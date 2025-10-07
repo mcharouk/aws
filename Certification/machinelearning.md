@@ -1,4 +1,17 @@
-# Encoding techniques
+# Sagemaker projects
+
+* Offer a standardized structure and tooling to streamline the development, deployment, and maintenance of ML applications. Think of them as blueprints for your ML projects, promoting best practices and repeatability.
+* Integrates with 
+  * Github
+  * CodePipeline
+  * CodeBuild (for build step that are not ML specific)
+  * SageMaker pipelines (for orchestration that is ML specific)
+  * SageMaker Studio
+  * S3
+
+# Data Preparation
+
+## Encoding techniques
 
 * Label encoding : replace a label by a number
 * One hot encoding
@@ -7,7 +20,7 @@
 * Target encoding : replaces a feature's categories with some number derived from the target. 
   * For exemple, for a group of item replace a number by the mean of the group.
 
-# Feature engineering
+## Feature engineering
 
 * Numeric
   * Normalization : rescale the values to a range between 0 and 1. 0 corresponds to the min value,and 1 to the max
@@ -23,7 +36,21 @@
   * combine features
   * PCA : used for dimensionality reduction. It retain most of the original variations but reduce the number of features. PCA can be applied to a subset of feature.
 
-# Data labeling
+## Sagemaker feature store
+
+* regroup feature in feature groups
+* can join data from multiple feature groups to create a final dataset.
+* two data mandatory to create a feature store
+  * Record Identifier: A unique identifier for each record in the feature group (e.g., customer ID, product ID). This is the primary key.
+  * Event Time: A timestamp indicating when the feature value was recorded or updated. This is crucial for time-series data and point-in-time correctness.
+* Can have an online feature (dynamodb) store or offline feature store (s3)
+* Features can be 
+  * online only
+  * offline only
+  * online and offline
+* TTL configurable
+
+## Data labeling
 
 * Mechnical Turk
   *  delegate tasks to workers. This can be about ML but not necessarily.
@@ -34,26 +61,32 @@
    *  With groundTruth Plus : active learning / poor performers removal / label automatic refining / validation and monitoring of DQ 
    *  can delegate tasks to employees instead of mech turk workforce
 
-# Dataset balancing
+## Dataset balancing
 
 To remediate unbalanced dataset : 
-    * Numeric data
-      * Oversampling
-        * Random sampling : consists duplicating minority dataset
-        * SMOTE : interpolates new data from existing data
-    * Text data
-      * Resampling
-      * Synthetic data generation (create new data from scratch)
-    * Image data
-      * Data augmentation : create synthetic data from real data with ML algo like GAN (Generative Adversarial Network)
+  * Numeric data
+    * Oversampling
+      * Random sampling : consists duplicating minority dataset
+      * **SMOTE** : interpolates new data from existing data
+  * Text data
+    * Resampling
+    * Synthetic data generation (create new data from scratch)
+  * Image data
+    * Data augmentation : create synthetic data from real data with ML algo like GAN (Generative Adversarial Network)
 
-# Dataset bias
+## Dataset bias
 
-* DPL is a metric that you can use to detect pre-training bias : Measure the imbalance of positive outcomes between different facet values.
+* **DPL** (Difference of Proportions of Label) is a metric that you can use to detect **post-training** bias : DPL measures the difference in the proportion of positive outcomes (or a specific label) between different groups after the model has been trained
+* Kullback Leibler Divergence (KL) : measures the difference between two probability distributions. measuring how far off your predictions are from true labels
+* Total Variation Distance (TVD) : **Pre training bias**. Captures variances in sub group outcomes, reflecting unequal acceptance and rejection ratios
+* Conditional Demographic Disparity (CDD) : **post training bias**, focus on whether disparities in outcomes exist across different demographic groups within specific subgroups defined by other features. For example, calculate loan approval rate by race, and split it by income differences. On low income and high income, you could see no disparity, but it could be the case for medium income for example.
 
-# Dataset splitting
 
-* Simple hold-out : selecting 80% for training, 10/% for tests, 10%  for validation
+# Training
+
+## Dataset splitting
+
+* Simple hold-out : selecting 80% for training, 10% for tests, 10%  for validation
 * K-fold cross validation
   * split k times the dataset, to take each time a different sample for training and validating.
   * It provides an estimate of how well a modeling approach will generalize
@@ -64,9 +97,12 @@ To remediate unbalanced dataset :
 
 * A good practice is to shuffle the data before selecting it to ensure randomness on data selection.
 
+## SageMaker Model Registry
 
+* organize models in Model group
+* Can create collections to discover models in different model groups, in a hierarchical way.
 
-# Model tuning
+## Model tuning
 
 * Loss function is the function used to evaluate the prediction qualities. It help adjust the hyper parameters of the model.
   * for regression : root mean square error
@@ -75,11 +111,11 @@ To remediate unbalanced dataset :
   * gradient descent : compute intensive but best technique to find the global minimum
   * stochastic gradient descent : only take one data point to find the global minimum. This can lead to inaccurate results but cheap
   * mini batch gradient descent : hybrid solution. Takes a subset of data points to determine the global minimum.
+* batch size is a hyperparameter that determines the number of data points taken for each iteration. Larger batch size, are more prone to overfitting.
 
+## Sagemaker
 
-# Sagemaker
-
-## Compute options
+### Compute options
 
 * use sagemaker prebuilt algorithm (use image provided with prebuild algorithm)
 * use sagemaker framework containers
@@ -87,21 +123,20 @@ To remediate unbalanced dataset :
 * BYOC
 * Market place
 
+### Managed instances
 
-## Managed instances
-
+* family good for deep learning training : p3 (GPU), p4d (GPU), dl1, tr1 (trainium)
 * family good for deep learning inference : inf1 (inferentia), g5
-* family good for deep learning training : p3, p4d, dl1, tr1 (trainium)
-* for other ml : take m, c or m family
+* for other ml : take m, c family
 * take GPU for massive datasets or for deep learning
 
-## Model selection
+### Model selection
 
 * Reinforcement Learning : support MxNet and TensorFlow
 
-## Model training
+### Model training
 
-### script mode
+#### Script mode
 
 * provide a train.py file with 3 functions
   * input_fn : preprocessing
@@ -119,23 +154,22 @@ To remediate unbalanced dataset :
 * Sagemaker will get the image, deploy it on a managed infrastructure, upload the script on the instance, execute the script, donwload the files (pipe mode, file mode, etc...)
 
 
-### Overfitting remediation
+#### Overfitting remediation
 
 * Early stopping
 * Pruning
   * remove features that doesn't contribute a lot to the output. It lower the noise
   * Regularization
-    * dropout
-      * specific to neural networks. 
+    * Dropout
+      * **Specific to neural networks**
       * Randomly drops out, or sets to zero, a number of neurons in each layer of the neural network during each epoch
       * forces the network to not overemphasize specific neurons and develop multiple methods of arriving at a result.
     * L1 : Reduces the number of features that impact the training of the model. Instead of removing the features themselves, you use L1 regularization to push the weights of less important features to zero
-    * L2 : results in smaller overall weight values and stabilizes the weights when there is high correlation between the input features
+    * L2 : Results in smaller overall weight values and stabilizes the weights when there is high correlation between the input features
   * Data augmentation : generate new synthetic data to increase the diversity of the training data
   * Model architecture simplification : take a simpler model or change hyperparameters to simplify the model
 
-
-### Scaling model training
+#### Scaling model training
 
 * Early stopping
   * after each epoch of the training job, specify an objective metric
@@ -189,7 +223,7 @@ To remediate unbalanced dataset :
 ## Model compression
 
 * Pruning : removing least important parameters of the dataset
-* Quantization : changes the representation of weights of a model. For example, from a 32-bit floating point, replace by a 8-bit integer
+* Quantization : changes the representation of weights of a model. For example, from a 32-bit floating point, replace by a 8-bit integer. Primarly used to reduce memory footprint and speeds up computation of the model.
 * Knowledge distillation : a student model (simpler) is trained by taking the training data set of the teacher. Also it uses the teacher soft labels (probability distribution of outputs) to adjust its weight.
 
 ## Model evaluation
@@ -207,8 +241,23 @@ To remediate unbalanced dataset :
   * it's a good metric when cost of false negatives is high. 
   * Recall measures the proportion of **actual** positive cases that the model correctly identifies.
   * For example, a model that should detect an illness. If the model identify a patient free of disease wrongly, it can be very annoying. For example, if the model predicts a disease to a patient that does not have anything, it's less important, because probably, other studies will show there's no disease.
+  * To maximize recall means to minimize the false negatives.
 * F1 score : 2 * Precision * Recall / Precision + Recall
   * It's an indicator that mixes Precision and Recall.
+
+* Receiver Operating characteristics
+  * ROC curve is a graphical representation of the performance of a classification model at all classification thresholds. Basically is threshold is set to 0,5, that means all prediction > 0,5 will be classified as positive.
+    * Lowering the threshold gives you more true positive and false positive as well
+    * Raising the threshold gives you less true positive and less false positive.
+* Area under the curve
+  * used with ROC curve. 
+  * it's a number between 0 and 1. 
+  * 1 is perfect
+  * 0,5 means the model performs likes a random guess
+  * < 0,5 means worse than random
+  
+   
+
 
 ## Model convergence issues
 
@@ -238,10 +287,42 @@ To remediate unbalanced dataset :
 * TensorBoard is a visualization toolkit for machine learning experimentation. It's part of the TensorFlow ecosystem but can be used with other frameworks like PyTorch. It helps you track and visualize metrics like loss and accuracy, visualize model graphs, examine weight distributions, and much more. It's crucial for understanding and debugging your training process
 * This service bridges the gap between SageMaker and TensorBoard. Instead of having to manually set up and manage TensorBoard instances, SageMaker TensorBoard provides a managed environment
 
-# Explainability
+## SageMaker Experiments
 
-* Shapley values focus on feature attribution
-* PDPs (Partial Dependency Plots) illustrate how the predicted target response changes as a function of one particular input feature of interest 
+there was a legacy custom feature of SageMaker to track experiments. Now it has been replaced by a managed service of MLFlow.
+
+# SageMaker CI/CD
+
+## SageMaker pipelines
+
+### Steps
+####  Processing
+* processing
+####  Training
+
+* training
+* tuning (hyperparameters)
+* fine-tuning (tune a pre existing model)
+* automl
+#### Model
+* model (create or register a Sagemaker AI model)
+* create model (just create)
+* register (just register)
+
+#### Deploy, Inference & Monitoring
+
+* Deploy
+* Transform (batch inference)
+* ClarifyCheck 
+  * conduct baseline drift checks
+  * generate and register baselines (used by Model Monitor)
+* suggest baseline (can be used by Model Monitor)
+
+#### Other services integration
+* EMR
+* Notebook
+* Callback (to integrate with other external services)
+* Lambda
 
 # SageMaker Deployment options
 
@@ -255,6 +336,8 @@ To remediate unbalanced dataset :
 * Multi container deployment
   * there is a pipeline that includes pre processing and post processing between inference step.
   * complex workflows : container can be used to split the workflow in small parts.
+* Shadow Variant
+  * deploy a model with its container behind the same endpoint than the production model. The candidate model will receive some percentage of traffic and redirects the response in a S3 bucket.
 
 ## Infrastructure
 
@@ -301,7 +384,8 @@ To remediate unbalanced dataset :
     * **Gradient Episodic Memory** : stores a small subset of the data from previous tasks and interleaves it with the data for the current task during training. This helps the model maintain the knowledge from the previous tasks.
     * **Exemplar Replay** stores a small set of representative examples from the previous tasks and uses them during the training of the current task.
 
-# Drift types
+# Monitoring
+## Drift types
 
 * Data quality drift : Production data differs than training data
 * Model quality drift : predicted labels differ from actual ground truth
@@ -312,7 +396,7 @@ To remediate unbalanced dataset :
   * Real world data has changed since last training
 * Feature attribution drift : contribution of individual features on prediction differs from the baseline
 
-# SageMaker Model Monitor
+## SageMaker Model Monitor
 
 * Monitor continuously or at some frequency
 * Monitors the model and the data
@@ -328,15 +412,15 @@ To remediate unbalanced dataset :
   * Calculates stats on the dataset, and monitor a drift with incoming new data
   * generates a report (on S3) 
 
-* The steps to use it
-  * generate a data capture on endpoint, to capture predicted data in production
-  * generate a baseline. It's a batch that runs on the training dataset. Two files will be provided as output
-    * constraints.json
-    * statistics.json
-  * constraints can be adjusted depending on the use case
-  * schedule data quality monitoring jobs
-  * Configure integration with cloudwatch. Define the alarm thresholds to raise an alert on SNS.
-  * Interpret results. A file named constraint_violations.json will be generated by the job
+  * The steps to use it
+    * generate a data capture on endpoint, to capture predicted data in production
+    * generate a baseline. It's a batch that runs on the training dataset. Two files will be provided as output
+      * constraints.json
+      * statistics.json
+    * constraints can be adjusted depending on the use case
+    * schedule data quality monitoring jobs
+    * Configure integration with cloudwatch. Define the alarm thresholds to raise an alert on SNS.
+    * Interpret results. A file named constraint_violations.json will be generated by the job
 
 * Monitor model drifts
   * looks like data drift
@@ -346,7 +430,7 @@ To remediate unbalanced dataset :
   * Violation are sent to S3 and can integrate with Cloudwatch metrics. 
 
 * Feature attribution drift
-  * looks like data drift
+  * looks like model drift
   * create a SHAP in the baseline job
   * Clarify is used to compute SHAP and compare with the baseline to detect a drift
 
@@ -355,7 +439,7 @@ To remediate unbalanced dataset :
 * on pre training data, you can identify source of bias 
 
 
-# SageMaker Model Dashboard
+## SageMaker Model Dashboard
 
   * single pane of glass to monitor the model
     * Alerts
@@ -365,13 +449,15 @@ To remediate unbalanced dataset :
     * Model lineage graph (pipeline from data preparation to inference)
     * links to model details
 
-# SageMaker Lineage Tracking
+## SageMaker Lineage Tracking
 
   * helps to track on which data has the model being trained, and on which endpoint it has been deployed.
   * can be used to quickly identify the bad dataset and the impacted endpoints.
 
 
-# SageMaker Inference Recommender
+# Finops
+
+## SageMaker Inference Recommender
 
 * Inference recommendations
   * It can launch a load test based on your data to recommend a type of infra (45 min. duration)
@@ -380,9 +466,9 @@ To remediate unbalanced dataset :
   * Based on a custom load test. Specify custom traffic pattern, requirements for latency and throughput (2 hrs. duration)
   * Return the same result format that inference recommendation, but more customized on the business needs.
 * Provide a list of recommended instances
-* Can also use Compute Optimizer
+* Can also use Compute Optimizer but does not work on SageMaker managed instances
 
-# Capacity Blocks for ML
+## Capacity Blocks for ML
 
 * Reserve highly sought-after GPU instances on a future date
 * Instances are placed close together inside EC2 UltraClusters, for low-latency, petabit-scale, nonblocking networking
@@ -390,7 +476,48 @@ To remediate unbalanced dataset :
 * good for training jobs of experimentation
 
 
-# ML Savings plan
+## ML Savings plan
 
 * SageMaker Saving plans : SageMaker training jobs, hosted models, and batch transform jobs.
 * Machine Learning Services Savings Plan : covers managed ML services (rekognition, transcribe, translate, etc..)
+
+# Metrics glossary 
+
+## Training
+
+* Weighted Quantile Loss (wQL) : The wQL metric measures the accuracy of a model at a specified quantile
+* Mean Absolute Scaled Error : MASE is calculated by dividing the average error by a scaling factor that is affected by seasonality
+* The Gini impurity formula is used to measure the impurity or disorder of a set of data. In the context of decision trees, it's used to evaluate the quality of a split
+
+## Algorithms
+
+* DeepAR is an algorithm that is available in SageMaker to forecast based on historical time series data
+
+## Data pre processing
+
+* quantic binning transformation : The core idea is to take a continuous numerical feature and convert it into a categorical feature. This is done by dividing the range of the continuous feature into intervals (bins).
+
+## Neural networks
+
+* Sigmoid function : used in binary classification. Converts an input in 0 or 1
+* tanh function : same than sigmoid but centered on 0, not 0.5 like Sigmoid
+* Relu function : f(x) = max(0, x). Basically it replaces the negative values by 0
+
+
+# Sagemaker built-in algorithms
+
+* Regression : Linear Learner
+* Classification or Regression : XGBoost
+* Object Detection : SSD, Faster R-CNN, YOLO
+* Image Classification : ResNet, Inception, VGG
+* Semantic Segmentation : Fully Convolutional Networks (FCNs) or U-Net
+* Dimensionality Reduction : Principal Component Analysis
+* Unsupervised learning : K-Means
+* Word embeddings and text classification : BlazingText
+* Time series forecasting : DeepAR Forecasting
+* Recommendation and user preferences : Factorization Machines
+* Topics discovery in text data : Neural Topic Model
+* Topic modeling algorithm : LDA
+* Machine translation : Sequence-to-Sequence
+
+
