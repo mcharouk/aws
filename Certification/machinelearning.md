@@ -186,6 +186,10 @@ To remediate unbalanced dataset :
   * at the end all the weights are aggegated in a single model
   * Overhead on communication, load balancing (workload well distributed on all the nodes, complex model architecture...)
 
+* SageMaker Training Compiler
+  *  Reduce training time on GPU instances. 
+  *  The compiler optimizes Deep Learning models to accelerate training by more efficiently using SageMaker machine learning GPU instances. 
+  *  Automatically applies graph and tensor optimization, enabling the efficient utilization of hardware resources and reducing training time
 
 # Model Tuning
 
@@ -219,6 +223,11 @@ To remediate unbalanced dataset :
   * at the end of this number of epochs, drop half the hyper parameters set that less perform
   * Continue with the next ones, and train on more epochs
   * go on until, there is only one set remaining
+* SageMaker Automatic Model Tuning (AMT)
+  *  can automatically tune the hyperparameters to find the best configuration.
+  *  can help overcome convergence issues by exploring different combinations of hyperparameters to find the optimal settings that lead to better convergence and model performance. 
+  *  These hyperparameters include learning rates, batch sizes, and regularization techniques.
+  *  It uses **Bayesian Optimization**
 
 ## Model compression
 
@@ -246,7 +255,7 @@ To remediate unbalanced dataset :
   * It's an indicator that mixes Precision and Recall.
 
 * Receiver Operating characteristics
-  * ROC curve is a graphical representation of the performance of a classification model at all classification thresholds. Basically is threshold is set to 0,5, that means all prediction > 0,5 will be classified as positive.
+  * ROC curve is a graphical representation of the performance of a classification model at all classification thresholds. Basically if threshold is set to 0,5, that means all prediction > 0,5 will be classified as positive.
     * Lowering the threshold gives you more true positive and false positive as well
     * Raising the threshold gives you less true positive and less false positive.
 * Area under the curve
@@ -255,31 +264,20 @@ To remediate unbalanced dataset :
   * 1 is perfect
   * 0,5 means the model performs likes a random guess
   * < 0,5 means worse than random
-  
-   
-
 
 ## Model convergence issues
 
-* SageMaker Automatic Model Tuning (AMT)
-  *  can automatically tune the hyperparameters to find the best configuration.
-  *  can help overcome convergence issues by exploring different combinations of hyperparameters to find the optimal settings that lead to better convergence and model performance. 
-  *  These hyperparameters include learning rates, batch sizes, and regularization techniques.
-* SageMaker Training Compiler 
-  *  Reduce training time on GPU instances. 
-  *  The compiler optimizes DL models to accelerate training by more efficiently using SageMaker machine learning GPU instances. 
-  *  Automatically applies graph and tensor optimization, enabling the efficient utilization of hardware resources and reducing training time
 *  Sagemaker debugger
    *  helps identify convergence issues
    *  it outputs metrics from the training phase, and helps diagnose issues. It can be used with Model Monitor or Clarify to understand why there are issues, or to anticipate what feature to monitor specifically (in case of Model Monitor). Note that debugger does not integrate directly with clarify and model monitor, but it can be used with those features to understand more deeply what is happening.
    *  it integrates directly with services like Lambda, Cloudwatch Events or SNS to react when these metrics trigger a threshold (send notification, stop a job, etc...)
    *  Built-in rules and custom rules can be defined to output the metrics
-*  SageMaker Clarify
-    * metrics on feature explanations with SHAP or Partial Dependency Plots (PDP). 
-      * PDP is used to visualize the marginal effect of one or two features on the model's predictions
-      * SHAP calculates the contribution of each feature to the model's prediction, providing a local explanation for individual predictions
-    * metrics on dataset bias (data quality)
-    * metrics on model bias on some specific groups (race, gender, etc...)
+* SageMaker Clarify
+   * metrics on feature explanations with SHAP or Partial Dependency Plots (PDP). 
+     * PDP is used to visualize the marginal effect of one or two features on the model's predictions
+     * SHAP calculates the contribution of each feature to the model's prediction, providing a **local explanation for individual predictions**
+   * metrics on dataset bias (data quality)
+   * metrics on model bias on some specific groups (race, gender, etc...)
 
 
 ## SageMaker TensorBoard
@@ -296,15 +294,20 @@ there was a legacy custom feature of SageMaker to track experiments. Now it has 
 ## SageMaker pipelines
 
 ### Steps
+
 ####  Processing
+
 * processing
+
 ####  Training
 
 * training
 * tuning (hyperparameters)
 * fine-tuning (tune a pre existing model)
 * automl
+  
 #### Model
+
 * model (create or register a Sagemaker AI model)
 * create model (just create)
 * register (just register)
@@ -385,6 +388,7 @@ there was a legacy custom feature of SageMaker to track experiments. Now it has 
     * **Exemplar Replay** stores a small set of representative examples from the previous tasks and uses them during the training of the current task.
 
 # Monitoring
+
 ## Drift types
 
 * Data quality drift : Production data differs than training data
