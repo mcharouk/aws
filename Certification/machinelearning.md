@@ -9,6 +9,11 @@
   * SageMaker Studio
   * S3
 
+# SageMaker Autopilot
+
+* a low code feature to train ML models. It handles automatically all lifecycle from data analysis and pre processing to deployment.
+* it's meant for supervised algorithms (regression/classification) 
+
 # Data Preparation
 
 ## Encoding techniques
@@ -35,6 +40,97 @@
   * split features
   * combine features
   * PCA : used for dimensionality reduction. It retain most of the original variations but reduce the number of features. PCA can be applied to a subset of feature.
+
+### Data wrangler transformaion features
+
+**Cleaning Functions:**
+
+*   **Handling Missing Values:**
+    *   `Imputation`: Replace missing values with the mean, median, most frequent value, a constant, or using more complex algorithms.
+    *   `Deletion`: Remove rows or columns containing missing values.
+*   **Removing Duplicates:**
+    *   `Remove Duplicate Rows`: Identify and remove rows that are exact duplicates or based on a subset of columns.
+*   **Handling Outliers:**
+    *   `Outlier Detection`: Identify values that deviate significantly from the data distribution (e.g., using the IQR method, Z-score).
+    *   `Outlier Replacement`: Replace outliers with boundary values or imputation techniques.
+*   **Correcting Format Errors:**
+    *   `Data Type Conversion`: Convert columns to the appropriate data type (e.g., string to numeric, date).
+    *   `String Normalization`: Remove unnecessary spaces, convert to uppercase/lowercase, etc.
+
+**Transformation Functions:**
+
+*   **Normalization and Standardization:**
+    *   `Min-Max Scaling`: Scale values between 0 and 1.
+    *   `StandardScaler`: Center the data around the mean and scale it based on the standard deviation.
+    *   `RobustScaler`: Similar to StandardScaler, but more robust to outliers.
+*   **Encoding Categorical Variables:**
+    *   `One-Hot Encoding`: Create binary columns for each category of a variable.
+    *   `Label Encoding`: Assign a unique integer to each category.
+    *   `Ordinal Encoding`: Assign integers based on the order of the categories (useful for ordinal variables).
+*   **Creating New Variables (Feature Engineering):**
+    *   `Arithmetic Operations`: Create new variables by combining existing variables (e.g., addition, subtraction, multiplication, division).
+    *   `Feature Extraction`: Extract useful information from existing variables (e.g., extract the day, month, year from a date).
+    *   `Creating Indicator Variables`: Create binary variables to indicate the presence or absence of a condition.
+*   **Text Transformation:**
+    *   `Tokenization`: Divide the text into words or smaller units.
+    *   `Stemming/Lemmatization`: Reduce words to their base form.
+    *   `Stop Word Removal`: Remove common words that don't provide much information (e.g., "the", "a", "is").
+    *   `Sentiment Analysis`: Determine the sentiment expressed in the text (positive, negative, neutral).
+*   **Dimensionality Reduction:**
+    *   `PCA (Principal Component Analysis)`: Reduce the number of variables by identifying the principal components that explain the most variance in the data.
+    *   `Feature Selection`: Select a subset of the most relevant variables for the model.
+
+**Other Important Functions:**
+
+*   **Table Joins (Join):** Combine data from different tables based on a common key.
+*   **Aggregation:** Group data and calculate statistics (e.g., mean, sum, count) for each group.
+*   **Filtering:** Select a subset of data based on specific criteria.
+*   **Sampling:** Select a random sample of data.
+
+**Cleaning Functions:**
+
+*   **Handling Missing Values:**
+    *   `Imputation`: Replace missing values with the mean, median, most frequent value, a constant, or using more complex algorithms.
+    *   `Deletion`: Remove rows or columns containing missing values.
+*   **Removing Duplicates:**
+    *   `Remove Duplicate Rows`: Identify and remove rows that are exact duplicates or based on a subset of columns.
+*   **Handling Outliers:**
+    *   `Outlier Detection`: Identify values that deviate significantly from the data distribution (e.g., using the IQR method, Z-score).
+    *   `Outlier Replacement`: Replace outliers with boundary values or imputation techniques.
+*   **Correcting Format Errors:**
+    *   `Data Type Conversion`: Convert columns to the appropriate data type (e.g., string to numeric, date).
+    *   `String Normalization`: Remove unnecessary spaces, convert to uppercase/lowercase, etc.
+
+**Transformation Functions:**
+
+*   **Normalization and Standardization:**
+    *   `Min-Max Scaling`: Scale values between 0 and 1.
+    *   `StandardScaler`: Center the data around the mean and scale it based on the standard deviation.
+    *   `RobustScaler`: Similar to StandardScaler, but more robust to outliers.
+*   **Encoding Categorical Variables:**
+    *   `One-Hot Encoding`: Create binary columns for each category of a variable.
+    *   `Label Encoding`: Assign a unique integer to each category.
+    *   `Ordinal Encoding`: Assign integers based on the order of the categories (useful for ordinal variables).
+*   **Creating New Variables (Feature Engineering):**
+    *   `Arithmetic Operations`: Create new variables by combining existing variables (e.g., addition, subtraction, multiplication, division).
+    *   `Feature Extraction`: Extract useful information from existing variables (e.g., extract the day, month, year from a date).
+    *   `Creating Indicator Variables`: Create binary variables to indicate the presence or absence of a condition.
+*   **Text Transformation:**
+    *   `Tokenization`: Divide the text into words or smaller units.
+    *   `Stemming/Lemmatization`: Reduce words to their base form.
+    *   `Stop Word Removal`: Remove common words that don't provide much information (e.g., "the", "a", "is").
+    *   `Sentiment Analysis`: Determine the sentiment expressed in the text (positive, negative, neutral).
+*   **Dimensionality Reduction:**
+    *   `PCA (Principal Component Analysis)`: Reduce the number of variables by identifying the principal components that explain the most variance in the data.
+    *   `Feature Selection`: Select a subset of the most relevant variables for the model.
+
+**Other Important Functions:**
+
+*   **Table Joins (Join):** Combine data from different tables based on a common key.
+*   **Aggregation:** Group data and calculate statistics (e.g., mean, sum, count) for each group.
+*   **Filtering:** Select a subset of data based on specific criteria.
+*   **Sampling:** Select a random sample of data.
+
 
 ## Sagemaker feature store
 
@@ -78,7 +174,7 @@ To remediate unbalanced dataset :
 
 * **DPL** (Difference of Proportions of Label) is a metric that you can use to detect **post-training** bias : DPL measures the difference in the proportion of positive outcomes (or a specific label) between different groups after the model has been trained
 * Kullback Leibler Divergence (KL) : measures the difference between two probability distributions. measuring how far off your predictions are from true labels
-* Total Variation Distance (TVD) : **Pre training bias**. Captures variances in sub group outcomes, reflecting unequal acceptance and rejection ratios
+* Total Variation Distance (TVD) : **Pre training bias**. TVD quantifies the maximum divergence in outcome distributions between different demographic groups
 * Conditional Demographic Disparity (CDD) : **post training bias**, focus on whether disparities in outcomes exist across different demographic groups within specific subgroups defined by other features. For example, calculate loan approval rate by race, and split it by income differences. On low income and high income, you could see no disparity, but it could be the case for medium income for example.
 
 
@@ -101,6 +197,7 @@ To remediate unbalanced dataset :
 
 * organize models in Model group
 * Can create collections to discover models in different model groups, in a hierarchical way.
+* possible to expose a custom model through model registry. Just need to put the artifacts in S3 and give access to S3 to the Sagemaker Canvas, or more generally the service that is using it.
 
 ## Model tuning
 
@@ -218,6 +315,7 @@ To remediate unbalanced dataset :
 * Random search : take random values
 * Bayesian Optimization : calculate the next set of parameters based on the previous sets and associated results
   * main drawback : sequential training (does not scale well)
+  * can set random seed to any positive integer, to have consistent results between two jobs.
 * Hyperband
   * takes a set of hyper parameters and use them in multiple epochs
   * at the end of this number of epochs, drop half the hyper parameters set that less perform
@@ -510,18 +608,29 @@ there was a legacy custom feature of SageMaker to track experiments. Now it has 
 
 # Sagemaker built-in algorithms
 
-* Regression : Linear Learner
-* Classification or Regression : XGBoost
-* Object Detection : SSD, Faster R-CNN, YOLO
-* Image Classification : ResNet, Inception, VGG
-* Semantic Segmentation : Fully Convolutional Networks (FCNs) or U-Net
-* Dimensionality Reduction : Principal Component Analysis
-* Unsupervised learning : K-Means
+* Supervised
+  * Regression : Linear Learner
+  * Classification or Regression : XGBoost
+  * Recommendation and user preferences : Factorization Machines
+  * Vision
+    * Semantic Segmentation : Fully Convolutional Networks (FCNs), PSP, DeepLab-v3
+    * Object Detection : TensorFlow, MXNet
+    * Image Classification : TensorFlow, MXNet
+  * Time series forecasting : DeepAR Forecasting
+* Unsupervised
+  * Topics discovery in text data : Neural Topic Model
+  * Topic modeling algorithm : Latent Dirichlet Allocation (LDA)
+  * Dimensionality Reduction : Principal Component Analysis (PCA)
+  * K-Means
+  * Anomaly detection : Random Cut Forest
+* Machine translation, text summarization : Sequence-to-Sequence
 * Word embeddings and text classification : BlazingText
-* Time series forecasting : DeepAR Forecasting
-* Recommendation and user preferences : Factorization Machines
-* Topics discovery in text data : Neural Topic Model
-* Topic modeling algorithm : LDA
-* Machine translation : Sequence-to-Sequence
 
+
+# Managed ML services
+
+## Comprehend
+
+* it's possible to create a custom model in comprehend
+* to share a model to other accounts, define a resource based policy, and use importModel API action to import the model in the target account
 
