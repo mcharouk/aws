@@ -370,6 +370,17 @@ To remediate unbalanced dataset :
    *  it outputs metrics from the training phase, and helps diagnose issues. It can be used with Model Monitor or Clarify to understand why there are issues, or to anticipate what feature to monitor specifically (in case of Model Monitor). Note that debugger does not integrate directly with clarify and model monitor, but it can be used with those features to understand more deeply what is happening.
    *  it integrates directly with services like Lambda, Cloudwatch Events or SNS to react when these metrics trigger a threshold (send notification, stop a job, etc...)
    *  Built-in rules and custom rules can be defined to output the metrics
+   *  Setup steps
+      * Define a collection to define tensor indicators to capture
+      * hook configuration (result location in S3, provide the collection, and the capture frequency)
+      * Define rules. 
+        * Check if job is CPU or GPU bound
+        * Check for vanishing gradients
+        * Check for overfitting
+        * Check for Tensor with excessively high values
+        * Check if loss is decreasing
+      * Integrate with SageMaker Estimator
+      * Analyze results
 * SageMaker Clarify
    * metrics on feature explanations with SHAP or Partial Dependency Plots (PDP). 
      * PDP is used to visualize the marginal effect of one or two features on the model's predictions
@@ -386,6 +397,41 @@ To remediate unbalanced dataset :
 ## SageMaker Experiments
 
 there was a legacy custom feature of SageMaker to track experiments. Now it has been replaced by a managed service of MLFlow.
+
+## SageMaker profiler
+
+* SageMaker Profiler helps identify performance bottlenecks in a ML training jobs. While Debugger focuses on the correctness of your model (e.g., gradients, weights), Profiler focuses on the efficiency of the training process. It helps you answer questions like:
+  * Is my training job CPU-bound or GPU-bound?
+  * Is data loading a bottleneck?
+  * Are there any inefficient operations in my code?
+  * Am I underutilizing my hardware resources?
+* Like Debugger provide
+  * Profiler Configuration
+  * Profiler Rules. Can create custom rules using Python
+  * Integrate With SageMaker Estimator
+
+## SageMaker Hyperpod
+
+SageMaker HyperPod is designed to provide purpose-built infrastructure for large-scale distributed training of machine learning models. It aims to significantly reduce the time it takes to train large models by **offering optimized hardware, networking, and software configurations**. Think of it as a **pre-configured**, **high-performance cluster** specifically for ML training.
+
+* HyperPod supports the latest generation of GPUs and Trainium chips
+* EFA
+* Optimized Software Stack with framework that supports distributed processing
+* specifically designed for **distributed training**, where the training workload is split across multiple instances to accelerate the training process
+
+## Security
+
+* in the context of distributed training jobs, it's possible to activate inter container Traffic encryption for encryption in transit
+
+## Sagemaker Warm pools
+
+The primary benefit of warm pools is reduced start-up time
+Use cases: 
+
+* Rapid iteration in model development
+* frequent model retraining
+* on demand inference with low latency
+* scheduled training jobs 
 
 # SageMaker CI/CD
 
@@ -626,6 +672,11 @@ there was a legacy custom feature of SageMaker to track experiments. Now it has 
 * Machine translation, text summarization : Sequence-to-Sequence
 * Word embeddings and text classification : BlazingText
 
+# XGBoost
+
+* scale_pos_weight = (Number of negative instances) / (Number of positive instances)
+* if you want to favor positive instances, increase this indicator
+* used in imbalanced dataset scenarios
 
 # Managed ML services
 
@@ -634,3 +685,33 @@ there was a legacy custom feature of SageMaker to track experiments. Now it has 
 * it's possible to create a custom model in comprehend
 * to share a model to other accounts, define a resource based policy, and use importModel API action to import the model in the target account
 
+## Polly
+
+* Lexicons provide a way to customize the pronunciation of specific words or phrases
+* SSML is an XML-based markup language that allows you to control various aspects of speech synthesis, including
+  * fine tune pronunciation beyond what lexicons can achieve
+  * Change the voice between different parts of the text
+  * Pause
+  * Emphasis on specific words
+  * speaking rate
+  * Volumes
+
+## Rekognition
+
+Amazon Rekognition Custom Labels enables you to extend the capabilities of Rekognition beyond its pre-trained models. You can train your own models to recognize items that are unique to your business, industry, or application. This is especially useful when the standard Rekognition service doesn't recognize the specific objects or scenes you need to identify
+
+## Glue
+
+* Glue does not support Protobuf format (use EMR for that)
+* Mainly support
+  * csv
+  * parquet
+  * avro
+  * orc
+  * json
+  * xml
+  * ion
+
+## Textract
+
+* Textract cannot redact PII for the text it extracts. Best solution is to use it with Comprehend
