@@ -154,7 +154,11 @@
 *  Groundtruth
    *  specific to ML labelling tasks
    *  integrated with Sagemaker
-   *  With groundTruth Plus : active learning / poor performers removal / label automatic refining / validation and monitoring of DQ 
+   *  With groundTruth Plus
+      *  active learning
+      *  poor performers removal
+      *  **label automatic refining**
+      *  validation and monitoring of DQ 
    *  can delegate tasks to employees instead of mech turk workforce
 
 ## Dataset balancing
@@ -326,6 +330,7 @@ To remediate unbalanced dataset :
   *  can help overcome convergence issues by exploring different combinations of hyperparameters to find the optimal settings that lead to better convergence and model performance. 
   *  These hyperparameters include learning rates, batch sizes, and regularization techniques.
   *  It uses **Bayesian Optimization**
+  *  must provide at least Training Algorithm and Performance metric (loss function)
 
 ## Model compression
 
