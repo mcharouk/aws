@@ -12,7 +12,15 @@
 # SageMaker Autopilot
 
 * a low code feature to train ML models. It handles automatically all lifecycle from data analysis and pre processing to deployment.
-* it's meant for supervised algorithms (regression/classification) 
+* it's meant for **supervised algorithms (regression/classification)**
+* The target population is still data scientists because it has some tuning capabilities
+
+# Sagemaker Canvas
+
+* looks like Autopilot but built for non technical profiles, or non data scientists.
+* more managed, less customizable
+* Full automation from data preparation to inference
+
 
 # Data Preparation
 
@@ -28,8 +36,8 @@
 ## Feature engineering
 
 * Numeric
-  * Normalization : rescale the values to a range between 0 and 1. 0 corresponds to the min value,and 1 to the max
-  * Standardization : rescale feature so that mean is 0 and standard deviation (ecart type) is 1
+  * Normalization : rescale the values to a range between 0 and 1. 0 corresponds to the min value,and 1 to the max. i.e. **min-max scaling**
+  * Standardization : rescale feature so that mean is 0 and standard deviation (ecart type) is 1. i.e. **StandardScaler**
   * Binning : regroup some categories in macro categories to lower the noise. For example numeric values can be classified in ranges
   * Log transformation : apply the logarithmic function to the values. It scales down the large outlier values
 * Text features
@@ -86,51 +94,6 @@
 *   **Aggregation:** Group data and calculate statistics (e.g., mean, sum, count) for each group.
 *   **Filtering:** Select a subset of data based on specific criteria.
 *   **Sampling:** Select a random sample of data.
-
-**Cleaning Functions:**
-
-*   **Handling Missing Values:**
-    *   `Imputation`: Replace missing values with the mean, median, most frequent value, a constant, or using more complex algorithms.
-    *   `Deletion`: Remove rows or columns containing missing values.
-*   **Removing Duplicates:**
-    *   `Remove Duplicate Rows`: Identify and remove rows that are exact duplicates or based on a subset of columns.
-*   **Handling Outliers:**
-    *   `Outlier Detection`: Identify values that deviate significantly from the data distribution (e.g., using the IQR method, Z-score).
-    *   `Outlier Replacement`: Replace outliers with boundary values or imputation techniques.
-*   **Correcting Format Errors:**
-    *   `Data Type Conversion`: Convert columns to the appropriate data type (e.g., string to numeric, date).
-    *   `String Normalization`: Remove unnecessary spaces, convert to uppercase/lowercase, etc.
-
-**Transformation Functions:**
-
-*   **Normalization and Standardization:**
-    *   `Min-Max Scaling`: Scale values between 0 and 1.
-    *   `StandardScaler`: Center the data around the mean and scale it based on the standard deviation.
-    *   `RobustScaler`: Similar to StandardScaler, but more robust to outliers.
-*   **Encoding Categorical Variables:**
-    *   `One-Hot Encoding`: Create binary columns for each category of a variable.
-    *   `Label Encoding`: Assign a unique integer to each category.
-    *   `Ordinal Encoding`: Assign integers based on the order of the categories (useful for ordinal variables).
-*   **Creating New Variables (Feature Engineering):**
-    *   `Arithmetic Operations`: Create new variables by combining existing variables (e.g., addition, subtraction, multiplication, division).
-    *   `Feature Extraction`: Extract useful information from existing variables (e.g., extract the day, month, year from a date).
-    *   `Creating Indicator Variables`: Create binary variables to indicate the presence or absence of a condition.
-*   **Text Transformation:**
-    *   `Tokenization`: Divide the text into words or smaller units.
-    *   `Stemming/Lemmatization`: Reduce words to their base form.
-    *   `Stop Word Removal`: Remove common words that don't provide much information (e.g., "the", "a", "is").
-    *   `Sentiment Analysis`: Determine the sentiment expressed in the text (positive, negative, neutral).
-*   **Dimensionality Reduction:**
-    *   `PCA (Principal Component Analysis)`: Reduce the number of variables by identifying the principal components that explain the most variance in the data.
-    *   `Feature Selection`: Select a subset of the most relevant variables for the model.
-
-**Other Important Functions:**
-
-*   **Table Joins (Join):** Combine data from different tables based on a common key.
-*   **Aggregation:** Group data and calculate statistics (e.g., mean, sum, count) for each group.
-*   **Filtering:** Select a subset of data based on specific criteria.
-*   **Sampling:** Select a random sample of data.
-
 
 ## Sagemaker feature store
 
@@ -239,6 +202,8 @@ To remediate unbalanced dataset :
 
 #### Script mode
 
+* this method aims to use a Sagemaker managed container and customize the processing steps.
+
 * provide a train.py file with 3 functions
   * input_fn : preprocessing
   * model_fn : model definition
@@ -260,7 +225,7 @@ To remediate unbalanced dataset :
 * Early stopping
 * Pruning
   * remove features that doesn't contribute a lot to the output. It lower the noise
-  * Regularization
+  * Regularization (usually it's hyperparameters that can be set)
     * Dropout
       * **Specific to neural networks**
       * Randomly drops out, or sets to zero, a number of neurons in each layer of the neural network during each epoch
@@ -345,17 +310,19 @@ To remediate unbalanced dataset :
   * it might not be a good indicator if the dataset is imbalanced. For example if there are a lot of TN regarding TP.
 * Precision
   * TP / TP + FP
+  * FP = Positive predictions that are actual negative
   * measures the ratio of correct predictions when the label to predict should be positive.
-  * Precision measures the proportion of **predicted** positive cases that are actually positive
+  * **Precision measures the proportion of predicted positive cases that are actually positive**
   * For example, when detecting a spam, what is important is to be sure that a non spam email should not be classified as spam. It has more bad consquences than don't filter a real spam.
 * Recall
   * TP / TP + FN
-  * it's a good metric when cost of false negatives is high. 
-  * Recall measures the proportion of **actual** positive cases that the model correctly identifies.
+  * FN : Negative predictions that are actually positive
+  * **Recall measures the proportion of actual positive cases that the model correctly identifies.**
   * For example, a model that should detect an illness. If the model identify a patient free of disease wrongly, it can be very annoying. For example, if the model predicts a disease to a patient that does not have anything, it's less important, because probably, other studies will show there's no disease.
   * To maximize recall means to minimize the false negatives.
 * F1 score : 2 * Precision * Recall / Precision + Recall
   * It's an indicator that mixes Precision and Recall.
+  * F1 score penalizes models that favors Precision over Recall or the other way around. It helps to find a good balance between them. Accuracy don't make the differences between the 2 notions.
 
 * Receiver Operating characteristics
   * ROC curve is a graphical representation of the performance of a classification model at all classification thresholds. Basically if threshold is set to 0,5, that means all prediction > 0,5 will be classified as positive.
@@ -634,6 +601,10 @@ Use cases:
 * SageMaker Saving plans : SageMaker training jobs, hosted models, and batch transform jobs.
 * Machine Learning Services Savings Plan : covers managed ML services (rekognition, transcribe, translate, etc..)
 
+## Spot instances
+
+* Sagemaker can write checkpoints to save intermediate results of a training job. If a spot is evicted it can easily start from the checkpoint
+
 # Metrics glossary 
 
 ## Training
@@ -675,7 +646,7 @@ Use cases:
   * K-Means
   * Anomaly detection : Random Cut Forest
 * Machine translation, text summarization : Sequence-to-Sequence
-* Word embeddings and text classification : BlazingText
+* Word embeddings and text classification : BlazingText. Can be used also for supervised
 
 # XGBoost
 
@@ -689,6 +660,7 @@ Use cases:
 
 * it's possible to create a custom model in comprehend
 * to share a model to other accounts, define a resource based policy, and use importModel API action to import the model in the target account
+* can predict in bulk using StartSentimentDetectionJob that gets data from an S3 location
 
 ## Polly
 
