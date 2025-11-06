@@ -88,12 +88,18 @@
     *   `PCA (Principal Component Analysis)`: Reduce the number of variables by identifying the principal components that explain the most variance in the data.
     *   `Feature Selection`: Select a subset of the most relevant variables for the model.
 
+* Univariate feature selection examines each feature individually to determine the strength of the relationship of the feature with the response variable.
+
 **Other Important Functions:**
 
 *   **Table Joins (Join):** Combine data from different tables based on a common key.
 *   **Aggregation:** Group data and calculate statistics (e.g., mean, sum, count) for each group.
 *   **Filtering:** Select a subset of data based on specific criteria.
 *   **Sampling:** Select a random sample of data.
+
+### Definitions
+
+* **Target Leakage** is when an input feature is perfectly correlated with the target. The **prediction power score** will be 1.
 
 ## Sagemaker feature store
 
@@ -220,6 +226,13 @@ To remediate unbalanced dataset :
 * Sagemaker will get the image, deploy it on a managed infrastructure, upload the script on the instance, execute the script, donwload the files (pipe mode, file mode, etc...)
 
 
+#### Sync with S3
+
+In distributed training context, to avoid fully replicate all data on all instances : 
+S3DataDistributionType to FULLY_REPLICATED of Sharded_by_S3_Key
+
+
+
 #### Overfitting remediation
 
 * Early stopping
@@ -297,6 +310,13 @@ To remediate unbalanced dataset :
   *  It uses **Bayesian Optimization**
   *  must provide at least Training Algorithm and Performance metric (loss function)
 
+## Hyperparameter ranges
+
+* Auto
+* Linear :  if the range of all values from the lowest to the highest is relatively small
+* Logarithmic : when you're searching a range that spans several orders of magnitude
+* ReverseLogarithmic : when you are searching a range that is highly sensitive to small changes that are very close to 1
+
 ## Model compression
 
 * Pruning : removing least important parameters of the dataset
@@ -314,12 +334,13 @@ To remediate unbalanced dataset :
   * measures the ratio of correct predictions when the label to predict should be positive.
   * **Precision measures the proportion of predicted positive cases that are actually positive**
   * For example, when detecting a spam, what is important is to be sure that a non spam email should not be classified as spam. It has more bad consquences than don't filter a real spam.
-* Recall
+* Recall (or Sensitivity)
   * TP / TP + FN
   * FN : Negative predictions that are actually positive
   * **Recall measures the proportion of actual positive cases that the model correctly identifies.**
   * For example, a model that should detect an illness. If the model identify a patient free of disease wrongly, it can be very annoying. For example, if the model predicts a disease to a patient that does not have anything, it's less important, because probably, other studies will show there's no disease.
   * To maximize recall means to minimize the false negatives.
+* Specificity : ability to predict true negatives
 * F1 score : 2 * Precision * Recall / Precision + Recall
   * It's an indicator that mixes Precision and Recall.
   * F1 score penalizes models that favors Precision over Recall or the other way around. It helps to find a good balance between them. Accuracy don't make the differences between the 2 notions.
@@ -405,6 +426,8 @@ Use cases:
 * on demand inference with low latency
 * scheduled training jobs 
 
+* to use warmpools, change property **KeepAlivePeriodInSeconds** in the training job configuration
+
 # SageMaker CI/CD
 
 ## SageMaker pipelines
@@ -481,6 +504,10 @@ Use cases:
   * not all models can work on them, limited framework support
   * for deep learning applications
 
+
+* Amazon Elastic Inference (EI) is a service that allows you to attach a hardware accelerator (like a GPU) to an EC2 instance to accelerate your machine learning (ML) inference workloads
+  * The key concept is that the EI accelerator is a separate resource from the EC2 instance. The EC2 instance handles the general-purpose computing tasks (like data preprocessing, model loading, and post-processing), while the EI accelerator is dedicated to the computationally intensive ML inference part
+  * You only pay for the EI accelerator for the time it's attached to your EC2 instance and in use. This is typically much cheaper than provisioning a full GPU EC2 instance
 
 # Catastrophic forgetting
 
@@ -656,6 +683,10 @@ Use cases:
 
 # Managed ML services
 
+AWS AI services (including Rekognition) may use customer content to improve the service unless an explicit opt-out is configured. The standard way to opt out is by setting an AWS Organizations opt-out policy or by contacting AWS Support.
+
+AWS collects also aggregated usage information about docker images and training jobs. To prevent collect, set OPT_OUT_TRACKING option to 1.
+
 ## Comprehend
 
 * it's possible to create a custom model in comprehend
@@ -692,3 +723,28 @@ Amazon Rekognition Custom Labels enables you to extend the capabilities of Rekog
 ## Textract
 
 * Textract cannot redact PII for the text it extracts. Best solution is to use it with Comprehend
+
+## Amazon Forecast
+
+### Algorithms
+
+* Simpler ones
+  * ARIMA (Autoregressive Integrated Moving Average)
+  * ETS (Error, Trend, Seasonality)
+* Seasonality
+  * Prophet - when interpretability is important
+  * NPTS (Non-Parametric Time Series)
+* More complex that can handler non linear patterns
+  * DeepAR+
+  * CNN-QR (Convolutional Neural Network - Quantile Regression)
+
+## Indexes
+
+* Amazon forecast has indexes on weathers and holidays to integrate these data into custom data to build the model
+
+
+# Quicksight ML Insights
+
+* forecast
+* anomaly detection
+* auto-narratives (interpret the chart and generates a text the synthesize insights)
