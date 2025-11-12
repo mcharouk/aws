@@ -307,7 +307,8 @@ S3DataDistributionType to FULLY_REPLICATED of Sharded_by_S3_Key
   *  can automatically tune the hyperparameters to find the best configuration.
   *  can help overcome convergence issues by exploring different combinations of hyperparameters to find the optimal settings that lead to better convergence and model performance. 
   *  These hyperparameters include learning rates, batch sizes, and regularization techniques.
-  *  It uses **Bayesian Optimization**
+  *  It can use all strategies : random, bayesian, hyperband, grid
+  *  support for custom algorithms
   *  must provide at least Training Algorithm and Performance metric (loss function)
 
 ## Hyperparameter ranges
@@ -394,7 +395,7 @@ there was a legacy custom feature of SageMaker to track experiments. Now it has 
 ## SageMaker profiler
 
 * SageMaker Profiler helps identify performance bottlenecks in a ML training jobs. While Debugger focuses on the correctness of your model (e.g., gradients, weights), Profiler focuses on the efficiency of the training process. It helps you answer questions like:
-  * Is my training job CPU-bound or GPU-bound?
+  * Is my training job CPU-bound or GPU-bound? (gives more details than sagemaker debugger)
   * Is data loading a bottleneck?
   * Are there any inefficient operations in my code?
   * Am I underutilizing my hardware resources?
@@ -535,7 +536,7 @@ Use cases:
 ## Drift types
 
 * Data quality drift : Production data differs than training data
-* Model quality drift : predicted labels differ from actual ground truth
+* Model quality drift : predicted labels differ from actual ground truth. Often a consequence of the other types of drift.
 * Bias drift
   * Training data too small or not representative
   * Training data has societal assumptions
@@ -545,7 +546,7 @@ Use cases:
 
 ## SageMaker Model Monitor
 
-* Monitor continuously or at some frequency
+* Monitor **continuously** or **at some frequency**
 * Monitors the model and the data
 * Integrates with 
   * Cloudwatch (metrics & logs)
@@ -577,9 +578,13 @@ Use cases:
   * Violation are sent to S3 and can integrate with Cloudwatch metrics. 
 
 * Feature attribution drift
-  * looks like model drift
+  * Feature attribution drift detects data drifts but in a more indirect way. For example
+    * data quality drift : Feature X mean changed from 50 to 45 years old
+    * feature attribution drift : Feature X went from being the 3rd most important to the most important factor in decisions
+  * it detects the functional impact of data drift on model behavior  
   * create a SHAP in the baseline job
   * Clarify is used to compute SHAP and compare with the baseline to detect a drift
+  
 
 * SageMaker Clarify can help to understand why a model has drifted by providing insights about the distribution of data, or features attribution of the model.
 * on post training data, you can declare a facet, and compare drift on each facet.
@@ -597,23 +602,22 @@ Use cases:
     * links to model details
 
 ## SageMaker Lineage Tracking
-
   * helps to track on which data has the model being trained, and on which endpoint it has been deployed.
   * can be used to quickly identify the bad dataset and the impacted endpoints.
-
 
 # Finops
 
 ## SageMaker Inference Recommender
 
-* Inference recommendations
+* Works on Sagemaker managed instances
+* **Inference** recommendations
   * It can launch a load test based on your data to recommend a type of infra (45 min. duration)
   * Inferentia, GPU/CPU, etc...
-* Endpoint recommendations
+* **Endpoint** recommendations
   * Based on a custom load test. Specify custom traffic pattern, requirements for latency and throughput (2 hrs. duration)
   * Return the same result format that inference recommendation, but more customized on the business needs.
 * Provide a list of recommended instances
-* Can also use Compute Optimizer but does not work on SageMaker managed instances
+* Can also use Compute Optimizer if not using SageMaker managed instances
 
 ## Capacity Blocks for ML
 
@@ -622,7 +626,6 @@ Use cases:
 * pay only for the amount of time needed
 * good for training jobs of experimentation
 
-
 ## ML Savings plan
 
 * SageMaker Saving plans : SageMaker training jobs, hosted models, and batch transform jobs.
@@ -630,7 +633,7 @@ Use cases:
 
 ## Spot instances
 
-* Sagemaker can write checkpoints to save intermediate results of a training job. If a spot is evicted it can easily start from the checkpoint
+* Sagemaker can write checkpoints on S3 to save intermediate results of a training job. If a spot is evicted it can easily start from the checkpoint
 
 # Metrics glossary 
 
@@ -640,20 +643,11 @@ Use cases:
 * Mean Absolute Scaled Error : MASE is calculated by dividing the average error by a scaling factor that is affected by seasonality
 * The Gini impurity formula is used to measure the impurity or disorder of a set of data. In the context of decision trees, it's used to evaluate the quality of a split
 
-## Algorithms
-
-* DeepAR is an algorithm that is available in SageMaker to forecast based on historical time series data
-
-## Data pre processing
-
-* quantic binning transformation : The core idea is to take a continuous numerical feature and convert it into a categorical feature. This is done by dividing the range of the continuous feature into intervals (bins).
-
 ## Neural networks
 
 * Sigmoid function : used in binary classification. Converts an input in 0 or 1
 * tanh function : same than sigmoid but centered on 0, not 0.5 like Sigmoid
 * Relu function : f(x) = max(0, x). Basically it replaces the negative values by 0
-
 
 # Sagemaker built-in algorithms
 
@@ -667,8 +661,8 @@ Use cases:
     * Image Classification : TensorFlow, MXNet
   * Time series forecasting : DeepAR Forecasting
 * Unsupervised
-  * Topics discovery in text data : Neural Topic Model
-  * Topic modeling algorithm : Latent Dirichlet Allocation (LDA)
+  * Topics discovery in text data : Neural Topic Model. Choose it when Human interpretability of topics is crucial
+  * Topic modeling algorithm : Latent Dirichlet Allocation (LDA). Choose it when Statistical Accuracy is Priority
   * Dimensionality Reduction : Principal Component Analysis (PCA)
   * K-Means
   * Anomaly detection : Random Cut Forest
@@ -706,7 +700,7 @@ AWS collects also aggregated usage information about docker images and training 
 
 ## Rekognition
 
-Amazon Rekognition Custom Labels enables you to extend the capabilities of Rekognition beyond its pre-trained models. You can train your own models to recognize items that are unique to your business, industry, or application. This is especially useful when the standard Rekognition service doesn't recognize the specific objects or scenes you need to identify
+* Amazon Rekognition Custom Labels to customize the model. 
 
 ## Glue
 
@@ -741,7 +735,6 @@ Amazon Rekognition Custom Labels enables you to extend the capabilities of Rekog
 ### Indexes
 
 * Amazon forecast has indexes on weathers and holidays to integrate these data into custom data to build the model
-
 
 # Quicksight ML Insights
 
