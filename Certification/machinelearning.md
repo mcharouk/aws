@@ -736,8 +736,18 @@ AWS collects also aggregated usage information about docker images and training 
 
 * Amazon forecast has indexes on weathers and holidays to integrate these data into custom data to build the model
 
-# Quicksight ML Insights
+## Quicksight ML Insights
 
 * forecast
 * anomaly detection
 * auto-narratives (interpret the chart and generates a text the synthesize insights)
+
+## Transcribe
+
+* custom vocabulary can be provided to Transcribe. 
+  * Usage : domain-specific terms, such as brand names and acronyms, proper nouns, and words that Amazon Transcribe isn't rendering correctly.
+  * valid format are .csv and .txt
+* custom languages can be provided to Transcribe
+  * Custom language models are designed to improve transcription accuracy for domain-specific speech
+* It can also filter word (toxic content for example), replacing them with another word
+* It can redact PII as well
