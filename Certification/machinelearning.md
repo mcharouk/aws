@@ -738,7 +738,7 @@ Amazon Rekognition Custom Labels enables you to extend the capabilities of Rekog
   * DeepAR+
   * CNN-QR (Convolutional Neural Network - Quantile Regression)
 
-## Indexes
+### Indexes
 
 * Amazon forecast has indexes on weathers and holidays to integrate these data into custom data to build the model
 
