@@ -49,7 +49,7 @@
   * combine features
   * PCA : used for dimensionality reduction. It retain most of the original variations but reduce the number of features. PCA can be applied to a subset of feature.
 
-### Data wrangler transformaion features
+### Data wrangler transformation features
 
 **Cleaning Functions:**
 
@@ -152,6 +152,20 @@ To remediate unbalanced dataset :
 
 
 # Training
+
+## Data ingestion
+
+* File mode : whole dataset is uploaded on S3 before the training jobs begins.
+  * use on small and medium datasets
+  * when all dataset is needed
+* Pipe mode : Streams data directly from S3 **without saving locally**, significantly reducing storage requirements and enabling faster data availability. 
+  * Short startup
+  * no need high local storage capacity
+* Fast File Mode
+  * import file on a local cache when needed
+  * same implementation that file mode. Code changes are required when switching to Pipe mode
+  * can be faster to download. It can only donwload a portion of a file, parallelize file download, for ex.
+
 
 ## Dataset splitting
 
