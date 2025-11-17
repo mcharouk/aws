@@ -496,6 +496,16 @@ Use cases:
 * Shadow Variant
   * deploy a model with its container behind the same endpoint than the production model. The candidate model will receive some percentage of traffic and redirects the response in a S3 bucket.
 
+## Inference mode and constraints
+
+| Inference mode | Max payload size | Max Processing Time |
+| -------------- | ---------------- | ------------------- |
+| RealTime       | 25 Mos           | 60s                 |
+| Serverless     | 4 Mos            | 60s                 |
+| Asynchronous   | 1 Gb             | 1hr                 |
+| Batch          | GBs              | Days                |
+
+
 ## Infrastructure
 
 ### Containers 
@@ -523,6 +533,7 @@ Use cases:
 * Amazon Elastic Inference (EI) is a service that allows you to attach a hardware accelerator (like a GPU) to an EC2 instance to accelerate your machine learning (ML) inference workloads
   * The key concept is that the EI accelerator is a separate resource from the EC2 instance. The EC2 instance handles the general-purpose computing tasks (like data preprocessing, model loading, and post-processing), while the EI accelerator is dedicated to the computationally intensive ML inference part
   * You only pay for the EI accelerator for the time it's attached to your EC2 instance and in use. This is typically much cheaper than provisioning a full GPU EC2 instance
+  * Support TensorFlow, Apache MXNet, PyTorch, and ONNX models
 
 # Catastrophic forgetting
 
