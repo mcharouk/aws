@@ -2,6 +2,9 @@
 
 ## VPC Security
 
+* get instance public DNS in Cloudformation Output : InstancePublicDNS
+* Check it's access is failing
+* Make fixes below to make it work
 
 ### NACLs
 

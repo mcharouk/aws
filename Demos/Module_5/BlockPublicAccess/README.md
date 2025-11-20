@@ -2,13 +2,15 @@
 
 ## Bucket name
 
-bucket name : 
+* create bucket
 
 ```
 marccharouk-demo-45756383
 ```
 
-## Bucket Policy
+* upload logo.png
+* uncheck all related to block public access
+* make bucket public
 
 ```
 {
@@ -26,3 +28,6 @@ marccharouk-demo-45756383
     ]
 }
 ```
+
+* Activate Block public access feature
+* Show public access has been denied

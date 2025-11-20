@@ -1,0 +1,57 @@
+{
+  "mcpServers": {
+    "terraformMcpServer": {
+      "command": "uvx",
+      "timeout": 60000,
+      "args": [
+        "--from",
+        "awslabs.terraform-mcp-server@latest",
+        "awslabs.terraform-mcp-server.exe"
+      ],
+      "env": {
+        "FASTMCP_LOG_LEVEL": "ERROR"
+      }
+    },
+	"awslabs.core-mcp-server": {
+      "command": "uvx",
+      "args": [
+		"--from",
+        "awslabs.core-mcp-server@latest",
+        "awslabs.core-mcp-server.exe"        
+      ],
+      "env": {
+        "FASTMCP_LOG_LEVEL": "ERROR"
+      },
+      "autoApprove": [],
+      "disabled": false
+    },
+	"awslabs.cdk-mcp-server": {
+      "command": "uvx",
+	  
+      "args": [
+	    "--from",
+        "awslabs.cdk-mcp-server@latest",
+        "awslabs.cdk-mcp-server.exe"    
+	  ],
+      "env": {
+        "FASTMCP_LOG_LEVEL": "ERROR"
+      },
+      "disabled": false,
+      "autoApprove": []
+    },
+	"awslabs.aws-documentation-mcp-server": {
+      "command": "uvx",
+      "args": [
+	  "--from",
+        "awslabs.aws-documentation-mcp-server@latest",
+        "awslabs.aws-documentation-mcp-server.exe"  
+		],
+      "env": {
+        "FASTMCP_LOG_LEVEL": "ERROR",
+        "AWS_DOCUMENTATION_PARTITION": "aws"
+      },
+      "disabled": false,
+      "autoApprove": []
+    }
+  }
+}

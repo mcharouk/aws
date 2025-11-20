@@ -1,31 +1,42 @@
 # Demo
 
-## Lambda Configuration
 
-lambda name (mandatory name)
+## Lambda Only
+
+* Create a lambda with name
 
 ```
 DynamoDB-S3Feeder
 ```
 
-s3 prefix
+* take the zip file location that contains lambda code from cloudformation outputs
+* create an S3 event notification on bucket eventnotification-demo-457664 with prefix
 ```
 files/
 ```
 
-* for Demo without DynamoDB, take the zip file location that contains lambda code from cloudformation outputs
-
-## Upload Files
 
 * Go to Module_4/DynamoDB
 * execute command
 ```
 python upload_files.py
 ```
+* check the lambda logs 
+* check cloudwatch metrics to see how lambda scales
 
-## Dynamo Configuration
+## DynamoDb Demo
 
-Table name 
+* This demo demonstrates as well DynamoDB global tables
+* Lambda will already be created in this mode
+* Go to Module_4/DynamoDB
+* execute command
+```
+python upload_files.py
+```
+* Demonstrate query feature and partition key vs sort key
+* pick some users that have same last name to see it retrieves multiple rows
+
+Table name
 
 ```
 demo_employee
@@ -53,9 +64,12 @@ Employees that have the same last name
 | Payne     | Debra      |
 | Payne     | Louis      |
 
+* show items have been replicated in ireland table
+* create items from ireland and assess the user is created in Paris table (active/active configuration)
+
 ## Items to create manually
 
-Item in Paris
+Item from Paris
 
 ```
 {

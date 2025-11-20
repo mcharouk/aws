@@ -1,4 +1,4 @@
-from aws_cdk import Stack
+from aws_cdk import Stack, CfnOutput
 from aws_cdk import aws_iam as _iam
 from aws_cdk import aws_lambda as _lambda
 from constructs import Construct
@@ -9,10 +9,10 @@ class PermissionBoundaryStack(Stack):
         super().__init__(scope, construct_id, **kwargs)
 
         # create a policy that allow role creation but only if attached to a permission boundary
-        _iam.Policy(
+        permission_boundary_policy = _iam.ManagedPolicy(
             self,
             "PermissionBoundaryPolicy",
-            policy_name="PermissionBoundaryPolicy",
+            managed_policy_name="PermissionBoundaryPolicy",
             statements=[
                 _iam.PolicyStatement(
                     effect=_iam.Effect.ALLOW,
@@ -28,7 +28,7 @@ class PermissionBoundaryStack(Stack):
         )
 
         forcePermissionBoundaryAttachment = _iam.PolicyStatement(
-            effect=_iam.Effect.Deny,
+            effect=_iam.Effect.DENY,            
             actions=[
                 "iam:AttachRolePolicy",
                 "iam:CreateRole",
@@ -87,9 +87,8 @@ class PermissionBoundaryStack(Stack):
                 "iam:GetRolePolicy",
                 "iam:ListInstanceProfilesForRole",
             ],
-            resources=[
-                "arn:aws:iam::*:user/TechLeadLambda*",
-                "arn:aws:iam::*:role/TechLeadLambda*",
+            resources=[                
+                "arn:aws:iam::*:role/LambdaRole*",
                 "arn:aws:iam::*:policy/TechLeadLambda*",
             ],
         )
@@ -132,18 +131,33 @@ class PermissionBoundaryStack(Stack):
             ],
         )
 
-        _iam.Role(
+        role = _iam.Role(
+            self,
             "TechLeadRole",
-            assumed_by=_iam.AccountPrincipal(account_id="XXXXXXXXXXXX"),
-            managed_policies=[techLeadPolicy],
+            assumed_by=_iam.AccountPrincipal(account_id=self.account),
+            inline_policies={
+                "TechLeadInlinePolicy": _iam.PolicyDocument(
+                    statements=[
+                        forcePermissionBoundaryAttachment,
+                        allowIAMPolicies,
+                        allowIAMList,
+                        allowIAMReadPolicies,
+                        denyPermissionBoundaryEdition,
+                        _iam.PolicyStatement(
+                            effect=_iam.Effect.ALLOW,
+                            actions=["lambda:*"],
+                            resources=["*"],
+                        ),
+                    ]
+                )
+            },
             role_name="TechLeadRole",
-            description="Tech Lead Role",
         )
 
-        _iam.Policy(
+        techleadLambdaPolicy = _iam.ManagedPolicy(
             self,
             "TechLeadLambda",
-            policy_name="TechLeadLambdaPolicy",
+            managed_policy_name="TechLeadLambdaPolicy",
             statements=[
                 _iam.PolicyStatement(
                     effect=_iam.Effect.ALLOW,
@@ -162,7 +176,23 @@ class PermissionBoundaryStack(Stack):
         _lambda.Function(
             self,
             "PermissionBoundaryHandler",
-            runtime=_lambda.Runtime.PYTHON_3_12,
+            function_name="PermissionBoundary",
+            description="Permission Boundary Handler",
+            runtime=_lambda.Runtime.PYTHON_3_13,
             code=_lambda.Code.from_asset("lambda"),
             handler="permissionBoundary.lambda_handler",
+        )
+
+        CfnOutput(
+            self,
+            "PermissionBoundaryPolicyArn",
+            value=permission_boundary_policy.managed_policy_arn,
+            description="Permission Boundary Policy ARN",
+        )
+
+        CfnOutput(
+            self,
+            "TechLeadLambdaPolicyArn",
+            value=techleadLambdaPolicy.managed_policy_arn,
+            description="Techlead Lambda Policy ARN",
         )

@@ -23,7 +23,7 @@ class StepFunctionStack(Stack):
             _lambda.Function(
                 self,
                 lambdaObject.name,
-                runtime=_lambda.Runtime.PYTHON_3_12,
+                runtime=_lambda.Runtime.PYTHON_3_13,
                 code=_lambda.Code.from_asset(lambdaObject.assetName),
                 handler="lambda_function.lambda_handler",
             )

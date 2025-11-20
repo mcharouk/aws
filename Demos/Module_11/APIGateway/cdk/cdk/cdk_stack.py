@@ -16,7 +16,7 @@ class CdkStack(Stack):
             self,
             "APIGateway_Lambda",
             function_name=stackConfig.lambda_name,
-            runtime=_lambda.Runtime.PYTHON_3_12,
+            runtime=_lambda.Runtime.PYTHON_3_13,
             code=_lambda.Code.from_asset("Lambdas/API"),
             handler="lambda_function.lambda_handler",
         )
