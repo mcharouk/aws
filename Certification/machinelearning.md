@@ -12,7 +12,12 @@
 # SageMaker Autopilot
 
 * a low code feature to train ML models. It handles automatically all lifecycle from data analysis and pre processing to deployment.
-* it's meant for **supervised algorithms (regression/classification)**
+* it's meant for 
+  * Supervised algorithms (regression/classification)
+  * Image classification
+  * Text classification
+  * Time-series forecast
+  * LLM fine tuning job
 * The target population is still data scientists because it has some tuning capabilities
 
 # Sagemaker Canvas
@@ -21,6 +26,12 @@
 * more managed, less customizable
 * Full automation from data preparation to inference
 
+# Sagemaker notebooks
+
+* Sagemaker notebook instances
+  * good for a non collaborative work
+* Sagemaker Studio with Jupyter Lab spaces
+  * suited for large-scale machine learning projects and data science teams
 
 # Data Preparation
 
@@ -283,6 +294,12 @@ S3DataDistributionType to FULLY_REPLICATED of Sharded_by_S3_Key
   *  Reduce training time on GPU instances. 
   *  The compiler optimizes Deep Learning models to accelerate training by more efficiently using SageMaker machine learning GPU instances. 
   *  Automatically applies graph and tensor optimization, enabling the efficient utilization of hardware resources and reducing training time
+
+
+* When usage of GPU is low
+  * Adjusting batch size is a key technique. A larger batch size allows the GPU to process more data in parallel, improving efficiency. However, excessively large batches can lead to memory issues and slower convergence.
+  * Data prefetching : process of loading and preparing the next batch of data while the GPU is busy processing the current batch. Instead of waiting for the current batch to finish and then loading the next one, the data loading and preprocessing pipeline runs in parallel with the GPU computation.
+
 
 # Model Tuning
 
