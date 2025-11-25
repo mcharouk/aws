@@ -19,6 +19,9 @@
   * Time-series forecast
   * LLM fine tuning job
 * The target population is still data scientists because it has some tuning capabilities
+* Deployment options
+  * batch inference
+  * real time inference
 
 # Sagemaker Canvas
 
@@ -725,6 +728,13 @@ AWS collects also aggregated usage information about docker images and training 
 
 ## Comprehend
 
+* Service that works on documents
+  * sentiment detection
+  * detect events
+  * extract key phrases
+  * returns a list of entities identified in a document
+  * PII detection
+  * Dominant language
 * it's possible to create a custom model in comprehend
 * to share a model to other accounts, define a resource based policy, and use importModel API action to import the model in the target account
 * can predict in bulk using StartSentimentDetectionJob that gets data from an S3 location
