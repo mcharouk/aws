@@ -28,6 +28,7 @@
 * looks like Autopilot but built for non technical profiles, or non data scientists.
 * more managed, less customizable
 * Full automation from data preparation to inference
+* can detect PII
 
 # Sagemaker notebooks
 
@@ -52,6 +53,7 @@
 * Numeric
   * Normalization : rescale the values to a range between 0 and 1. 0 corresponds to the min value,and 1 to the max. i.e. **min-max scaling**
   * Standardization : rescale feature so that mean is 0 and standard deviation (ecart type) is 1. i.e. **StandardScaler**
+    * Not that normalization and standardization are not efficient on all algorithms. They are the most effective on linear models.
   * Binning : regroup some categories in macro categories to lower the noise. For example numeric values can be classified in ranges
   * Log transformation : apply the logarithmic function to the values. It scales down the large outlier values
 * Text features
@@ -114,6 +116,13 @@
 ### Definitions
 
 * **Target Leakage** is when an input feature is perfectly correlated with the target. The **prediction power score** will be 1.
+
+### Correlation indicators
+
+* Chi-square : test correlation between categorical variables
+* Spearman : to assess **non linear** relationship on **numerical** data
+* Pearson : to assess **linear** relationship on **numerical** data
+* Phi coefficient : correlation between binary variables
 
 ## Sagemaker feature store
 
@@ -501,6 +510,12 @@ Use cases:
 * Callback (to integrate with other external services)
 * Lambda
 
+### Decorators
+
+* add a @remote decorator to run some python code on a separate sagemaker instance (as a sagemaker training job)
+* add a @step decorator to define some python code as a custom step in the pipeline
+* both can be used together
+
 # SageMaker Deployment options
 
 ## Deployment modes
@@ -753,6 +768,8 @@ AWS collects also aggregated usage information about docker images and training 
 ## Rekognition
 
 * Amazon Rekognition Custom Labels to customize the model. 
+* can detect inappropriate content
+* can detect celebrities
 
 ## Glue
 
