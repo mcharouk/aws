@@ -119,7 +119,7 @@
 
 ### Correlation indicators
 
-* Chi-square : test correlation between categorical variables
+* Chi-square : test correlation between **categorical** variables
 * Spearman : to assess **non linear** relationship on **numerical** data
 * Pearson : to assess **linear** relationship on **numerical** data
 * Phi coefficient : correlation between binary variables
@@ -168,10 +168,15 @@ To remediate unbalanced dataset :
 
 ## Dataset bias
 
-* **DPL** (Difference of Proportions of Label) is a metric that you can use to detect **post-training** bias : DPL measures the difference in the proportion of positive outcomes (or a specific label) between different groups after the model has been trained
-* Kullback Leibler Divergence (KL) : measures the difference between two probability distributions. measuring how far off your predictions are from true labels
+### Pre training bias
+
 * Total Variation Distance (TVD) : **Pre training bias**. TVD quantifies the maximum divergence in outcome distributions between different demographic groups
-* Conditional Demographic Disparity (CDD) : **post training bias**, focus on whether disparities in outcomes exist across different demographic groups within specific subgroups defined by other features. For example, calculate loan approval rate by race, and split it by income differences. On low income and high income, you could see no disparity, but it could be the case for medium income for example.
+
+### Post training bias
+
+* **DPL** (Difference of Proportions of Label) : DPL measures the difference in the proportion of positive outcomes (or a specific label) between different groups after the model has been trained
+* Kullback Leibler Divergence (KL) : measures the difference between two probability distributions. measuring how far off your predictions are from true labels
+* Conditional Demographic Disparity (CDD) : focus on whether disparities in outcomes exist across different demographic groups within specific subgroups defined by other features. For example, calculate loan approval rate by race, and split it by income differences. On low income and high income, you could see no disparity, but it could be the case for medium income for example.
 
 
 # Training
