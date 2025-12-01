@@ -292,7 +292,8 @@ S3DataDistributionType to FULLY_REPLICATED of Sharded_by_S3_Key
 
 #### Scaling model training
 
-* Early stopping
+* Early stopping 
+  * more about avoiding useless computation, more than scaling
   * after each epoch of the training job, specify an objective metric
   * calculate the median of the objective metric among all the epochs
   * stop the job if objective metric is lower than the the median
@@ -311,11 +312,11 @@ S3DataDistributionType to FULLY_REPLICATED of Sharded_by_S3_Key
   *  Reduce training time on GPU instances. 
   *  The compiler optimizes Deep Learning models to accelerate training by more efficiently using SageMaker machine learning GPU instances. 
   *  Automatically applies graph and tensor optimization, enabling the efficient utilization of hardware resources and reducing training time
-
+  *  Note this is in path of deprecation : use sagemaker Distributed Training Libraries instead, or some features specific to a framework like Pytorch.compile.
 
 * When usage of GPU is low
   * Adjusting batch size is a key technique. A larger batch size allows the GPU to process more data in parallel, improving efficiency. However, excessively large batches can lead to memory issues and slower convergence.
-  * Data prefetching : process of loading and preparing the next batch of data while the GPU is busy processing the current batch. Instead of waiting for the current batch to finish and then loading the next one, the data loading and preprocessing pipeline runs in parallel with the GPU computation.
+  * Data prefetching : process of loading and preparing the next batch of data while the GPU is busy processing the current batch. Instead of waiting for the current batch to finish and then loading the next one, the data loading and preprocessing pipeline runs in parallel with the GPU computation. SageMaker Data Parallelism Library already optimize this aspect.
 
 
 # Model Tuning
@@ -357,7 +358,7 @@ S3DataDistributionType to FULLY_REPLICATED of Sharded_by_S3_Key
   *  These hyperparameters include learning rates, batch sizes, and regularization techniques.
   *  It can use all strategies : random, bayesian, hyperband, grid
   *  support for custom algorithms
-  *  must provide at least Training Algorithm and Performance metric (loss function)
+  *  must provide at least **Training Algorithm** and **Performance metric** (loss function)
 
 ## Hyperparameter ranges
 
@@ -546,6 +547,8 @@ Use cases:
 | Batch          | GBs              | Days                |
 
 
+* in some cases, it can be useful to launch serverless mode to process a set of records. Check data matches the limits of serverless mode.
+
 ## Infrastructure
 
 ### Containers 
@@ -555,6 +558,8 @@ Use cases:
 * can use own inference code
   * can extend Sagemaker managed container to inherit all the libraries and dependencies
   * can BYOC
+  * it consists of providing custom docker CMD to start
+    *  for real time inference, provide an endpoint serving /invocations with PUT method. Can write custom code there.
 
 ### Instance types
 
