@@ -273,9 +273,6 @@ System rule can be used to override this priority for sub domains.
 * Public ASN : 1 to 2147483647
 * Private ASN : 4200000000 to 4294967294
 
- 
-
-
 # ENA
 
 Multi flow (MPTCP)

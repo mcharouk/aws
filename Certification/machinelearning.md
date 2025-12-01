@@ -753,6 +753,12 @@ AWS collects also aggregated usage information about docker images and training 
 * it's possible to create a custom model in comprehend
 * to share a model to other accounts, define a resource based policy, and use importModel API action to import the model in the target account
 * can predict in bulk using StartSentimentDetectionJob that gets data from an S3 location
+* Supported formats
+  * text files
+  * pdf
+  * .docx
+  * images (will use Textract to extract text)
+  * textract output format (json)
 
 ## Polly
 
