@@ -170,12 +170,12 @@ To remediate unbalanced dataset :
 
 ### Pre training bias
 
-* Total Variation Distance (TVD) : **Pre training bias**. TVD quantifies the maximum divergence in outcome distributions between different demographic groups
+* Total Variation Distance (TVD) : **Pre training bias**. TVD quantifies the maximum divergence in outcome **distributions** between different demographic groups
 
 ### Post training bias
 
-* **DPL** (Difference of Proportions of Label) : DPL measures the difference in the proportion of positive outcomes (or a specific label) between different groups after the model has been trained
-* Kullback Leibler Divergence (KL) : measures the difference between two probability distributions. measuring how far off your predictions are from true labels
+* **DPL** (Difference of Proportions of Label) : DPL measures the difference in the **proportion** of positive outcomes (or a specific label) between different groups after the model has been trained
+* Kullback Leibler Divergence (KL) : measures the difference between two **probability distributions**. measuring how far off your predictions are from true labels
 * Conditional Demographic Disparity (CDD) : focus on whether disparities in outcomes exist across different demographic groups within specific subgroups defined by other features. For example, calculate loan approval rate by race, and split it by income differences. On low income and high income, you could see no disparity, but it could be the case for medium income for example.
 
 
@@ -271,9 +271,7 @@ To remediate unbalanced dataset :
 #### Sync with S3
 
 In distributed training context, to avoid fully replicate all data on all instances : 
-S3DataDistributionType to FULLY_REPLICATED of Sharded_by_S3_Key
-
-
+* S3DataDistributionType : **FULLY_REPLICATED** or **Sharded_by_S3_Key**
 
 #### Overfitting remediation
 
@@ -293,7 +291,7 @@ S3DataDistributionType to FULLY_REPLICATED of Sharded_by_S3_Key
 #### Scaling model training
 
 * Early stopping 
-  * more about avoiding useless computation, more than scaling
+  * more about avoiding useless computation, than scaling
   * after each epoch of the training job, specify an objective metric
   * calculate the median of the objective metric among all the epochs
   * stop the job if objective metric is lower than the the median
@@ -316,7 +314,7 @@ S3DataDistributionType to FULLY_REPLICATED of Sharded_by_S3_Key
 
 * When usage of GPU is low
   * Adjusting batch size is a key technique. A larger batch size allows the GPU to process more data in parallel, improving efficiency. However, excessively large batches can lead to memory issues and slower convergence.
-  * Data prefetching : process of loading and preparing the next batch of data while the GPU is busy processing the current batch. Instead of waiting for the current batch to finish and then loading the next one, the data loading and preprocessing pipeline runs in parallel with the GPU computation. SageMaker Data Parallelism Library already optimize this aspect.
+  * Data prefetching : process of loading and preparing the next batch of data while the GPU is busy processing the current batch. Instead of waiting for the current batch to finish and then loading the next one, the data loading and preprocessing pipeline runs in parallel with the GPU computation. **SageMaker Data Parallelism Library** already optimize this aspect.
 
 
 # Model Tuning
@@ -547,7 +545,7 @@ Use cases:
 | Batch          | GBs              | Days                |
 
 
-* in some cases, it can be useful to launch serverless mode to process a set of records. Check data matches the limits of serverless mode.
+* in some cases, it can be useful to launch serverless mode to process a set of records in batch. Check data matches the limits of serverless mode.
 
 ## Infrastructure
 
