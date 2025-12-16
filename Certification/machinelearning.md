@@ -65,6 +65,11 @@
   * combine features
   * PCA : used for dimensionality reduction. It retain most of the original variations but reduce the number of features. PCA can be applied to a subset of feature.
 
+### Data wrangler connections
+
+* Cataloged connections : result of a data transfer. The data in the cataloged connection doesn't necessarily have the most recent data
+* Direct connections : has access to the most recent data in a direct connection
+
 ### Data wrangler transformation features
 
 **Cleaning Functions:**
