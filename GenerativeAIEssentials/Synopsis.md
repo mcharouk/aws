@@ -191,7 +191,7 @@ Business Context: {business_context}
 
 ## Bias
 
-## Algorithm bias
+### Algorithm bias
 
 * Scenario: A bank develops a credit approval model using Amazon SageMaker.
 
@@ -203,7 +203,7 @@ Even with representative training data, the algorithm discriminates based on loc
 
 * Real Impact: Qualified minority applicants in certain neighborhoods get denied loans at higher rates.
 
-## Interaction Bias
+### Interaction Bias
 
 * Scenario: An e-commerce company deploys an Amazon Lex chatbot for customer support.
 
@@ -215,7 +215,7 @@ The bot learns to respond better to technical queries but poorly to simple, ever
 
 * Real Impact: Elderly customers or those less comfortable with technology receive inadequate support, creating a digital divide.
 
-## Bias Amplification
+### Bias Amplification
 
 * Scenario: A streaming service uses Amazon Personalize for content recommendations.
 
