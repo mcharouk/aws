@@ -221,6 +221,8 @@ While the judge accepted Ke's apology and did not find intent to deceive, the La
   * Sensitive information filtering (PII) (  [list of blocked or masked attributes](https://docs.aws.amazon.com/bedrock/latest/userguide/guardrails-sensitive-filters.html)  )
   * Word filters : provide a list of words or sentences that are denied
   * Grounding : Check response accuracy based on your entreprise data (RAG)
+  * Automated Reasoning checks
+    * A bank uses a GenAI assistant to help agents explain why a customer was approved/denied for a personal loan. The bank wants to ensure the assistant’s explanation is **logically consistent** with the structured decision inputs (policy + applicant facts), and doesn’t “make up” extra reasons.
 
 # GenAI Organization Overview
 

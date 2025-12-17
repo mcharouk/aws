@@ -3,6 +3,7 @@
 - [Pfizer - Health care](#pfizer)
 - [ABP Network - Media](#abp-network)  
 - [Crypto.com - Finance](#cryptocom)
+- [NetCore Cloud](#netcore-cloud)
 - [Amazon's New AI-Powered Children's Story Feature](#amazons-new-ai-powered-childrens-story-feature)
 
 
@@ -138,5 +139,44 @@ Amazon Bedrock
 * Pre-curated input prompts
 * Automated filtering of inappropriate outputs
 * Requires parental consent through the Alexa app
+
+
+# Netcore Cloud
+
+[Netcore Cloud](https://aws.amazon.com/solutions/case-studies/netcore-bedrock-case-study/)
+
+**Context:**
+
+*   Netcore Cloud is a marketing technology company focused on personalized customer engagement.
+*   They identified an opportunity to leverage generative and agentic AI to improve marketing campaign management.
+*   Their vision was to create an AI-powered assistant, Co-Marketer, to streamline campaign development, personalization, and optimization.
+
+**Issue:**
+
+*   Early attempts to build Co-Marketer using public-facing APIs faced challenges:
+    *   **Latency:** Public APIs introduced delays in processing.
+    *   **Data Security:** Concerns arose about exposing customer data through public APIs.
+*   These issues hindered Netcore Cloud's ability to deliver a fast, secure, and intelligent solution for marketers.
+
+**Solution:**
+
+*   Netcore Cloud collaborated with AWS Prototyping and Cloud Engineering (PACE) to develop Co-Marketer using Amazon Bedrock.
+
+    *   **Solution Description:**
+        *   Developed a scalable, multi-agent framework on Amazon Bedrock.
+        *   Integrated Netcore's proprietary deep learning models for advanced predictions and decision-making.
+        *   Implemented a retrieval-augmented generation (RAG) approach to improve the relevance and accuracy of AI agent responses.
+        *   The framework allowed multiple AI agents to collaborate on complex marketing tasks.
+
+    *   **Technology Used:**
+        *   **Amazon Bedrock:** Provided secure, serverless access to leading foundation models (Claude Sonnet 3.7, Meta Llama 3.3 and Amazon Nova Canvas).
+        *   **AWS Prototyping and Cloud Engineering (PACE):** Provided expertise and accelerated the development process.
+        *   **Netcore's Proprietary Deep Learning Models:** Enhanced the AI agents' ability to understand user affinity and propensity.
+
+    *   **Key Performance Indicators (KPIs):**
+        *   **Reduced Campaign Setup Time:** From hours to minutes.
+        *   **Increased ROI:** Up to 10x higher ROI reported by early access trial users.
+        *   **Faster Campaign Launches:** Customers launched campaigns up to 50% faster.
+        *   **Accelerated Development:** The multi-agent framework was developed 30% faster due to the collaboration with AWS PACE.
 
 

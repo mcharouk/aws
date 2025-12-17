@@ -1,3 +1,16 @@
+# Module 1 : Introducing Generative AI
+
+## AWS Models
+
+* Titan : usually solid for business case, but not as performant as mainstream models (ChatGPT, Gemini, Anthropic). It's in Tier 2 models
+* Nova : Strong on multimodal, comparable to mainstream models
+* AWS models usually have very good cost-to-performance ratio
+* Also some features can be restricted to some models 
+  * fine-tuning and continued pre-training (Titan, Anthropic, Llama, Nova)
+  * Embeddings on KDB (Amazon Titan & Cohere only)
+* Usually AWS models are better supported.
+
+
 # Module 3 : Essentials of Prompt Engineering
 
 ## Tool use vs action-oriented prompting
@@ -381,3 +394,38 @@ Creates a feedback loop where users are only shown stereotype-confirming content
 
 # Module 6 : Implementing Generative AI projects
 
+## Model evaluation metrics
+
+Let's say you want to rekognize a cat in an image : 
+
+* Precision : take account of image misclassified as a cat (False positive)
+* Recall : take account of a cat image not classified as a cat
+* Accuracy : take account of both precision and recall
+* F1 score : take account of both precision and recall but privilege models that balance both.
+
+* These metrics could be used for genAI classification tasks and question/answers (for example classified as 1 if the answer is correct)
+
+## Measurements standards
+
+| Metric    | Focus            | Strength               | Limitation                   |
+| --------- | ---------------- | ---------------------- | ---------------------------- |
+| ROUGE     | Recall           | Good for summarization | Misses paraphrasing          |
+| BLEU      | Precision        | Good for translation   | Penalizes valid alternatives |
+| BERTScore | Semantic meaning | Captures paraphrasing  | Computationally expensive    |
+
+
+## Drift
+
+* note there is no easy way to detect drift with generative AI on AWS
+  * activate logging on conversations
+  * Track customer satisfaction, escalation rates
+  * with Comprehend
+    * calculate sentiment analysis with Comprehend
+    * check that answer is related to the same topic than the question 
+  * manual review of some conversations
+* Model monitor is good to monitor drift on structured metric. So it might be useful if genAI is used as a classification task or it's possible to convert the response into some metric.
+* There are third party tools that can do these kind of drifts 
+  * Arize AI
+  * Superwise AI
+  * Fiddler AI Observability
+  
