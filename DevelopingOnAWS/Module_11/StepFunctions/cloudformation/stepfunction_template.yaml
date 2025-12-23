@@ -41,7 +41,7 @@ Resources:
       Role: !GetAtt 
         - LambdaFunctionRole
         - Arn
-      Runtime: nodejs18.x
+      Runtime: nodejs24.x
   GenerateBuySellRecommendationLambda:
     Type: 'AWS::Lambda::Function'
     Properties:
@@ -66,7 +66,7 @@ Resources:
       Role: !GetAtt 
         - LambdaFunctionRole
         - Arn
-      Runtime: nodejs18.x
+      Runtime: nodejs24.x
   CheckStockPriceLambda:
     Type: 'AWS::Lambda::Function'
     Properties:
@@ -95,7 +95,7 @@ Resources:
       Role: !GetAtt 
         - LambdaFunctionRole
         - Arn
-      Runtime: nodejs18.x
+      Runtime: nodejs24.x
   LambdaFunctionEventSourceMapping:
     Type: 'AWS::Lambda::EventSourceMapping'
     Properties:
@@ -146,28 +146,28 @@ Resources:
       Role: !GetAtt 
         - LambdaFunctionRole
         - Arn
-      Runtime: nodejs18.x
+      Runtime: nodejs24.x
   ApproveSqsLambda:
     Type: 'AWS::Lambda::Function'
     Properties:
       Handler: index.lambdaHandler
       Code:
         ZipFile: |
-          const { SFN } = require("@aws-sdk/client-sfn");
+          const { SFNClient, SendTaskSuccessCommand } = require("@aws-sdk/client-sfn");
 
           /**
           * Sample Lambda function that will automatically approve any task submitted to sqs by state machine.
-          * For demonstration purposes this Lambda function simply returns a random integer between 0 and 100 as the stock price.
+          * For demonstration purposes this Lambda function automatically approves tasks.
           * 
           * @param {Object} event - Input event to the Lambda function
           * @param {Object} context - Lambda Context runtime methods and attributes
           * 
           */
-          exports.lambdaHandler = (event, context, callback) => {
-              const stepfunctions = new SFN();
+          exports.lambdaHandler = async (event, context) => {
+              const stepfunctions = new SFNClient();
 
-              // For every record in sqs queue
-              for (const record of event.Records) {
+              // Process all records in the SQS queue
+              const promises = event.Records.map(async (record) => {
                   const messageBody = JSON.parse(record.body);
                   const taskToken = messageBody.TaskToken;
 
@@ -178,22 +178,24 @@ Resources:
 
                   console.log(`Calling Step Functions to complete callback task with params ${JSON.stringify(params)}`);
 
-                  // Approve
-                  stepfunctions.sendTaskSuccess(params, (err, data) => {
-                      if (err) {
-                          console.error(err.message);
-                          callback(err.message);
-                          return;
-                      }
+                  try {
+                      const command = new SendTaskSuccessCommand(params);
+                      const data = await stepfunctions.send(command);
                       console.log(data);
-                      callback(null);
-                  });
-              }
+                      return data;
+                  } catch (err) {
+                      console.error(err.message);
+                      throw err;
+                  }
+              });
+
+              // Wait for all records to be processed
+              await Promise.all(promises);
           };
       Role: !GetAtt 
         - ManualApprovalFunctionRole
         - Arn
-      Runtime: nodejs18.x
+      Runtime: nodejs24.x
   ReportResultSnsTopic:
     Type: 'AWS::SNS::Topic'
   LambdaFunctionRole:
