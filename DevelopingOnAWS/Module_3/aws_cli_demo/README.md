@@ -1,3 +1,9 @@
+* who am i
+
+```
+aws sts get-caller-identity
+```
+
 * create bucket (help)
 
 ```
@@ -20,6 +26,12 @@ aws s3 mb s3://mcharouk-clidemo-867876
 
 ```
 aws s3 cp testFiles s3://mcharouk-clidemo-867876/files --recursive
+```
+
+* list files
+
+```
+aws s3 ls s3://mcharouk-clidemo-867876 --recursive
 ```
 
 * empty bucket

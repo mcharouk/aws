@@ -26,3 +26,11 @@ load_credentials_in_code = False
 | load_env_variables       | True  | take john.foo credentials provided in config.json             |
 | load_credentials_in_code | True  | take S3 admin role credentials loaded in the code             |
 
+
+* note that when a UserId is displayed, it's different than an access key id
+* to get the access key of a user to confirm the identity with the content of .aws/config file, you have to execute this command 
+
+* connect to the right account with an admin, and in cloudshell
+```
+aws iam list-access-keys --user-name Bob
+```

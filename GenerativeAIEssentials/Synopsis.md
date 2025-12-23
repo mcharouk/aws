@@ -8,9 +8,19 @@
 * Also some features can be restricted to some models 
   * fine-tuning and continued pre-training (Titan, Anthropic, Llama, Nova)
   * Embeddings on KDB (Amazon Titan & Cohere only)
-* Usually AWS models are better supported.
+* Usually AWS models are better supp# Module 2 : Use cases
 
 
+# Module 2 : Exploring Generative AI use cases
+
+
+## Amazon Pharmacy
+
+* [Amazon Pharmacy](https://www.aboutamazon.com/news/retail/how-amazon-pharmacy-uses-generative-ai)
+* Convert prescription (handwritten or digital) to structured data
+  * Help pharamcist to validate the prescription. 
+  * Processing speed increased by 90%
+   
 # Module 3 : Essentials of Prompt Engineering
 
 ## Tool use vs action-oriented prompting
@@ -132,6 +142,31 @@ Business Context: {business_context}
     * Fact-Checking
     * Content-moderation
 
+
+## Prompt engineering model differences
+
+* Here are some [links](https://docs.aws.amazon.com/bedrock/latest/userguide/prompt-engineering-guidelines.html) on prompt guidelines provided by each FM provider
+* Note that there can be model specificities to provide elements
+  * For Anthropic, use XML tags
+
+```
+Your task is to fix the product description to be compliant with the product guidance.
+Original product description: <originalProductDescription>{Product Description}</originalProductDescription>
+Product Guidance: <productGuidance>{Product Guidance}</productGuidance>
+Your product description: <productDescription>{Product Description}</productDescription>
+```
+
+  * For AI21 Labs it's more like that
+
+```
+Your task is to fix the product description to be compliant with the product guidance.
+Original product description: {Original Product Description} – End of Description –
+Product Guidance: {Product Guidance} – End of Description –
+Your product description:
+{Product Description}
+ – End of Description –
+```
+
 ## Model parameters
 
 * Temperature
@@ -150,7 +185,12 @@ Business Context: {business_context}
 
 ## Solutions for transparent and explainable models
 
-### Explainability Frameworks
+### Evaluation Framework
+
+* used for 
+    * safety : toxicity, bias
+    * fairness
+    * robustness and veracity
 
 * In traditional ML, can use SHAP or PDP
 * Model evaluation
@@ -206,15 +246,16 @@ Business Context: {business_context}
 
 ### Algorithm bias
 
-* Scenario: A bank develops a credit approval model using Amazon SageMaker.
+* Scenario : A company uses AI to analyze profile photos for "professionalism" scoring. The training data is perfectly balanced - equal photos of successful employees across all demographics, all labeled as "professional."
 
-* The Problem:
+* The algorithm's **mathematical structure** itself creates bias:
+  * The CNN's **pooling layers** systematically reduce image resolution
+  * This affects darker skin tones differently than lighter ones due to **pixel intensity calculations**
+  * The algorithm's **ReLU activation functions** respond differently to various lighting conditions
+  * **Gradient descent optimization** converges on patterns that favor certain facial structures
 
-The algorithm uses zip code as a feature
-Zip code becomes a proxy for race/ethnicity due to historical housing segregation
-Even with representative training data, the algorithm discriminates based on location
-
-* Real Impact: Qualified minority applicants in certain neighborhoods get denied loans at higher rates.
+* Result
+  * The **loss function mathematics** may inadvertently optimize for features that correlate with certain demographics
 
 ### Interaction Bias
 
@@ -258,6 +299,12 @@ Creates a feedback loop where users are only shown stereotype-confirming content
   * use model-agnostic explanations like SHAP
   * combine transparent models with complex ones
 
+### Transparency trade offs
+
+* Accuracy : More complex models are more accurate and less transparent
+* Privacy : transparency could reveal confidential data.
+* Safety : guardrails typically block responses. As the user didn't receive the response, he cannot understand why the response have been blocked
+* Security : reveal the internals of the model
 
 ## AWS Services
 
@@ -394,6 +441,17 @@ Creates a feedback loop where users are only shown stereotype-confirming content
 
 # Module 6 : Implementing Generative AI projects
 
+## Benchmark
+
+* SQUAD : evaluate question answers
+* GLUE : evaluate language comprehension
+  * sentiment analysis
+  * text classification
+  * Named Entity Recognition
+  * Text Similarity
+  * Question Answering
+* SuperGlue : evaluate complex reasoning
+
 ## Model evaluation metrics
 
 Let's say you want to rekognize a cat in an image : 
@@ -429,3 +487,21 @@ Let's say you want to rekognize a cat in an image :
   * Superwise AI
   * Fiddler AI Observability
   
+
+### Data drift example
+
+* Training Data (2023)
+  * 70% purchases were physical products (electronics, books, clothing)
+  * 20% digital products (software, e-books)
+  * 10% services (warranties, subscriptions)
+  * Average customer age: 35-45
+  * Peak shopping: weekends and evenings
+
+* Production Data (2024) - Data Drift Occurs
+  * 40% purchases are now physical products
+  * 35% digital products (AI tools, streaming services)
+  * 25% services (cloud storage, AI subscriptions)
+  * Average customer age: 25-35 (younger demographic)
+  * Peak shopping: mobile during lunch breaks and commutes
+
+* this can be a sign of recommendations becomes less pertinent, customer satisfaction decreases

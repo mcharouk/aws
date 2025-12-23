@@ -66,6 +66,20 @@ ETag is hash of the object. Can be used to check integrity
 * S3 Batch Operations
 * Static Web Hosting with CORS configuration
 
+## S3 Object Lambda
+
+* use cases
+  * convert to other formats
+  * redacting confidential data
+  * compressing or decompressing file
+  * change image resolution
+  * augmenting data with other information
+  * custom authorisation rules
+* Lambda must be accessed through an access point
+* the goal of the lambda is to call write_get_object_response from S3_client
+  * request route and request token are taken from request, and are mandatory to forward to write_get_object_response
+  * They are used by S3 to know where it should redirects the response (to the consumer)
+
 # Module 7 : Database 1
 
 ## Demo
@@ -84,6 +98,25 @@ ETag is hash of the object. Can be used to check integrity
 * [Counter in DDB](https://aws.amazon.com/blogs/database/implement-resource-counters-with-amazon-dynamodb/)
 * [Single table design foundation](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/data-modeling-foundations.html#data-modeling-foundations-single)
 
+
+## DynamoDb CRUD
+
+* put-item overwrites current record
+  * can return values in the same query
+  * put conditionals on partition key as an existence tests
+  * update-item to update only some fields
+* batch-write-item
+  * can write on multiple tables
+  * will return failed items for retries
+  * write handles PUT and DELETE requests
+* parallel scan
+  * define number of segments
+  * loop for all segments
+  * provide current segment and total segments
+  * DynamoDB will apply a hash function on the partition key to determine the segment
+  * all items with the **same partition key** are always assigned to **the same segment**
+  * As a result, **increasing the total number of segments does not guarantee faster scan performance**
+
 # Module 9 : Compute
 
 ## Demo
@@ -101,6 +134,17 @@ ETag is hash of the object. Can be used to check integrity
   * take time to show how it looks like, all the different tabs
 
 ## Lambda code
+
+## Destinations
+
+* only in case lambda is triggered asynchronously (S3 events, SNS, EventBridge, etc...)
+* forward all the context to a destination, can differentiate the output dest on failure and success. Context means
+  * Request
+  * Response
+  * Stack Trace
+  * Error codes
+* For errors, provides more context than message sent to a DLQ. DLQ receives only the message body.
+* Best practice is to use it instead of a DLQ
 
 ### Stream of event 
 
@@ -160,7 +204,16 @@ it's possible to get a stream of event, in a sense of input stream / output stre
 * only Java 11 and later managed runtime (no docker)
 * does not support provisioned concurrency, EFS, ephemeral storage up to 512 Mb
 
+## Lambda insights
 
+### Metrics (examples)
+
+* init_duration
+* memory_utilization
+* used_memory_max
+* number of bytes sent and received by the function
+* amount of space used and free in /tmp
+  
 
 # Module 10 : Gateway
 
@@ -187,26 +240,27 @@ it's possible to get a stream of event, in a sense of input stream / output stre
 
 ## Websockets
 
-* routes (like rest endpoints)
+* routes (like **rest endpoints**) are defined by routeKey which are associated to a specific action
   * connect
   * disconnect
   * default
   * custom
-* route selection expression : the field that points to the route to use. For example if the expression is
+* connect route must be called before any other custom route. It provides a **connectionId** used in all other subsequent calls.
+* to trigger a specific route, there is a route selection expression. It tells which json field it should look at to know what route to trigger
 
 ```
 $request.body.action
 ```
 
-this message will be forwarded to the **joinroom** action
+this message will look at action field and be forwarded at last to the **joinroom** route
 
 ```
 {"action":"joinroom","roomname":"developers"}
 ```
 
 * each possible value of action, can be routed to a different backend (MOCK, HTTP, LAMBDA)
-* provide a websocket URL that starts with **wss://**. To be used by the client
-* provide an HTTPS URL that can be used by the server to push messages to the client
+* API Gateway Stage will provide a websocket URL that starts with **wss://**. To be used by the client
+* API Gateway provide an HTTPS URL that can be used by the server to push messages to the client
 * when using the HTTPS URL, must provide also a connection id that is given at the connect step and should be saved somewhere (in a DB for example) to be able to find the right client to push messages.
 
 ## API gateway steps

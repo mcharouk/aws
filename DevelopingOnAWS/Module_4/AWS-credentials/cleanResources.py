@@ -32,7 +32,11 @@ print("All SQS queues have been deleted successfully")
 
 sns = boto3.resource("sns")
 
+topic_not_delete_name = "aws-controltower-SecurityNotifications"
 for topic in sns.topics.all():
+    if topic.arn.split(":")[-1] == topic_not_delete_name:
+        print(f"Topic {topic.arn} has been skipped because it relates to control tower")
+        continue
     topic.delete()
     print(f"Topic {topic.arn} has been deleted successfully")
 print("All SNS topics have been deleted successfully")
