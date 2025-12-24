@@ -40,7 +40,7 @@ class BatchOperationsStack(Stack):
             self,
             id=lambda_name,
             function_name=lambda_name,
-            runtime=_lambda.Runtime.PYTHON_3_11,
+            runtime=_lambda.Runtime.PYTHON_3_13,
             code=_lambda.Code.from_asset("lambda"),
             handler="lambda_function.lambda_handler",
             role=lambda_role,

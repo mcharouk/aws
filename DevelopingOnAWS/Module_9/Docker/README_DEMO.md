@@ -37,6 +37,6 @@ curl "http://localhost:9000/2015-03-31/functions/function/invocations" -d "{}"
 ## Lambda
 
 * create a lambda named **LambdaOnDockerDemo**
-  * language : python 3.12
+  * language : python 3.13
   * architecture : x86_64
   * role : provided by cf

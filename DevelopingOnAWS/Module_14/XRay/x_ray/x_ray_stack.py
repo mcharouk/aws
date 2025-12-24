@@ -60,8 +60,7 @@ class XRayStack(Stack):
             "xrayDemoLayer",
             code=_lambda.Code.from_asset("layer-package/layer-package.zip"),
             compatible_runtimes=[
-                _lambda.Runtime.PYTHON_3_12,
-                _lambda.Runtime.PYTHON_3_11,
+                _lambda.Runtime.PYTHON_3_13                
             ],
             compatible_architectures=[_lambda.Architecture.X86_64],
         )
@@ -112,7 +111,7 @@ class XRayStack(Stack):
             self,
             weather_lambda_name,
             function_name=weather_lambda_name,
-            runtime=_lambda.Runtime.PYTHON_3_11,
+            runtime=_lambda.Runtime.PYTHON_3_13,
             code=_lambda.Code.from_asset("lambda_weather"),
             handler="lambda_function.lambda_handler",
             tracing=_lambda.Tracing.ACTIVE,
@@ -125,7 +124,7 @@ class XRayStack(Stack):
             self,
             lambda_name_city,
             function_name=lambda_name_city,
-            runtime=_lambda.Runtime.PYTHON_3_11,
+            runtime=_lambda.Runtime.PYTHON_3_13,
             code=_lambda.Code.from_asset("lambda_city"),
             handler="lambda_function.lambda_handler",
             tracing=_lambda.Tracing.ACTIVE,

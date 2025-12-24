@@ -29,10 +29,10 @@ client = boto3.client("sts")
 
 response = client.get_caller_identity()
 account_id = response["Account"]
-
+print("account is " + account_id)
 sso_client = boto3.client("sso")
 response = sso_client.get_role_credentials(
-    roleName="AdministratorAccess", accountId=account_id, accessToken=access_token
+    roleName="AWSAdministratorAccess", accountId=account_id, accessToken=access_token
 )
 
 # get access key id, secret access key and session token

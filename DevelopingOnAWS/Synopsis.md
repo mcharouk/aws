@@ -382,6 +382,13 @@ in eCommerce
 * mettre un $ permet d'overrider l'ancien message avec le nouveau message (default behavior)
 * mettre un $.toto permet de rajouter ou remplacer le champ toto dans l'ancien message
 
+## New features
+
+* note that we can write state machines in JSONata language
+  * simplified model
+  * expression more powerful / could replace some simple lambdas
+* concept of state machine variables. It's variables which are global to the state machine execution and can be shared with all tasks without having to pass them from one task to another
+
 # Module 12 : Access
 
 ## Demo
@@ -390,6 +397,13 @@ in eCommerce
 * Explore the [React sample](https://docs.aws.amazon.com/cognito/latest/developerguide/getting-started-test-application-react.html) provided by AWS
 
 ## Cognito
+
+### Supports
+
+* Cognito Supports OAuth and SAML
+  * Specifically it supports SAML
+    * when an external provider provides user authentication in SAML
+    * as an SAML Identity Provider for other applications
 
 ### App Client
 
@@ -412,6 +426,8 @@ settings at app client level
 
  * scopes are linked to an app client, not possible to associate a user or a group to a scope.
  * scopes can seggregate permissions between applications, not end-users.
+ * to define a sort of profiles for users, use groups or user attributes (provided in idtoken)
+ * A lambda authorizer can provide permissions based on that or it can be done on application side
 
 # Module 13 : Devops
 

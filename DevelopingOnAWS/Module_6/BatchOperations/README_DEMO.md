@@ -13,7 +13,7 @@ s3://demo-marccharouk-batchoperations-678474-files/manifest.csv
 * Completion report
 
 ```
-s3://demo-marccharouk-batchoperations-678474-files/completion-report
+s3://demo-marccharouk-batchoperations-678474-files/completion-report/
 ```
 * In permissions choose **BatchOperationsRole**
 
