@@ -442,9 +442,9 @@ settings at app client level
   * specify lambda configuration (runtime, zip or docker image, tracing, application insights, etc...)
 
 * **sam build** install and organizes dependencies
-  * for containers
+  * for lambda on containers
     * execute a docker build
-  * for non containers
+  * for lambda on managed runtimes
     * install dependencies with a requirements.txt (Python), a package.json (NodeJS), maven (Java), etc...
 
 * **sam local invoke** invokes a lambda

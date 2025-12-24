@@ -29,26 +29,15 @@ sam local generate-event apigateway aws-proxy
 
 # Deployment and environment
 
+
+## new development : SAM sync
+
+* at start of the demo, dev and prod are already deployed
+* goal of demo is to make a change in dev, and a change in production using canary release mode
 * show samconfig.toml
   * stack name are different in dev or production
   * parameter override in production
   * show conditions in template
-
-* deploy first version in dev. Save API Gateway URL in a temp file (used to demonstrate sync feature)
-
-```
-sam deploy
-```
-
-* deploy first production version. Save API Gateway URL in a temp file (used to demonstrate canary rel feature)
-
-```
-sam deploy --config-env prod
-```
-
-* These two versions will be deployed initially, just take the URLs for CF outputs
-
-## new development : SAM sync
 
 ### test sync without watch feature
 
@@ -64,16 +53,16 @@ sam sync --code
 * launch synchronization mode in a dedicated terminal (can take on or two minutes)
 
 ```
-sam sync --watch
+sam sync --stack-name SAMDemoStack --watch
 ```
-* change lambda code, check time it's taking to redeploy, should be about 7s
 
+* if this command fails, remove the .aws-sam directory and re-execute the same command
+* change lambda code, check time it's taking to redeploy, should be about 7s
 * execute Powershell script named invokeDevAPI.ps1 (in root folder)
 
 ## Deployments
 
 * change Lambda Code
-
 * Build new version
 
 ```
