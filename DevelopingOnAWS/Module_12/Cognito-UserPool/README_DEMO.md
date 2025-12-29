@@ -1,40 +1,47 @@
+# User Pool
+
 ## User pool creation
 
+* Select Standard application with name
+```
+UserPoolDemoApp
+```
 * sign-in with email
-* change password policy to something very simple
-* No MFA
-* Disable Self service account recovery (enabling it has no effect anyway)
 * Enable self registration
-* Allow confirmation by mail (Recommended options)
 * add some required user attributes (birth date in format YYYY-MM-DD)
-* Attribute verification and user account confirmation : keep everything as default
-* message delivery : select Cognito, and leave default
-* Cognito pool name
+* return URL
+```
+http://localhost:8501/
+```
+## User Pool update
+
+* rename user pool to 
 
 ```
 UserPoolDemo
 ```
+* In App clients
+  * Login Pages
+    * In Allowed sign-out URLs
 
-* self hosted UI
-  * domain name
-```
-mcharouk-user-pool-demo
-```
-
-* in client app
-  * app type  = other (it has an impact on authentication flows). Other removes all flows but refresh tokens
-  * client app name
- ```
- UserPoolDemoApp
- ``` 
-  * generate client secret
-   * callback URL **AND** sign-out URL (in advanced app client settings)
 ```
 http://localhost:8501/
 ```
-  
-  * activate scope with **email, openid and profile**. This will allow to get user attributes in id token (among them, groups that are used to authorize page access)
+  * Client App Settings
+    * activate scope with **email, openid and profile** (add profile)
 
+## Show UserPools Config
+
+* Authentication Methods
+  * Password Policy
+* Sign-in
+  * MFA options 
+  * Account recovery (in case of lost password)
+* Sign-up
+  * Attribute verification and user account confirmation : keep everything as default, will check email
+* Extensions
+  * it's where you can customize authentication flows with Lambda triggers
+* Show Users when registered
 
 ## Run the application
 
@@ -61,3 +68,6 @@ streamlit run streamlit-app.py
 * create 2 groups
   * **group2** for page2 
   * **admin** for page3 and settings
+* Assign user to the 2 groups
+* log out and log in again to check effect
+* show id token , it should be printed in console

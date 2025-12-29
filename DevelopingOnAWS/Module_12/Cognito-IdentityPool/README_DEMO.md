@@ -1,24 +1,25 @@
 ## Identity pool creation
 
 * create an identity pool
-* create a new iam role with name
+* create a new iam role (through Identity Pool creation form) with name below
 
 ```
 IdentityPoolTestRole
 ```
 
 * Leave **Role Settings** to default
-* in **Attributes for access control** section, choose custom mappings
-  * Claim
-  ``` 
-  custom:department
-  ```
+* in **Attributes for access control** section, choose custom mappings  
   * Tag Key
   ``` 
   department
   ```
+  * Claim
+  ``` 
+  custom:department
+  ```
 
 * put any name for identity pool
+* don't activate basic authentication
   
 ## Identity pool post creation
 
@@ -34,8 +35,7 @@ IdentityPoolTestRole
 
 Code is in test-identity-pools.py. Steps
 
-* authenticate with IDP (cognito user pool)
-* get an identity id. It's a identity specific to identity pool which is mapped to a user. It will create it if it does not exist.
+* authenticate with IDP (cognito user pool) to get id token
+* get an identity id from id token. It's a identity specific to identity pool which is mapped to a user. It will create it if it does not exist.
 * get temporary credentials with identity id and id token
 * try to get object from S3
-

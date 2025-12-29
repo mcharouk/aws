@@ -1,6 +1,7 @@
 import base64
 import json
 import os
+import urllib.parse
 
 import requests
 import streamlit as st
@@ -108,6 +109,7 @@ def get_user_tokens(auth_code):
     try:
         access_token = token_response.json()["access_token"]
         id_token = token_response.json()["id_token"]
+        print("ID TOKEN IS : " + id_token)
         save_tokens_in_file(id_token, access_token)
 
     except (KeyError, TypeError):
@@ -242,8 +244,22 @@ def set_st_state_vars():
 # -----------------------------
 # Login/ Logout HTML components
 # -----------------------------
-login_link = f"{COGNITO_DOMAIN}/login?client_id={CLIENT_ID}&response_type=code&scope=email+openid+profile&redirect_uri={APP_URI}"
-logout_link = f"{COGNITO_DOMAIN}/logout?client_id={CLIENT_ID}&logout_uri={APP_URI}"
+
+login_parameters = {
+    "client_id": CLIENT_ID,
+    "response_type": "code",
+    "redirect_uri": APP_URI,
+}
+logout_parameters = {
+    "client_id": CLIENT_ID,
+    "logout_uri": APP_URI,
+}
+
+login_link = f"{COGNITO_DOMAIN}/login?" + urllib.parse.urlencode(login_parameters)
+logout_link = f"{COGNITO_DOMAIN}/logout?" + urllib.parse.urlencode(login_parameters)
+
+# login_link = f"{COGNITO_DOMAIN}/login?client_id={CLIENT_ID}&response_type=code&scope=email+openid+profile&redirect_uri={APP_URI}"
+# logout_link = f"{COGNITO_DOMAIN}/logout?client_id={CLIENT_ID}&logout_uri={APP_URI}"
 
 html_css_login = """
 <style>
