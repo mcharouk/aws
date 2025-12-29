@@ -28,9 +28,9 @@ def get_random_cities():
 # print random cities
 random_cities = get_random_cities()
 for city in random_cities:
-    response = requests.get(
-        f"{api_url}?city={city['city_ascii']}&country={city['iso2']}"
-    )
+    api_full_url = f"{api_url}?city={city['city_ascii']}&country={city['iso2']}"
+    print("calling api for city:", api_full_url)
+    response = requests.get(api_full_url)
     print(response.json())
 
 

@@ -59,16 +59,17 @@ class XRayStack(Stack):
             self,
             "xrayDemoLayer",
             code=_lambda.Code.from_asset("layer-package/layer-package.zip"),
-            compatible_runtimes=[
-                _lambda.Runtime.PYTHON_3_13                
-            ],
+            compatible_runtimes=[_lambda.Runtime.PYTHON_3_13],
             compatible_architectures=[_lambda.Architecture.X86_64],
         )
+
+        # to find last version
+        # go to lambda console, try to add a layer manually to get the arn and the version
 
         powertool_layer = _lambda.LayerVersion.from_layer_version_arn(
             self,
             "PowerToolsLayer",
-            layer_version_arn=f"arn:aws:lambda:{self.region}:017000801446:layer:AWSLambdaPowertoolsPythonV2:18",
+            layer_version_arn=f"arn:aws:lambda:{self.region}:017000801446:layer:AWSLambdaPowertoolsPythonV3-python313-x86_64:19",
         )
 
         # create an iam role that have basic lambda policies, permission to read a dynamodb table, permission to read an ssm parameter

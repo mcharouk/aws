@@ -48,7 +48,8 @@ def lambda_handler(event, context: LambdaContext):
 
     # list = [1, 2, 3, 4, 5]
     # if random.choice(list) == 4:
-    #    raise Exception("Unlucky guy, you encounter a random exception")
+    #   logger.error("Unlucky guy, you encounter a random exception")
+    #   raise Exception("Unlucky guy, you encounter a random exception")
 
     response_json = {
         "capital": capital,

@@ -28,12 +28,16 @@ aws application-insights update-problem --problem-id [PROBLEM_ID] --update-statu
 * Show traces
   * we can see details of response times
   * we can see logs corresponding to the trace (aggregation of all components logs)
+  * if we go for example on subsegments ##get_cities_info, we can see the custom annotations in the right menu, annotation panel
 
 ## Exceptions
 
 * update **City** lambda code, uncomment line 49 to 51 to generate random errors
 * execute testAPI.py to generate some errors
-* on application insights, a problem is detected. Logs might take time to appear in problem dashboard (2 mins)
+* on **Application insights**, a problem is detected, but it might take time to appear. 
+  * First we see an alarm in ALARM status related to the Lambda
+  * Second, we'll see the new problem created
+  * Both can take some time to appear
 * Look at tracemap. Errors appears in Red
 * Look at traces, Errors appears clearly on the table
 * Click on a trace in error status, to see details
