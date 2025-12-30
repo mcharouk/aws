@@ -28,3 +28,23 @@
 * the reference field didn't appear at start, i had to check and uncheck **Use ApplyGuardrail API** to make it appear
 * in case groundchecking is not working, improve the grounding score threshold
 
+# Lab 3
+
+* **Maximum Output Tokens** value should be adjusted near 2000 Tokens, or responses might be cut
+
+* The goal of the lab is to generate these documents
+  * Use case selection document (document to list considerations on choosing a use case)
+    * FR and NFR
+    * Key Metrics
+    * Selection Criteria
+    * Organizational Readiess
+  * Model Selection guidelines (what are the criterias and trade off regarding model selection)
+  * Performance improvement plan
+    * What are techniques to improve perf model (fine tuning, prompt engineering, data augmentation, etc...)
+  * Evaluation Metrics
+    * what are evaluation metrics
+    * reco about how to generate a test dataset
+    * strategies to continuously monitor model performance
+  * Deployment Plan document
+    * Focus on infrastructure scalability and security
+    * Strategy to manage model versions updates
