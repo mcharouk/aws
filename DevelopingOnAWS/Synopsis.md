@@ -462,7 +462,7 @@ settings at app client level
 
 * X-ray is shown in the lab
 
-## Monitoring vs Obsverability
+## Monitoring vs Observability
 
 * Monitoring : collect metrics and generate reports / dashboards
 * Observability : looks at component interactions and data collected by monitoring to find the root cause of issues. Includes tracing. 
@@ -483,6 +483,25 @@ What must be collected to
 
 ## Cloudwatch logs
 
+### Background thread issue
+
+* the main issue is that in Java or .Net the log process runs in a background thread.
+* In AWS Lambda, once your code finishes (returns a response), AWS freezes the entire execution environment immediately
+  * If your logging library has 10 logs sitting in a "background queue" waiting to be sent, they will stay there in "limbo."
+  * Those logs won't appear in CloudWatch until the next time the Lambda is triggered.
+  * If the Lambda isn't triggered again for an hour, your logs are an hour late. If the Lambda environment is deleted (scaled down), those logs are lost forever.
+* Solution
+  * in python, the log process is synchronous, so this issue doesn't exist
+  * IN Java
+    * LambdaLogger (it's synchronous), in aws-lambda-java-core library
+    * AWS Lambda Powertools
+    * for Log4j or Logback : AWS provides a specific "Lambda Appender" (aws-lambda-java-log4j2)
+  * in .Net
+    * Amazon.Lambda.Logging.AspNetCore
+    * AWS Lambda Powertools
+
+### Options on other stacks
+
 * EKS
   * FluentBit (recommended)
   * FluentD
@@ -490,11 +509,27 @@ What must be collected to
 * EC2 : Cloudwatch Log Agent
 * Lambda, ECS : Seamless
 
+## Lambda recursive loops
+
+* [Documentation](https://docs.aws.amazon.com/lambda/latest/dg/invocation-recursion.html#invocation-recursion-concepts)
+* Lambda uses X-Ray to detect recursive loops (but no need to activate it, it's always there by default and free of charge)
+* If your function is invoked approximately 16 times recursively, lambda is stopped automatically
+* It can redirect the error in a DLQ if it's configured
+* Supported services
+  * S3, SQS -> look at the doc above to see pattern details
+
 ## XRay
 
 * for lambda
   * only check checkbox to enable XRay
-  * additional code for sub segments, annotations
+  * additional code for 
+    * adding new segments on all services called by the lambda
+      * AWSSDKHandler.RegisterXRayForAllServices in .Net
+      * Add TracingInterceptor() to client builder
+      * xray_recorder in python
+    * sub segments
+    * annotations and metadata
+    * if you run a full web api inside lambda, for example in .Net, using Amazon.Lambda.AspNetCoreServer, you will need to add app.UseXRay("MyLambdaWebApi") to capture incoming calls. In other cases it will work by default
 * for others
   * install x Ray agent as daemon
   * use X Ray SDK to activate it
