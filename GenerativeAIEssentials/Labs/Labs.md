@@ -48,3 +48,4 @@
   * Deployment Plan document
     * Focus on infrastructure scalability and security
     * Strategy to manage model versions updates
+* These documents are a summary of the training content of the day and can be used by students as future reference
