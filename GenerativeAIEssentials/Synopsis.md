@@ -13,6 +13,20 @@
 
 # Module 2 : Exploring Generative AI use cases
 
+## Use cases 
+
+* New Content (more about creating standard formats, not really innovation)
+  * Writing product descriptions for e-commerce
+  * Generating social media posts
+  * Creating email marketing campaigns
+* Innovation
+  * Using GenAI to propose new research hypotheses or experimental approaches
+  * Generating novel product concepts or design variations that haven't been tried before
+* Efficiency
+  * synthesize case law, regulations, and precedents to help lawyers prepare more efficiently for cases
+  * analyze production line data, equipment performance, and quality metrics to optimize machine maintenance schedules and reduce downtime (task about planning and scheduling)
+  * review loan documentation for completeness and consistency before human underwriters review them, reducing processing time and errors
+
 ## Amazon Pharmacy
 
 * [Amazon Pharmacy](https://www.aboutamazon.com/news/retail/how-amazon-pharmacy-uses-generative-ai)
@@ -182,7 +196,7 @@ Your product description:
   * a high temperature flatten the distribution
   * a low temperature add some constrasts to the probabilities
 
-![Temperature Example](/TemperatureIllustration.png "Temperature Example")
+![Temperature Example](/GenerativeAIEssentials/TemperatureIllustration.png "Temperature Example")
 
 * A model typically don't always take the highest probability. 
 * Top P : take all next tokens until some of probability reaches P.
