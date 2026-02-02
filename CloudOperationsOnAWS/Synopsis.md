@@ -69,6 +69,8 @@
     - [Performance](#performance)
     - [Updating an EBS](#updating-an-ebs)
     - [Multi Attach](#multi-attach)
+    - [Monitoring](#monitoring)
+    - [Restore](#restore)
   - [EFS](#efs)
 - [Module 13 : Object Storage](#module-13--object-storage)
   - [Express One-Zone](#express-one-zone)
@@ -708,7 +710,7 @@ Demo :
   * performance does not depend on the volume size
 * GP2
   * performance relative to the volume size
-  * performance is burstable
+  * performance is burstable (**important to explain**)
   * Throughput  
     * Volumes < 170 GB : Max 128 Mbps
     * 170 Gb < Volumes < 334 GB : Max 250 Mbps
@@ -735,6 +737,21 @@ When we make a change on EBS (like changing disk size or performance), we have t
   * General Parallel File System (GPFS), 
   * Microsoft Cluster Shared Volumes (CSV)
   * Global File System 2 (GFS2) for Linux.
+
+### Monitoring
+
+* Status Check every 5 minutes
+* Performance Check (For IOPS Optimized Only)
+  * You can use describe-volume-status API to get the Performance status
+  * You can be notified of a change in EventBridge
+  * The status does not appear directly though in Cloudwatch metrics
+* CloudWatch metrics with a 1min resolution 
+
+### Restore
+
+* Normal mode : lazy loading on blocks
+* Fast mode : all blocks are fully initialized during creation (but it's more expensive)
+* Amazon EBS Snapshots Archive Tier : restore can take 24-72 hours
 
 ## EFS
 

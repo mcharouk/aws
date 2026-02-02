@@ -210,6 +210,19 @@ Your product description:
 
 ## Solutions for transparent and explainable models
 
+### Explainability frameworks
+
+* SHAP : supported by Clarify. 
+  * Can sample the input tokens to get only the most relevant. Can sample more important paragraphs, or more important sentences in a paragraph.
+  * for outputs, focus on only on specific sentences, if the output is too long (must select it manually)
+
+* Attention maps show which input tokens the model "looked at" when generating each output token. Think of it as the model's "focus pattern."
+  * more scalable
+  * available on open source models, that are self-managed. Not available on models as a service.
+  * Frameworks
+    * Transformers + BertViz (HuggingFace)
+    * Captum (Facebook)
+
 ### Transparent Documentation
 
 * [Rekognition Example Model card](https://docs.aws.amazon.com/ai/responsible-ai/rekognition-face-matching/overview.html#design)
@@ -230,6 +243,7 @@ Your product description:
 
 ### Human Oversight and Involvement
 
+* If an human review and validates, it adds explainability to the system for high stake decisions
 * AI flags potentially harmful content for review
 * AI suggests but humans validate at the end
 * Send a sample of live data for human review
@@ -238,10 +252,15 @@ Your product description:
 
 * it consists of AI providing explanation of results. 
 * Basically, it will say in which scenario the result could have been different.
+* some frameworks : 
+  * [Dice](https://www.microsoft.com/en-us/research/project/dice/)
+  * [Alibi Explain](https://github.com/SeldonIO/alibi)
 
 ### User Interface Explanations
 
 * For example, quote the sources it used to generate the response
+* Chain of Thought prompting
+* confidence score
 
 ## Bias
 
@@ -281,16 +300,13 @@ The recommendation engine amplifies these patterns
 Creates a feedback loop where users are only shown stereotype-confirming content
 
 * Real Impact:
-
   * Women interested in sci-fi never see those recommendations
   * Men interested in cooking shows don't get those suggestions
   * Reinforces and strengthens societal stereotypes
 
 ## Transparency and explainability
 
-* LLM are in general not transparent because of their complexity
-  * Still, CoT for example can be used to explain the output
-  * Quote the sources
+* LLM are in general not transparent because of their complexity    
 * But be careful to who you are transparent. It can divulgate sensitive data, model internal behaviour (subject to disclosure), could show some of its vulnerabilities
 * Might not be 100% explainable. Does not explain why genAI has generated this text instead of  another one. 
 
@@ -322,14 +338,13 @@ Creates a feedback loop where users are only shown stereotype-confirming content
     * Human review
 
 
-### Sagemaker Clarigy Evaluation Framework
+### Sagemaker Clarify Evaluation Framework
 
 * used for 
     * safety : toxicity, bias
     * fairness
     * robustness and veracity
 
-* In traditional ML, can use SHAP or PDP
 * Model evaluation
    * [fmeval](https://github.com/aws/fmeval) is open source and is used by SageMaker Clarify under the hood
    * can work with any model
@@ -350,6 +365,7 @@ Creates a feedback loop where users are only shown stereotype-confirming content
 # Module 5 : Security and Compliance
 
 ## OWASP Top 10
+
 ### 1 - Prompt injection
 
 * Mitigation
