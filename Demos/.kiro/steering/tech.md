@@ -37,10 +37,10 @@ The repository demonstrates a wide range of AWS services including:
 ### CDK Operations
 ```bash
 # Deploy a CDK stack
-cdk deploy
+npx aws-cdk deploy
 
 # Destroy a CDK stack
-cdk destroy
+npx aws-cdk destroy
 
 # Synthesize CloudFormation template
 cdk synth

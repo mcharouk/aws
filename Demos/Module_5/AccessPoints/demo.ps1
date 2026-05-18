@@ -2,11 +2,11 @@ $param1=$args[0]
 
 if ( $param1 -eq "deploy" )
 {
-    cdk deploy --require-approval never    
+    npx aws-cdk deploy --require-approval never    
 }
 ElseIf( $param1 -eq "destroy" )
 {
-    cdk destroy -f
+    npx aws-cdk destroy -f
 }
 Else
 {

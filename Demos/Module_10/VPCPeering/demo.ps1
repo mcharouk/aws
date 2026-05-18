@@ -12,12 +12,12 @@ $env:AWS_DEFAULT_REGION=$param2
 
 if ( $param1 -eq "deploy" )
 {
-    cdk deploy --require-approval never      
+    npx aws-cdk deploy --require-approval never      
 }
 ElseIf( $param1 -eq "destroy" )
 {
     python cleanResources.py
-    cdk destroy -f
+    npx aws-cdk destroy -f
 }
 Else
 {
