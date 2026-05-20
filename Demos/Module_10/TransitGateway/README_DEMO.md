@@ -3,22 +3,7 @@
 ## Route Analyzer
 
 * In Network Manager
-  * go to Transit gateway network, in global network created by CF
-  * go to tab Route Analyzer
-  * fill in
-    * two attachments (mapping attachment vs VPC id is in CF output)
-    * IP address (it does not necessarily have to exist)
-
-  | VPC Name | IP Range    | IP Address Example |
-  | -------- | ----------- | ------------------ |
-  | VPC A    | 10.0.0.0/24 | 10.0.0.8           |
-  | VPC B    | 10.1.0.0/24 | 10.1.0.12          |
-  | VPC C    | 10.2.0.0/24 | 10.2.0.15          |
-
-  * test connection A with B (should be OK)
-  * test connection A with C (should be OK)
-  * test connection B with C (should be OK)
-
+  * go to reachability analyzer to test connectivity. Paths have been created by CF.  
 
 ## Transit Gateway update
 

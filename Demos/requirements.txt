@@ -7,3 +7,4 @@ pandas
 awswrangler
 flask
 logging
+pyyaml

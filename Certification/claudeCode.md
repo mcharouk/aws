@@ -23,6 +23,9 @@
 * you cannot group MCP servers.
 * add tool :  Usage : server.tools(). Parameters : name, description, input_schema (with Zod)
 
+* MCP definition
+  * local : ~/.claude.json
+  * project : .mcp.json at the root of project folder
  
 
 # Models

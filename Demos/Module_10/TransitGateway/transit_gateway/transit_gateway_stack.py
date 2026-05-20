@@ -1,4 +1,4 @@
-from aws_cdk import CfnOutput, Stack
+from aws_cdk import CfnOutput, CfnTag, Stack
 from aws_cdk import aws_ec2 as ec2  # Duration,; aws_sqs as sqs,
 from aws_cdk import aws_networkmanager as nm
 from constructs import Construct
@@ -106,3 +106,27 @@ class TransitGatewayStack(Stack):
         )
         for tgw_attachment in tgw_attachements:
             tgwRegistration.node.add_dependency(tgw_attachment)
+
+        for vpcProperty, tgw_attachment in zip(vpcProperties, tgw_attachements):
+            CfnOutput(
+                self,
+                "TGWAttachmentId-" + vpcProperty.name,
+                value=tgw_attachment.ref,
+            )
+
+        # Reachability Analyzer paths between VPC pairs via TGW attachments
+        vpc_pairs = [
+            ("A", "B", tgw_attachements[0], tgw_attachements[1]),
+            ("B", "C", tgw_attachements[1], tgw_attachements[2]),
+            ("A", "C", tgw_attachements[0], tgw_attachements[2]),
+        ]
+
+        for src, dst, src_attachment, dst_attachment in vpc_pairs:
+            path = ec2.CfnNetworkInsightsPath(
+                self,
+                f"ReachabilityPath-VPC{src}-VPC{dst}",
+                source=src_attachment.ref,
+                destination=dst_attachment.ref,
+                protocol="tcp",
+                tags=[CfnTag(key="Name", value=f"ReachabilityPath-VPC{src}-VPC{dst}")],
+            )

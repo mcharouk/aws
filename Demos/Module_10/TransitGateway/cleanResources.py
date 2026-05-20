@@ -74,3 +74,26 @@ if custom_route_table is not None:
     )
 else:
     print("no custom route table found")
+
+
+def delete_reachability_analyses():
+    paths = ec2.describe_network_insights_paths()["NetworkInsightsPaths"]
+    if not paths:
+        print("no reachability analyzer paths found")
+        return
+
+    for path in paths:
+        path_id = path["NetworkInsightsPathId"]
+        analyses = ec2.describe_network_insights_analyses(
+            NetworkInsightsPathId=path_id
+        )["NetworkInsightsAnalyses"]
+
+        for analysis in analyses:
+            analysis_id = analysis["NetworkInsightsAnalysisId"]
+            print(f"Deleting analysis {analysis_id} for path {path_id}")
+            ec2.delete_network_insights_analysis(
+                NetworkInsightsAnalysisId=analysis_id
+            )
+
+
+delete_reachability_analyses()

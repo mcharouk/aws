@@ -40,14 +40,14 @@ ASGScaleOutDemoAlarm
 * Statistic : Average
 * Period : 5 mins
 * >= 70% (any number will work)
-* No notification
+* No notification (Remove SNS which is selected by default)
 * No autoscaling action (will configure that later)
 
 ## ASG update
 
 * Go to **Automatic Scaling** tab
-* Add a dynamic scaling policy of type simple scaling
-* Provide some name (anything will be ok)
+* Add a dynamic scaling policy of type **simple scaling**
+* Provide some name : SimpleScalingPolicyDemo
 * Provide alarm
 * Add One instance
 

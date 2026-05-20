@@ -1,13 +1,19 @@
 ## Demo instruction
 
-* Create an API of type **REST**
+### API Gateway
+
+* Create an API of type **REST** with name : DemoAPIGateway
 * Create 2 resources : resource and {id}
 * Lambda proxy integration should be set to **true**
-* deploy to a stage
+* deploy to a stage named DEV
+* test api by adding /resource/{id} to the stage rule (for example /resource/5)
+
+### WAF 
+
 * Create a WAF Rule (geolocation to block requests from Romania)
 * Create a Web ACL from WAF and assign the api gateway from there
 
-## Sample event
+## Sample event for the lambda
 
 ```
 {
