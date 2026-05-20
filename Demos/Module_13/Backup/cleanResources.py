@@ -3,7 +3,9 @@
 import boto3
 
 # get all backup plan names and ids
-backup = boto3.client("backup")
+session = boto3.session.Session()
+
+backup = session.client("backup")
 
 
 def get_backup_plans():
@@ -12,6 +14,10 @@ def get_backup_plans():
 
 
 for plan in get_backup_plans()["BackupPlansList"]:
+    if plan["BackupPlanName"] == "aws/efs/automatic-backup-plan":
+        print("skipping backup plan with name " + plan["BackupPlanName"])
+        continue
+    print("removing backup plan with name " + plan["BackupPlanName"])
     selections = backup.list_backup_selections(BackupPlanId=plan["BackupPlanId"])
     for selection in selections["BackupSelectionsList"]:
         backup.delete_backup_selection(
@@ -25,5 +31,9 @@ for plan in get_backup_plans()["BackupPlansList"]:
 
 # delete all backup vaults
 for vault in backup.list_backup_vaults()["BackupVaultList"]:
+    if vault["BackupVaultName"] == "aws/efs/automatic-backup-vault":
+        print("skipping backup vault with name " + vault["BackupVaultName"])
+        continue
+    print("Deleting backup vault with name " + vault["BackupVaultName"])
     backup.delete_backup_vault(BackupVaultName=vault["BackupVaultName"])
     print("Deleted backup vault with name " + vault["BackupVaultName"])
