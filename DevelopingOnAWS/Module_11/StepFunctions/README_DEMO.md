@@ -15,5 +15,6 @@
   * Sell if stock price > 50
 * Request Human Approval
   * Automatic approval
+  * Lambda with name StepFunctionDemo-StockOrder-ApproveSqsLambda- listens to the SQS Queue and simulates the manual approval
 * Buy Stock and Sell Stock : return a json that describes how much quantity it bought/sold (random number) with a transaction id and timestamp
 * Report result : send directly to SNS (without Lambda)

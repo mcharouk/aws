@@ -26,6 +26,7 @@
 * MCP definition
   * local : ~/.claude.json
   * project : .mcp.json at the root of project folder
+  * 
  
 
 # Models

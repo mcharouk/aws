@@ -677,6 +677,15 @@ Use cases:
 ## SageMaker Lineage Tracking
   * helps to track on which data has the model being trained, and on which endpoint it has been deployed.
   * can be used to quickly identify the bad dataset and the impacted endpoints.
+  * Entities
+    * Trial components = jobs
+    * Trial = a model
+    * Context : logical grouping of entities
+    * Action : workflow step, model deployment
+    * Artifact : on S3, or image in ECR 
+    * Association : to connect all those entities
+    * LineageQuery API to query the information from SDK
+  * Cross Account lineage tracking is supported
 
 # Finops
 
