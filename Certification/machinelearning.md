@@ -197,7 +197,7 @@ To remediate unbalanced dataset :
 * Fast File Mode
   * import file on a local cache when needed
   * same implementation that file mode. Code changes are required when switching to Pipe mode
-  * can be faster to download. It can only donwload a portion of a file, parallelize file download, for ex.
+  * can be faster to download. It can only download a portion of a file, parallelize file download, for ex.
 
 
 ## Dataset splitting

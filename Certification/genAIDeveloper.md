@@ -22,7 +22,7 @@
   - Breakpoint percentile threshold : how semantically similar a chunk must be 
 - Recursive Chunking :  
   - Page level
-  - Element levet(chunk by sections, paragraphs...). Chunks split based on separator.
+  - Element levetl(chunk by sections, paragraphs...). Chunks split based on separator.
   - Word level
 
 ## Optimize embeddings
@@ -78,7 +78,7 @@
 
 # Bedrock
 
-# Bedrock Data Automation
+## Bedrock Data Automation
 
 - Extracts structured data from unstructured data : Documents, audio, video, images
 - can be used for vector stores, just intelligent document processing, etc...
@@ -88,14 +88,20 @@
   - Table fields
   - custom types (address type )
   - Can define blueprint from prompt
+- pdf
+  - split a pdf, to assign one blueprint by pdf page. allow multipage document processing
 - output formats
   - For documents : json, json and additional files, csv, markdown, html
   - for images : generates summary, logos, text in image, content moderation... in JSON
   - for videos, same as images.
   - for audio, transcript, speaker and channel labelling,breakup in topics..in JSON
   
+## Guardrails
 
-  # AWS ML Services
+* Bedrock guardrails can be integrated with any model, including sagemaker AI by calling its dedicated endpoint ApplyGuardrail
+* [More info](https://aws.amazon.com/blogs/security/implementing-safety-guardrails-for-applications-using-amazon-sagemaker/)
+
+# AWS ML Services
 
   * [Transcribe](./machinelearning.md#transcribe)
   * [Comprehend](./machinelearning.md#comprehend)
@@ -172,6 +178,7 @@
   * routes to an index with more details
   * it's not an opensearch feature, has to do it by yourself.
 
+
 ### Operational convenience
 
 * Neural plugin
@@ -201,15 +208,42 @@
 
 * pgvector extension to use Aurora as a vectorstore.
 
-## DynamoDB
+# DynamoDB
 
 * mostly use to store long term memory of agents.
 
-## Bedrock agents
+# Elasticache
+
+* Valkey supports vector searches, as well as Redis
+* MemoryDB -> Redis and Valkey
+*
+
+
+# Neptune
+
+* As a vector database
+
+# Amazon Kendra
+
+* fully managed hybrid search (vector + keyword)
+* means also less customizations that opensearch for example (no choice on embedding model, distance, algorithm to measure distance)
+
+
+# Bedrock agents
   * use an alias to deploy it
   * On demand throughput or provisioned throughput (can increase throughput comparing to on-demand which is bound to account quotas)
+  * Every agent has a default pre-processing prompt that you can enable. This is a lightweight prompt that uses a foundation model to determine if user input is safe to be processed.
 
-## Strands
+
+## Bedrock agent tracing
+
+* agent shows its reasoning process
+* what tools did he executes, and the responses
+* error details
+* logs at multiple steps : preprocessing, orchestration, guardrails, errors, Post processing, rountingClassifier, etc...
+
+ 
+# Strands
 
 * AWS-specific integrations
   * include boto3 sdk
@@ -222,7 +256,7 @@
   * http call
   * ...custom tools
 
-## AWS Agent squad
+# AWS Agent squad
 
 * It's a router agent
 * it has a memory that keep trace of the conversation with the agents it calls
@@ -230,11 +264,11 @@
 * Integrates with Bedrock agents
 * Can extend bedrock flows
 
-## AWS AgentCore
+# AWS AgentCore
 
 * Observability that ties everything
 
-### Agent runtime
+## Agent runtime
 
 * Serverless
 * No ECS, EKS to manage but agentcore uses ECS behind the scene.
@@ -243,7 +277,7 @@
 * Can integrate with Bedrock agents
   * It consists of converting bedrock agents into strands code and deploy it on agent core.
 
-### Identity
+## Identity
 
 * with Cognito
 * it's about the agent identity, and how they access external tools and aws services
@@ -251,7 +285,7 @@
 * credential storage
 * Oauth 2.0 support
 
-### Memory
+## Memory
 
 * Memory capability (short term and long term). Managed database
 * Short term
@@ -263,17 +297,17 @@
   * Facts you gave it in the past
   * you can define the strategies to specify what to store in long term memory
 
-### Gateway
+## Gateway
 * Access between agent and external tools. Convert to MCP. 
   * OpenAPI
   * Smithy models (AWS specific)
   * lambda functions.
 
-### Tools
+## Tools
 * Browser tool
 * Code interpreter tool
 
-### Policy
+## Policy
 
 * more control on what it can do or cannot do
 * For example define 
@@ -283,7 +317,7 @@
   * Deny by default, can explicitly deny
   * Mode to only log, and mode to enforce policies
 
-### Evaluations
+## Evaluations
 
 * how well agent perform tasks, handle edge cases
 * Results in Cloudwatch
@@ -330,6 +364,9 @@
 * Bedrock has a intelligent prompt routing feature
 * Amazon Bedrock evaluations
   * measure foundation models performance agains your dataset
+  * Human evaluation
+    * uses Cognito User Pool to manage human task force
+    * can use a work group from GroundTruth as well, but don't need to create a job in this service, just select the work group
 
 ## Resource utilization
 
@@ -346,7 +383,9 @@
   * **Prompt caching exists in Bedrock**
 * In Bedrock we can cache **static information** by using checkpoints to not always embedding it
 * You have to hit cache enough to have a good ROI, because writes are usually mpre expensive
-* Can use CloudFront too, but no GenAI, so it can work if queries are exactly the same.
+* Edge Caching : Can use CloudFront too, but no GenAI, so it can work if queries are exactly the same.
+* Deterministic Request Hashing : requests with minor variations, such as formatting differences, whitespace changes, altered parameter ordering, or punctuation shifts, still resolve to the same cache entry.
+* Result Fingerprinting : generates a unique fingerprint of a model’s output, allowing the system to detect when future inference attempts would produce the same or nearly identical result
 
 ### Latency
 
@@ -380,3 +419,67 @@
 * Use Custom Model Import and your model becomes serverless
 * Inference Infrastructure
   * Deep Learning Containers using DJL (Deep Java Library)
+
+## Adapter inference components
+
+* LoRA can be used to fine tune a model
+* adapter inference component
+  * specify the base inference component : the FM that needs adaptation
+  * LoRA adapter location in S3
+* At invoke time, Sagemaker combines the adapter with the base model
+
+## Model monitor
+
+* possible to provide a custom ECR image to analyze monitoring drifts
+  * helps to support other types of formats than tabular datasets (image, audio files, text data, ...)
+  * can define custom criterias
+* Makes it usable in generative ai model evaluation
+
+## Training
+
+* SageMaker training metrics can be used to push to cloudwatch (F1 Score for example...)
+  * Sagemaker has a number of metrics available in SDK
+  * by default, basic infra metrics are sent and basic training metrics
+    * Training error
+    * Prediction accuracy
+    * Mean absolute error (MAE)
+    * Algorithm-specific metrics
+  * can define own metrics with sdk by specifying a regular expression that will be used to parse the logs.
+  * use Sagemaker Debugger for enhanced monitoring.
+* Can use Sagemaker serverless training instances to fine tune some FMs with common techniques : supervised learning, reinforcement learning
+
+
+# Amazon Lex
+
+* recognize intent, can trigger lambda function on that.
+* is powered with genAI to recognize intent, but it's not a real AI agent. Not able to reason by itself, it's more determinisic. It follows some sort of state machine
+* Lex could call Bedrock agent though with a Lambda.
+* You define a bot with an intent (a specific goal to achieve)
+  * sample utterances are sentences examples that match with the intent
+  * Slots are the parameters of the function behind the intent.
+    * Lex can ask for slots to user if they are missing. 
+    * You can have custom slot types or built in slot types (date or city)
+    * custom slot types can have synonyms, so called slot type values
+  * Fullfillement describes the action it takes (call a lambda)
+
+# Glue
+
+* it's possible to redact PII information with Glue but 
+  * it should be used for structured and semi-structured data.
+  * For unstructured data, use AWS Comprehend
+
+# Model parameters
+
+## Length control
+
+* Response length
+* stop sequences
+* Penalties
+  * Types
+    * length
+    * repeated tokens
+    * frequency of tokens
+    * type of tokens
+  * For example, for length : As the response gets longer, the model reduces the probability of generating continuation tokens
+  * it's not hard limit, it's something that influences softly the output
+  * But this is available mostly on A21 labs models (Jurassic)
