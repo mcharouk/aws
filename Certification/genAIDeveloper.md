@@ -461,6 +461,7 @@
     * You can have custom slot types or built in slot types (date or city)
     * custom slot types can have synonyms, so called slot type values
   * Fullfillement describes the action it takes (call a lambda)
+* runtime hints used to improve speech recognition for audio inputs.
 
 # Glue
 
