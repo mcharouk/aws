@@ -22,7 +22,7 @@
   - Breakpoint percentile threshold : how semantically similar a chunk must be 
 - Recursive Chunking :  
   - Page level
-  - Element levetl(chunk by sections, paragraphs...). Chunks split based on separator.
+  - Element level(chunk by sections, paragraphs...). Chunks split based on separator.
   - Word level
 
 ## Optimize embeddings
@@ -36,6 +36,7 @@
 - You can add metadata to the embeddings, can help to filter, to rank, access control, data lineage, etc...
 
 ## Bedrock RAG Evaluation
+
 * Criterias 
   - Correctness
   - Completeness
@@ -66,9 +67,10 @@
 * order results accordingly
 * Rerank operation in Bedrock API
 * You can specify a reranker when hitting knowledge base
-* Amason models or Cohere available in limited regions
+* Amazon models or Cohere available in limited regions
 
 # Token level redaction
+
 - Redact sensitive information in the input text before sending it to the model, or before sending response to the end user.
 - Launch lambda functions that filter based on regex or Named Entity Recognition (using AWS Comprehend for example).
 
@@ -211,13 +213,12 @@
 # DynamoDB
 
 * mostly use to store long term memory of agents.
+* 2026 feature : dynamodb vector search to use when similarity search is required on operational data that is already in dynamodb. It will create a new index, no need to maintain new piplines, or another database like OpenSearch
 
 # Elasticache
 
 * Valkey supports vector searches, as well as Redis
 * MemoryDB -> Redis and Valkey
-*
-
 
 # Neptune
 
@@ -298,12 +299,14 @@
   * you can define the strategies to specify what to store in long term memory
 
 ## Gateway
+
 * Access between agent and external tools. Convert to MCP. 
   * OpenAPI
   * Smithy models (AWS specific)
   * lambda functions.
 
 ## Tools
+
 * Browser tool
 * Code interpreter tool
 
@@ -370,7 +373,7 @@
 
 ## Resource utilization
 
-* We canb batch embeddings or inference, instead of real time
+* We can batch embeddings or inference, instead of real time
 * Provisioned throughput / Quota increase to overcome default quotas.
 
 ### Cache
@@ -382,7 +385,7 @@
   * can use Valkey, MemoryDB, Opensearch
   * **Prompt caching exists in Bedrock**
 * In Bedrock we can cache **static information** by using checkpoints to not always embedding it
-* You have to hit cache enough to have a good ROI, because writes are usually mpre expensive
+* You have to hit cache enough to have a good ROI, because writes are usually more expensive
 * Edge Caching : Can use CloudFront too, but no GenAI, so it can work if queries are exactly the same.
 * Deterministic Request Hashing : requests with minor variations, such as formatting differences, whitespace changes, altered parameter ordering, or punctuation shifts, still resolve to the same cache entry.
 * Result Fingerprinting : generates a unique fingerprint of a model’s output, allowing the system to detect when future inference attempts would produce the same or nearly identical result
@@ -410,7 +413,6 @@
 * overcome capacity limits (quotas or peak usage in specific regions)
 * doesn't work with provisioned throughput
 * can select which regions to use or just make it global
-
 
 # Sagemaker
 
