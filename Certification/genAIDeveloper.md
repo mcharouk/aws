@@ -12,18 +12,24 @@
 
 - Data granularity : not too small (loose context), not too large (create noise)
 - Standard chunking: This method divides the document into equal-sized chunks, regardless of content. It’s simple and fast but may split sentences or concepts awkwardly:  Fixed size + overlap. Honor sentence boundaries.
+  - Document types : Homogeneous text, standard articles, blog posts, plain narrative documents
 - No chunking : it's good to specify when a custom split is done before ingestion. No chunking means one doc -> one chunk.
+  - Document types : Short FAQs, product metadata JSONs, brief email templates.
 - Hierarchical chunking: Nested Parent/child. Initial chunks hits the child, but can get the parent to get more context.
   - small child chunks (high precision)
   - comprehensiveness from parents.
   - Parent chunk size : child chunk size, overlap
+  - Document types : Complex technical manuals, API specs, detailed policies, multi-topic articles.
 - Semantic chunking: Ensure each chunk contains semantically independent information. More expensive as must used an LLM for that.
   - Buffer size. The buffer the llm will get to do the analysis.
   - Breakpoint percentile threshold : how semantically similar a chunk must be 
+  - Document types : Unstructured research papers, multi-topic legal contracts, unstructured reports
 - Recursive Chunking :  
   - Page level
   - Element level(chunk by sections, paragraphs...). Chunks split based on separator.
   - Word level
+- Custom Chunking : with a lambda, executes custom code before indexing to handle specialized formatting
+  - Document types : ource code repositories, Markdown/HTML with nested tables, logs.
 
 ## Optimize embeddings
 
@@ -34,6 +40,10 @@
 
 ## Metadata
 - You can add metadata to the embeddings, can help to filter, to rank, access control, data lineage, etc...
+- Good to associate metadata to S3 objects (so they are reusable for multiple non generative ai use cases)
+  - User defined metadata : business metadata
+  - System defined metadata : technical, fed by AWS
+  - For Generative ai a specific file .metadata.json must be provided for each file.
 
 ## Bedrock RAG Evaluation
 
@@ -68,6 +78,12 @@
 * Rerank operation in Bedrock API
 * You can specify a reranker when hitting knowledge base
 * Amazon models or Cohere available in limited regions
+
+# Bedrock Query decomposition
+
+* to decompose a query before sending it to Bedrock Knowledge base
+* tied to Bedrock Knowledge base, cannot use it independently on another db, unlike reranker.
+
 
 # Token level redaction
 
@@ -368,7 +384,7 @@
 * Amazon Bedrock evaluations
   * measure foundation models performance agains your dataset
   * Human evaluation
-    * uses Cognito User Pool to manage human task force
+    * uses Cognito User Pool to manage human task force. Don't need to configure Ground Truth, even it uses this service behind the scene.
     * can use a work group from GroundTruth as well, but don't need to create a job in this service, just select the work group
 
 ## Resource utilization
@@ -383,8 +399,10 @@
   * ask for requests similarity
   * upper to a threshold we return the cached response
   * can use Valkey, MemoryDB, Opensearch
-  * **Prompt caching exists in Bedrock**
-* In Bedrock we can cache **static information** by using checkpoints to not always embedding it
+  
+* Bedrock prompt caching
+  * cache **static information** by using checkpoints to not always embedding it. 
+  * **Does NOT perform semantic similarity**
 * You have to hit cache enough to have a good ROI, because writes are usually more expensive
 * Edge Caching : Can use CloudFront too, but no GenAI, so it can work if queries are exactly the same.
 * Deterministic Request Hashing : requests with minor variations, such as formatting differences, whitespace changes, altered parameter ordering, or punctuation shifts, still resolve to the same cache entry.
@@ -486,3 +504,9 @@
   * For example, for length : As the response gets longer, the model reduces the probability of generating continuation tokens
   * it's not hard limit, it's something that influences softly the output
   * But this is available mostly on A21 labs models (Jurassic)
+
+ # VPC
+
+* to prevent using Bedrock with public endpoint
+  * a SCP must be created
+  * an interface endpoint (private link) in a VPC

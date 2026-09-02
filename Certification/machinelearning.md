@@ -398,7 +398,7 @@ In distributed training context, to avoid fully replicate all data on all instan
   * It's an indicator that mixes Precision and Recall.
   * F1 score penalizes models that favors Precision over Recall or the other way around. It helps to find a good balance between them. Accuracy don't make the differences between the 2 notions.
 
-* Receiver Operating characteristics
+* Receiver Operating Characteristics
   * ROC curve is a graphical representation of the performance of a classification model at all classification thresholds. Basically if threshold is set to 0,5, that means all prediction > 0,5 will be classified as positive.
     * Lowering the threshold gives you more true positive and false positive as well
     * Raising the threshold gives you less true positive and less false positive.
@@ -627,7 +627,6 @@ Use cases:
   * Cloudtrail  
   * Sagemaker Clarify
 
-
 * Monitor data drift
   * gets a baseline of data used to train the model
   * Calculates stats on the dataset, and monitor a drift with incoming new data
@@ -666,13 +665,13 @@ Use cases:
 
 ## SageMaker Model Dashboard
 
-  * single pane of glass to monitor the model
-    * Alerts
-    * model card's risk rating (measures business impact of the model's predictions)
-    * Endpoint performance (infrastructure)
-    * most recent batch transform job
-    * Model lineage graph (pipeline from data preparation to inference)
-    * links to model details
+ * single pane of glass to monitor the model
+   * Alerts
+   * model card's risk rating (measures business impact of the model's predictions)
+   * Endpoint performance (infrastructure)
+   * most recent batch transform job
+   * Model lineage graph (pipeline from data preparation to inference)
+   * links to model details
 
 ## SageMaker Lineage Tracking
   * helps to track on which data has the model being trained, and on which endpoint it has been deployed.

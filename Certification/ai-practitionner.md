@@ -10,7 +10,6 @@
 
 
 
-
 * Used for classification
   * Accuracy : (TP + TN) / (TP+TN+FP+FN) -> total number of correct predictions 
   * Precision : TP / (TP + FP) -> to evaluate the number of false positives. 
@@ -64,8 +63,6 @@
 * CNN (Convolutional) : classify, recognize images
 * RNN (Recurrent Neural Networks): Natural language processing
 
-
-
 # Embeddings
 
 * BERT is designed to capture the contextual meaning of words by looking at both the words that come before and after them (bidirectional context). 
@@ -76,4 +73,3 @@
 Interpretability is to understand how the model works to be able to predict what it will output. It's something that can be used on simple models like decision trees. It's desirable but not always achievable.
 
 Explainability is to understand why a prediction was made. We can understand how the input features can influence the outputs, without completely understand the algorithm of the model. It's something used for more complex models.
-
