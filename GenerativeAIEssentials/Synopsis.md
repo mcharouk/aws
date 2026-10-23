@@ -201,6 +201,7 @@ Your product description:
 * A model typically don't always take the highest probability. 
 * Top P : take all next tokens until some of probability reaches P.
 * Top K : take K next tokens with decreasing prob
+* Top K is slightly more efficient than top P when it comes to have deterministic answers.
 * Even when Top P = 0 and Temp = 0.
   *  if prob are equals, it can take different outputs.
   *  sometime model when temp = 0, they set temp to a very low temp but avoid zero for division (for example, they will take 0.0001)

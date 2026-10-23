@@ -5,6 +5,7 @@
   - Inject Low-Rank Matrices: LoRA inserts a very small set of new, trainable adapter layers (mathematically structured as two smaller, low-rank matrices) alongside the original layers.
   - Train Only the Small Layers: During fine-tuning, only these tiny adapter layers learn from your custom data.
   - at inference time, the base layers and small layers are combined layer by layer to produce the final tuned output.
+  - in SageMaker, you can create a single endpoint and attach multiple inference component to it (to be able to call dynamically multiple Lora adapters). One component as BaseInferenceComponent and the others that references the base component. Then you call the enpoint by specifying the inference component name.
 
 # RAG
 
@@ -78,6 +79,7 @@
 * Rerank operation in Bedrock API
 * You can specify a reranker when hitting knowledge base
 * Amazon models or Cohere available in limited regions
+* Rerank API can be called in [standalone](https://docs.aws.amazon.com/bedrock/latest/userguide/rerank-use.html) OR call can be [managed by Bedrock Knowledge bases](https://docs.aws.amazon.com/bedrock/latest/APIReference/API_agent-runtime_Retrieve.html)
 
 # Bedrock Query decomposition
 
@@ -273,6 +275,11 @@
   * http call
   * ...custom tools
 
+* Strands Agent has a concept of agents-as-tools pattern.
+  *  It allows a orchestrator agent to call multiple agents defined in the same process / container. 
+  *  The agents as tool are segregated in terms of memory, context, identity (permissions).
+  *  It's simpler to manage (no http or grpc calls)
+
 # AWS Agent squad
 
 * It's a router agent
@@ -296,11 +303,13 @@
 
 ## Identity
 
-* with Cognito
+* with Cognito OR with a standalone OIDC provider
 * it's about the agent identity, and how they access external tools and aws services
 * centralized repository, like user pool
 * credential storage
 * Oauth 2.0 support
+* Inbound identity : who can call the agent
+* Outbound identity : what permissions does the agent have to call other services ? 
 
 ## Memory
 
@@ -398,7 +407,7 @@
   * we cache an embedding vector
   * ask for requests similarity
   * upper to a threshold we return the cached response
-  * can use Valkey, MemoryDB, Opensearch
+  * can use Valkey, MemoryDB, Opensearch. Probably MemoryDB with Valkey is more optimized for caching than opensearch that is more suited for a RAG database.
   
 * Bedrock prompt caching
   * cache **static information** by using checkpoints to not always embedding it. 
@@ -468,6 +477,15 @@
   * use Sagemaker Debugger for enhanced monitoring.
 * Can use Sagemaker serverless training instances to fine tune some FMs with common techniques : supervised learning, reinforcement learning
 
+## Warm Start
+
+* leverage the learning and search history from previous tuning jobs rather than starting from scratch
+  * IdenticalDataAndAlgorithm. To use when : 
+     *  Your previous HPO job hit MaxNumberOfTrainingJobs before finding an optimal point
+     *  The search hit an upper/lower bound, and you need to widen or narrow hyperparameter ranges without re-testing bad parameters
+  * TransferLearning
+    * You refreshed training data and need to re-tune efficiently.
+    * You updated feature engineering, loss functions, or non-tuned hyperparameters
 
 # Amazon Lex
 
@@ -510,3 +528,23 @@
 * to prevent using Bedrock with public endpoint
   * a SCP must be created
   * an interface endpoint (private link) in a VPC
+
+# AWS Cloud Control API
+
+* it's an API that exposes CRUD operation. It acts like an interface to call AWS API endpoints to create, get, delete resources.
+
+* for example 
+
+```
+aws cloudcontrol create-resource \
+  --type-name AWS::Kinesis::Stream \
+  --desired-state '{"Name": "MyDemoStream", "ShardCount": 2, "RetentionPeriodHours": 48}'
+```
+
+* this api can be exposed through an [mcp server](https://github.com/aws/mcp-proxy-for-aws)
+* this api can be used in a aws managed way by calling [this endpoint](https://aws-mcp.us-east-1.api.aws/mcp)
+* or it can be self managed : locally, on ECS, or anywhere else. ECS is a well adopted pattern to centralize a self managed server.
+
+# Bedrock and Stepfunction
+
+- There is an [option](https://docs.aws.amazon.com/step-functions/latest/dg/connect-bedrock.html#connect-bedrock-custom-apis) to save Bedrock input and output in S3. This helps overcome the 256 Kb limitation of th payload passed between states.
