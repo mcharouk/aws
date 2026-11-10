@@ -44,7 +44,7 @@
 - Good to associate metadata to S3 objects (so they are reusable for multiple non generative ai use cases)
   - User defined metadata : business metadata
   - System defined metadata : technical, fed by AWS
-  - For Generative ai a specific file .metadata.json must be provided for each file.
+  - For Bedrock Knowledge Base, a specific file .metadata.json must be provided for each file
 
 ## Bedrock RAG Evaluation
 
@@ -81,16 +81,15 @@
 * Amazon models or Cohere available in limited regions
 * Rerank API can be called in [standalone](https://docs.aws.amazon.com/bedrock/latest/userguide/rerank-use.html) OR call can be [managed by Bedrock Knowledge bases](https://docs.aws.amazon.com/bedrock/latest/APIReference/API_agent-runtime_Retrieve.html)
 
-# Bedrock Query decomposition
+## Bedrock Query decomposition
 
 * to decompose a query before sending it to Bedrock Knowledge base
 * tied to Bedrock Knowledge base, cannot use it independently on another db, unlike reranker.
 
-
 # Token level redaction
 
-- Redact sensitive information in the input text before sending it to the model, or before sending response to the end user.
-- Launch lambda functions that filter based on regex or Named Entity Recognition (using AWS Comprehend for example).
+- Redact sensitive information in the input text before sending it to the model, or before sending response to the end user
+- Launch lambda functions that filter based on regex or Named Entity Recognition (using AWS Comprehend for example)
 
 # Json structured out of a prompt
 
@@ -100,21 +99,21 @@
 
 ## Bedrock Data Automation
 
-- Extracts structured data from unstructured data : Documents, audio, video, images
+- Extracts **structured** data from **unstructured** data : Documents, audio, video, images
 - can be used for vector stores, just intelligent document processing, etc...
 - Have to define a **blueprint** to specify the output. Managed blueprints exists
-  - Basic fields
-  - Transformed fields
+  - Basic fields : fields that explicitly appears in the document
+  - Transformed fields : fields that are deduced from basic fields
   - Table fields
-  - custom types (address type )
+  - Custom types (address type)
   - Can define blueprint from prompt
 - pdf
   - split a pdf, to assign one blueprint by pdf page. allow multipage document processing
 - output formats
-  - For documents : json, json and additional files, csv, markdown, html
-  - for images : generates summary, logos, text in image, content moderation... in JSON
-  - for videos, same as images.
-  - for audio, transcript, speaker and channel labelling,breakup in topics..in JSON
+  - For documents: json, json and additional files, csv, markdown, html
+  - for images: generates summary, logos, text in image, content moderation... in JSON
+  - for videos: same as images.
+  - for audio transcript, speaker and channel labelling: breakup in topics..in JSON
   
 ## Guardrails
 
@@ -222,11 +221,13 @@
 
 # RDS
 
-* one pattern is to use RDS as RAG for metadata. RDS returns path that points to S3 buckets.
+* one pattern is to use RDS as RAG **for metadata**. RDS returns path that points to S3 buckets.
 
-## Aurora
+## PostgreSQL
 
-* pgvector extension to use Aurora as a vectorstore.
+* pgvector extension to stored embeddings in a Postgresql DB to use it as a RAG
+  * can use Aurora or classical RDS Postgresql.
+  * Aurora scales better (Optimized Reads (NVMe Tiered Cache), Read scaling, serverless version)
 
 # DynamoDB
 
@@ -237,22 +238,27 @@
 
 * Valkey supports vector searches, as well as Redis
 * MemoryDB -> Redis and Valkey
+* Interesting to use for caching responses of a prompt, on a similarity match.
 
 # Neptune
 
 * As a vector database
+* It uses embeddings but also a structured graph to link documents that could be less obvious to relate without a classical RAG database.
+* The structured graph can be generate with custom code or with managed code.
+  * Managed code will use an LLM to extract key entities and relations. It's faster but no 100% guarantee that the output will be relevant.
+  * Use custom code if you want more control on the generated graph.
 
 # Amazon Kendra
 
 * fully managed hybrid search (vector + keyword)
 * means also less customizations that opensearch for example (no choice on embedding model, distance, algorithm to measure distance)
-
+* Kendra **doesn't rely on vector embeddings**. It's classical **NLP algorithms**. It's **NOT** a vector store.
 
 # Bedrock agents
-  * use an alias to deploy it
-  * On demand throughput or provisioned throughput (can increase throughput comparing to on-demand which is bound to account quotas)
-  * Every agent has a default pre-processing prompt that you can enable. This is a lightweight prompt that uses a foundation model to determine if user input is safe to be processed.
 
+* use an alias to deploy it
+* On demand throughput or provisioned throughput (can increase throughput comparing to on-demand which is bound to account quotas)
+* Every agent has a default pre-processing prompt that you can enable. This is a lightweight prompt that uses a foundation model to determine if user input is safe to be processed.
 
 ## Bedrock agent tracing
 
@@ -260,7 +266,6 @@
 * what tools did he executes, and the responses
 * error details
 * logs at multiple steps : preprocessing, orchestration, guardrails, errors, Post processing, rountingClassifier, etc...
-
  
 # Strands
 
@@ -274,7 +279,6 @@
   * read/write files
   * http call
   * ...custom tools
-
 * Strands Agent has a concept of agents-as-tools pattern.
   *  It allows a orchestrator agent to call multiple agents defined in the same process / container. 
   *  The agents as tool are segregated in terms of memory, context, identity (permissions).
@@ -319,7 +323,7 @@
 * Long term
   * extracted insights
   * Summaries of past sessions
-  * Preferences, 
+  * Preferences 
   * Facts you gave it in the past
   * you can define the strategies to specify what to store in long term memory
 
@@ -504,7 +508,7 @@
 # Glue
 
 * it's possible to redact PII information with Glue but 
-  * it should be used for structured and semi-structured data.
+  * it should be used for structured and semi-structured data
   * For unstructured data, use AWS Comprehend
 
 # Model parameters
